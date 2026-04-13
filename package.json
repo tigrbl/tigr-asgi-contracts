@@ -1,0 +1,13 @@
+{
+  "name": "tigr-contract-workspace",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "packages/artifacts-npm",
+    "packages/contract-npm"
+  ],
+  "scripts": {
+    "generate": "python tools/generate_all.py",
+    "validate": "python tools/validate_yaml.py && python tools/validate_jsonschema.py"
+  }
+}

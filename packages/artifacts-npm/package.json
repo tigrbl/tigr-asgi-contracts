@@ -1,0 +1,21 @@
+{
+  "name": "@tigr/contract-artifacts",
+  "version": "0.1.0",
+  "type": "module",
+  "files": [
+    "contract/**",
+    "index.js",
+    "README.md",
+    "scripts/**"
+  ],
+  "exports": {
+    ".": "./index.js",
+    "./manifest": "./contract/manifest.json",
+    "./schemas/*": "./contract/schemas/*",
+    "./*": "./contract/*"
+  },
+  "scripts": {
+    "prepack": "node scripts/prepack.mjs",
+    "postpack": "node scripts/postpack.mjs"
+  }
+}

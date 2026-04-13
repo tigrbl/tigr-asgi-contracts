@@ -1,0 +1,48 @@
+family_subevent:
+  request:
+    request.open: R
+    request.body_in: R
+    request.chunk_in: R
+    request.accept: R
+    request.close: R
+    request.disconnect: R
+    response.open: R
+    response.body_out: R
+    response.chunk_out: R
+    response.close: R
+    response.emit_complete: R
+  session:
+    session.open: R
+    session.accept: R
+    session.ready: R
+    session.heartbeat: R
+    session.sync: R
+    session.close: R
+    session.disconnect: R
+    session.emit_complete: R
+  message:
+    message.in: R
+    message.decode: R
+    message.handle: R
+    message.out: R
+    message.ack: R
+    message.nack: R
+    message.replay: R
+    message.snapshot: R
+    message.emit_complete: R
+  stream:
+    stream.open: R
+    stream.chunk_in: R
+    stream.chunk_out: R
+    stream.flush: R
+    stream.finalize: R
+    stream.abort: R
+    stream.close: R
+    stream.emit_complete: R
+  datagram:
+    datagram.in: R
+    datagram.handle: R
+    datagram.out: R
+    datagram.ack: R
+    datagram.close: R
+    datagram.emit_complete: R

@@ -1,0 +1,4 @@
+levels:
+  accepted_by_runtime: send accepted by runtime/output queue
+  flushed_to_transport: send flushed to transport boundary
+default: flushed_to_transport

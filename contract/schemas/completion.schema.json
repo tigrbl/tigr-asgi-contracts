@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "completion.schema.json",
+  "type": "string",
+  "enum": [
+    "accepted_by_runtime",
+    "flushed_to_transport"
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "transport.schema.json",
+  "$defs": {
+    "tlsMetadata": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cipher": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "verified": {
+          "type": "boolean"
+        },
+        "peer_identity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "peer_cert": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "verified"
+      ],
+      "additionalProperties": false
+    },
+    "transportMetadata": {
+      "type": "object",
+      "required": [
+        "binding",
+        "network",
+        "secure"
+      ],
+      "properties": {
+        "binding": {
+          "enum": [
+            "rest",
+            "jsonrpc",
+            "http.stream",
+            "sse",
+            "websocket",
+            "webtransport"
+          ]
+        },
+        "network": {
+          "enum": [
+            "tcp",
+            "quic"
+          ]
+        },
+        "secure": {
+          "type": "boolean"
+        },
+        "alpn": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "tls": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/tlsMetadata"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "framing": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "raw",
+            "json",
+            "jsonrpc",
+            "bytes",
+            "sse",
+            "app",
+            null
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "familyCapabilities": {
+      "type": "object",
+      "properties": {
+        "request": {
+          "type": "boolean"
+        },
+        "session": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "boolean"
+        },
+        "stream_in": {
+          "type": "boolean"
+        },
+        "stream_out": {
+          "type": "boolean"
+        },
+        "datagram": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "scopeExt": {
+      "type": "object",
+      "required": [
+        "transport",
+        "family_capabilities"
+      ],
+      "properties": {
+        "transport": {
+          "$ref": "#/$defs/transportMetadata"
+        },
+        "family_capabilities": {
+          "$ref": "#/$defs/familyCapabilities"
+        },
+        "websocket": {
+          "anyOf": [
+            {
+              "$ref": "websocket.schema.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sse": {
+          "anyOf": [
+            {
+              "$ref": "sse.schema.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "webtransport": {
+          "anyOf": [
+            {
+              "$ref": "webtransport.schema.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

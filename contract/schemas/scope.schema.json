@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "scope.schema.json",
+  "title": "ContractScope",
+  "type": "object",
+  "required": [
+    "type",
+    "asgi",
+    "scheme",
+    "path",
+    "headers",
+    "ext"
+  ],
+  "properties": {
+    "type": {
+      "enum": [
+        "http",
+        "websocket",
+        "lifespan",
+        "webtransport"
+      ]
+    },
+    "asgi": {
+      "type": "object"
+    },
+    "scheme": {
+      "type": "string"
+    },
+    "http_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "method": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "path": {
+      "type": "string"
+    },
+    "query_string": {
+      "type": "string",
+      "contentEncoding": "base64"
+    },
+    "headers": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "items": false
+      }
+    },
+    "client": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "items": false
+        }
+      ]
+    },
+    "server": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "items": false
+        }
+      ]
+    },
+    "ext": {
+      "$ref": "transport.schema.json#/$defs/scopeExt"
+    }
+  },
+  "additionalProperties": false
+}

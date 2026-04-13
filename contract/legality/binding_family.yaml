@@ -1,0 +1,37 @@
+binding_family:
+  rest:
+    request: R
+    session: F
+    message: F
+    stream: O
+    datagram: F
+  jsonrpc:
+    request: R
+    session: F
+    message: F
+    stream: O
+    datagram: F
+  http.stream:
+    request: R
+    session: F
+    message: F
+    stream: R
+    datagram: F
+  sse:
+    request: R
+    session: R
+    message: R
+    stream: R
+    datagram: F
+  websocket:
+    request: F
+    session: R
+    message: R
+    stream: F
+    datagram: F
+  webtransport:
+    request: F
+    session: R
+    message: O
+    stream: R
+    datagram: R

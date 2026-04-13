@@ -1,0 +1,7 @@
+fields:
+  request: bounded unary invocation available
+  session: long-lived association available
+  message: discrete logical message transport available
+  stream_in: inbound stream chunks available
+  stream_out: outbound stream chunks available
+  datagram: datagram transport available

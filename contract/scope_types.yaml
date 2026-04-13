@@ -1,0 +1,5 @@
+scope_types:
+- http
+- websocket
+- lifespan
+- webtransport

@@ -1,0 +1,17 @@
+{
+  "name": "@tigr/asgi-contract",
+  "version": "0.1.0",
+  "type": "module",
+  "files": [
+    "src/**",
+    "tsx/**",
+    "README.md"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./tsx/*": "./tsx/*"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  }
+}

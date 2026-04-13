@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "event.schema.json",
+  "type": "object",
+  "required": [
+    "type"
+  ],
+  "properties": {
+    "type": {
+      "enum": [
+        "http.request",
+        "http.disconnect",
+        "http.response.start",
+        "http.response.body",
+        "websocket.connect",
+        "websocket.receive",
+        "websocket.disconnect",
+        "websocket.accept",
+        "websocket.send",
+        "websocket.close",
+        "webtransport.connect",
+        "webtransport.accept",
+        "webtransport.stream.receive",
+        "webtransport.stream.send",
+        "webtransport.datagram.receive",
+        "webtransport.datagram.send",
+        "webtransport.disconnect",
+        "webtransport.close",
+        "transport.emit.complete"
+      ]
+    },
+    "payload": {
+      "type": "object",
+      "default": {}
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,7 @@
+fields:
+  unit_id: transactional unit identifier
+  parent_unit_id: parent unit identifier
+  session_id: session identifier
+  stream_id: stream identifier
+  datagram_id: datagram identifier
+  emit_id: emit/completion correlation identifier

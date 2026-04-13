@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "compatibility.schema.json",
+  "type": "object",
+  "required": [
+    "contract_name",
+    "contract_version",
+    "serde_version",
+    "schema_draft"
+  ],
+  "properties": {
+    "contract_name": {
+      "type": "string"
+    },
+    "contract_version": {
+      "type": "string"
+    },
+    "serde_version": {
+      "type": "integer"
+    },
+    "schema_draft": {
+      "type": "string"
+    },
+    "min_tigrcorn_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "min_tigrbl_version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

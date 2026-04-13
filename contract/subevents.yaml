@@ -1,0 +1,48 @@
+subevents:
+  request:
+  - request.open
+  - request.body_in
+  - request.chunk_in
+  - request.accept
+  - request.close
+  - request.disconnect
+  - response.open
+  - response.body_out
+  - response.chunk_out
+  - response.close
+  - response.emit_complete
+  session:
+  - session.open
+  - session.accept
+  - session.ready
+  - session.heartbeat
+  - session.sync
+  - session.close
+  - session.disconnect
+  - session.emit_complete
+  message:
+  - message.in
+  - message.decode
+  - message.handle
+  - message.out
+  - message.ack
+  - message.nack
+  - message.replay
+  - message.snapshot
+  - message.emit_complete
+  stream:
+  - stream.open
+  - stream.chunk_in
+  - stream.chunk_out
+  - stream.flush
+  - stream.finalize
+  - stream.abort
+  - stream.close
+  - stream.emit_complete
+  datagram:
+  - datagram.in
+  - datagram.handle
+  - datagram.out
+  - datagram.ack
+  - datagram.close
+  - datagram.emit_complete

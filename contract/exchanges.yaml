@@ -1,0 +1,4 @@
+exchanges:
+- unary
+- server_stream
+- duplex

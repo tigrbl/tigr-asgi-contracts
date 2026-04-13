@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "webtransport.schema.json",
+  "type": "object",
+  "properties": {
+    "session_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "supports_datagrams": {
+      "type": "boolean"
+    },
+    "supports_bidi_streams": {
+      "type": "boolean"
+    },
+    "supports_uni_streams": {
+      "type": "boolean"
+    },
+    "max_datagram_size": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,76 @@
+bindings:
+  rest:
+    scope_type: http
+    exchange: unary
+    protocols:
+    - http.rest
+    - https.rest
+    families:
+      request: required
+    framing:
+    - json
+    - bytes
+  jsonrpc:
+    scope_type: http
+    exchange: unary
+    protocols:
+    - http.jsonrpc
+    - https.jsonrpc
+    families:
+      request: required
+    framing:
+    - jsonrpc
+  http.stream:
+    scope_type: http
+    exchange: server_stream
+    protocols:
+    - http.stream
+    - https.stream
+    families:
+      request: required
+      stream: required
+    framing:
+    - bytes
+    - json
+  sse:
+    scope_type: http
+    exchange: server_stream
+    protocols:
+    - http.sse
+    - https.sse
+    families:
+      request: required
+      session: required
+      message: required
+      stream: required
+    framing:
+    - sse
+    - json
+  websocket:
+    scope_type: websocket
+    exchange: duplex
+    protocols:
+    - ws
+    - wss
+    families:
+      session: required
+      message: required
+    framing:
+    - raw
+    - json
+    - jsonrpc
+  webtransport:
+    scope_type: webtransport
+    exchange: duplex
+    protocols:
+    - webtransport
+    families:
+      session: required
+      stream: required
+      datagram: required
+      message: optional
+    framing:
+    - raw
+    - json
+    - jsonrpc
+    - app

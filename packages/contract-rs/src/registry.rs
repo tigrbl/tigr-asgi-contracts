@@ -1,0 +1,1 @@
+pub const REQUEST_SUBEVENTS: &[&str] = &["request.open", "request.body_in", "request.chunk_in", "request.accept", "request.close", "request.disconnect", "response.open", "response.body_out", "response.chunk_out", "response.close", "response.emit_complete"];

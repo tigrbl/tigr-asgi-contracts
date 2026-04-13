@@ -1,0 +1,6 @@
+[workspace]
+resolver = "2"
+members = [
+  "packages/artifacts-rs",
+  "packages/contract-rs",
+]
