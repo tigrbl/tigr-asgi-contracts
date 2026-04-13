@@ -1,15 +1,96 @@
 from __future__ import annotations
 from pathlib import Path
-import yaml
 import json
 import re
 from typing import Any
 
+try:
+    import yaml  # type: ignore
+except ModuleNotFoundError:  # pragma: no cover
+    yaml = None
+
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / "contract"
 
+
+def _indent_of(line: str) -> int:
+    return len(line) - len(line.lstrip(" "))
+
+
+def _parse_scalar(value: str) -> Any:
+    if value == "true":
+        return True
+    if value == "false":
+        return False
+    if re.fullmatch(r"-?\d+", value):
+        return int(value)
+    return value
+
+
+def _parse_yaml_block(lines: list[str], index: int, indent: int) -> tuple[Any, int]:
+    stripped = lines[index].lstrip(" ")
+    if stripped.startswith("- "):
+        items: list[Any] = []
+        while index < len(lines):
+            line = lines[index]
+            if _indent_of(line) != indent or not line.lstrip(" ").startswith("- "):
+                break
+            item = line.lstrip(" ")[2:].strip()
+            index += 1
+            if item:
+                items.append(_parse_scalar(item))
+            elif index < len(lines) and _indent_of(lines[index]) > indent:
+                value, index = _parse_yaml_block(lines, index, _indent_of(lines[index]))
+                items.append(value)
+            else:
+                items.append("")
+        return items, index
+
+    mapping: dict[str, Any] = {}
+    while index < len(lines):
+        line = lines[index]
+        if _indent_of(line) != indent or line.lstrip(" ").startswith("- "):
+            break
+        key, sep, remainder = line.strip().partition(":")
+        if not sep:
+            raise ValueError(f"Unsupported YAML line: {line}")
+        remainder = remainder.strip()
+        index += 1
+        if remainder:
+            mapping[key] = _parse_scalar(remainder)
+        elif index < len(lines) and (
+            _indent_of(lines[index]) > indent
+            or (
+                _indent_of(lines[index]) == indent
+                and lines[index].lstrip(" ").startswith("- ")
+            )
+        ):
+            next_indent = _indent_of(lines[index])
+            value, index = _parse_yaml_block(lines, index, next_indent)
+            mapping[key] = value
+        else:
+            mapping[key] = {}
+    return mapping, index
+
+
+def _simple_yaml_load(text: str) -> Any:
+    lines = [
+        line.rstrip()
+        for line in text.splitlines()
+        if line.strip() and not line.lstrip().startswith("#")
+    ]
+    if not lines:
+        return None
+    value, index = _parse_yaml_block(lines, 0, _indent_of(lines[0]))
+    if index != len(lines):
+        raise ValueError("Failed to parse complete YAML document")
+    return value
+
 def load_yaml(name: str) -> Any:
-    return yaml.safe_load((CONTRACT / name).read_text(encoding="utf-8"))
+    text = (CONTRACT / name).read_text(encoding="utf-8")
+    if yaml is not None:
+        return yaml.safe_load(text)
+    return _simple_yaml_load(text)
 
 def load_json(path: str) -> Any:
     return json.loads((CONTRACT / path).read_text(encoding="utf-8"))

@@ -14,6 +14,7 @@ def main() -> None:
     run("generators/python/generate.py")
     run("generators/rust/generate.py")
     run("generators/ts/generate.py")
+    run("tools/generate_readmes.py")
 
 if __name__ == "__main__":
     main()
