@@ -1,9 +1,13 @@
 name: test-parity
+
 on:
   pull_request:
   push:
+    branches: [main]
+  merge_group:
+
 jobs:
-  pytest:
+  parity:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -12,4 +16,5 @@ jobs:
           python-version: '3.13'
       - run: pip install -q pytest pydantic pyyaml jsonschema
       - run: python tools/generate_all.py
+      - run: git diff --exit-code
       - run: pytest -q

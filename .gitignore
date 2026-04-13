@@ -9,3 +9,5 @@ coverage/
 target/
 vendor/
 *.zip
+packages/artifacts-npm/contract/
+packages/artifacts-rs/contract/

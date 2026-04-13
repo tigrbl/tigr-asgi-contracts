@@ -8,6 +8,8 @@
   ],
   "scripts": {
     "generate": "python tools/generate_all.py",
-    "validate": "python tools/validate_yaml.py && python tools/validate_jsonschema.py"
+    "validate": "python tools/validate_yaml.py && python tools/validate_jsonschema.py && python tools/build_manifest.py && python tools/build_checksums.py",
+    "check:versions": "python tools/check_versions.py",
+    "test": "pytest -q"
   }
 }

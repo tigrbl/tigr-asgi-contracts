@@ -1,9 +1,13 @@
 name: validate-contract
+
 on:
-  push:
   pull_request:
+  push:
+    branches: [main]
+  merge_group:
+
 jobs:
-  validate:
+  validate-artifacts:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,3 +19,16 @@ jobs:
       - run: python tools/validate_jsonschema.py
       - run: python tools/build_manifest.py
       - run: python tools/build_checksums.py
+      - run: git diff --exit-code -- contract/manifest.json contract/checksums.txt
+
+  verify-generated-clean:
+    needs: validate-artifacts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install -q PyYAML jsonschema
+      - run: python tools/generate_all.py
+      - run: git diff --exit-code

@@ -1,0 +1,59 @@
+name: release-candidate
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Release version (must match VERSION and package manifests)
+        required: true
+      rc_tag:
+        description: Optional prerelease tag override
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  verify-and-build:
+    runs-on: ubuntu-latest
+    outputs:
+      rc_tag: ${{ steps.meta.outputs.rc_tag }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: dtolnay/rust-toolchain@stable
+      - run: pip install -q pytest pydantic pyyaml jsonschema build
+      - id: meta
+        shell: bash
+        run: |
+          if [ -n "${{ inputs.rc_tag }}" ]; then
+            echo "rc_tag=${{ inputs.rc_tag }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "rc_tag=v${{ inputs.version }}-rc.${GITHUB_RUN_NUMBER}" >> "$GITHUB_OUTPUT"
+          fi
+      - run: python tools/check_versions.py "${{ inputs.version }}"
+      - run: python tools/validate_yaml.py
+      - run: python tools/validate_jsonschema.py
+      - run: python tools/generate_all.py
+      - run: git diff --exit-code
+      - run: pytest -q
+      - run: python tools/build_release_bundles.py
+      - shell: bash
+        run: |
+          find dist/release -type f -print0 | sort -z | xargs -0 sha256sum > dist/release/RELEASE_BUNDLE_SHA256.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-bundle-${{ steps.meta.outputs.rc_tag }}
+          path: dist/release/**
+      - name: Create GitHub prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh release create "${{ steps.meta.outputs.rc_tag }}"             dist/release/pypi/*             dist/release/npm/*             dist/release/crates/*             dist/release/manifest.json             dist/release/checksums.txt             dist/release/VERSION             dist/release/RELEASE_BUNDLE_SHA256.txt             --target "${GITHUB_SHA}"             --title "Release Candidate ${{ steps.meta.outputs.rc_tag }}"             --notes "Generated, tested, and promoted release-candidate bundle."             --prerelease
