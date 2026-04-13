@@ -1,6 +1,14 @@
 __pycache__/
 *.pyc
+*.pyo
 .pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.uv-cache/
 dist/
 build/
 node_modules/
@@ -9,6 +17,8 @@ coverage/
 target/
 vendor/
 *.zip
+*.tmp
+*.log
 packages/artifacts-npm/contract/
 packages/artifacts-rs/contract/
 /.venv
