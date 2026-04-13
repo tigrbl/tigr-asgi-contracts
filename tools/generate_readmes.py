@@ -4,18 +4,147 @@ import json
 import sys
 import tomllib
 from pathlib import Path
-from textwrap import dedent
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from generators.common import contract_data
+
 PACKAGES = ROOT / "packages"
+
+LEGALITY_LABELS = {
+    "R": "required",
+    "O": "optional",
+    "D": "derived",
+    "F": "forbidden",
+}
+
+SCOPE_EVENT_MAP = {
+    "http": [
+        "http.request",
+        "http.disconnect",
+        "http.response.start",
+        "http.response.body",
+        "transport.emit.complete",
+    ],
+    "websocket": [
+        "websocket.connect",
+        "websocket.receive",
+        "websocket.disconnect",
+        "websocket.accept",
+        "websocket.send",
+        "websocket.close",
+        "transport.emit.complete",
+    ],
+    "webtransport": [
+        "webtransport.connect",
+        "webtransport.accept",
+        "webtransport.stream.receive",
+        "webtransport.stream.send",
+        "webtransport.datagram.receive",
+        "webtransport.datagram.send",
+        "webtransport.disconnect",
+        "webtransport.close",
+        "transport.emit.complete",
+    ],
+    "lifespan": [],
+}
+
+SCOPE_EXT_FIELDS = {
+    "http": ["transport", "family_capabilities"],
+    "websocket": ["transport", "family_capabilities", "websocket"],
+    "lifespan": ["transport", "family_capabilities"],
+    "webtransport": ["transport", "family_capabilities", "webtransport"],
+}
+
+SSE_SCOPE_EXT_FIELDS = ["transport", "family_capabilities", "sse"]
+
+SUBEVENT_EVENT_MAP = {
+    "request.open": ["http.request"],
+    "request.body_in": ["http.request"],
+    "request.chunk_in": ["http.request"],
+    "request.accept": ["http.request"],
+    "request.close": ["http.request"],
+    "request.disconnect": ["http.disconnect"],
+    "response.open": ["http.response.start"],
+    "response.body_out": ["http.response.body"],
+    "response.chunk_out": ["http.response.body"],
+    "response.close": ["http.response.body"],
+    "response.emit_complete": ["transport.emit.complete"],
+    "session.open": ["websocket.connect", "webtransport.connect"],
+    "session.accept": ["websocket.accept", "webtransport.accept"],
+    "session.ready": ["websocket.accept", "webtransport.accept"],
+    "session.heartbeat": ["websocket.send", "webtransport.stream.send"],
+    "session.sync": ["websocket.send", "webtransport.stream.send"],
+    "session.close": ["websocket.close", "webtransport.close"],
+    "session.disconnect": ["websocket.disconnect", "webtransport.disconnect"],
+    "session.emit_complete": ["transport.emit.complete"],
+    "message.in": ["websocket.receive", "webtransport.stream.receive", "webtransport.datagram.receive"],
+    "message.decode": ["websocket.receive", "webtransport.stream.receive", "webtransport.datagram.receive"],
+    "message.handle": ["websocket.receive", "webtransport.stream.receive", "webtransport.datagram.receive"],
+    "message.out": ["websocket.send", "webtransport.stream.send", "http.response.body"],
+    "message.ack": ["websocket.send", "webtransport.stream.send", "webtransport.datagram.send"],
+    "message.nack": ["websocket.send", "webtransport.stream.send", "webtransport.datagram.send"],
+    "message.replay": ["websocket.send", "webtransport.stream.send", "http.response.body"],
+    "message.snapshot": ["websocket.send", "webtransport.stream.send", "http.response.body"],
+    "message.emit_complete": ["transport.emit.complete"],
+    "stream.open": ["webtransport.stream.send", "http.response.start"],
+    "stream.chunk_in": ["webtransport.stream.receive", "http.request"],
+    "stream.chunk_out": ["webtransport.stream.send", "http.response.body"],
+    "stream.flush": ["webtransport.stream.send", "http.response.body"],
+    "stream.finalize": ["webtransport.stream.send", "http.response.body"],
+    "stream.abort": ["webtransport.close", "http.disconnect"],
+    "stream.close": ["webtransport.close", "http.response.body"],
+    "stream.emit_complete": ["transport.emit.complete"],
+    "datagram.in": ["webtransport.datagram.receive"],
+    "datagram.handle": ["webtransport.datagram.receive"],
+    "datagram.out": ["webtransport.datagram.send"],
+    "datagram.ack": ["webtransport.datagram.send"],
+    "datagram.close": ["webtransport.close"],
+    "datagram.emit_complete": ["transport.emit.complete"],
+}
+
+EVENT_NOTES = {
+    "http.request": "Inbound HTTP request unit",
+    "http.disconnect": "HTTP connection closed by peer or server",
+    "http.response.start": "HTTP response metadata start",
+    "http.response.body": "HTTP response body frame",
+    "websocket.connect": "WebSocket connection open event",
+    "websocket.receive": "Inbound WebSocket frame",
+    "websocket.disconnect": "WebSocket disconnect signal",
+    "websocket.accept": "WebSocket accept handshake response",
+    "websocket.send": "Outbound WebSocket frame",
+    "websocket.close": "WebSocket close frame",
+    "webtransport.connect": "WebTransport session connect event",
+    "webtransport.accept": "WebTransport accept event",
+    "webtransport.stream.receive": "Inbound WebTransport stream frame",
+    "webtransport.stream.send": "Outbound WebTransport stream frame",
+    "webtransport.datagram.receive": "Inbound WebTransport datagram",
+    "webtransport.datagram.send": "Outbound WebTransport datagram",
+    "webtransport.disconnect": "WebTransport disconnect signal",
+    "webtransport.close": "WebTransport close event",
+    "transport.emit.complete": "Completion emission event",
+}
 
 
 def load_toml(path: Path) -> dict:
     return tomllib.loads(path.read_text(encoding="utf-8"))
+
+
+def render_markdown(text: str) -> str:
+    lines = text.splitlines()
+    return "\n".join(line[8:] if line.startswith("        ") else line for line in lines).strip()
+
+
+def fmt_code(value: str) -> str:
+    return f"`{value}`"
+
+
+def comma_code(values: list[str]) -> str:
+    if not values:
+        return "-"
+    return ", ".join(fmt_code(value) for value in values)
 
 
 def md_table(headers: list[str], rows: list[list[str]]) -> str:
@@ -28,46 +157,21 @@ def md_table(headers: list[str], rows: list[list[str]]) -> str:
     return "\n".join(lines)
 
 
-def fmt_code(value: str) -> str:
-    return f"`{value}`"
-
-
-def comma_code(values: list[str]) -> str:
-    return ", ".join(fmt_code(value) for value in values)
-
-
-def short_sha(value: str) -> str:
-    return fmt_code(value[:12])
-
-
-def render_markdown(text: str) -> str:
-    lines = text.splitlines()
-    return "\n".join(line[8:] if line.startswith("        ") else line for line in lines).strip()
-
-
-def current_version(data: dict) -> str:
-    return data["manifest"]["contract_version"]
+def legality_label(code: str) -> str:
+    return f"{fmt_code(code)} {LEGALITY_LABELS[code]}"
 
 
 def package_metadata() -> dict[str, dict]:
-    artifact_py = load_toml(PACKAGES / "artifacts-py" / "pyproject.toml")["project"]
-    artifact_npm = json.loads((PACKAGES / "artifacts-npm" / "package.json").read_text(encoding="utf-8"))
-    artifact_rs = load_toml(PACKAGES / "artifacts-rs" / "Cargo.toml")["package"]
-
-    contract_py = load_toml(PACKAGES / "contract-py" / "pyproject.toml")["project"]
-    contract_npm = json.loads((PACKAGES / "contract-npm" / "package.json").read_text(encoding="utf-8"))
-    contract_rs = load_toml(PACKAGES / "contract-rs" / "Cargo.toml")["package"]
-
     return {
         "artifacts": {
-            "python": artifact_py,
-            "npm": artifact_npm,
-            "rust": artifact_rs,
+            "python": load_toml(PACKAGES / "artifacts-py" / "pyproject.toml")["project"],
+            "npm": json.loads((PACKAGES / "artifacts-npm" / "package.json").read_text(encoding="utf-8")),
+            "rust": load_toml(PACKAGES / "artifacts-rs" / "Cargo.toml")["package"],
         },
         "contracts": {
-            "python": contract_py,
-            "npm": contract_npm,
-            "rust": contract_rs,
+            "python": load_toml(PACKAGES / "contract-py" / "pyproject.toml")["project"],
+            "npm": json.loads((PACKAGES / "contract-npm" / "package.json").read_text(encoding="utf-8")),
+            "rust": load_toml(PACKAGES / "contract-rs" / "Cargo.toml")["package"],
         },
     }
 
@@ -81,9 +185,7 @@ def module_inventory() -> dict[str, dict[str, list[str]]]:
                 if path.stem != "__init__"
             ),
             "npm": sorted(json.loads((PACKAGES / "artifacts-npm" / "package.json").read_text(encoding="utf-8"))["exports"].keys()),
-            "rust": sorted(
-                path.stem for path in (PACKAGES / "artifacts-rs" / "src").glob("*.rs") if path.stem != "lib"
-            ),
+            "rust": sorted(path.stem for path in (PACKAGES / "artifacts-rs" / "src").glob("*.rs") if path.stem != "lib"),
         },
         "contracts": {
             "python": sorted(
@@ -91,114 +193,268 @@ def module_inventory() -> dict[str, dict[str, list[str]]]:
                 for path in (PACKAGES / "contract-py" / "src" / "tigr_asgi_contract").glob("*.py")
                 if path.stem != "__init__"
             ),
-            "npm": sorted(
-                path.stem for path in (PACKAGES / "contract-npm" / "src").glob("*.ts") if path.stem != "index"
-            )
+            "npm": sorted(path.stem for path in (PACKAGES / "contract-npm" / "src").glob("*.ts") if path.stem != "index")
             + [f"tsx/{path.stem}" for path in sorted((PACKAGES / "contract-npm" / "tsx").glob("*.tsx"))],
             "rust": sorted(path.stem for path in (PACKAGES / "contract-rs" / "src").glob("*.rs") if path.stem != "lib"),
         },
     }
 
 
-def binding_rows(data: dict) -> list[list[str]]:
-    rows: list[list[str]] = []
-    for binding, binding_info in data["bindings"].items():
-        family_states = data["binding_family"][binding]
-        required_families = [family for family, state in family_states.items() if state == "R"]
-        optional_families = [family for family, state in family_states.items() if state == "O"]
-        subevent_states = data["binding_subevent"][binding].values()
-        required_count = sum(1 for state in subevent_states if state == "R")
-        optional_count = sum(1 for state in subevent_states if state == "O")
-        derived_count = sum(1 for state in subevent_states if state == "D")
+def binding_family_sets(data: dict, binding: str) -> tuple[list[str], list[str]]:
+    family_states = data["binding_family"][binding]
+    required = [family for family, state in family_states.items() if state == "R"]
+    optional = [family for family, state in family_states.items() if state == "O"]
+    return required, optional
+
+
+def family_for_subevent(data: dict, subevent: str) -> str:
+    for family, subevents in data["subevents_by_family"].items():
+        if subevent in subevents:
+            return family
+    raise KeyError(subevent)
+
+
+def scope_ext_fields_for_binding(binding: str, scope_type: str) -> list[str]:
+    if binding == "sse":
+        return SSE_SCOPE_EXT_FIELDS
+    return SCOPE_EXT_FIELDS[scope_type]
+
+
+def compatibility_rows(data: dict) -> list[list[str]]:
+    compatibility = data["compatibility"]
+    descriptions = {
+        "contract_name": "Canonical contract identifier",
+        "contract_version": "Published contract version",
+        "serde_version": "Serialization surface version",
+        "schema_draft": "JSON Schema draft level",
+    }
+    return [
+        [fmt_code(key), fmt_code(str(value)), descriptions.get(key, "Compatibility field"), fmt_code("contract/compatibility.yaml")]
+        for key, value in compatibility.items()
+    ]
+
+
+def completion_rows(data: dict) -> list[list[str]]:
+    completion = data["completion"]
+    rows = []
+    for level, meaning in completion["levels"].items():
         rows.append(
             [
-                fmt_code(binding),
-                fmt_code(binding_info["scope_type"]),
-                fmt_code(binding_info["exchange"]),
-                comma_code(binding_info["protocols"]),
-                comma_code(required_families) if required_families else "-",
-                comma_code(optional_families) if optional_families else "-",
-                str(required_count),
-                str(optional_count),
-                str(derived_count),
-                comma_code(binding_info["framing"]),
+                fmt_code(level),
+                meaning,
+                "yes" if completion["default"] == level else "no",
+                fmt_code("contract/completion.yaml"),
+            ]
+        )
+    return rows
+
+
+def capability_rows(data: dict) -> list[list[str]]:
+    family_map = {
+        "request": ["request"],
+        "session": ["session"],
+        "message": ["message"],
+        "stream_in": ["stream"],
+        "stream_out": ["stream"],
+        "datagram": ["datagram"],
+    }
+    rows = []
+    for field, meaning in data["capabilities"].items():
+        rows.append(
+            [
+                fmt_code(field),
+                comma_code(family_map.get(field, [])),
+                meaning,
+                fmt_code("transport.schema.json#/$defs/familyCapabilities"),
             ]
         )
     return rows
 
 
 def family_rows(data: dict) -> list[list[str]]:
-    rows: list[list[str]] = []
+    rows = []
     for family in data["families"]:
         subevents = data["subevents_by_family"][family]
+        supported_bindings = []
+        optional_bindings = []
+        for binding in data["bindings"]:
+            state = data["binding_family"][binding][family]
+            if state == "R":
+                supported_bindings.append(binding)
+            elif state == "O":
+                optional_bindings.append(binding)
         rows.append(
             [
                 fmt_code(family),
                 str(len(subevents)),
-                comma_code(subevents[:4]) + (" ..." if len(subevents) > 4 else ""),
+                comma_code(supported_bindings),
+                comma_code(optional_bindings),
+                comma_code(subevents),
             ]
         )
     return rows
 
 
-def contract_package_rows(meta: dict[str, dict], modules: dict[str, list[str]], current: str | None = None) -> list[list[str]]:
-    package_paths = {
-        "python": "packages/contract-py",
-        "npm": "packages/contract-npm",
-        "rust": "packages/contract-rs",
-    }
-    notes = {
-        "python": "Pydantic models plus validator helpers",
-        "npm": "TypeScript surface plus TSX badges/views",
-        "rust": "Serde-friendly enums, models, validators",
-    }
-    rows: list[list[str]] = []
-    for ecosystem in ("python", "npm", "rust"):
-        package_name = meta[ecosystem]["name"]
-        row_name = f"**{fmt_code(package_name)}**" if ecosystem == current else fmt_code(package_name)
+def subevent_rows(data: dict) -> list[list[str]]:
+    rows = []
+    for family in data["families"]:
+        for subevent in data["subevents_by_family"][family]:
+            supporting = []
+            optional = []
+            derived = []
+            for binding in data["bindings"]:
+                state = data["binding_subevent"][binding][subevent]
+                if state == "R":
+                    supporting.append(binding)
+                elif state == "O":
+                    optional.append(binding)
+                elif state == "D":
+                    derived.append(binding)
+            rows.append(
+                [
+                    fmt_code(subevent),
+                    fmt_code(family),
+                    legality_label(data["family_subevent"][family][subevent]),
+                    comma_code(supporting),
+                    comma_code(optional),
+                    comma_code(derived),
+                    comma_code(SUBEVENT_EVENT_MAP.get(subevent, [])),
+                ]
+            )
+    return rows
+
+
+def scope_rows() -> list[list[str]]:
+    rows = []
+    for scope_type, events in SCOPE_EVENT_MAP.items():
+        scope_ext_fields = SCOPE_EXT_FIELDS.get(scope_type, ["transport", "family_capabilities"])
         rows.append(
             [
-                ecosystem,
-                row_name,
-                fmt_code(meta[ecosystem]["version"]),
-                fmt_code(package_paths[ecosystem]),
-                str(len(modules[ecosystem])),
-                notes[ecosystem],
+                fmt_code(scope_type),
+                comma_code(scope_ext_fields),
+                comma_code(events),
+                fmt_code("scope.schema.json"),
             ]
         )
     return rows
 
 
-def artifact_package_rows(meta: dict[str, dict], modules: dict[str, list[str]], current: str | None = None) -> list[list[str]]:
-    package_paths = {
-        "python": "packages/artifacts-py",
-        "npm": "packages/artifacts-npm",
-        "rust": "packages/artifacts-rs",
+def event_rows(data: dict) -> list[list[str]]:
+    event_values = data["schemas"]["event.schema.json"]["properties"]["type"]["enum"]
+    rows = []
+    for event in event_values:
+        if event.startswith("http."):
+            scope_type = "http"
+        elif event.startswith("websocket."):
+            scope_type = "websocket"
+        elif event.startswith("webtransport."):
+            scope_type = "webtransport"
+        else:
+            scope_type = "http, websocket, webtransport"
+
+        related_subevents = sorted([subevent for subevent, events in SUBEVENT_EVENT_MAP.items() if event in events])
+        bindings = sorted(
+            [
+                binding
+                for binding, binding_info in data["bindings"].items()
+                if (
+                    (scope_type == "http" and binding_info["scope_type"] == "http")
+                    or (scope_type == "websocket" and binding_info["scope_type"] == "websocket")
+                    or (scope_type == "webtransport" and binding_info["scope_type"] == "webtransport")
+                    or event == "transport.emit.complete"
+                )
+            ]
+        )
+
+        rows.append(
+            [
+                fmt_code(event),
+                fmt_code(scope_type),
+                comma_code(bindings),
+                comma_code(related_subevents),
+                EVENT_NOTES.get(event, ""),
+            ]
+        )
+    return rows
+
+
+def binding_subevent_rows(data: dict) -> list[list[str]]:
+    rows = []
+    for binding, binding_info in data["bindings"].items():
+        required_families, optional_families = binding_family_sets(data, binding)
+        scope_type = binding_info["scope_type"]
+        scope_events = SCOPE_EVENT_MAP[scope_type]
+        if binding == "sse":
+            scope_events = sorted(set(scope_events + ["transport.emit.complete"]))
+        scope_ext_fields = scope_ext_fields_for_binding(binding, scope_type)
+
+        for family in data["families"]:
+            for subevent in data["subevents_by_family"][family]:
+                rows.append(
+                    [
+                        fmt_code(binding),
+                        comma_code(binding_info["protocols"]),
+                        fmt_code(binding_info["exchange"]),
+                        fmt_code(scope_type),
+                        comma_code(scope_ext_fields),
+                        comma_code(scope_events),
+                        comma_code(required_families),
+                        comma_code(optional_families),
+                        fmt_code(subevent),
+                        fmt_code(family),
+                        legality_label(data["family_subevent"][family][subevent]),
+                        legality_label(data["binding_subevent"][binding][subevent]),
+                        comma_code(SUBEVENT_EVENT_MAP.get(subevent, [])),
+                    ]
+                )
+    return rows
+
+
+def package_rows(meta: dict[str, dict], modules: dict[str, list[str]], family: str, current: str | None = None) -> list[list[str]]:
+    paths = {
+        "artifacts": {
+            "python": "packages/artifacts-py",
+            "npm": "packages/artifacts-npm",
+            "rust": "packages/artifacts-rs",
+        },
+        "contracts": {
+            "python": "packages/contract-py",
+            "npm": "packages/contract-npm",
+            "rust": "packages/contract-rs",
+        },
     }
     notes = {
-        "python": "Filesystem access helpers over vendored artifacts",
-        "npm": "Package exports over vendored artifact files",
-        "rust": "Embedded accessors for YAML, JSON, manifest, checksums",
+        "artifacts": {
+            "python": "Vendored file accessors",
+            "npm": "Packaged artifact exports",
+            "rust": "Embedded artifact accessors",
+        },
+        "contracts": {
+            "python": "Enums, models, validators",
+            "npm": "TypeScript and TSX surfaces",
+            "rust": "Serde-friendly contract surfaces",
+        },
     }
-    rows: list[list[str]] = []
+    rows = []
     for ecosystem in ("python", "npm", "rust"):
-        package_name = meta[ecosystem]["name"]
-        row_name = f"**{fmt_code(package_name)}**" if ecosystem == current else fmt_code(package_name)
+        package_name = fmt_code(meta[ecosystem]["name"])
+        if ecosystem == current:
+            package_name = f"**{package_name}**"
         rows.append(
             [
                 ecosystem,
-                row_name,
+                package_name,
                 fmt_code(meta[ecosystem]["version"]),
-                fmt_code(package_paths[ecosystem]),
+                fmt_code(paths[family][ecosystem]),
                 str(len(modules[ecosystem])),
-                notes[ecosystem],
+                notes[family][ecosystem],
             ]
         )
     return rows
 
 
 def artifact_inventory_rows(data: dict) -> list[list[str]]:
-    rows: list[list[str]] = []
+    rows = []
     for file_info in data["manifest"]["files"]:
         path = file_info["path"]
         if path.startswith("schemas/"):
@@ -209,21 +465,27 @@ def artifact_inventory_rows(data: dict) -> list[list[str]]:
             category = "metadata"
         else:
             category = "registry"
-        rows.append([fmt_code(path), category, short_sha(file_info["sha256"])])
+        rows.append([fmt_code(path), category, fmt_code(file_info["sha256"][:12])])
     return rows
 
 
-def render_root_readme(data: dict, meta: dict[str, dict], modules: dict[str, dict[str, list[str]]]) -> str:
-    manifest = data["manifest"]
-    schema_count = sum(1 for file_info in manifest["files"] if file_info["path"].startswith("schemas/"))
-    legality_count = sum(1 for file_info in manifest["files"] if file_info["path"].startswith("legality/"))
+def contract_surface_rows(modules: dict[str, list[str]], ecosystem: str) -> list[list[str]]:
+    rows = []
+    for module_name in modules[ecosystem]:
+        if ecosystem == "python":
+            export_surface = f"tigr_asgi_contract/{module_name}.py"
+        elif ecosystem == "npm":
+            export_surface = module_name if module_name.startswith("tsx/") else f"src/{module_name}.ts"
+        else:
+            export_surface = f"src/{module_name}.rs"
+        rows.append([fmt_code(module_name), fmt_code(export_surface)])
+    return rows
 
+
+def shared_contract_matrices(data: dict) -> str:
+    manifest = data["manifest"]
     return render_markdown(
         f"""\
-        # tigr-asgi-contracts
-
-        `contract/` is the canonical source of truth for the Tigr ASGI contract. This repository publishes canonical artifacts plus generated downstream contract packages for Python, npm, and Rust.
-
         ## Release Matrix
 
         {md_table(
@@ -236,44 +498,87 @@ def render_root_readme(data: dict, meta: dict[str, dict], modules: dict[str, dic
                 ["Schema draft", fmt_code(manifest["schema_draft"])],
                 ["Bindings", str(len(data["bindings"]))],
                 ["Families", str(len(data["families"]))],
+                ["Subevents", str(len(data["all_subevents"]))],
                 ["Scope types", str(len(data["scope_types"]))],
-                ["Schemas", str(schema_count)],
-                ["Legality matrices", str(legality_count)],
-                ["Tracked artifact files", str(len(manifest["files"]))],
+                ["Event types", str(len(data["schemas"]["event.schema.json"]["properties"]["type"]["enum"]))],
             ],
         )}
 
-        ## Binding Matrix
+        ## Scope Type Matrix
 
-        Status counts derive from `contract/legality/binding_family.yaml` and `contract/legality/binding_subevent.yaml`.
+        {md_table(["ASGI3 scope type", "Scope ext fields", "Scope event types", "Source"], scope_rows())}
 
-        {md_table(
-            ["Binding", "Scope", "Exchange", "Protocols", "Required families", "Optional families", "Required subevents", "Optional subevents", "Derived subevents", "Framing"],
-            binding_rows(data),
-        )}
+        ## Capability Matrix
+
+        {md_table(["Capability field", "Family alignment", "Meaning", "Schema source"], capability_rows(data))}
+
+        ## Compatibility Matrix
+
+        {md_table(["Compatibility field", "Value", "Meaning", "Source"], compatibility_rows(data))}
+
+        ## Completion Matrix
+
+        {md_table(["Completion level", "Meaning", "Default", "Source"], completion_rows(data))}
+
+        ## Event Matrix
+
+        {md_table(["Transport event", "ASGI3 scope type", "Bindings", "Related subevents", "Meaning"], event_rows(data))}
 
         ## Family Matrix
 
-        {md_table(["Family", "Subevents", "Examples"], family_rows(data))}
+        {md_table(["Family", "Subevent count", "Required bindings", "Optional bindings", "Subevents"], family_rows(data))}
 
-        ## Artifact Packages
+        ## Subevent Matrix
+
+        {md_table(["Subevent", "Family", "Family legality", "Required bindings", "Optional bindings", "Derived bindings", "Related transport events"], subevent_rows(data))}
+
+        ## Binding Subevent Matrix
+
+        Every row is a concrete `binding x subevent` record sourced from the legality registries.
 
         {md_table(
-            ["Ecosystem", "Package", "Version", "Path", "Surface files", "Notes"],
-            artifact_package_rows(meta["artifacts"], modules["artifacts"]),
+            [
+                "Binding",
+                "Protocols",
+                "Exchange",
+                "ASGI3 scope type",
+                "Scope ext fields",
+                "Scope event types",
+                "Required families",
+                "Optional families",
+                "Subevent",
+                "Family",
+                "Family legality",
+                "Binding legality",
+                "Related transport events",
+            ],
+            binding_subevent_rows(data),
         )}
+        """
+    )
 
-        ## Contract Packages
 
-        {md_table(
-            ["Ecosystem", "Package", "Version", "Path", "Surface files", "Notes"],
-            contract_package_rows(meta["contracts"], modules["contracts"]),
-        )}
+def render_root_readme(data: dict, meta: dict[str, dict], modules: dict[str, dict[str, list[str]]]) -> str:
+    return render_markdown(
+        f"""\
+        # tigr-asgi-contracts
+
+        `contract/` is the canonical source of truth for the Tigr ASGI contract. This repository publishes canonical artifacts plus generated downstream contract packages for Python, npm, and Rust.
+
+        ## Artifact Package Matrix
+
+        {md_table(["Ecosystem", "Package", "Version", "Path", "Surface files", "Notes"], package_rows(meta["artifacts"], modules["artifacts"], "artifacts"))}
+
+        ## Contract Package Matrix
+
+        {md_table(["Ecosystem", "Package", "Version", "Path", "Surface files", "Notes"], package_rows(meta["contracts"], modules["contracts"], "contracts"))}
+
+        {shared_contract_matrices(data)}
 
         ## Repository Layout
 
         ```text
-        contract/                 # canonical registries, schemas, manifest, checksums
+        contract/                 # canonical registries, schemas, manifest, checksums, legality matrices
         generators/               # language generators used for downstream packages
         packages/artifacts-*      # artifact distributions
         packages/contract-*       # generated downstream contract distributions
@@ -284,7 +589,7 @@ def render_root_readme(data: dict, meta: dict[str, dict], modules: dict[str, dic
         ## Authoring Workflow
 
         1. Edit files under `contract/`.
-        2. Rebuild generated artifacts and READMEs.
+        2. Rebuild generated artifacts, packages, and READMEs.
         3. Run validation and tests.
         4. Commit source and generated outputs together.
 
@@ -296,14 +601,7 @@ def render_root_readme(data: dict, meta: dict[str, dict], modules: dict[str, dic
         pytest -q
         ```
 
-        Do not hand-edit generated outputs under `packages/contract-*`, `contract/manifest.json`, `contract/checksums.txt`, or these generated README files. Regenerate them from source.
-
-        ## Additional Docs
-
-        - [docs/publishing.md](docs/publishing.md)
-        - [docs/versioning.md](docs/versioning.md)
-        - [docs/conformance.md](docs/conformance.md)
-        - [docs/contract-governance.md](docs/contract-governance.md)
+        Do not hand-edit generated outputs under `packages/contract-*`, `contract/manifest.json`, `contract/checksums.txt`, or these generated README files.
         """
     )
 
@@ -314,51 +612,26 @@ def render_artifact_readme(ecosystem: str, data: dict, meta: dict[str, dict], mo
         "npm": meta["artifacts"]["npm"]["name"],
         "rust": meta["artifacts"]["rust"]["name"],
     }
-    descriptions = {
+    intros = {
         "python": "Canonical Python artifact package for the Tigr ASGI contract.",
         "npm": "Canonical npm artifact package for the Tigr ASGI contract.",
         "rust": "Canonical Rust artifact crate for the Tigr ASGI contract.",
     }
-    package_specific = {
-        "python": "Python consumers get direct filesystem access to vendored YAML, JSON Schema, manifest, and checksum artifacts.",
-        "npm": "npm consumers get vendored artifact files plus package exports for the manifest and schema paths.",
-        "rust": "Rust consumers get embedded artifact accessors without needing runtime filesystem lookups.",
-    }
-
     return render_markdown(
         f"""\
         # {names[ecosystem]}
 
-        {descriptions[ecosystem]} Generated from the canonical `contract/` directory in this repository.
-
-        {package_specific[ecosystem]}
+        {intros[ecosystem]} This package ships the source artifacts that drive the downstream contract packages.
 
         ## Artifact Package Matrix
 
-        {md_table(
-            ["Ecosystem", "Package", "Version", "Path", "Surface files", "Notes"],
-            artifact_package_rows(meta["artifacts"], modules["artifacts"], current=ecosystem),
-        )}
+        {md_table(["Ecosystem", "Package", "Version", "Path", "Surface files", "Notes"], package_rows(meta["artifacts"], modules["artifacts"], "artifacts", current=ecosystem))}
 
         ## Artifact Inventory Matrix
 
         {md_table(["Artifact path", "Category", "SHA-256"], artifact_inventory_rows(data))}
 
-        ## Contract Coverage Matrix
-
-        {md_table(
-            ["Field", "Value"],
-            [
-                ["Contract version", fmt_code(current_version(data))],
-                ["Bindings", str(len(data["bindings"]))],
-                ["Families", str(len(data["families"]))],
-                ["Scope types", str(len(data["scope_types"]))],
-                ["Schemas", str(sum(1 for file_info in data["manifest"]["files"] if file_info["path"].startswith("schemas/")))],
-                ["Legality matrices", str(sum(1 for file_info in data["manifest"]["files"] if file_info["path"].startswith("legality/")))],
-            ],
-        )}
-
-        See the repository-level README for the cross-ecosystem contract and package overview.
+        {shared_contract_matrices(data)}
         """
     )
 
@@ -369,59 +642,26 @@ def render_contract_readme(ecosystem: str, data: dict, meta: dict[str, dict], mo
         "npm": meta["contracts"]["npm"]["name"],
         "rust": meta["contracts"]["rust"]["name"],
     }
-    descriptions = {
-        "python": "Generated Python enums, models, and validators for the Tigr ASGI contract.",
-        "npm": "Generated TypeScript and TSX contract surfaces for the Tigr ASGI contract.",
-        "rust": "Generated Rust enums, models, and validators for the Tigr ASGI contract.",
+    intros = {
+        "python": "Generated Python contract package for the Tigr ASGI contract.",
+        "npm": "Generated TypeScript and TSX contract package for the Tigr ASGI contract.",
+        "rust": "Generated Rust contract crate for the Tigr ASGI contract.",
     }
-    package_specific = {
-        "python": "The Python package exposes enum-like values, Pydantic models, registry helpers, and validators.",
-        "npm": "The npm package exposes TypeScript registries and validators plus TSX helpers for UI-facing contract rendering.",
-        "rust": "The Rust crate exposes serde-friendly enums, models, registries, and validator helpers.",
-    }
-
-    module_rows = []
-    for module_name in modules["contracts"][ecosystem]:
-        if ecosystem == "npm" and module_name.startswith("tsx/"):
-            export_surface = fmt_code(module_name)
-        elif ecosystem == "npm":
-            export_surface = fmt_code(f"src/{module_name}.ts")
-        elif ecosystem == "python":
-            export_surface = fmt_code(f"tigr_asgi_contract/{module_name}.py")
-        else:
-            export_surface = fmt_code(f"src/{module_name}.rs")
-        module_rows.append([fmt_code(module_name), export_surface])
-
     return render_markdown(
         f"""\
         # {names[ecosystem]}
 
-        {descriptions[ecosystem]} Generated from the canonical `contract/` directory in this repository.
-
-        {package_specific[ecosystem]}
+        {intros[ecosystem]} It is generated from the canonical `contract/` directory and mirrors the legality and schema artifacts.
 
         ## Contract Package Matrix
 
-        {md_table(
-            ["Ecosystem", "Package", "Version", "Path", "Surface files", "Notes"],
-            contract_package_rows(meta["contracts"], modules["contracts"], current=ecosystem),
-        )}
+        {md_table(["Ecosystem", "Package", "Version", "Path", "Surface files", "Notes"], package_rows(meta["contracts"], modules["contracts"], "contracts", current=ecosystem))}
 
         ## Generated Surface Matrix
 
-        {md_table(["Module", "Export surface"], module_rows)}
+        {md_table(["Module", "Export surface"], contract_surface_rows(modules["contracts"], ecosystem))}
 
-        ## Binding Support Matrix
-
-        {md_table(
-            ["Binding", "Exchange", "Required families", "Optional families", "Required subevents", "Optional subevents", "Derived subevents"],
-            [
-                [row[0], row[2], row[4], row[5], row[6], row[7], row[8]]
-                for row in binding_rows(data)
-            ],
-        )}
-
-        See the repository-level README for authoring workflow, release sequencing, and cross-ecosystem package context.
+        {shared_contract_matrices(data)}
         """
     )
 
