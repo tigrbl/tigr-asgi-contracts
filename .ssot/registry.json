@@ -1,0 +1,2855 @@
+{
+  "schema_version": 4,
+  "repo": {
+    "id": "repo:tigr-asgi-contracts",
+    "name": "tigr-asgi-contracts",
+    "version": "0.1.0"
+  },
+  "tooling": {
+    "ssot_registry_version": "0.2.1",
+    "initialized_with_version": "0.2.1",
+    "last_upgraded_from_version": "0.2.1"
+  },
+  "paths": {
+    "ssot_root": ".ssot",
+    "schema_root": ".ssot/schemas",
+    "adr_root": ".ssot/adr",
+    "spec_root": ".ssot/specs",
+    "graph_root": ".ssot/graphs",
+    "evidence_root": ".ssot/evidence",
+    "release_root": ".ssot/releases",
+    "report_root": ".ssot/reports",
+    "cache_root": ".ssot/cache"
+  },
+  "program": {
+    "active_boundary_id": "bnd:default",
+    "active_release_id": "rel:0.1.0"
+  },
+  "guard_policies": {
+    "claim_closure": {
+      "require_implemented_features": true,
+      "require_linked_tests_passing": true,
+      "require_linked_evidence_passing": true,
+      "require_claim_evidence_tier_alignment": true,
+      "forbid_failed_or_stale_evidence": true
+    },
+    "certification": {
+      "require_release_status_draft_or_candidate": true,
+      "require_frozen_boundary": true,
+      "require_release_claim_coverage_for_boundary_features": true,
+      "require_boundary_features_current_or_explicit": true,
+      "require_feature_target_tiers_met": true,
+      "forbid_open_release_blocking_issues": true,
+      "forbid_active_release_blocking_risks": true
+    },
+    "promotion": {
+      "require_release_status_certified": true,
+      "require_release_snapshot_hashes": true
+    },
+    "publication": {
+      "require_release_status_promoted": true
+    },
+    "lifecycle": {
+      "require_replacement_or_note_for_deprecation": true,
+      "forbid_obsolete_or_removed_in_active_boundary": true,
+      "require_feature_absent_for_removed": true
+    }
+  },
+  "document_id_reservations": {
+    "adr": [
+      {
+        "owner": "ssot-core",
+        "start": 1,
+        "end": 999,
+        "immutable": true,
+        "deletable": false,
+        "assignable_by_repo": false
+      },
+      {
+        "owner": "repo-local-default",
+        "start": 1000,
+        "end": 4999,
+        "immutable": false,
+        "deletable": true,
+        "assignable_by_repo": true
+      }
+    ],
+    "spec": [
+      {
+        "owner": "ssot-core",
+        "start": 1,
+        "end": 999,
+        "immutable": true,
+        "deletable": false,
+        "assignable_by_repo": false
+      },
+      {
+        "owner": "repo-local-default",
+        "start": 1000,
+        "end": 4999,
+        "immutable": false,
+        "deletable": true,
+        "assignable_by_repo": true
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "feat:bindings",
+      "title": "Contract artifact contract/bindings.yaml",
+      "description": "SSOT feature tracking for contract/bindings.yaml.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:bindings"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:capabilities",
+      "title": "Contract artifact contract/capabilities.yaml",
+      "description": "SSOT feature tracking for contract/capabilities.yaml.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:capabilities"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:compatibility",
+      "title": "Contract artifact contract/compatibility.yaml",
+      "description": "SSOT feature tracking for contract/compatibility.yaml.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:compatibility"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:completion",
+      "title": "Contract artifact contract/completion.yaml",
+      "description": "SSOT feature tracking for contract/completion.yaml.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:completion"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:exchanges",
+      "title": "Contract artifact contract/exchanges.yaml",
+      "description": "SSOT feature tracking for contract/exchanges.yaml.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:exchanges"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:families",
+      "title": "Contract artifact contract/families.yaml",
+      "description": "SSOT feature tracking for contract/families.yaml.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:families"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:ids",
+      "title": "Contract artifact contract/ids.yaml",
+      "description": "SSOT feature tracking for contract/ids.yaml.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:ids"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:scope-types",
+      "title": "Contract artifact contract/scope_types.yaml",
+      "description": "SSOT feature tracking for contract/scope_types.yaml.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:scope-types"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:subevents",
+      "title": "Contract artifact contract/subevents.yaml",
+      "description": "SSOT feature tracking for contract/subevents.yaml.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:legality-binding-family",
+      "title": "Contract artifact contract/legality/binding_family.yaml",
+      "description": "SSOT feature tracking for contract/legality/binding_family.yaml.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:legality-binding-family"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:legality-binding-subevent",
+      "title": "Contract artifact contract/legality/binding_subevent.yaml",
+      "description": "SSOT feature tracking for contract/legality/binding_subevent.yaml.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:legality-binding-subevent"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:legality-family-subevent",
+      "title": "Contract artifact contract/legality/family_subevent.yaml",
+      "description": "SSOT feature tracking for contract/legality/family_subevent.yaml.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:legality-family-subevent"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:schemas-compatibility-schema",
+      "title": "Contract artifact contract/schemas/compatibility.schema.json",
+      "description": "SSOT feature tracking for contract/schemas/compatibility.schema.json.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:schemas-compatibility-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:schemas-completion-schema",
+      "title": "Contract artifact contract/schemas/completion.schema.json",
+      "description": "SSOT feature tracking for contract/schemas/completion.schema.json.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:schemas-completion-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:schemas-event-schema",
+      "title": "Contract artifact contract/schemas/event.schema.json",
+      "description": "SSOT feature tracking for contract/schemas/event.schema.json.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:schemas-event-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:schemas-scope-schema",
+      "title": "Contract artifact contract/schemas/scope.schema.json",
+      "description": "SSOT feature tracking for contract/schemas/scope.schema.json.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:schemas-scope-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:schemas-sse-schema",
+      "title": "Contract artifact contract/schemas/sse.schema.json",
+      "description": "SSOT feature tracking for contract/schemas/sse.schema.json.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:schemas-sse-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:schemas-transport-schema",
+      "title": "Contract artifact contract/schemas/transport.schema.json",
+      "description": "SSOT feature tracking for contract/schemas/transport.schema.json.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:schemas-websocket-schema",
+      "title": "Contract artifact contract/schemas/websocket.schema.json",
+      "description": "SSOT feature tracking for contract/schemas/websocket.schema.json.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:schemas-websocket-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:schemas-webtransport-schema",
+      "title": "Contract artifact contract/schemas/webtransport.schema.json",
+      "description": "SSOT feature tracking for contract/schemas/webtransport.schema.json.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:schemas-webtransport-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "requires": []
+    }
+  ],
+  "tests": [
+    {
+      "id": "tst:codegen-test-python-codegen",
+      "title": "Automated test tests/codegen/test_python_codegen.py",
+      "status": "passing",
+      "kind": "pytest",
+      "path": "tests/codegen/test_python_codegen.py",
+      "feature_ids": [
+        "feat:bindings",
+        "feat:capabilities",
+        "feat:compatibility",
+        "feat:completion",
+        "feat:exchanges",
+        "feat:families",
+        "feat:ids",
+        "feat:scope-types",
+        "feat:subevents",
+        "feat:legality-binding-family",
+        "feat:legality-binding-subevent",
+        "feat:legality-family-subevent",
+        "feat:schemas-compatibility-schema",
+        "feat:schemas-completion-schema",
+        "feat:schemas-event-schema",
+        "feat:schemas-scope-schema",
+        "feat:schemas-sse-schema",
+        "feat:schemas-transport-schema",
+        "feat:schemas-websocket-schema",
+        "feat:schemas-webtransport-schema"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen"
+      ]
+    },
+    {
+      "id": "tst:codegen-test-rust-codegen",
+      "title": "Automated test tests/codegen/test_rust_codegen.py",
+      "status": "passing",
+      "kind": "pytest",
+      "path": "tests/codegen/test_rust_codegen.py",
+      "feature_ids": [
+        "feat:bindings",
+        "feat:capabilities",
+        "feat:compatibility",
+        "feat:completion",
+        "feat:exchanges",
+        "feat:families",
+        "feat:ids",
+        "feat:scope-types",
+        "feat:subevents",
+        "feat:legality-binding-family",
+        "feat:legality-binding-subevent",
+        "feat:legality-family-subevent",
+        "feat:schemas-compatibility-schema",
+        "feat:schemas-completion-schema",
+        "feat:schemas-event-schema",
+        "feat:schemas-scope-schema",
+        "feat:schemas-sse-schema",
+        "feat:schemas-transport-schema",
+        "feat:schemas-websocket-schema",
+        "feat:schemas-webtransport-schema"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-rust-codegen"
+      ]
+    },
+    {
+      "id": "tst:codegen-test-ts-codegen",
+      "title": "Automated test tests/codegen/test_ts_codegen.py",
+      "status": "passing",
+      "kind": "pytest",
+      "path": "tests/codegen/test_ts_codegen.py",
+      "feature_ids": [
+        "feat:bindings",
+        "feat:capabilities",
+        "feat:compatibility",
+        "feat:completion",
+        "feat:exchanges",
+        "feat:families",
+        "feat:ids",
+        "feat:scope-types",
+        "feat:subevents",
+        "feat:legality-binding-family",
+        "feat:legality-binding-subevent",
+        "feat:legality-family-subevent",
+        "feat:schemas-compatibility-schema",
+        "feat:schemas-completion-schema",
+        "feat:schemas-event-schema",
+        "feat:schemas-scope-schema",
+        "feat:schemas-sse-schema",
+        "feat:schemas-transport-schema",
+        "feat:schemas-websocket-schema",
+        "feat:schemas-webtransport-schema"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-ts-codegen"
+      ]
+    },
+    {
+      "id": "tst:contract-test-checksums",
+      "title": "Automated test tests/contract/test_checksums.py",
+      "status": "passing",
+      "kind": "pytest",
+      "path": "tests/contract/test_checksums.py",
+      "feature_ids": [
+        "feat:bindings",
+        "feat:capabilities",
+        "feat:compatibility",
+        "feat:completion",
+        "feat:exchanges",
+        "feat:families",
+        "feat:ids",
+        "feat:scope-types",
+        "feat:subevents",
+        "feat:legality-binding-family",
+        "feat:legality-binding-subevent",
+        "feat:legality-family-subevent",
+        "feat:schemas-compatibility-schema",
+        "feat:schemas-completion-schema",
+        "feat:schemas-event-schema",
+        "feat:schemas-scope-schema",
+        "feat:schemas-sse-schema",
+        "feat:schemas-transport-schema",
+        "feat:schemas-websocket-schema",
+        "feat:schemas-webtransport-schema"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "evidence_ids": [
+        "evd:contract-test-checksums"
+      ]
+    },
+    {
+      "id": "tst:contract-test-jsonschemas",
+      "title": "Automated test tests/contract/test_jsonschemas.py",
+      "status": "passing",
+      "kind": "pytest",
+      "path": "tests/contract/test_jsonschemas.py",
+      "feature_ids": [
+        "feat:bindings",
+        "feat:capabilities",
+        "feat:compatibility",
+        "feat:completion",
+        "feat:exchanges",
+        "feat:families",
+        "feat:ids",
+        "feat:scope-types",
+        "feat:subevents",
+        "feat:legality-binding-family",
+        "feat:legality-binding-subevent",
+        "feat:legality-family-subevent",
+        "feat:schemas-compatibility-schema",
+        "feat:schemas-completion-schema",
+        "feat:schemas-event-schema",
+        "feat:schemas-scope-schema",
+        "feat:schemas-sse-schema",
+        "feat:schemas-transport-schema",
+        "feat:schemas-websocket-schema",
+        "feat:schemas-webtransport-schema"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "evidence_ids": [
+        "evd:contract-test-jsonschemas"
+      ]
+    },
+    {
+      "id": "tst:contract-test-legality",
+      "title": "Automated test tests/contract/test_legality.py",
+      "status": "passing",
+      "kind": "pytest",
+      "path": "tests/contract/test_legality.py",
+      "feature_ids": [
+        "feat:bindings",
+        "feat:capabilities",
+        "feat:compatibility",
+        "feat:completion",
+        "feat:exchanges",
+        "feat:families",
+        "feat:ids",
+        "feat:scope-types",
+        "feat:subevents",
+        "feat:legality-binding-family",
+        "feat:legality-binding-subevent",
+        "feat:legality-family-subevent",
+        "feat:schemas-compatibility-schema",
+        "feat:schemas-completion-schema",
+        "feat:schemas-event-schema",
+        "feat:schemas-scope-schema",
+        "feat:schemas-sse-schema",
+        "feat:schemas-transport-schema",
+        "feat:schemas-websocket-schema",
+        "feat:schemas-webtransport-schema"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "evidence_ids": [
+        "evd:contract-test-legality"
+      ]
+    },
+    {
+      "id": "tst:contract-test-manifest",
+      "title": "Automated test tests/contract/test_manifest.py",
+      "status": "passing",
+      "kind": "pytest",
+      "path": "tests/contract/test_manifest.py",
+      "feature_ids": [
+        "feat:bindings",
+        "feat:capabilities",
+        "feat:compatibility",
+        "feat:completion",
+        "feat:exchanges",
+        "feat:families",
+        "feat:ids",
+        "feat:scope-types",
+        "feat:subevents",
+        "feat:legality-binding-family",
+        "feat:legality-binding-subevent",
+        "feat:legality-family-subevent",
+        "feat:schemas-compatibility-schema",
+        "feat:schemas-completion-schema",
+        "feat:schemas-event-schema",
+        "feat:schemas-scope-schema",
+        "feat:schemas-sse-schema",
+        "feat:schemas-transport-schema",
+        "feat:schemas-websocket-schema",
+        "feat:schemas-webtransport-schema"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "evidence_ids": [
+        "evd:contract-test-manifest"
+      ]
+    },
+    {
+      "id": "tst:parity-test-cross-language-roundtrip",
+      "title": "Automated test tests/parity/test_cross_language_roundtrip.py",
+      "status": "passing",
+      "kind": "pytest",
+      "path": "tests/parity/test_cross_language_roundtrip.py",
+      "feature_ids": [
+        "feat:bindings",
+        "feat:capabilities",
+        "feat:compatibility",
+        "feat:completion",
+        "feat:exchanges",
+        "feat:families",
+        "feat:ids",
+        "feat:scope-types",
+        "feat:subevents",
+        "feat:legality-binding-family",
+        "feat:legality-binding-subevent",
+        "feat:legality-family-subevent",
+        "feat:schemas-compatibility-schema",
+        "feat:schemas-completion-schema",
+        "feat:schemas-event-schema",
+        "feat:schemas-scope-schema",
+        "feat:schemas-sse-schema",
+        "feat:schemas-transport-schema",
+        "feat:schemas-websocket-schema",
+        "feat:schemas-webtransport-schema"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "evidence_ids": [
+        "evd:parity-test-cross-language-roundtrip"
+      ]
+    },
+    {
+      "id": "tst:parity-test-python-vs-contract",
+      "title": "Automated test tests/parity/test_python_vs_contract.py",
+      "status": "passing",
+      "kind": "pytest",
+      "path": "tests/parity/test_python_vs_contract.py",
+      "feature_ids": [
+        "feat:bindings",
+        "feat:capabilities",
+        "feat:compatibility",
+        "feat:completion",
+        "feat:exchanges",
+        "feat:families",
+        "feat:ids",
+        "feat:scope-types",
+        "feat:subevents",
+        "feat:legality-binding-family",
+        "feat:legality-binding-subevent",
+        "feat:legality-family-subevent",
+        "feat:schemas-compatibility-schema",
+        "feat:schemas-completion-schema",
+        "feat:schemas-event-schema",
+        "feat:schemas-scope-schema",
+        "feat:schemas-sse-schema",
+        "feat:schemas-transport-schema",
+        "feat:schemas-websocket-schema",
+        "feat:schemas-webtransport-schema"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "evidence_ids": [
+        "evd:parity-test-python-vs-contract"
+      ]
+    },
+    {
+      "id": "tst:parity-test-rust-vs-contract",
+      "title": "Automated test tests/parity/test_rust_vs_contract.py",
+      "status": "passing",
+      "kind": "pytest",
+      "path": "tests/parity/test_rust_vs_contract.py",
+      "feature_ids": [
+        "feat:bindings",
+        "feat:capabilities",
+        "feat:compatibility",
+        "feat:completion",
+        "feat:exchanges",
+        "feat:families",
+        "feat:ids",
+        "feat:scope-types",
+        "feat:subevents",
+        "feat:legality-binding-family",
+        "feat:legality-binding-subevent",
+        "feat:legality-family-subevent",
+        "feat:schemas-compatibility-schema",
+        "feat:schemas-completion-schema",
+        "feat:schemas-event-schema",
+        "feat:schemas-scope-schema",
+        "feat:schemas-sse-schema",
+        "feat:schemas-transport-schema",
+        "feat:schemas-websocket-schema",
+        "feat:schemas-webtransport-schema"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "evidence_ids": [
+        "evd:parity-test-rust-vs-contract"
+      ]
+    },
+    {
+      "id": "tst:parity-test-ts-vs-contract",
+      "title": "Automated test tests/parity/test_ts_vs_contract.py",
+      "status": "passing",
+      "kind": "pytest",
+      "path": "tests/parity/test_ts_vs_contract.py",
+      "feature_ids": [
+        "feat:bindings",
+        "feat:capabilities",
+        "feat:compatibility",
+        "feat:completion",
+        "feat:exchanges",
+        "feat:families",
+        "feat:ids",
+        "feat:scope-types",
+        "feat:subevents",
+        "feat:legality-binding-family",
+        "feat:legality-binding-subevent",
+        "feat:legality-family-subevent",
+        "feat:schemas-compatibility-schema",
+        "feat:schemas-completion-schema",
+        "feat:schemas-event-schema",
+        "feat:schemas-scope-schema",
+        "feat:schemas-sse-schema",
+        "feat:schemas-transport-schema",
+        "feat:schemas-websocket-schema",
+        "feat:schemas-webtransport-schema"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "evidence_ids": [
+        "evd:parity-test-ts-vs-contract"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "clm:bindings",
+      "title": "Conformance claim for contract/bindings.yaml",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/bindings.yaml is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:bindings"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    },
+    {
+      "id": "clm:capabilities",
+      "title": "Conformance claim for contract/capabilities.yaml",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/capabilities.yaml is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:capabilities"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    },
+    {
+      "id": "clm:compatibility",
+      "title": "Conformance claim for contract/compatibility.yaml",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/compatibility.yaml is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:compatibility"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    },
+    {
+      "id": "clm:completion",
+      "title": "Conformance claim for contract/completion.yaml",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/completion.yaml is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:completion"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    },
+    {
+      "id": "clm:exchanges",
+      "title": "Conformance claim for contract/exchanges.yaml",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/exchanges.yaml is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:exchanges"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    },
+    {
+      "id": "clm:families",
+      "title": "Conformance claim for contract/families.yaml",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/families.yaml is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:families"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    },
+    {
+      "id": "clm:ids",
+      "title": "Conformance claim for contract/ids.yaml",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/ids.yaml is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:ids"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    },
+    {
+      "id": "clm:scope-types",
+      "title": "Conformance claim for contract/scope_types.yaml",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/scope_types.yaml is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:scope-types"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    },
+    {
+      "id": "clm:subevents",
+      "title": "Conformance claim for contract/subevents.yaml",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/subevents.yaml is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:subevents"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    },
+    {
+      "id": "clm:legality-binding-family",
+      "title": "Conformance claim for contract/legality/binding_family.yaml",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/legality/binding_family.yaml is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:legality-binding-family"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    },
+    {
+      "id": "clm:legality-binding-subevent",
+      "title": "Conformance claim for contract/legality/binding_subevent.yaml",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/legality/binding_subevent.yaml is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:legality-binding-subevent"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    },
+    {
+      "id": "clm:legality-family-subevent",
+      "title": "Conformance claim for contract/legality/family_subevent.yaml",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/legality/family_subevent.yaml is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:legality-family-subevent"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    },
+    {
+      "id": "clm:schemas-compatibility-schema",
+      "title": "Conformance claim for contract/schemas/compatibility.schema.json",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/schemas/compatibility.schema.json is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:schemas-compatibility-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    },
+    {
+      "id": "clm:schemas-completion-schema",
+      "title": "Conformance claim for contract/schemas/completion.schema.json",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/schemas/completion.schema.json is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:schemas-completion-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    },
+    {
+      "id": "clm:schemas-event-schema",
+      "title": "Conformance claim for contract/schemas/event.schema.json",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/schemas/event.schema.json is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:schemas-event-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    },
+    {
+      "id": "clm:schemas-scope-schema",
+      "title": "Conformance claim for contract/schemas/scope.schema.json",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/schemas/scope.schema.json is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:schemas-scope-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    },
+    {
+      "id": "clm:schemas-sse-schema",
+      "title": "Conformance claim for contract/schemas/sse.schema.json",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/schemas/sse.schema.json is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:schemas-sse-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    },
+    {
+      "id": "clm:schemas-transport-schema",
+      "title": "Conformance claim for contract/schemas/transport.schema.json",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/schemas/transport.schema.json is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    },
+    {
+      "id": "clm:schemas-websocket-schema",
+      "title": "Conformance claim for contract/schemas/websocket.schema.json",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/schemas/websocket.schema.json is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:schemas-websocket-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    },
+    {
+      "id": "clm:schemas-webtransport-schema",
+      "title": "Conformance claim for contract/schemas/webtransport.schema.json",
+      "status": "evidenced",
+      "tier": "T2",
+      "kind": "conformance",
+      "description": "contract/schemas/webtransport.schema.json is covered by repository tests and tracked evidence.",
+      "feature_ids": [
+        "feat:schemas-webtransport-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen",
+        "tst:contract-test-checksums",
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:contract-test-manifest",
+        "tst:parity-test-cross-language-roundtrip",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-ts-vs-contract"
+      ],
+      "evidence_ids": [
+        "evd:codegen-test-python-codegen",
+        "evd:codegen-test-rust-codegen",
+        "evd:codegen-test-ts-codegen",
+        "evd:contract-test-checksums",
+        "evd:contract-test-jsonschemas",
+        "evd:contract-test-legality",
+        "evd:contract-test-manifest",
+        "evd:parity-test-cross-language-roundtrip",
+        "evd:parity-test-python-vs-contract",
+        "evd:parity-test-rust-vs-contract",
+        "evd:parity-test-ts-vs-contract"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evd:codegen-test-python-codegen",
+      "title": "Test evidence from tests/codegen/test_python_codegen.py",
+      "status": "passed",
+      "kind": "test-report",
+      "tier": "T2",
+      "path": "tests/codegen/test_python_codegen.py",
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen"
+      ]
+    },
+    {
+      "id": "evd:codegen-test-rust-codegen",
+      "title": "Test evidence from tests/codegen/test_rust_codegen.py",
+      "status": "passed",
+      "kind": "test-report",
+      "tier": "T2",
+      "path": "tests/codegen/test_rust_codegen.py",
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-rust-codegen"
+      ]
+    },
+    {
+      "id": "evd:codegen-test-ts-codegen",
+      "title": "Test evidence from tests/codegen/test_ts_codegen.py",
+      "status": "passed",
+      "kind": "test-report",
+      "tier": "T2",
+      "path": "tests/codegen/test_ts_codegen.py",
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-ts-codegen"
+      ]
+    },
+    {
+      "id": "evd:contract-test-checksums",
+      "title": "Test evidence from tests/contract/test_checksums.py",
+      "status": "passed",
+      "kind": "test-report",
+      "tier": "T2",
+      "path": "tests/contract/test_checksums.py",
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-checksums"
+      ]
+    },
+    {
+      "id": "evd:contract-test-jsonschemas",
+      "title": "Test evidence from tests/contract/test_jsonschemas.py",
+      "status": "passed",
+      "kind": "test-report",
+      "tier": "T2",
+      "path": "tests/contract/test_jsonschemas.py",
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ]
+    },
+    {
+      "id": "evd:contract-test-legality",
+      "title": "Test evidence from tests/contract/test_legality.py",
+      "status": "passed",
+      "kind": "test-report",
+      "tier": "T2",
+      "path": "tests/contract/test_legality.py",
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-legality"
+      ]
+    },
+    {
+      "id": "evd:contract-test-manifest",
+      "title": "Test evidence from tests/contract/test_manifest.py",
+      "status": "passed",
+      "kind": "test-report",
+      "tier": "T2",
+      "path": "tests/contract/test_manifest.py",
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-manifest"
+      ]
+    },
+    {
+      "id": "evd:parity-test-cross-language-roundtrip",
+      "title": "Test evidence from tests/parity/test_cross_language_roundtrip.py",
+      "status": "passed",
+      "kind": "test-report",
+      "tier": "T2",
+      "path": "tests/parity/test_cross_language_roundtrip.py",
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "test_ids": [
+        "tst:parity-test-cross-language-roundtrip"
+      ]
+    },
+    {
+      "id": "evd:parity-test-python-vs-contract",
+      "title": "Test evidence from tests/parity/test_python_vs_contract.py",
+      "status": "passed",
+      "kind": "test-report",
+      "tier": "T2",
+      "path": "tests/parity/test_python_vs_contract.py",
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "test_ids": [
+        "tst:parity-test-python-vs-contract"
+      ]
+    },
+    {
+      "id": "evd:parity-test-rust-vs-contract",
+      "title": "Test evidence from tests/parity/test_rust_vs_contract.py",
+      "status": "passed",
+      "kind": "test-report",
+      "tier": "T2",
+      "path": "tests/parity/test_rust_vs_contract.py",
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "test_ids": [
+        "tst:parity-test-rust-vs-contract"
+      ]
+    },
+    {
+      "id": "evd:parity-test-ts-vs-contract",
+      "title": "Test evidence from tests/parity/test_ts_vs_contract.py",
+      "status": "passed",
+      "kind": "test-report",
+      "tier": "T2",
+      "path": "tests/parity/test_ts_vs_contract.py",
+      "claim_ids": [
+        "clm:bindings",
+        "clm:capabilities",
+        "clm:compatibility",
+        "clm:completion",
+        "clm:exchanges",
+        "clm:families",
+        "clm:ids",
+        "clm:scope-types",
+        "clm:subevents",
+        "clm:legality-binding-family",
+        "clm:legality-binding-subevent",
+        "clm:legality-family-subevent",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "test_ids": [
+        "tst:parity-test-ts-vs-contract"
+      ]
+    }
+  ],
+  "issues": [],
+  "risks": [],
+  "boundaries": [
+    {
+      "id": "bnd:default",
+      "title": "Default boundary",
+      "status": "draft",
+      "frozen": false,
+      "feature_ids": []
+    }
+  ],
+  "releases": [
+    {
+      "id": "rel:0.1.0",
+      "version": "0.1.0",
+      "status": "draft",
+      "boundary_id": "bnd:default",
+      "claim_ids": [],
+      "evidence_ids": []
+    }
+  ],
+  "adrs": [
+    {
+      "id": "adr:0001",
+      "number": 1,
+      "slug": "canonical-json-registry",
+      "title": "Canonical registry is a single JSON document",
+      "path": ".ssot/adr/ADR-0001-canonical-json-registry.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "9f5bb7d2ee345837ed30579c9e494a239f470855776ba5dc10e1e5285ec75997",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0002",
+      "number": 2,
+      "slug": "features-are-targetable-units",
+      "title": "Features are the targetable units",
+      "path": ".ssot/adr/ADR-0002-features-are-targetable-units.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "c088e2e19d94b2751b170bff365d71361ee505e67c6467718b9dba9819fa98cb",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0003",
+      "number": 3,
+      "slug": "issues-are-plannable-work-items",
+      "title": "Issues are plannable work items",
+      "path": ".ssot/adr/ADR-0003-issues-are-plannable-work-items.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "5f9facd077de1b597cd92f881be2f24e7d2a84c53fbafadaa8d90e5a6fd43d36",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0004",
+      "number": 4,
+      "slug": "entity-centric-registry-derived-graph",
+      "title": "Entity-centric registry with a derived graph export",
+      "path": ".ssot/adr/ADR-0004-entity-centric-registry-derived-graph.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "9070a9343059aeb88c9c814eb6b09779259655b64db1c72c8dc87b67a5e0208b",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0005",
+      "number": 5,
+      "slug": "normalized-prefixed-ids",
+      "title": "Normalized prefixed IDs",
+      "path": ".ssot/adr/ADR-0005-normalized-prefixed-ids.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "1b3ac2ec39ede1aa4f393d70ba284d76e5fb8be43aaf76bed3461b5c0d8bf790",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0006",
+      "number": 6,
+      "slug": "claim-status-vs-tier",
+      "title": "Claim status and claim tier are orthogonal",
+      "path": ".ssot/adr/ADR-0006-claim-status-vs-tier.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "77b436414b489d834b4cfc3c9e73d3109253c1e69e4c5177773ba1b2e1a049b9",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0007",
+      "number": 7,
+      "slug": "feature-implementation-vs-lifecycle",
+      "title": "Feature implementation state is separate from lifecycle state",
+      "path": ".ssot/adr/ADR-0007-feature-implementation-vs-lifecycle.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "1d9827f1d9ac80e21c9eb01860525546a12414b6d4dd59f85e2d1bfe3d9386f2",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0008",
+      "number": 8,
+      "slug": "immutable-boundary-and-release-snapshots",
+      "title": "Immutable boundary and release snapshots",
+      "path": ".ssot/adr/ADR-0008-immutable-boundary-and-release-snapshots.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "05cdcfecdd0291bf70d83df6f759234a6e030bee813f9ffccc281339f1020020",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0009",
+      "number": 9,
+      "slug": "fail-closed-guards",
+      "title": "Fail-closed guards",
+      "path": ".ssot/adr/ADR-0009-fail-closed-guards.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "b3e4968a2407889f0a369cb4cd09aa6b22e25a6404d4aeda17ef9d8b39f639b8",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0010",
+      "number": 10,
+      "slug": "generated-projections-are-non-canonical",
+      "title": "Generated projections are non-canonical",
+      "path": ".ssot/adr/ADR-0010-generated-projections-are-non-canonical.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "9384cc13dad85dc2ee3d65405edf92ae0cb8c90874db52beba33fa63f1fb1aad",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0011",
+      "number": 11,
+      "slug": "explicit-schema-versioning",
+      "title": "Explicit schema versioning",
+      "path": ".ssot/adr/ADR-0011-explicit-schema-versioning.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "476d6d2c6e8bd6f6775492f11f2de3f26b77545dda62bd6e78e34ff37b53ed4e",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0012",
+      "number": 12,
+      "slug": "portable-core-repo-specific-evidence-adapters",
+      "title": "Portable core with repo-specific evidence generation outside the core",
+      "path": ".ssot/adr/ADR-0012-portable-core-repo-specific-evidence-adapters.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "ba8ea2c1e20eda7094c2cf92c9fd63427c1ef3edf9c18d2f43357e761101ba79",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    }
+  ],
+  "specs": [
+    {
+      "id": "spc:0001",
+      "number": 1,
+      "slug": "registry-core",
+      "title": "Registry core",
+      "path": ".ssot/specs/SPEC-0001-registry-core.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "2244e964a2e98cbb8c96959e80f94fbb6684825aa41f64e34d9bc918cb229b35",
+      "kind": "normative"
+    },
+    {
+      "id": "spc:0002",
+      "number": 2,
+      "slug": "cli",
+      "title": "CLI",
+      "path": ".ssot/specs/SPEC-0002-cli.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "921aecf6cf292ef841c49c73b45ab8a38bdae817ef850097a870dc5241473c39",
+      "kind": "operational"
+    },
+    {
+      "id": "spc:0003",
+      "number": 3,
+      "slug": "graph-model",
+      "title": "Graph model",
+      "path": ".ssot/specs/SPEC-0003-graph-model.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "dbf7093288b63b1fd3a1f38d60b66147d93c27511487de992ee0d59efb43b744",
+      "kind": "normative"
+    },
+    {
+      "id": "spc:0004",
+      "number": 4,
+      "slug": "feature-lifecycle",
+      "title": "Feature lifecycle",
+      "path": ".ssot/specs/SPEC-0004-feature-lifecycle.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "93f42169b551989e38f00598f899e6bfd9fc443a15467da77ead51c5bd01d02e",
+      "kind": "normative"
+    },
+    {
+      "id": "spc:0005",
+      "number": 5,
+      "slug": "claim-statuses",
+      "title": "Claim statuses",
+      "path": ".ssot/specs/SPEC-0005-claim-statuses.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "a22501ba039e61a6f438d50685a3e33a7928fb37179f4a8da31c8c3420ed9683",
+      "kind": "normative"
+    },
+    {
+      "id": "spc:0006",
+      "number": 6,
+      "slug": "claim-tiers",
+      "title": "Claim tiers",
+      "path": ".ssot/specs/SPEC-0006-claim-tiers.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "a86608fc0ae4b045cdf59257e666f0254df9a26f2dd93897628fafc142169163",
+      "kind": "normative"
+    },
+    {
+      "id": "spc:0007",
+      "number": 7,
+      "slug": "snapshots-and-reports",
+      "title": "Snapshots and reports",
+      "path": ".ssot/specs/SPEC-0007-snapshots-and-reports.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "47d3d3298a978e525b315a779db920714946011ccda92a0caf2e2a5d72cd21cb",
+      "kind": "operational"
+    },
+    {
+      "id": "spc:0008",
+      "number": 8,
+      "slug": "repo-policy",
+      "title": "Repository policy",
+      "path": ".ssot/specs/SPEC-0008-repo-policy.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "6e80832275da7d4c3609cbef3e39c1128bd14d559cdf315f78982dcc8f91edbf",
+      "kind": "operational"
+    },
+    {
+      "id": "spc:0009",
+      "number": 9,
+      "slug": "gates-and-fences",
+      "title": "Gates and fences",
+      "path": ".ssot/specs/SPEC-0009-gates-and-fences.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "20ad0cb68eafaef7c0095136eef6ebe9b0704b5ad3d81211039ef73745bc02af",
+      "kind": "normative"
+    },
+    {
+      "id": "spc:0010",
+      "number": 10,
+      "slug": "id-normalization",
+      "title": "ID normalization",
+      "path": ".ssot/specs/SPEC-0010-id-normalization.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "a217c496f8534f78906cf589ec07f14f3babfbf900d848a94bb58202ea06044f",
+      "kind": "normative"
+    },
+    {
+      "id": "spc:0011",
+      "number": 11,
+      "slug": "file-tree",
+      "title": "File tree",
+      "path": ".ssot/specs/SPEC-0011-file-tree.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "739d774289548e1d10e9c20dd88d24e774b1ddfd68cdc16bf8424481ef4b705b",
+      "kind": "normative"
+    },
+    {
+      "id": "spc:0012",
+      "number": 12,
+      "slug": "planning-horizons",
+      "title": "Planning horizons",
+      "path": ".ssot/specs/SPEC-0012-planning-horizons.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "bd748f1d15321d770410ed04ebfe4e6e558e02a30bfbd4e4bddce327f2f7f2d0",
+      "kind": "normative"
+    },
+    {
+      "id": "spc:0013",
+      "number": 13,
+      "slug": "python-api",
+      "title": "Python API",
+      "path": ".ssot/specs/SPEC-0013-python-api.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "a18bcc7c72373487d8cd4a88b93b605ca6a46703dbd8d5fa5d9f8c86937348da",
+      "kind": "operational"
+    }
+  ]
+}
