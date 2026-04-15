@@ -1,0 +1,1309 @@
+{
+  "schema_version": 4,
+  "repo": {
+    "id": "repo:tigr-asgi-contracts",
+    "name": "tigr-asgi-contracts",
+    "version": "0.1.0"
+  },
+  "tooling": {
+    "ssot_registry_version": "0.2.1",
+    "initialized_with_version": "0.2.1",
+    "last_upgraded_from_version": "0.2.1"
+  },
+  "paths": {
+    "ssot_root": ".ssot",
+    "schema_root": ".ssot/schemas",
+    "adr_root": ".ssot/adr",
+    "spec_root": ".ssot/specs",
+    "graph_root": ".ssot/graphs",
+    "evidence_root": ".ssot/evidence",
+    "release_root": ".ssot/releases",
+    "report_root": ".ssot/reports",
+    "cache_root": ".ssot/cache"
+  },
+  "program": {
+    "active_boundary_id": "bnd:default",
+    "active_release_id": "rel:0.1.0"
+  },
+  "guard_policies": {
+    "claim_closure": {
+      "require_implemented_features": true,
+      "require_linked_tests_passing": true,
+      "require_linked_evidence_passing": true,
+      "require_claim_evidence_tier_alignment": true,
+      "forbid_failed_or_stale_evidence": true
+    },
+    "certification": {
+      "require_release_status_draft_or_candidate": true,
+      "require_frozen_boundary": true,
+      "require_release_claim_coverage_for_boundary_features": true,
+      "require_boundary_features_current_or_explicit": true,
+      "require_feature_target_tiers_met": true,
+      "forbid_open_release_blocking_issues": true,
+      "forbid_active_release_blocking_risks": true
+    },
+    "promotion": {
+      "require_release_status_certified": true,
+      "require_release_snapshot_hashes": true
+    },
+    "publication": {
+      "require_release_status_promoted": true
+    },
+    "lifecycle": {
+      "require_replacement_or_note_for_deprecation": true,
+      "forbid_obsolete_or_removed_in_active_boundary": true,
+      "require_feature_absent_for_removed": true
+    }
+  },
+  "document_id_reservations": {
+    "adr": [
+      {
+        "owner": "ssot-core",
+        "start": 1,
+        "end": 999,
+        "immutable": true,
+        "deletable": false,
+        "assignable_by_repo": false
+      },
+      {
+        "owner": "repo-local-default",
+        "start": 1000,
+        "end": 4999,
+        "immutable": false,
+        "deletable": true,
+        "assignable_by_repo": true
+      }
+    ],
+    "spec": [
+      {
+        "owner": "ssot-core",
+        "start": 1,
+        "end": 999,
+        "immutable": true,
+        "deletable": false,
+        "assignable_by_repo": false
+      },
+      {
+        "owner": "repo-local-default",
+        "start": 1000,
+        "end": 4999,
+        "immutable": false,
+        "deletable": true,
+        "assignable_by_repo": true
+      }
+    ]
+  },
+  "features": [
+    {
+      "id": "feat:contract-artifacts",
+      "title": "Canonical contract artifact registry",
+      "description": "Implemented contract yaml/json artifacts under contract/",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:contract-artifacts-complete"
+      ],
+      "test_ids": [
+        "tst:contract-manifest"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:json-schema-validation",
+      "title": "JSON schema validation",
+      "description": "Schema definitions and validators for contract payloads",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:json-schema-valid"
+      ],
+      "test_ids": [
+        "tst:contract-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:legality-matrix",
+      "title": "Binding/family/subevent legality matrix",
+      "description": "Legality matrices for binding-family-subevent compatibility",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:legality-rules-applied"
+      ],
+      "test_ids": [
+        "tst:contract-legality"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:python-bindings",
+      "title": "Python contract package",
+      "description": "Generated Python package for contract models and validators",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:python-parity"
+      ],
+      "test_ids": [
+        "tst:parity-python"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:rust-bindings",
+      "title": "Rust contract package",
+      "description": "Generated Rust crate for contract models and validators",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:rust-parity"
+      ],
+      "test_ids": [
+        "tst:parity-rust"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:typescript-bindings",
+      "title": "TypeScript contract package",
+      "description": "Generated TypeScript package and TSX helpers",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:typescript-parity"
+      ],
+      "test_ids": [
+        "tst:parity-ts"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:artifact-packages",
+      "title": "Artifact distribution packages",
+      "description": "Artifact packaging for npm, python, and rust consumers",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:artifact-packages-sync"
+      ],
+      "test_ids": [
+        "tst:contract-checksums"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:code-generators",
+      "title": "Multi-language code generators",
+      "description": "Generators for Python, Rust, and TypeScript outputs",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:codegen-repeatable"
+      ],
+      "test_ids": [
+        "tst:codegen-ts",
+        "tst:codegen-rust",
+        "tst:codegen-python"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:parity-tests",
+      "title": "Cross-language parity coverage",
+      "description": "Parity tests for contract equivalence across language outputs",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T1",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:cross-language-consistency"
+      ],
+      "test_ids": [
+        "tst:parity-roundtrip"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:release-tooling",
+      "title": "Release and validation tooling",
+      "description": "Tooling to validate schemas, checksums, versions, and release bundles",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "claim_ids": [
+        "clm:release-integrity"
+      ],
+      "test_ids": [
+        "tst:contract-checksums"
+      ],
+      "requires": []
+    }
+  ],
+  "tests": [
+    {
+      "id": "tst:contract-jsonschemas",
+      "title": "Contract JSON schema tests",
+      "status": "passing",
+      "kind": "unit",
+      "path": "tests/contract/test_jsonschemas.py",
+      "feature_ids": [
+        "feat:json-schema-validation"
+      ],
+      "claim_ids": [
+        "clm:json-schema-valid"
+      ],
+      "evidence_ids": [
+        "evd:contract-jsonschemas"
+      ]
+    },
+    {
+      "id": "tst:contract-manifest",
+      "title": "Contract manifest tests",
+      "status": "passing",
+      "kind": "unit",
+      "path": "tests/contract/test_manifest.py",
+      "feature_ids": [
+        "feat:contract-artifacts"
+      ],
+      "claim_ids": [
+        "clm:contract-artifacts-complete"
+      ],
+      "evidence_ids": [
+        "evd:contract-manifest"
+      ]
+    },
+    {
+      "id": "tst:contract-legality",
+      "title": "Contract legality tests",
+      "status": "passing",
+      "kind": "unit",
+      "path": "tests/contract/test_legality.py",
+      "feature_ids": [
+        "feat:legality-matrix"
+      ],
+      "claim_ids": [
+        "clm:legality-rules-applied"
+      ],
+      "evidence_ids": [
+        "evd:contract-legality"
+      ]
+    },
+    {
+      "id": "tst:contract-checksums",
+      "title": "Contract checksum tests",
+      "status": "passing",
+      "kind": "unit",
+      "path": "tests/contract/test_checksums.py",
+      "feature_ids": [
+        "feat:release-tooling",
+        "feat:artifact-packages"
+      ],
+      "claim_ids": [
+        "clm:release-integrity",
+        "clm:artifact-packages-sync"
+      ],
+      "evidence_ids": [
+        "evd:contract-checksums"
+      ]
+    },
+    {
+      "id": "tst:codegen-ts",
+      "title": "TypeScript codegen tests",
+      "status": "passing",
+      "kind": "unit",
+      "path": "tests/codegen/test_ts_codegen.py",
+      "feature_ids": [
+        "feat:code-generators"
+      ],
+      "claim_ids": [
+        "clm:codegen-repeatable"
+      ],
+      "evidence_ids": [
+        "evd:codegen-ts"
+      ]
+    },
+    {
+      "id": "tst:codegen-rust",
+      "title": "Rust codegen tests",
+      "status": "passing",
+      "kind": "unit",
+      "path": "tests/codegen/test_rust_codegen.py",
+      "feature_ids": [
+        "feat:code-generators"
+      ],
+      "claim_ids": [
+        "clm:codegen-repeatable"
+      ],
+      "evidence_ids": [
+        "evd:codegen-rust"
+      ]
+    },
+    {
+      "id": "tst:codegen-python",
+      "title": "Python codegen tests",
+      "status": "passing",
+      "kind": "unit",
+      "path": "tests/codegen/test_python_codegen.py",
+      "feature_ids": [
+        "feat:code-generators"
+      ],
+      "claim_ids": [
+        "clm:codegen-repeatable"
+      ],
+      "evidence_ids": [
+        "evd:codegen-python"
+      ]
+    },
+    {
+      "id": "tst:parity-ts",
+      "title": "TypeScript parity tests",
+      "status": "passing",
+      "kind": "integration",
+      "path": "tests/parity/test_ts_vs_contract.py",
+      "feature_ids": [
+        "feat:typescript-bindings"
+      ],
+      "claim_ids": [
+        "clm:typescript-parity"
+      ],
+      "evidence_ids": [
+        "evd:parity-ts"
+      ]
+    },
+    {
+      "id": "tst:parity-rust",
+      "title": "Rust parity tests",
+      "status": "passing",
+      "kind": "integration",
+      "path": "tests/parity/test_rust_vs_contract.py",
+      "feature_ids": [
+        "feat:rust-bindings"
+      ],
+      "claim_ids": [
+        "clm:rust-parity"
+      ],
+      "evidence_ids": [
+        "evd:parity-rust"
+      ]
+    },
+    {
+      "id": "tst:parity-roundtrip",
+      "title": "Cross-language roundtrip parity tests",
+      "status": "passing",
+      "kind": "integration",
+      "path": "tests/parity/test_cross_language_roundtrip.py",
+      "feature_ids": [
+        "feat:parity-tests"
+      ],
+      "claim_ids": [
+        "clm:cross-language-consistency"
+      ],
+      "evidence_ids": [
+        "evd:parity-roundtrip"
+      ]
+    },
+    {
+      "id": "tst:parity-python",
+      "title": "Python parity tests",
+      "status": "passing",
+      "kind": "integration",
+      "path": "tests/parity/test_python_vs_contract.py",
+      "feature_ids": [
+        "feat:python-bindings"
+      ],
+      "claim_ids": [
+        "clm:python-parity"
+      ],
+      "evidence_ids": [
+        "evd:parity-python"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "clm:contract-artifacts-complete",
+      "title": "Contract artifacts are complete and versioned",
+      "status": "asserted",
+      "tier": "T2",
+      "kind": "assertion",
+      "description": "",
+      "feature_ids": [
+        "feat:contract-artifacts"
+      ],
+      "test_ids": [
+        "tst:contract-manifest"
+      ],
+      "evidence_ids": [
+        "evd:contract-manifest"
+      ]
+    },
+    {
+      "id": "clm:json-schema-valid",
+      "title": "JSON schema enforces contract structure",
+      "status": "asserted",
+      "tier": "T2",
+      "kind": "assertion",
+      "description": "",
+      "feature_ids": [
+        "feat:json-schema-validation"
+      ],
+      "test_ids": [
+        "tst:contract-jsonschemas"
+      ],
+      "evidence_ids": [
+        "evd:contract-jsonschemas"
+      ]
+    },
+    {
+      "id": "clm:legality-rules-applied",
+      "title": "Legality rules are enforced across matrices",
+      "status": "asserted",
+      "tier": "T2",
+      "kind": "assertion",
+      "description": "",
+      "feature_ids": [
+        "feat:legality-matrix"
+      ],
+      "test_ids": [
+        "tst:contract-legality"
+      ],
+      "evidence_ids": [
+        "evd:contract-legality"
+      ]
+    },
+    {
+      "id": "clm:python-parity",
+      "title": "Python package matches contract artifacts",
+      "status": "asserted",
+      "tier": "T2",
+      "kind": "assertion",
+      "description": "",
+      "feature_ids": [
+        "feat:python-bindings"
+      ],
+      "test_ids": [
+        "tst:parity-python"
+      ],
+      "evidence_ids": [
+        "evd:parity-python"
+      ]
+    },
+    {
+      "id": "clm:rust-parity",
+      "title": "Rust package matches contract artifacts",
+      "status": "asserted",
+      "tier": "T2",
+      "kind": "assertion",
+      "description": "",
+      "feature_ids": [
+        "feat:rust-bindings"
+      ],
+      "test_ids": [
+        "tst:parity-rust"
+      ],
+      "evidence_ids": [
+        "evd:parity-rust"
+      ]
+    },
+    {
+      "id": "clm:typescript-parity",
+      "title": "TypeScript package matches contract artifacts",
+      "status": "asserted",
+      "tier": "T2",
+      "kind": "assertion",
+      "description": "",
+      "feature_ids": [
+        "feat:typescript-bindings"
+      ],
+      "test_ids": [
+        "tst:parity-ts"
+      ],
+      "evidence_ids": [
+        "evd:parity-ts"
+      ]
+    },
+    {
+      "id": "clm:artifact-packages-sync",
+      "title": "Artifact packages mirror contract files",
+      "status": "asserted",
+      "tier": "T2",
+      "kind": "assertion",
+      "description": "",
+      "feature_ids": [
+        "feat:artifact-packages"
+      ],
+      "test_ids": [
+        "tst:contract-checksums"
+      ],
+      "evidence_ids": [
+        "evd:contract-checksums"
+      ]
+    },
+    {
+      "id": "clm:codegen-repeatable",
+      "title": "Code generation outputs are repeatable",
+      "status": "asserted",
+      "tier": "T2",
+      "kind": "assertion",
+      "description": "",
+      "feature_ids": [
+        "feat:code-generators"
+      ],
+      "test_ids": [
+        "tst:codegen-ts",
+        "tst:codegen-rust",
+        "tst:codegen-python"
+      ],
+      "evidence_ids": [
+        "evd:codegen-ts",
+        "evd:codegen-rust",
+        "evd:codegen-python"
+      ]
+    },
+    {
+      "id": "clm:cross-language-consistency",
+      "title": "Cross-language parity remains consistent",
+      "status": "asserted",
+      "tier": "T1",
+      "kind": "assertion",
+      "description": "",
+      "feature_ids": [
+        "feat:parity-tests"
+      ],
+      "test_ids": [
+        "tst:parity-roundtrip"
+      ],
+      "evidence_ids": [
+        "evd:parity-roundtrip"
+      ]
+    },
+    {
+      "id": "clm:release-integrity",
+      "title": "Release tooling preserves integrity checks",
+      "status": "asserted",
+      "tier": "T2",
+      "kind": "assertion",
+      "description": "",
+      "feature_ids": [
+        "feat:release-tooling"
+      ],
+      "test_ids": [
+        "tst:contract-checksums"
+      ],
+      "evidence_ids": [
+        "evd:contract-checksums"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "evd:contract-jsonschemas",
+      "title": "Evidence for Contract JSON schema tests",
+      "status": "collected",
+      "kind": "file",
+      "tier": "T2",
+      "path": "tests/contract/test_jsonschemas.py",
+      "claim_ids": [
+        "clm:json-schema-valid"
+      ],
+      "test_ids": [
+        "tst:contract-jsonschemas"
+      ]
+    },
+    {
+      "id": "evd:contract-manifest",
+      "title": "Evidence for Contract manifest tests",
+      "status": "collected",
+      "kind": "file",
+      "tier": "T2",
+      "path": "tests/contract/test_manifest.py",
+      "claim_ids": [
+        "clm:contract-artifacts-complete"
+      ],
+      "test_ids": [
+        "tst:contract-manifest"
+      ]
+    },
+    {
+      "id": "evd:contract-legality",
+      "title": "Evidence for Contract legality tests",
+      "status": "collected",
+      "kind": "file",
+      "tier": "T2",
+      "path": "tests/contract/test_legality.py",
+      "claim_ids": [
+        "clm:legality-rules-applied"
+      ],
+      "test_ids": [
+        "tst:contract-legality"
+      ]
+    },
+    {
+      "id": "evd:contract-checksums",
+      "title": "Evidence for Contract checksum tests",
+      "status": "collected",
+      "kind": "file",
+      "tier": "T2",
+      "path": "tests/contract/test_checksums.py",
+      "claim_ids": [
+        "clm:release-integrity",
+        "clm:artifact-packages-sync"
+      ],
+      "test_ids": [
+        "tst:contract-checksums"
+      ]
+    },
+    {
+      "id": "evd:codegen-ts",
+      "title": "Evidence for TypeScript codegen tests",
+      "status": "collected",
+      "kind": "file",
+      "tier": "T2",
+      "path": "tests/codegen/test_ts_codegen.py",
+      "claim_ids": [
+        "clm:codegen-repeatable"
+      ],
+      "test_ids": [
+        "tst:codegen-ts"
+      ]
+    },
+    {
+      "id": "evd:codegen-rust",
+      "title": "Evidence for Rust codegen tests",
+      "status": "collected",
+      "kind": "file",
+      "tier": "T2",
+      "path": "tests/codegen/test_rust_codegen.py",
+      "claim_ids": [
+        "clm:codegen-repeatable"
+      ],
+      "test_ids": [
+        "tst:codegen-rust"
+      ]
+    },
+    {
+      "id": "evd:codegen-python",
+      "title": "Evidence for Python codegen tests",
+      "status": "collected",
+      "kind": "file",
+      "tier": "T2",
+      "path": "tests/codegen/test_python_codegen.py",
+      "claim_ids": [
+        "clm:codegen-repeatable"
+      ],
+      "test_ids": [
+        "tst:codegen-python"
+      ]
+    },
+    {
+      "id": "evd:parity-ts",
+      "title": "Evidence for TypeScript parity tests",
+      "status": "collected",
+      "kind": "file",
+      "tier": "T2",
+      "path": "tests/parity/test_ts_vs_contract.py",
+      "claim_ids": [
+        "clm:typescript-parity"
+      ],
+      "test_ids": [
+        "tst:parity-ts"
+      ]
+    },
+    {
+      "id": "evd:parity-rust",
+      "title": "Evidence for Rust parity tests",
+      "status": "collected",
+      "kind": "file",
+      "tier": "T2",
+      "path": "tests/parity/test_rust_vs_contract.py",
+      "claim_ids": [
+        "clm:rust-parity"
+      ],
+      "test_ids": [
+        "tst:parity-rust"
+      ]
+    },
+    {
+      "id": "evd:parity-roundtrip",
+      "title": "Evidence for Cross-language roundtrip parity tests",
+      "status": "collected",
+      "kind": "file",
+      "tier": "T2",
+      "path": "tests/parity/test_cross_language_roundtrip.py",
+      "claim_ids": [
+        "clm:cross-language-consistency"
+      ],
+      "test_ids": [
+        "tst:parity-roundtrip"
+      ]
+    },
+    {
+      "id": "evd:parity-python",
+      "title": "Evidence for Python parity tests",
+      "status": "collected",
+      "kind": "file",
+      "tier": "T2",
+      "path": "tests/parity/test_python_vs_contract.py",
+      "claim_ids": [
+        "clm:python-parity"
+      ],
+      "test_ids": [
+        "tst:parity-python"
+      ]
+    }
+  ],
+  "issues": [],
+  "risks": [],
+  "boundaries": [
+    {
+      "id": "bnd:default",
+      "title": "Default boundary",
+      "status": "draft",
+      "frozen": false,
+      "feature_ids": []
+    }
+  ],
+  "releases": [
+    {
+      "id": "rel:0.1.0",
+      "version": "0.1.0",
+      "status": "draft",
+      "boundary_id": "bnd:default",
+      "claim_ids": [],
+      "evidence_ids": []
+    }
+  ],
+  "adrs": [
+    {
+      "id": "adr:0001",
+      "number": 1,
+      "slug": "canonical-json-registry",
+      "title": "Canonical registry is a single JSON document",
+      "path": ".ssot/adr/ADR-0001-canonical-json-registry.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "9f5bb7d2ee345837ed30579c9e494a239f470855776ba5dc10e1e5285ec75997",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0002",
+      "number": 2,
+      "slug": "features-are-targetable-units",
+      "title": "Features are the targetable units",
+      "path": ".ssot/adr/ADR-0002-features-are-targetable-units.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "c088e2e19d94b2751b170bff365d71361ee505e67c6467718b9dba9819fa98cb",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0003",
+      "number": 3,
+      "slug": "issues-are-plannable-work-items",
+      "title": "Issues are plannable work items",
+      "path": ".ssot/adr/ADR-0003-issues-are-plannable-work-items.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "5f9facd077de1b597cd92f881be2f24e7d2a84c53fbafadaa8d90e5a6fd43d36",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0004",
+      "number": 4,
+      "slug": "entity-centric-registry-derived-graph",
+      "title": "Entity-centric registry with a derived graph export",
+      "path": ".ssot/adr/ADR-0004-entity-centric-registry-derived-graph.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "9070a9343059aeb88c9c814eb6b09779259655b64db1c72c8dc87b67a5e0208b",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0005",
+      "number": 5,
+      "slug": "normalized-prefixed-ids",
+      "title": "Normalized prefixed IDs",
+      "path": ".ssot/adr/ADR-0005-normalized-prefixed-ids.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "1b3ac2ec39ede1aa4f393d70ba284d76e5fb8be43aaf76bed3461b5c0d8bf790",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0006",
+      "number": 6,
+      "slug": "claim-status-vs-tier",
+      "title": "Claim status and claim tier are orthogonal",
+      "path": ".ssot/adr/ADR-0006-claim-status-vs-tier.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "77b436414b489d834b4cfc3c9e73d3109253c1e69e4c5177773ba1b2e1a049b9",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0007",
+      "number": 7,
+      "slug": "feature-implementation-vs-lifecycle",
+      "title": "Feature implementation state is separate from lifecycle state",
+      "path": ".ssot/adr/ADR-0007-feature-implementation-vs-lifecycle.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "1d9827f1d9ac80e21c9eb01860525546a12414b6d4dd59f85e2d1bfe3d9386f2",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0008",
+      "number": 8,
+      "slug": "immutable-boundary-and-release-snapshots",
+      "title": "Immutable boundary and release snapshots",
+      "path": ".ssot/adr/ADR-0008-immutable-boundary-and-release-snapshots.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "05cdcfecdd0291bf70d83df6f759234a6e030bee813f9ffccc281339f1020020",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0009",
+      "number": 9,
+      "slug": "fail-closed-guards",
+      "title": "Fail-closed guards",
+      "path": ".ssot/adr/ADR-0009-fail-closed-guards.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "b3e4968a2407889f0a369cb4cd09aa6b22e25a6404d4aeda17ef9d8b39f639b8",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0010",
+      "number": 10,
+      "slug": "generated-projections-are-non-canonical",
+      "title": "Generated projections are non-canonical",
+      "path": ".ssot/adr/ADR-0010-generated-projections-are-non-canonical.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "9384cc13dad85dc2ee3d65405edf92ae0cb8c90874db52beba33fa63f1fb1aad",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0011",
+      "number": 11,
+      "slug": "explicit-schema-versioning",
+      "title": "Explicit schema versioning",
+      "path": ".ssot/adr/ADR-0011-explicit-schema-versioning.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "476d6d2c6e8bd6f6775492f11f2de3f26b77545dda62bd6e78e34ff37b53ed4e",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:0012",
+      "number": 12,
+      "slug": "portable-core-repo-specific-evidence-adapters",
+      "title": "Portable core with repo-specific evidence generation outside the core",
+      "path": ".ssot/adr/ADR-0012-portable-core-repo-specific-evidence-adapters.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "ba8ea2c1e20eda7094c2cf92c9fd63427c1ef3edf9c18d2f43357e761101ba79",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:1000",
+      "number": 1000,
+      "slug": "contract-governance-policy",
+      "title": "Contract governance policy",
+      "path": ".ssot/adr/ADR-1000-contract-governance-policy.md",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.1",
+      "content_sha256": "cb9f817e019f4e752dbc334191f81c146509e38c1aad4bba111c44ffba0b89f8",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    },
+    {
+      "id": "adr:1001",
+      "number": 1001,
+      "slug": "versioning-release-policy",
+      "title": "Versioning and release policy",
+      "path": ".ssot/adr/ADR-1001-versioning-release-policy.md",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.1",
+      "content_sha256": "20f7e22c7a5332cb209d42a06b70e7bab013e6c14e2debd6b04016c38b5d8e69",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": []
+    }
+  ],
+  "specs": [
+    {
+      "id": "spc:0001",
+      "number": 1,
+      "slug": "registry-core",
+      "title": "Registry core",
+      "path": ".ssot/specs/SPEC-0001-registry-core.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "2244e964a2e98cbb8c96959e80f94fbb6684825aa41f64e34d9bc918cb229b35",
+      "kind": "normative"
+    },
+    {
+      "id": "spc:0002",
+      "number": 2,
+      "slug": "cli",
+      "title": "CLI",
+      "path": ".ssot/specs/SPEC-0002-cli.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "921aecf6cf292ef841c49c73b45ab8a38bdae817ef850097a870dc5241473c39",
+      "kind": "operational"
+    },
+    {
+      "id": "spc:0003",
+      "number": 3,
+      "slug": "graph-model",
+      "title": "Graph model",
+      "path": ".ssot/specs/SPEC-0003-graph-model.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "dbf7093288b63b1fd3a1f38d60b66147d93c27511487de992ee0d59efb43b744",
+      "kind": "normative"
+    },
+    {
+      "id": "spc:0004",
+      "number": 4,
+      "slug": "feature-lifecycle",
+      "title": "Feature lifecycle",
+      "path": ".ssot/specs/SPEC-0004-feature-lifecycle.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "93f42169b551989e38f00598f899e6bfd9fc443a15467da77ead51c5bd01d02e",
+      "kind": "normative"
+    },
+    {
+      "id": "spc:0005",
+      "number": 5,
+      "slug": "claim-statuses",
+      "title": "Claim statuses",
+      "path": ".ssot/specs/SPEC-0005-claim-statuses.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "a22501ba039e61a6f438d50685a3e33a7928fb37179f4a8da31c8c3420ed9683",
+      "kind": "normative"
+    },
+    {
+      "id": "spc:0006",
+      "number": 6,
+      "slug": "claim-tiers",
+      "title": "Claim tiers",
+      "path": ".ssot/specs/SPEC-0006-claim-tiers.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "a86608fc0ae4b045cdf59257e666f0254df9a26f2dd93897628fafc142169163",
+      "kind": "normative"
+    },
+    {
+      "id": "spc:0007",
+      "number": 7,
+      "slug": "snapshots-and-reports",
+      "title": "Snapshots and reports",
+      "path": ".ssot/specs/SPEC-0007-snapshots-and-reports.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "47d3d3298a978e525b315a779db920714946011ccda92a0caf2e2a5d72cd21cb",
+      "kind": "operational"
+    },
+    {
+      "id": "spc:0008",
+      "number": 8,
+      "slug": "repo-policy",
+      "title": "Repository policy",
+      "path": ".ssot/specs/SPEC-0008-repo-policy.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "6e80832275da7d4c3609cbef3e39c1128bd14d559cdf315f78982dcc8f91edbf",
+      "kind": "operational"
+    },
+    {
+      "id": "spc:0009",
+      "number": 9,
+      "slug": "gates-and-fences",
+      "title": "Gates and fences",
+      "path": ".ssot/specs/SPEC-0009-gates-and-fences.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "20ad0cb68eafaef7c0095136eef6ebe9b0704b5ad3d81211039ef73745bc02af",
+      "kind": "normative"
+    },
+    {
+      "id": "spc:0010",
+      "number": 10,
+      "slug": "id-normalization",
+      "title": "ID normalization",
+      "path": ".ssot/specs/SPEC-0010-id-normalization.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "a217c496f8534f78906cf589ec07f14f3babfbf900d848a94bb58202ea06044f",
+      "kind": "normative"
+    },
+    {
+      "id": "spc:0011",
+      "number": 11,
+      "slug": "file-tree",
+      "title": "File tree",
+      "path": ".ssot/specs/SPEC-0011-file-tree.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "739d774289548e1d10e9c20dd88d24e774b1ddfd68cdc16bf8424481ef4b705b",
+      "kind": "normative"
+    },
+    {
+      "id": "spc:0012",
+      "number": 12,
+      "slug": "planning-horizons",
+      "title": "Planning horizons",
+      "path": ".ssot/specs/SPEC-0012-planning-horizons.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "bd748f1d15321d770410ed04ebfe4e6e558e02a30bfbd4e4bddce327f2f7f2d0",
+      "kind": "normative"
+    },
+    {
+      "id": "spc:0013",
+      "number": 13,
+      "slug": "python-api",
+      "title": "Python API",
+      "path": ".ssot/specs/SPEC-0013-python-api.md",
+      "origin": "ssot-core",
+      "managed": true,
+      "immutable": true,
+      "package_version": "0.2.1",
+      "content_sha256": "a18bcc7c72373487d8cd4a88b93b605ca6a46703dbd8d5fa5d9f8c86937348da",
+      "kind": "operational"
+    },
+    {
+      "id": "spc:1000",
+      "number": 1000,
+      "slug": "contract-governance-spec",
+      "title": "Contract governance specification",
+      "path": ".ssot/specs/SPEC-1000-contract-governance-spec.md",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.1",
+      "content_sha256": "dd696ab6bc10069de415d69edd16e7e8360bb72dfee81b2c8d70dd9ebf41a18e",
+      "kind": "operational"
+    },
+    {
+      "id": "spc:1001",
+      "number": 1001,
+      "slug": "conformance-spec",
+      "title": "Conformance specification",
+      "path": ".ssot/specs/SPEC-1001-conformance-spec.md",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.1",
+      "content_sha256": "635c0ebb584692fba36eaab9ed5e818d91bfcc4bec6cc0b81b25ac3d1c9d65d9",
+      "kind": "normative"
+    },
+    {
+      "id": "spc:1002",
+      "number": 1002,
+      "slug": "publishing-spec",
+      "title": "Publishing specification",
+      "path": ".ssot/specs/SPEC-1002-publishing-spec.md",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.1",
+      "content_sha256": "c2eaa169a26b35b1faf1e672fb6739ebe1d5d6946537e7ca4a7f109d770e6b20",
+      "kind": "operational"
+    },
+    {
+      "id": "spc:1003",
+      "number": 1003,
+      "slug": "versioning-spec",
+      "title": "Versioning specification",
+      "path": ".ssot/specs/SPEC-1003-versioning-spec.md",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.1",
+      "content_sha256": "6367782660e03392dac2dcfc82b3c5033c185b9b9a2ade2b1f64ab950efadfe7",
+      "kind": "normative"
+    }
+  ]
+}
