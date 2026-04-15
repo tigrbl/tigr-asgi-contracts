@@ -4,14 +4,13 @@
   "from_schema_version": 4,
   "to_schema_version": 4,
   "from_version": "0.2.1",
-  "to_version": "0.2.1",
+  "to_version": "0.2.2",
   "migrations": [],
   "renamed_specs": [],
   "sync": {
     "adr": {
       "created": [],
-      "updated": [],
-      "unchanged": [
+      "updated": [
         "adr:0001",
         "adr:0002",
         "adr:0003",
@@ -24,12 +23,12 @@
         "adr:0010",
         "adr:0011",
         "adr:0012"
-      ]
+      ],
+      "unchanged": []
     },
     "spec": {
       "created": [],
-      "updated": [],
-      "unchanged": [
+      "updated": [
         "spc:0001",
         "spc:0002",
         "spc:0003",
@@ -43,7 +42,8 @@
         "spc:0011",
         "spc:0012",
         "spc:0013"
-      ]
+      ],
+      "unchanged": []
     }
   },
   "changed": true
