@@ -6,7 +6,7 @@ This repository uses **`ssot-registry`** as the canonical system-of-record for p
 
 ## Tool references used for this guide
 - CLI help (`ssot-registry -h`, plus domain command help for `feature`, `test`, `claim`, `evidence`, `release`, `registry`).
-- PyPI package details for `ssot-registry` (current package `0.2.2`, Python `>=3.10`, homepage/repo at `github.com/groupsum/ssot-registry`).
+- PyPI package details for `ssot-registry` (current package `0.2.6`, Python `>=3.10`, homepage/repo at `github.com/groupsum/ssot-registry`).
 
 ## Canonical files and paths
 - Registry root: `.ssot/`
@@ -20,7 +20,7 @@ Use repository root (`.`) as the command path unless you need a specific file pa
 2. Link entities so traceability is explicit.
 3. Validate the registry.
 4. Evaluate claims and verify evidence.
-5. Gate release operations via certify → promote → publish.
+5. Gate release operations via certify -> promote -> publish.
 
 ## 1) Feature tracking
 Use features to represent deliverable behavior and planning intent.

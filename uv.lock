@@ -413,6 +413,40 @@ wheels = [
 ]
 
 [[package]]
+name = "ssot-contracts"
+version = "0.2.6"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/c7/33/a633d105583e568330e194cf3890b80bea1bcb1746e64858e4ab46784b8d/ssot_contracts-0.2.6.tar.gz", hash = "sha256:4ca44617c4be93a123d7e6170cdf262f1c322b9d064024247616d4a92e1eb6cb", size = 22676 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/30/9a/3988a2901fbad1974ae94a126b64c49ab61b3c252a8bb8373b56e1cd46c8/ssot_contracts-0.2.6-py3-none-any.whl", hash = "sha256:ba82fb1bb27045d8082b8768272c2329860a4a06df0006b0b558b0da0c6c6f7b", size = 39156 },
+]
+
+[[package]]
+name = "ssot-registry"
+version = "0.2.6"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "ssot-contracts" },
+    { name = "ssot-views" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/35/36/ffd7bfe72aba7141a3a06d8a9eaf2d134b8f32e4da094dffbbf9fd3f5569/ssot_registry-0.2.6.tar.gz", hash = "sha256:e7fb49a2fcc9172c14581d3545960a35c2a9e639d58494b3d152b69ee7b9a651", size = 66205 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/07/1e/ca6d60b8bf7d52714a1c69cd0e5c258e31d2c51f796ec5b6a0a891389328/ssot_registry-0.2.6-py3-none-any.whl", hash = "sha256:98b4851067be1abcbda2686e549971ae6497a7858b93c02c9838d1bbe9b84485", size = 93322 },
+]
+
+[[package]]
+name = "ssot-views"
+version = "0.2.6"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "ssot-contracts" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ee/b4/9fe70cd57bbfb580d70dc594e2831429cace0fa5d3c185e6c4203a362fb1/ssot_views-0.2.6.tar.gz", hash = "sha256:4cfd900b93a4df47fd0d5c2c6a021b4f4e8e8cc941e5ec4edfd697e73a851ed3", size = 6627 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c1/2f/6663421135d6e0dd2e4f9bdce7ae09499bf6ccb89bca21eeac53719b42f2/ssot_views-0.2.6-py3-none-any.whl", hash = "sha256:5dae6a891eeaf8cd6472e86f5b1956f3a90670df4b9feab0b8857222b61eddda", size = 6444 },
+]
+
+[[package]]
 name = "tigr-contract-workspace"
 version = "0.1.0"
 source = { virtual = "." }
@@ -422,6 +456,7 @@ dependencies = [
     { name = "pydantic" },
     { name = "pytest" },
     { name = "pyyaml" },
+    { name = "ssot-registry" },
 ]
 
 [package.metadata]
@@ -431,6 +466,7 @@ requires-dist = [
     { name = "pydantic", specifier = ">=2.8" },
     { name = "pytest", specifier = ">=8.3" },
     { name = "pyyaml", specifier = ">=6.0" },
+    { name = "ssot-registry", specifier = ">=0.2.6" },
 ]
 
 [[package]]
