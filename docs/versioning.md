@@ -43,4 +43,4 @@ Valid bump types are `patch`, `minor`, `major`, and `finalize`.
 
 All GitHub releases tag automatically as `tigr-asgi-contracts==<version>`.
 
-The `prepare-release` GitHub workflow uses the same script and commits only version metadata changes before optionally triggering `release-candidate`.
+The `prepare-release` GitHub workflow uses the same script, commits only version metadata changes, and then runs the release/bundle workflow with optional GitHub Release and PyPI publish toggles.

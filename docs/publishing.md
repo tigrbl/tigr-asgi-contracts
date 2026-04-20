@@ -21,15 +21,18 @@ This repository uses a strict six-step release lifecycle:
    - `python tools/build_checksums.py`
    - `python tools/generate_all.py`
    - `python tools/check_versions.py`
-   - `pytest -q`
+   - `python -m pytest -q`
 3. Commit source contract changes and generated downstream outputs together.
 
 ### CI sequence
 
-1. Validate YAML and JSON Schema.
+1. Validate YAML and JSON Schema on Python `3.10` through `3.14`.
 2. Rebuild `manifest.json` and `checksums.txt` and fail if tracked files change.
-3. Regenerate downstream packages and fail if tracked files change.
-4. Run parity tests.
+3. Regenerate downstream packages and fail if tracked files change across the same Python matrix.
+4. Run parity and packaging checks across:
+   - Python `3.10` through `3.14`
+   - Node `21` through `25`
+   - Rust `1.91.0` through `1.95.0`
 
 ### Promotion sequence
 
@@ -37,14 +40,13 @@ Promotion is the creation of an immutable release-candidate bundle.
 
 The release-candidate workflow performs:
 
-1. validation
+1. matrix validation across Python `3.10` through `3.14`, Node `21` through `25`, and Rust `1.91.0` through `1.95.0`
 2. regeneration
 3. clean-tree verification
-4. tests
-5. package build
-6. bundle upload
-7. optional GitHub release creation tagged as `tigr-asgi-contracts==<version>`
-8. optional PyPI publish of the Python wheel/sdist bundle
+4. package and release bundle build
+5. bundle upload
+6. optional GitHub release creation tagged as `tigr-asgi-contracts==<version>`
+7. optional PyPI publish of the Python wheel/sdist bundle
 
 ### Prepare sequence
 
@@ -55,14 +57,14 @@ The `prepare-release` workflow performs:
 1. version bump across `VERSION` and all package manifests
 2. version consistency verification
 3. commit and push of version-only metadata changes
-4. optional dispatch of `release-candidate` with explicit GitHub Release and PyPI publish toggles
+4. dispatch of `release-candidate` with explicit GitHub Release and PyPI publish toggles
 
 ### Publish sequence
 
 Publishing uses the promoted candidate as the source of truth.
 
 - PyPI publishes from the promoted wheel/sdist artifacts.
-- npm publishes from the promoted tarballs.
+- npm publishes from the promoted tarballs, with an option to replay the most recent `1` to `5` release bundles.
 - crates.io publishes from the promoted source tag / commit.
 
 ### Release sequence

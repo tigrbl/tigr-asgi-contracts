@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "tigr-contract-artifacts"
 version = "0.1.1"
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 description = "Canonical contract artifacts for the Tigr ASGI contract"
 readme = "README.md"
 license = { text = "Apache-2.0" }

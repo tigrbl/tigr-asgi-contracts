@@ -11,6 +11,17 @@ on:
         required: true
         default: true
         type: boolean
+      npm_release_count:
+        description: Number of recent release bundles to publish to npm
+        required: true
+        default: '1'
+        type: choice
+        options:
+          - '1'
+          - '2'
+          - '3'
+          - '4'
+          - '5'
       publish_to_pypi:
         description: Publish Python distributions to PyPI
         required: true
@@ -47,9 +58,57 @@ jobs:
       - name: Download promoted assets
         env:
           GH_TOKEN: ${{ github.token }}
+        shell: bash
         run: |
-          mkdir -p dist/promoted
-          gh release download "${{ inputs.rc_tag }}" --dir dist/promoted
+          mkdir -p dist/promoted/current
+          gh release download "${{ inputs.rc_tag }}" --dir dist/promoted/current
+      - name: Download previous npm release bundles
+        if: ${{ inputs.npm_release_count != '1' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          CURRENT_TAG: ${{ inputs.rc_tag }}
+          NPM_RELEASE_COUNT: ${{ inputs.npm_release_count }}
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import urllib.request
+          from pathlib import Path
+
+          repo = os.environ["GITHUB_REPOSITORY"]
+          token = os.environ["GH_TOKEN"]
+          current_tag = os.environ["CURRENT_TAG"]
+          count = max(int(os.environ["NPM_RELEASE_COUNT"]) - 1, 0)
+          request = urllib.request.Request(
+              f"https://api.github.com/repos/{repo}/releases?per_page=20",
+              headers={
+                  "Accept": "application/vnd.github+json",
+                  "Authorization": f"Bearer {token}",
+                  "User-Agent": "tigr-asgi-contracts-release-workflow",
+              },
+          )
+          with urllib.request.urlopen(request) as response:
+              payload = json.load(response)
+          tags = []
+          for release in payload:
+              if release.get("draft"):
+                  continue
+              tag = release.get("tag_name", "")
+              if not tag.startswith("tigr-asgi-contracts=="):
+                  continue
+              if tag == current_tag:
+                  continue
+              tags.append(tag)
+          Path("dist/promoted/recent_tags.txt").write_text("\n".join(tags[:count]), encoding="utf-8")
+          PY
+          while IFS= read -r tag; do
+            [ -z "$tag" ] && continue
+            safe_tag=$(printf '%s' "$tag" | tr -c 'A-Za-z0-9._-' '_')
+            mkdir -p "dist/promoted/$safe_tag"
+            gh release download "$tag" --pattern "*.tgz" --dir "dist/promoted/$safe_tag"
+          done < dist/promoted/recent_tags.txt
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -57,8 +116,7 @@ jobs:
       - env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          npm publish dist/promoted/tigr-contract-artifacts-*.tgz --access public
-          npm publish dist/promoted/tigr-asgi-contract-*.tgz --access public
+          python tools/publish_npm_tarballs.py --root dist/promoted
 
   publish-crates:
     runs-on: ubuntu-latest
@@ -67,8 +125,8 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
-      - run: pip install -q pyyaml jsonschema
+          python-version: '3.10'
+      - run: pip install -q pyyaml jsonschema tomli
       - env:
           GH_TOKEN: ${{ github.token }}
         shell: bash

@@ -10,8 +10,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
-      - run: pip install -q PyYAML jsonschema
+          python-version: '3.10'
+      - run: pip install -q PyYAML jsonschema tomli
       - run: python tools/generate_all.py
       - run: git diff --stat > generated.diff.txt || true
       - run: tar -czf generated-bindings-preview.tar.gz packages/contract-py packages/contract-rs packages/contract-npm contract/manifest.json contract/checksums.txt

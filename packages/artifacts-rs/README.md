@@ -6,42 +6,42 @@ Canonical Rust artifact crate for the Tigr ASGI contract. This package ships the
 
 | Ecosystem | Package | Version | Path | Surface files | Notes |
 | --- | --- | --- | --- | --- | --- |
-| python | `tigr-contract-artifacts` | `0.1.0` | `packages/artifacts-py` | 1 | Vendored file accessors |
-| npm | `@tigr/contract-artifacts` | `0.1.0` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
-| rust | **`tigr_contract_artifacts_rs`** | `0.1.0` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
+| python | `tigr-contract-artifacts` | `0.1.1` | `packages/artifacts-py` | 1 | Vendored file accessors |
+| npm | `@tigr/contract-artifacts` | `0.1.1` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
+| rust | **`tigr_contract_artifacts_rs`** | `0.1.1` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
 
 ## Artifact Inventory Matrix
 
 | Artifact path | Category | SHA-256 |
 | --- | --- | --- |
-| `bindings.yaml` | registry | `fa1438b1363b` |
-| `capabilities.yaml` | registry | `389e6a905497` |
-| `compatibility.yaml` | registry | `7f79f950b450` |
-| `completion.yaml` | registry | `036f6b37c6bc` |
-| `exchanges.yaml` | registry | `6c7f8728836f` |
-| `families.yaml` | registry | `75debe47a1e6` |
-| `ids.yaml` | registry | `aec52c6b3ef7` |
-| `legality/binding_family.yaml` | legality | `d73cf6ef3095` |
-| `legality/binding_subevent.yaml` | legality | `d6935ac0f993` |
-| `legality/family_subevent.yaml` | legality | `36fda0df963c` |
-| `schemas/compatibility.schema.json` | schema | `309ba3093d34` |
-| `schemas/completion.schema.json` | schema | `26e6082df0cd` |
-| `schemas/event.schema.json` | schema | `67bb67ddeaab` |
-| `schemas/scope.schema.json` | schema | `2698752580f8` |
-| `schemas/sse.schema.json` | schema | `42e060246611` |
-| `schemas/transport.schema.json` | schema | `865875cec84c` |
-| `schemas/websocket.schema.json` | schema | `b4e38fad362c` |
-| `schemas/webtransport.schema.json` | schema | `e6f9300bfe82` |
-| `scope_types.yaml` | registry | `620b4d20180e` |
-| `subevents.yaml` | registry | `b0abf1e13da9` |
+| `bindings.yaml` | registry | `ab93d4784a93` |
+| `capabilities.yaml` | registry | `ed319c635925` |
+| `compatibility.yaml` | registry | `02cd99d8cf45` |
+| `completion.yaml` | registry | `7fc2e0e28e49` |
+| `exchanges.yaml` | registry | `247afabd2b7f` |
+| `families.yaml` | registry | `6196be209860` |
+| `ids.yaml` | registry | `cf6174199f26` |
+| `legality/binding_family.yaml` | legality | `d8a5698dca47` |
+| `legality/binding_subevent.yaml` | legality | `6887f56300d3` |
+| `legality/family_subevent.yaml` | legality | `e6825cafc262` |
+| `schemas/compatibility.schema.json` | schema | `4a236c5c3d87` |
+| `schemas/completion.schema.json` | schema | `bca4123fa94f` |
+| `schemas/event.schema.json` | schema | `e4d6371971ea` |
+| `schemas/scope.schema.json` | schema | `740b5667af51` |
+| `schemas/sse.schema.json` | schema | `b66d8aeaaea7` |
+| `schemas/transport.schema.json` | schema | `b8dbf744eb08` |
+| `schemas/websocket.schema.json` | schema | `3b99352a9a0d` |
+| `schemas/webtransport.schema.json` | schema | `2c358c3085dd` |
+| `scope_types.yaml` | registry | `4fb8438bf9bd` |
+| `subevents.yaml` | registry | `211c56c974f2` |
 
 ## Release Matrix
 
 | Field | Value |
 | --- | --- |
 | Contract name | `tigr-asgi-contract` |
-| Contract version | `0.1.0` |
-| Artifact version | `0.1.0` |
+| Contract version | `0.1.1` |
+| Artifact version | `0.1.1` |
 | Serde version | `1` |
 | Schema draft | `2020-12` |
 | Bindings | 6 |

@@ -2,8 +2,12 @@ from __future__ import annotations
 
 import json
 import sys
-import tomllib
 from pathlib import Path
+
+try:
+    import tomllib
+except ModuleNotFoundError:  # pragma: no cover - Python 3.10 fallback
+    import tomli as tomllib
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:

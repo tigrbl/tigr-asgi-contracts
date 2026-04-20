@@ -43,7 +43,79 @@ permissions:
   contents: write
 
 jobs:
-  verify-and-build:
+  verify-python:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.10', '3.11', '3.12', '3.13', '3.14']
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref_name != '' && inputs.ref_name || github.ref_name }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -q pytest pydantic pyyaml jsonschema build tomli
+      - run: python tools/check_versions.py
+      - run: python tools/validate_yaml.py
+      - run: python tools/validate_jsonschema.py
+      - run: python tools/generate_all.py
+      - run: git diff --exit-code
+      - run: python -m pytest -q
+
+  verify-node:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: ['21', '22', '23', '24', '25']
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref_name != '' && inputs.ref_name || github.ref_name }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          registry-url: 'https://registry.npmjs.org'
+      - run: mkdir -p dist/npm
+      - name: Pack artifact npm package
+        working-directory: packages/artifacts-npm
+        run: npm pack --pack-destination ../../dist/npm
+      - name: Pack contract npm package
+        working-directory: packages/contract-npm
+        run: npm pack --pack-destination ../../dist/npm
+      - name: Verify npm bundles were produced
+        shell: bash
+        run: |
+          test -f dist/npm/tigr-contract-artifacts-*.tgz
+          test -f dist/npm/tigr-asgi-contract-*.tgz
+
+  verify-rust:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        rust-version: ['1.91.0', '1.92.0', '1.93.0', '1.94.0', '1.95.0']
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref_name != '' && inputs.ref_name || github.ref_name }}
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ matrix.rust-version }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: python packages/artifacts-rs/scripts/vendor_contract.py
+      - run: cargo check --manifest-path packages/contract-rs/Cargo.toml
+      - run: cargo check --manifest-path packages/artifacts-rs/Cargo.toml
+      - run: cargo package --manifest-path packages/contract-rs/Cargo.toml --allow-dirty --no-verify
+      - run: cargo package --manifest-path packages/artifacts-rs/Cargo.toml --allow-dirty --no-verify
+      - run: rm -rf packages/artifacts-rs/contract
+
+  build-release:
+    needs: [verify-python, verify-node, verify-rust]
     runs-on: ubuntu-latest
     outputs:
       release_tag: ${{ steps.meta.outputs.release_tag }}
@@ -54,12 +126,14 @@ jobs:
           ref: ${{ inputs.ref_name != '' && inputs.ref_name || github.ref_name }}
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
+          python-version: '3.10'
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '25'
       - uses: dtolnay/rust-toolchain@stable
-      - run: pip install -q pytest pydantic pyyaml jsonschema build
+        with:
+          toolchain: '1.95.0'
+      - run: pip install -q pydantic pyyaml jsonschema build tomli
       - id: meta
         shell: bash
         run: |
@@ -72,7 +146,6 @@ jobs:
       - run: python tools/validate_jsonschema.py
       - run: python tools/generate_all.py
       - run: git diff --exit-code
-      - run: pytest -q
       - run: python tools/build_release_bundles.py
       - shell: bash
         run: |
@@ -92,7 +165,18 @@ jobs:
           if [[ "${{ steps.meta.outputs.version }}" == *"-dev"* ]]; then
             extra_args+=(--prerelease)
           fi
-          gh release create "${{ steps.meta.outputs.release_tag }}"             dist/release/pypi/*             dist/release/npm/*             dist/release/crates/*             dist/release/manifest.json             dist/release/checksums.txt             dist/release/VERSION             dist/release/RELEASE_BUNDLE_SHA256.txt             --target "$target_commit"             --title "Release ${{ steps.meta.outputs.release_tag }}"             --notes "Generated, tested, and bundled release artifacts for version ${{ steps.meta.outputs.version }}."             "${extra_args[@]}"
+          gh release create "${{ steps.meta.outputs.release_tag }}" \
+            dist/release/pypi/* \
+            dist/release/npm/* \
+            dist/release/crates/* \
+            dist/release/manifest.json \
+            dist/release/checksums.txt \
+            dist/release/VERSION \
+            dist/release/RELEASE_BUNDLE_SHA256.txt \
+            --target "$target_commit" \
+            --title "Release ${{ steps.meta.outputs.release_tag }}" \
+            --notes "Generated, tested, and bundled release artifacts for version ${{ steps.meta.outputs.version }}." \
+            "${extra_args[@]}"
       - name: Setup uv for PyPI publish
         if: ${{ inputs.publish_to_pypi }}
         uses: astral-sh/setup-uv@v7

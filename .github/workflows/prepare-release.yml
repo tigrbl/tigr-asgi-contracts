@@ -23,11 +23,6 @@ on:
         required: true
         default: false
         type: boolean
-      run_release_candidate:
-        description: Run release-candidate after bumping versions
-        required: true
-        default: true
-        type: boolean
 
 concurrency:
   group: prepare-release-${{ github.ref }}
@@ -49,10 +44,13 @@ jobs:
           ref: ${{ github.ref_name }}
           fetch-depth: 0
 
-      - name: Install Python 3.13
+      - name: Install Python 3.10
         uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
+          python-version: '3.10'
+
+      - name: Install Python release tooling
+        run: pip install -q tomli
 
       - name: Bump unified release version
         run: python tools/bump_release_version.py --bump "${{ inputs.bump_type }}"
@@ -75,7 +73,6 @@ jobs:
 
   release-candidate:
     needs: bump-version
-    if: ${{ inputs.run_release_candidate }}
     uses: ./.github/workflows/release-candidate.yml
     with:
       ref_name: ${{ github.ref_name }}
