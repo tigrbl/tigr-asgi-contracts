@@ -1,47 +1,59 @@
 {
   "passed": true,
   "registry_path": ".ssot/registry.json",
-  "from_schema_version": 4,
-  "to_schema_version": 4,
-  "from_version": "0.2.1",
-  "to_version": "0.2.2",
-  "migrations": [],
+  "from_schema_version": 10,
+  "to_schema_version": "0.1.0",
+  "from_version": "0.2.7",
+  "to_version": "0.2.8",
+  "migrations": [
+    "0.2.6->0.2.7 (schema 9->10)",
+    "0.2.7->0.2.7 (schema 10->0.1.0)"
+  ],
+  "schema_migrations": [
+    "migrate_v9_to_v10",
+    "migrate_v10_to_v0_1_0"
+  ],
   "renamed_specs": [],
+  "document_migration": null,
   "sync": {
     "adr": {
       "created": [],
       "updated": [
-        "adr:0001",
-        "adr:0002",
-        "adr:0003",
-        "adr:0004",
-        "adr:0005",
-        "adr:0006",
-        "adr:0007",
-        "adr:0008",
-        "adr:0009",
-        "adr:0010",
-        "adr:0011",
-        "adr:0012"
+        "adr:0600",
+        "adr:0601",
+        "adr:0602",
+        "adr:0603",
+        "adr:0604",
+        "adr:0605",
+        "adr:0606",
+        "adr:0607",
+        "adr:0608",
+        "adr:0609",
+        "adr:0610",
+        "adr:0611",
+        "adr:0612",
+        "adr:0613"
       ],
       "unchanged": []
     },
     "spec": {
       "created": [],
       "updated": [
-        "spc:0001",
-        "spc:0002",
-        "spc:0003",
-        "spc:0004",
-        "spc:0005",
-        "spc:0006",
-        "spc:0007",
-        "spc:0008",
-        "spc:0009",
-        "spc:0010",
-        "spc:0011",
-        "spc:0012",
-        "spc:0013"
+        "spc:0600",
+        "spc:0601",
+        "spc:0602",
+        "spc:0603",
+        "spc:0604",
+        "spc:0605",
+        "spc:0606",
+        "spc:0607",
+        "spc:0608",
+        "spc:0609",
+        "spc:0610",
+        "spc:0611",
+        "spc:0612",
+        "spc:0613",
+        "spc:0614"
       ],
       "unchanged": []
     }

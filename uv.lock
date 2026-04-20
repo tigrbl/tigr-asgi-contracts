@@ -413,37 +413,64 @@ wheels = [
 ]
 
 [[package]]
-name = "ssot-contracts"
-version = "0.2.6"
+name = "ssot-cli"
+version = "0.1.4"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/c7/33/a633d105583e568330e194cf3890b80bea1bcb1746e64858e4ab46784b8d/ssot_contracts-0.2.6.tar.gz", hash = "sha256:4ca44617c4be93a123d7e6170cdf262f1c322b9d064024247616d4a92e1eb6cb", size = 22676 }
+dependencies = [
+    { name = "ssot-contracts" },
+    { name = "ssot-core" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/7a/57/a6b96c99998e2500f6a952510c360c5ba5ce6549ce603e4cdb3b1db2298d/ssot_cli-0.1.4.tar.gz", hash = "sha256:7fd6ef1eb7a22673008776ea240d4b21e6183d0a9d95916624bed51c5a3347e8", size = 21679 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/30/9a/3988a2901fbad1974ae94a126b64c49ab61b3c252a8bb8373b56e1cd46c8/ssot_contracts-0.2.6-py3-none-any.whl", hash = "sha256:ba82fb1bb27045d8082b8768272c2329860a4a06df0006b0b558b0da0c6c6f7b", size = 39156 },
+    { url = "https://files.pythonhosted.org/packages/e1/d8/ee96ccf55c711b55b81c365b4a6847bfb9aa110c25ad33d59a3ef2285b10/ssot_cli-0.1.4-py3-none-any.whl", hash = "sha256:edfce0b3bae50de22d6e808750c57b6a167a4387e1e8d3a2cb7dc107960d6a56", size = 27900 },
 ]
 
 [[package]]
-name = "ssot-registry"
-version = "0.2.6"
+name = "ssot-contracts"
+version = "0.2.8"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/0e/67/00f5dee71358b1a42f96d38349bd93392b28fc383936d5b84c904adfe585/ssot_contracts-0.2.8.tar.gz", hash = "sha256:d1e78dc8ea0d86d48a6e24f60056df88155948ff322ec4575e49109c99b8ab97", size = 22999 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/27/8e/f63d197a28be8e7c41f3fa7d67ac1bf94e2e25feb1fd1d7e2c830b4c7b0c/ssot_contracts-0.2.8-py3-none-any.whl", hash = "sha256:55e6c631c313a14085df76d0f20c9b337fdc91866b85bc6b6ac1d3fc42a2e209", size = 39434 },
+]
+
+[[package]]
+name = "ssot-core"
+version = "0.2.8"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "ssot-contracts" },
     { name = "ssot-views" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/35/36/ffd7bfe72aba7141a3a06d8a9eaf2d134b8f32e4da094dffbbf9fd3f5569/ssot_registry-0.2.6.tar.gz", hash = "sha256:e7fb49a2fcc9172c14581d3545960a35c2a9e639d58494b3d152b69ee7b9a651", size = 66205 }
+sdist = { url = "https://files.pythonhosted.org/packages/29/a3/20053f5d04a0f08d09360ed861899bff0e09fcdf5f0ed196ebef5a709e3d/ssot_core-0.2.8.tar.gz", hash = "sha256:b2e803792d13b8144e6ef3a8276734afd37af7d001b3c1581eb309d7e491b1f7", size = 66509 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/07/1e/ca6d60b8bf7d52714a1c69cd0e5c258e31d2c51f796ec5b6a0a891389328/ssot_registry-0.2.6-py3-none-any.whl", hash = "sha256:98b4851067be1abcbda2686e549971ae6497a7858b93c02c9838d1bbe9b84485", size = 93322 },
+    { url = "https://files.pythonhosted.org/packages/6d/e2/714d38b0b4f33035c6847d2a8cfe5c8314e22877a2ab5e4b1bd1332a8f7f/ssot_core-0.2.8-py3-none-any.whl", hash = "sha256:59835e4d9741463977fdddd7c9fd94f11e5e2c624ff0092f2f2ae732e618bb25", size = 94574 },
+]
+
+[[package]]
+name = "ssot-registry"
+version = "0.2.8"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "ssot-cli" },
+    { name = "ssot-contracts" },
+    { name = "ssot-core" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ef/8e/e8d9df427a75dc4b9171a84b647aceb538dee182e775834523043542f7d1/ssot_registry-0.2.8.tar.gz", hash = "sha256:f25dd5196c81c04ecdda5de4c10db2725bfaafc11aa86f268c362227153d131c", size = 12304 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5a/a8/6ad9f130db32e01595f4040e90034e38281c1c834d4c166e7d21c0167f57/ssot_registry-0.2.8-py3-none-any.whl", hash = "sha256:d27181504df8fb908ad30a91182f0905cd3c29d5d61aa063d6c44f79605c42c1", size = 6668 },
 ]
 
 [[package]]
 name = "ssot-views"
-version = "0.2.6"
+version = "0.2.8"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "ssot-contracts" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/ee/b4/9fe70cd57bbfb580d70dc594e2831429cace0fa5d3c185e6c4203a362fb1/ssot_views-0.2.6.tar.gz", hash = "sha256:4cfd900b93a4df47fd0d5c2c6a021b4f4e8e8cc941e5ec4edfd697e73a851ed3", size = 6627 }
+sdist = { url = "https://files.pythonhosted.org/packages/77/16/9aa89ef514ba2b30c1f8e6dae024c39d2b650c23ccc738436d6a8701b9ae/ssot_views-0.2.8.tar.gz", hash = "sha256:77397bfe7f2ee95f5e55b9188f1ea5445864f19f63e1b637a1b4a0bc3eebb8da", size = 6860 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/c1/2f/6663421135d6e0dd2e4f9bdce7ae09499bf6ccb89bca21eeac53719b42f2/ssot_views-0.2.6-py3-none-any.whl", hash = "sha256:5dae6a891eeaf8cd6472e86f5b1956f3a90670df4b9feab0b8857222b61eddda", size = 6444 },
+    { url = "https://files.pythonhosted.org/packages/86/98/92034fd60e64a0fa4b0d880f195f3ded515ddd1414cbcdfc073ef98fa4f3/ssot_views-0.2.8-py3-none-any.whl", hash = "sha256:ff0392fba3c7c4d6853c0bf42fde95118572b82a66ce5766523fc17eece3d50d", size = 6549 },
 ]
 
 [[package]]
@@ -466,7 +493,7 @@ requires-dist = [
     { name = "pydantic", specifier = ">=2.8" },
     { name = "pytest", specifier = ">=8.3" },
     { name = "pyyaml", specifier = ">=6.0" },
-    { name = "ssot-registry", specifier = ">=0.2.6" },
+    { name = "ssot-registry", specifier = ">=0.2.8" },
 ]
 
 [[package]]
