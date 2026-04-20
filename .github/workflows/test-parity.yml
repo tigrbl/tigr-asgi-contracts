@@ -5,6 +5,15 @@ on:
   push:
     branches: [main]
   merge_group:
+  schedule:
+    - cron: '30 09 * * *'
+
+concurrency:
+  group: test-parity-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   parity-python:

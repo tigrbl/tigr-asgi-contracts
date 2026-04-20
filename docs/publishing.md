@@ -33,6 +33,7 @@ This repository uses a strict six-step release lifecycle:
    - Python `3.10` through `3.14`
    - Node `21` through `25`
    - Rust `1.91.0` through `1.95.0`
+5. Generate and upload a bindings preview artifact automatically on pull requests, `main` pushes, merge queues, and the daily scheduled CI run.
 
 ### Promotion sequence
 
