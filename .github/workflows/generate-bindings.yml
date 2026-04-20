@@ -1,4 +1,5 @@
-name: generate-bindings-preview
+name: CI / Bindings Preview
+run-name: CI / Bindings Preview / ${{ github.event_name }} / ${{ github.event.pull_request.number || github.ref_name }}
 
 on:
   pull_request:
@@ -18,6 +19,7 @@ permissions:
 
 jobs:
   generate-preview:
+    name: Generate bindings preview bundle
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

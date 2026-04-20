@@ -1,4 +1,5 @@
-name: test-parity
+name: CI / Parity Matrix
+run-name: CI / Parity Matrix / ${{ github.event_name }} / ${{ github.event.pull_request.number || github.ref_name }}
 
 on:
   pull_request:
@@ -17,6 +18,7 @@ permissions:
 
 jobs:
   parity-python:
+    name: Python parity (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -34,6 +36,7 @@ jobs:
       - run: uv run --frozen python -m pytest -q
 
   parity-node:
+    name: Node package parity (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -59,6 +62,7 @@ jobs:
           test -f dist/npm/tigr-asgi-contract-*.tgz
 
   parity-rust:
+    name: Rust crate parity (Rust ${{ matrix.rust-version }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false

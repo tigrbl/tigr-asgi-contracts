@@ -1,4 +1,5 @@
-name: publish-and-release
+name: Release / Publish Artifacts
+run-name: Release / Publish Artifacts / ${{ inputs.rc_tag }}
 
 on:
   workflow_dispatch:
@@ -37,6 +38,7 @@ permissions:
 
 jobs:
   publish-pypi:
+    name: Publish Python distributions
     runs-on: ubuntu-latest
     if: ${{ inputs.publish_to_pypi }}
     steps:
@@ -53,6 +55,7 @@ jobs:
           uv publish dist/promoted/*.whl dist/promoted/*.tar.gz
 
   publish-npm:
+    name: Publish npm packages
     runs-on: ubuntu-latest
     steps:
       - name: Download promoted assets
@@ -123,6 +126,7 @@ jobs:
           uv run --no-project --python 3.10 python tools/publish_npm_tarballs.py --root dist/promoted
 
   publish-crates:
+    name: Publish Rust crates
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -150,6 +154,7 @@ jobs:
       - run: rm -rf packages/artifacts-rs/contract
 
   finalize-release:
+    name: Finalize GitHub release
     needs: [publish-pypi, publish-npm, publish-crates]
     runs-on: ubuntu-latest
     if: ${{ always() && inputs.create_github_release && contains(fromJSON('["success","skipped"]'), needs.publish-pypi.result) && contains(fromJSON('["success","skipped"]'), needs.publish-npm.result) && contains(fromJSON('["success","skipped"]'), needs.publish-crates.result) }}
