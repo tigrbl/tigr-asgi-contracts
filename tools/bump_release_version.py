@@ -4,6 +4,8 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import subprocess
+import sys
 from pathlib import Path
 
 try:
@@ -154,14 +156,29 @@ def bump_repo_version(root: Path, bump_type: str) -> tuple[str, str]:
     return current, new_version
 
 
+def regenerate_derived_artifacts(root: Path) -> None:
+    subprocess.run(
+        [sys.executable, str(root / "tools/generate_all.py")],
+        check=True,
+        cwd=root,
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Bump the unified release version across all package manifests.")
     parser.add_argument("--bump", required=True, choices=["major", "minor", "patch", "finalize"])
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
+    parser.add_argument(
+        "--no-generate-derived",
+        action="store_true",
+        help="Skip regenerating derived artifacts after bumping versions.",
+    )
     args = parser.parse_args()
 
     root = args.root.resolve()
     _, new_version = bump_repo_version(root, args.bump)
+    if not args.no_generate_derived:
+        regenerate_derived_artifacts(root)
     for relative_path in VERSION_PATHS:
         print(relative_path.as_posix())
     print(f"new_version={new_version}")

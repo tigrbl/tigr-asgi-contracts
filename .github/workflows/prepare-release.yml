@@ -68,9 +68,6 @@ jobs:
       - name: Verify bumped manifests
         run: uv run --frozen python tools/check_versions.py "${{ steps.version.outputs.version }}"
 
-      - name: Regenerate derived artifacts for bumped version
-        run: uv run --frozen python tools/generate_all.py
-
       - name: Commit bumped versions
         run: |
           git config user.name "github-actions[bot]"
