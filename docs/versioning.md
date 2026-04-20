@@ -20,3 +20,13 @@ python tools/check_versions.py
 ```
 
 before promotion.
+
+To auto-increment the next release version across every manifest, use:
+
+```bash
+python tools/bump_release_version.py --bump patch
+```
+
+Valid bump types are `patch`, `minor`, and `major`.
+
+The `prepare-release` GitHub workflow uses the same script and commits only version metadata changes before optionally triggering `release-candidate`.

@@ -1,15 +1,32 @@
 name: release-candidate
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
-      version:
-        description: Release version (must match VERSION and package manifests)
-        required: true
+      ref_name:
+        description: Branch or ref name to promote from
+        required: false
+        default: ""
+        type: string
       rc_tag:
         description: Optional prerelease tag override
         required: false
         default: ""
+        type: string
+  workflow_dispatch:
+    inputs:
+      ref_name:
+        description: Branch or ref name to promote from
+        required: false
+        default: ""
+      rc_tag:
+        description: Optional prerelease tag override
+        required: false
+        default: ""
+
+concurrency:
+  group: release-candidate-${{ inputs.ref_name != '' && inputs.ref_name || github.ref_name }}
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -19,8 +36,11 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       rc_tag: ${{ steps.meta.outputs.rc_tag }}
+      version: ${{ steps.meta.outputs.version }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref_name != '' && inputs.ref_name || github.ref_name }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
@@ -32,12 +52,15 @@ jobs:
       - id: meta
         shell: bash
         run: |
+          version="$(tr -d '\r\n' < VERSION)"
           if [ -n "${{ inputs.rc_tag }}" ]; then
-            echo "rc_tag=${{ inputs.rc_tag }}" >> "$GITHUB_OUTPUT"
+            rc_tag="${{ inputs.rc_tag }}"
           else
-            echo "rc_tag=v${{ inputs.version }}-rc.${GITHUB_RUN_NUMBER}" >> "$GITHUB_OUTPUT"
+            rc_tag="v${version}-rc.${GITHUB_RUN_NUMBER}"
           fi
-      - run: python tools/check_versions.py "${{ inputs.version }}"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "rc_tag=$rc_tag" >> "$GITHUB_OUTPUT"
+      - run: python tools/check_versions.py "${{ steps.meta.outputs.version }}"
       - run: python tools/validate_yaml.py
       - run: python tools/validate_jsonschema.py
       - run: python tools/generate_all.py
@@ -56,4 +79,5 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          gh release create "${{ steps.meta.outputs.rc_tag }}"             dist/release/pypi/*             dist/release/npm/*             dist/release/crates/*             dist/release/manifest.json             dist/release/checksums.txt             dist/release/VERSION             dist/release/RELEASE_BUNDLE_SHA256.txt             --target "${GITHUB_SHA}"             --title "Release Candidate ${{ steps.meta.outputs.rc_tag }}"             --notes "Generated, tested, and promoted release-candidate bundle."             --prerelease
+          target_commit="$(git rev-parse HEAD)"
+          gh release create "${{ steps.meta.outputs.rc_tag }}"             dist/release/pypi/*             dist/release/npm/*             dist/release/crates/*             dist/release/manifest.json             dist/release/checksums.txt             dist/release/VERSION             dist/release/RELEASE_BUNDLE_SHA256.txt             --target "$target_commit"             --title "Release Candidate ${{ steps.meta.outputs.rc_tag }}"             --notes "Generated, tested, and promoted release-candidate bundle for version ${{ steps.meta.outputs.version }}."             --prerelease

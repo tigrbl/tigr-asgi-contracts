@@ -1,12 +1,13 @@
 # Publishing
 
-This repository uses a strict five-step release lifecycle:
+This repository uses a strict six-step release lifecycle:
 
 1. **Generate**
 2. **Test**
-3. **Promote**
-4. **Publish**
-5. **Release**
+3. **Prepare**
+4. **Promote**
+5. **Publish**
+6. **Release**
 
 ## Exact sequence
 
@@ -44,6 +45,17 @@ The release-candidate workflow performs:
 6. bundle upload
 7. prerelease creation
 
+### Prepare sequence
+
+Preparation bumps the unified repo version before promotion.
+
+The `prepare-release` workflow performs:
+
+1. version bump across `VERSION` and all package manifests
+2. version consistency verification
+3. commit and push of version-only metadata changes
+4. optional dispatch of `release-candidate`
+
 ### Publish sequence
 
 Publishing uses the promoted candidate as the source of truth.
@@ -66,9 +78,10 @@ That means:
 
 No.
 
-GitHub workflows regenerate only to verify determinism.
+GitHub workflows do not commit generated artifacts.
 
 - authors generate and commit locally
+- `prepare-release` may commit version metadata only
 - CI regenerates and checks cleanliness
 - release workflows regenerate in ephemeral workspaces only
 - no workflow mutates the canonical history during validation, promotion, or publish

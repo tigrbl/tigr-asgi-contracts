@@ -9,7 +9,7 @@ dependencies = [
   "jsonschema>=4.23",
   "pytest>=8.3",
   "build>=1.2",
-  "ssot-registry>=0.2.8",
+  "ssot-registry>=0.2.10",
 ]
 
 [tool.pytest.ini_options]

@@ -3,12 +3,13 @@ name: publish-and-release
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: Final release version (must match VERSION and package manifests)
-        required: true
       rc_tag:
         description: Promoted release-candidate tag to publish from
         required: true
+
+concurrency:
+  group: publish-and-release-${{ inputs.rc_tag }}
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -23,15 +24,11 @@ jobs:
         run: |
           mkdir -p dist/promoted
           gh release download "${{ inputs.rc_tag }}" --dir dist/promoted
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.13'
-      - run: pip install -q twine
+      - uses: astral-sh/setup-uv@v7
       - env:
-          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
         run: |
-          twine upload dist/promoted/*.whl dist/promoted/*.tar.gz
+          uv publish dist/promoted/*.whl dist/promoted/*.tar.gz
 
   publish-npm:
     runs-on: ubuntu-latest
@@ -67,7 +64,7 @@ jobs:
         run: |
           target_commit=$(gh release view "${{ inputs.rc_tag }}" --json targetCommitish --jq '.targetCommitish')
           git checkout "$target_commit"
-      - run: python tools/check_versions.py "${{ inputs.version }}"
+      - run: python tools/check_versions.py
       - run: python tools/generate_all.py
       - run: git diff --exit-code
       - run: python packages/artifacts-rs/scripts/vendor_contract.py
@@ -95,7 +92,8 @@ jobs:
         shell: bash
         run: |
           target_commit=$(gh release view "${{ inputs.rc_tag }}" --json targetCommitish --jq '.targetCommitish')
-          final_tag="v${{ inputs.version }}"
+          version=$(tr -d '\r\n' < dist/promoted/VERSION)
+          final_tag="v${version}"
           if ! git ls-remote --tags origin "$final_tag" | grep -q "$final_tag"; then
             git config user.name github-actions
             git config user.email github-actions@users.noreply.github.com
