@@ -4,8 +4,18 @@ on:
   workflow_dispatch:
     inputs:
       rc_tag:
-        description: Promoted release-candidate tag to publish from
+        description: Promoted release tag to publish from
         required: true
+      create_github_release:
+        description: Create a GitHub release for the promoted version
+        required: true
+        default: true
+        type: boolean
+      publish_to_pypi:
+        description: Publish Python distributions to PyPI
+        required: true
+        default: true
+        type: boolean
 
 concurrency:
   group: publish-and-release-${{ inputs.rc_tag }}
@@ -17,6 +27,7 @@ permissions:
 jobs:
   publish-pypi:
     runs-on: ubuntu-latest
+    if: ${{ inputs.publish_to_pypi }}
     steps:
       - name: Download promoted assets
         env:
@@ -78,6 +89,7 @@ jobs:
   finalize-release:
     needs: [publish-pypi, publish-npm, publish-crates]
     runs-on: ubuntu-latest
+    if: ${{ always() && inputs.create_github_release && contains(fromJSON('["success","skipped"]'), needs.publish-pypi.result) && contains(fromJSON('["success","skipped"]'), needs.publish-npm.result) && contains(fromJSON('["success","skipped"]'), needs.publish-crates.result) }}
     steps:
       - uses: actions/checkout@v4
       - name: Download promoted assets
@@ -93,7 +105,7 @@ jobs:
         run: |
           target_commit=$(gh release view "${{ inputs.rc_tag }}" --json targetCommitish --jq '.targetCommitish')
           version=$(tr -d '\r\n' < dist/promoted/VERSION)
-          final_tag="v${version}"
+          final_tag="tigr-asgi-contracts==${version}"
           if ! git ls-remote --tags origin "$final_tag" | grep -q "$final_tag"; then
             git config user.name github-actions
             git config user.email github-actions@users.noreply.github.com
@@ -101,4 +113,8 @@ jobs:
             git tag "$final_tag" "$target_commit"
             git push origin "$final_tag"
           fi
-          gh release create "$final_tag"             dist/promoted/*             --target "$target_commit"             --title "Release $final_tag"             --notes "Published from promoted release candidate ${{ inputs.rc_tag }}."             --latest
+          extra_args=(--latest)
+          if [[ "$version" == *"-dev"* ]]; then
+            extra_args+=(--prerelease)
+          fi
+          gh release create "$final_tag"             dist/promoted/*             --target "$target_commit"             --title "Release $final_tag"             --notes "Published from promoted release candidate ${{ inputs.rc_tag }}."             "${extra_args[@]}"

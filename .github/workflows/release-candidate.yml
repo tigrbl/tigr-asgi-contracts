@@ -8,21 +8,32 @@ on:
         required: false
         default: ""
         type: string
-      rc_tag:
-        description: Optional prerelease tag override
+      create_github_release:
+        description: Create a GitHub release for the current version tag
         required: false
-        default: ""
-        type: string
+        default: true
+        type: boolean
+      publish_to_pypi:
+        description: Publish Python distributions for the current version
+        required: false
+        default: false
+        type: boolean
   workflow_dispatch:
     inputs:
       ref_name:
         description: Branch or ref name to promote from
         required: false
         default: ""
-      rc_tag:
-        description: Optional prerelease tag override
-        required: false
-        default: ""
+      create_github_release:
+        description: Create a GitHub release for the current version tag
+        required: true
+        default: true
+        type: boolean
+      publish_to_pypi:
+        description: Publish Python distributions for the current version
+        required: true
+        default: false
+        type: boolean
 
 concurrency:
   group: release-candidate-${{ inputs.ref_name != '' && inputs.ref_name || github.ref_name }}
@@ -35,7 +46,7 @@ jobs:
   verify-and-build:
     runs-on: ubuntu-latest
     outputs:
-      rc_tag: ${{ steps.meta.outputs.rc_tag }}
+      release_tag: ${{ steps.meta.outputs.release_tag }}
       version: ${{ steps.meta.outputs.version }}
     steps:
       - uses: actions/checkout@v4
@@ -53,13 +64,9 @@ jobs:
         shell: bash
         run: |
           version="$(tr -d '\r\n' < VERSION)"
-          if [ -n "${{ inputs.rc_tag }}" ]; then
-            rc_tag="${{ inputs.rc_tag }}"
-          else
-            rc_tag="v${version}-rc.${GITHUB_RUN_NUMBER}"
-          fi
+          release_tag="tigr-asgi-contracts==${version}"
           echo "version=$version" >> "$GITHUB_OUTPUT"
-          echo "rc_tag=$rc_tag" >> "$GITHUB_OUTPUT"
+          echo "release_tag=$release_tag" >> "$GITHUB_OUTPUT"
       - run: python tools/check_versions.py "${{ steps.meta.outputs.version }}"
       - run: python tools/validate_yaml.py
       - run: python tools/validate_jsonschema.py
@@ -72,12 +79,26 @@ jobs:
           find dist/release -type f -print0 | sort -z | xargs -0 sha256sum > dist/release/RELEASE_BUNDLE_SHA256.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: release-bundle-${{ steps.meta.outputs.rc_tag }}
+          name: release-bundle-${{ steps.meta.outputs.release_tag }}
           path: dist/release/**
-      - name: Create GitHub prerelease
+      - name: Create GitHub release
+        if: ${{ inputs.create_github_release }}
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           target_commit="$(git rev-parse HEAD)"
-          gh release create "${{ steps.meta.outputs.rc_tag }}"             dist/release/pypi/*             dist/release/npm/*             dist/release/crates/*             dist/release/manifest.json             dist/release/checksums.txt             dist/release/VERSION             dist/release/RELEASE_BUNDLE_SHA256.txt             --target "$target_commit"             --title "Release Candidate ${{ steps.meta.outputs.rc_tag }}"             --notes "Generated, tested, and promoted release-candidate bundle for version ${{ steps.meta.outputs.version }}."             --prerelease
+          extra_args=()
+          if [[ "${{ steps.meta.outputs.version }}" == *"-dev"* ]]; then
+            extra_args+=(--prerelease)
+          fi
+          gh release create "${{ steps.meta.outputs.release_tag }}"             dist/release/pypi/*             dist/release/npm/*             dist/release/crates/*             dist/release/manifest.json             dist/release/checksums.txt             dist/release/VERSION             dist/release/RELEASE_BUNDLE_SHA256.txt             --target "$target_commit"             --title "Release ${{ steps.meta.outputs.release_tag }}"             --notes "Generated, tested, and bundled release artifacts for version ${{ steps.meta.outputs.version }}."             "${extra_args[@]}"
+      - name: Setup uv for PyPI publish
+        if: ${{ inputs.publish_to_pypi }}
+        uses: astral-sh/setup-uv@v7
+      - name: Publish Python distributions to PyPI
+        if: ${{ inputs.publish_to_pypi }}
+        env:
+          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+        run: |
+          uv publish dist/release/pypi/*.whl dist/release/pypi/*.tar.gz

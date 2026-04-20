@@ -12,16 +12,22 @@ on:
           - patch
           - minor
           - major
+          - finalize
+      create_github_release:
+        description: Create a GitHub release from the bumped version
+        required: true
+        default: true
+        type: boolean
+      publish_to_pypi:
+        description: Publish Python distributions to PyPI from the bumped version
+        required: true
+        default: false
+        type: boolean
       run_release_candidate:
         description: Run release-candidate after bumping versions
         required: true
         default: true
         type: boolean
-      rc_tag:
-        description: Optional prerelease tag override when running release-candidate
-        required: false
-        default: ""
-        type: string
 
 concurrency:
   group: prepare-release-${{ github.ref }}
@@ -73,5 +79,6 @@ jobs:
     uses: ./.github/workflows/release-candidate.yml
     with:
       ref_name: ${{ github.ref_name }}
-      rc_tag: ${{ inputs.rc_tag }}
+      create_github_release: ${{ inputs.create_github_release }}
+      publish_to_pypi: ${{ inputs.publish_to_pypi }}
     secrets: inherit

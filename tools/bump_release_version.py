@@ -11,7 +11,9 @@ try:
 except ModuleNotFoundError:  # pragma: no cover - Python 3.10 fallback
     import tomli as tomllib
 
-VERSION_RE = re.compile(r"^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)$")
+VERSION_RE = re.compile(
+    r"^(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-dev(?P<dev>0|[1-9]\d*))?$"
+)
 PYPROJECT_VERSION_RE = re.compile(
     r'^(?P<prefix>version\s*=\s*")(?P<version>[^"]+)(?P<suffix>"\s*)$',
     re.MULTILINE,
@@ -36,22 +38,35 @@ VERSION_PATHS = (
 )
 
 
-def parse_version(value: str) -> tuple[int, int, int]:
+def parse_version(value: str) -> tuple[int, int, int, int | None]:
     match = VERSION_RE.match(value.strip())
     if match is None:
         raise ValueError(f"Unsupported version format: {value!r}")
-    return int(match.group("major")), int(match.group("minor")), int(match.group("patch"))
+    dev = match.group("dev")
+    return (
+        int(match.group("major")),
+        int(match.group("minor")),
+        int(match.group("patch")),
+        int(dev) if dev is not None else None,
+    )
 
 
 def bump_version(current_version: str, bump_type: str) -> str:
-    major, minor, patch = parse_version(current_version)
+    major, minor, patch, dev = parse_version(current_version)
+    is_prerelease = dev is not None
     if bump_type == "major":
-        return f"{major + 1}.0.0"
+        return f"{major + 1}.0.0-dev1"
     if bump_type == "minor":
-        return f"{major}.{minor + 1}.0"
+        return f"{major}.{minor + 1}.0-dev1"
     if bump_type == "patch":
-        return f"{major}.{minor}.{patch + 1}"
-    raise ValueError("bump_type must be one of: major, minor, patch")
+        if is_prerelease:
+            return f"{major}.{minor}.{patch}-dev{dev + 1}"
+        return f"{major}.{minor}.{patch + 1}-dev1"
+    if bump_type == "finalize":
+        if not is_prerelease:
+            raise ValueError("Cannot finalize a non-prerelease version")
+        return f"{major}.{minor}.{patch}"
+    raise ValueError("bump_type must be one of: major, minor, patch, finalize")
 
 
 def read_pyproject_version(path: Path) -> str:
@@ -141,7 +156,7 @@ def bump_repo_version(root: Path, bump_type: str) -> tuple[str, str]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Bump the unified release version across all package manifests.")
-    parser.add_argument("--bump", required=True, choices=["major", "minor", "patch"])
+    parser.add_argument("--bump", required=True, choices=["major", "minor", "patch", "finalize"])
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
     args = parser.parse_args()
 

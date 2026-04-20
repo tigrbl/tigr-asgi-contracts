@@ -48,9 +48,11 @@ def write_files(root: Path, version: str) -> None:
 
 
 def test_bump_version_semver() -> None:
-    assert MODULE.bump_version("0.1.0", "patch") == "0.1.1"
-    assert MODULE.bump_version("0.1.0", "minor") == "0.2.0"
-    assert MODULE.bump_version("0.1.0", "major") == "1.0.0"
+    assert MODULE.bump_version("0.1.0", "patch") == "0.1.1-dev1"
+    assert MODULE.bump_version("0.1.0", "minor") == "0.2.0-dev1"
+    assert MODULE.bump_version("0.1.0", "major") == "1.0.0-dev1"
+    assert MODULE.bump_version("0.1.1-dev1", "patch") == "0.1.1-dev2"
+    assert MODULE.bump_version("0.1.1-dev2", "finalize") == "0.1.1"
 
 
 def test_bump_repo_version_updates_all_files(tmp_path: Path) -> None:
@@ -59,6 +61,17 @@ def test_bump_repo_version_updates_all_files(tmp_path: Path) -> None:
     current, new = MODULE.bump_repo_version(tmp_path, "minor")
 
     assert current == "0.1.0"
+    assert new == "0.2.0-dev1"
+    for relative_path in MODULE.VERSION_PATHS:
+        assert MODULE.read_version(tmp_path / relative_path) == "0.2.0-dev1"
+
+
+def test_finalize_repo_version_updates_all_files(tmp_path: Path) -> None:
+    write_files(tmp_path, "0.2.0-dev2")
+
+    current, new = MODULE.bump_repo_version(tmp_path, "finalize")
+
+    assert current == "0.2.0-dev2"
     assert new == "0.2.0"
     for relative_path in MODULE.VERSION_PATHS:
         assert MODULE.read_version(tmp_path / relative_path) == "0.2.0"
