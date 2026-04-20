@@ -62,8 +62,8 @@ The `prepare-release` workflow performs:
 
 1. version bump across `VERSION` and all package manifests
 2. version consistency verification
-3. refresh SSOT registry reports and the version-aligned candidate boundary/release metadata
-4. commit and push version metadata plus `.ssot` metadata changes
+3. run the full generation pipeline so `manifest.json`, `checksums.txt`, generated language packages, readmes, and version-aligned SSOT metadata all match the bumped version
+4. commit and push the version bump together with every tracked generated file changed by that bump
 5. dispatch of `release-candidate` with explicit GitHub Release and PyPI publish toggles
 
 ### Publish sequence
@@ -99,7 +99,7 @@ No.
 GitHub workflows do not commit generated artifacts.
 
 - authors generate and commit locally
-- `prepare-release` may commit version metadata only
+- `prepare-release` is the one exception: after it bumps `VERSION`, it regenerates and commits all tracked version-derived outputs in the same commit
 - CI regenerates and checks cleanliness
 - release workflows regenerate in ephemeral workspaces only
 - no workflow mutates the canonical history during validation, promotion, or publish
