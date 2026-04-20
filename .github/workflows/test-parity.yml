@@ -58,8 +58,8 @@ jobs:
       - name: Verify npm bundles were produced
         shell: bash
         run: |
-          test -f dist/npm/tigr-contract-artifacts-*.tgz
-          test -f dist/npm/tigr-asgi-contract-*.tgz
+          compgen -G 'dist/npm/tigrbljs-tigr-asgi-contract-artifacts-[0-9]*.tgz' > /dev/null
+          compgen -G 'dist/npm/tigrbljs-tigr-asgi-contract-[0-9]*.tgz' > /dev/null
 
   parity-rust:
     name: Rust crate parity (Rust ${{ matrix.rust-version }})

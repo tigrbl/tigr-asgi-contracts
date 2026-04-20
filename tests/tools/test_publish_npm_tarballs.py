@@ -33,7 +33,7 @@ def test_parse_version_orders_prereleases_before_stable() -> None:
 def test_read_tarball_metadata(tmp_path: Path) -> None:
     tarball = write_tarball(
         tmp_path,
-        "tigr-asgi-contract-0.1.1-dev1.tgz",
+        "tigrbljs-tigr-asgi-contract-0.1.1-dev1.tgz",
         package_name="@tigrbljs/tigr-asgi-contract",
         version="0.1.1-dev1",
     )
@@ -47,13 +47,13 @@ def test_read_tarball_metadata(tmp_path: Path) -> None:
 def test_tarball_sorting_prefers_older_versions_first(tmp_path: Path) -> None:
     stable = write_tarball(
         tmp_path,
-        "tigr-asgi-contract-0.1.1.tgz",
+        "tigrbljs-tigr-asgi-contract-0.1.1.tgz",
         package_name="@tigrbljs/tigr-asgi-contract",
         version="0.1.1",
     )
     prerelease = write_tarball(
         tmp_path,
-        "tigr-asgi-contract-0.1.1-dev2.tgz",
+        "tigrbljs-tigr-asgi-contract-0.1.1-dev2.tgz",
         package_name="@tigrbljs/tigr-asgi-contract",
         version="0.1.1-dev2",
     )
@@ -62,6 +62,6 @@ def test_tarball_sorting_prefers_older_versions_first(tmp_path: Path) -> None:
     ordered = sorted(tarballs, key=lambda item: (MODULE.parse_version(item.version), item.package_name))
 
     assert [item.path.name for item in ordered] == [
-        "tigr-asgi-contract-0.1.1-dev2.tgz",
-        "tigr-asgi-contract-0.1.1.tgz",
+        "tigrbljs-tigr-asgi-contract-0.1.1-dev2.tgz",
+        "tigrbljs-tigr-asgi-contract-0.1.1.tgz",
     ]
