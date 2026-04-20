@@ -42,7 +42,7 @@ pub enum TransportEventType {
     TransportEmitComplete,
 }
 
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ContractEvent {
     pub r#type: TransportEventType,
     pub payload: serde_json::Map<String, serde_json::Value>,

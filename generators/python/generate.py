@@ -17,10 +17,11 @@ def write(path: Path, content: str) -> None:
 
 def emit_enum(module_name: str, class_name: str, values: list[str]) -> None:
     body = "\n".join(f"    {member_name(v)} = {v!r}" for v in values)
-    write(OUT / f"{module_name}.py", f"from enum import StrEnum\n\n\nclass {class_name}(StrEnum):\n{body}\n")
+    write(OUT / f"{module_name}.py", f"from ._enum_compat import StrEnum\n\n\nclass {class_name}(StrEnum):\n{body}\n")
 
 def main() -> None:
     d = contract_data()
+    write(OUT / "_enum_compat.py", 'from __future__ import annotations\nfrom enum import Enum\n\ntry:\n    from enum import StrEnum\nexcept ImportError:\n    class StrEnum(str, Enum):\n        pass\n')
     emit_enum("scope_types", "ScopeType", d["scope_types"])
     emit_enum("bindings", "Binding", list(d["bindings"].keys()))
     emit_enum("exchanges", "Exchange", d["exchanges"])
@@ -36,7 +37,7 @@ def main() -> None:
     write(OUT / "scope.py", 'from pydantic import BaseModel\nfrom .models import ScopeExt\n\n\nclass ContractScope(BaseModel):\n    type: str\n    asgi: dict\n    scheme: str\n    http_version: str | None = None\n    method: str | None = None\n    path: str\n    query_string: bytes = b""\n    headers: list[tuple[bytes, bytes]]\n    client: tuple[str, int] | None = None\n    server: tuple[str, int] | None = None\n    ext: ScopeExt\n')
     events = list(d["schemas"]["event.schema.json"]["properties"]["type"]["enum"])
     event_members = "\n".join(f"    {member_name(v)} = {v!r}" for v in events)
-    write(OUT / "events.py", f'from enum import StrEnum\nfrom pydantic import BaseModel, Field\n\n\nclass TransportEventType(StrEnum):\n{event_members}\n\n\nclass ContractEvent(BaseModel):\n    type: TransportEventType\n    payload: dict = Field(default_factory=dict)\n')
+    write(OUT / "events.py", f'from ._enum_compat import StrEnum\nfrom pydantic import BaseModel, Field\n\n\nclass TransportEventType(StrEnum):\n{event_members}\n\n\nclass ContractEvent(BaseModel):\n    type: TransportEventType\n    payload: dict = Field(default_factory=dict)\n')
     registry_content = "BINDING_FAMILY_MATRIX = " + json.dumps(d["binding_family"], indent=2) + "\n\n"
     registry_content += "FAMILY_SUBEVENT_MATRIX = " + json.dumps(d["family_subevent"], indent=2) + "\n\n"
     registry_content += "BINDING_SUBEVENT_MATRIX = " + json.dumps(d["binding_subevent"], indent=2) + "\n"

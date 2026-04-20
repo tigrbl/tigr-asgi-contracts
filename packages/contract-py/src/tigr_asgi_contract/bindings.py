@@ -1,4 +1,4 @@
-from enum import StrEnum
+from ._enum_compat import StrEnum
 
 
 class Binding(StrEnum):
