@@ -34,13 +34,13 @@ def test_read_tarball_metadata(tmp_path: Path) -> None:
     tarball = write_tarball(
         tmp_path,
         "tigr-asgi-contract-0.1.1-dev1.tgz",
-        package_name="@tigr/asgi-contract",
+        package_name="@tigrbljs/tigr-asgi-contract",
         version="0.1.1-dev1",
     )
 
     metadata = MODULE.read_tarball_metadata(tarball)
 
-    assert metadata.package_name == "@tigr/asgi-contract"
+    assert metadata.package_name == "@tigrbljs/tigr-asgi-contract"
     assert metadata.version == "0.1.1-dev1"
 
 
@@ -48,13 +48,13 @@ def test_tarball_sorting_prefers_older_versions_first(tmp_path: Path) -> None:
     stable = write_tarball(
         tmp_path,
         "tigr-asgi-contract-0.1.1.tgz",
-        package_name="@tigr/asgi-contract",
+        package_name="@tigrbljs/tigr-asgi-contract",
         version="0.1.1",
     )
     prerelease = write_tarball(
         tmp_path,
         "tigr-asgi-contract-0.1.1-dev2.tgz",
-        package_name="@tigr/asgi-contract",
+        package_name="@tigrbljs/tigr-asgi-contract",
         version="0.1.1-dev2",
     )
 

@@ -1,4 +1,4 @@
-# @tigr/asgi-contract
+# @tigrbljs/tigr-asgi-contract
 
 Generated TypeScript and TSX contract package for the Tigr ASGI contract. It is generated from the canonical `contract/` directory and mirrors the legality and schema artifacts.
 
@@ -7,7 +7,7 @@ Generated TypeScript and TSX contract package for the Tigr ASGI contract. It is 
 | Ecosystem | Package | Version | Path | Surface files | Notes |
 | --- | --- | --- | --- | --- | --- |
 | python | `tigr-asgi-contract` | `0.1.2-dev3` | `packages/contract-py` | 16 | Enums, models, validators |
-| npm | **`@tigr/asgi-contract`** | `0.1.2-dev3` | `packages/contract-npm` | 18 | TypeScript and TSX surfaces |
+| npm | **`@tigrbljs/tigr-asgi-contract`** | `0.1.2-dev3` | `packages/contract-npm` | 18 | TypeScript and TSX surfaces |
 | rust | `tigr_asgi_contract_rs` | `0.1.2-dev3` | `packages/contract-rs` | 15 | Serde-friendly contract surfaces |
 
 ## Generated Surface Matrix

@@ -1,5 +1,5 @@
 {
-  "name": "@tigr/contract-artifacts",
+  "name": "@tigrbljs/tigr-asgi-contract-artifacts",
   "version": "0.1.2-dev3",
   "type": "module",
   "files": [

@@ -1,4 +1,4 @@
-# @tigr/contract-artifacts
+# @tigrbljs/tigr-asgi-contract-artifacts
 
 Canonical npm artifact package for the Tigr ASGI contract. This package ships the source artifacts that drive the downstream contract packages.
 
@@ -6,9 +6,9 @@ Canonical npm artifact package for the Tigr ASGI contract. This package ships th
 
 | Ecosystem | Package | Version | Path | Surface files | Notes |
 | --- | --- | --- | --- | --- | --- |
-| python | `tigr-contract-artifacts` | `0.1.2-dev3` | `packages/artifacts-py` | 1 | Vendored file accessors |
-| npm | **`@tigr/contract-artifacts`** | `0.1.2-dev3` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
-| rust | `tigr_contract_artifacts_rs` | `0.1.2-dev3` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
+| python | `tigr-asgi-contract-artifacts` | `0.1.2-dev3` | `packages/artifacts-py` | 1 | Vendored file accessors |
+| npm | **`@tigrbljs/tigr-asgi-contract-artifacts`** | `0.1.2-dev3` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
+| rust | `tigr_asgi_contract_artifacts_rs` | `0.1.2-dev3` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
 
 ## Artifact Inventory Matrix
 

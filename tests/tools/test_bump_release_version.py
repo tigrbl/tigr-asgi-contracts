@@ -30,11 +30,11 @@ def write_files(root: Path, version: str) -> None:
         encoding="utf-8",
     )
     (root / "packages/artifacts-npm/package.json").write_text(
-        '{\n  "name": "@tigr/artifacts",\n  "version": "' + version + '"\n}\n',
+        '{\n  "name": "@tigrbljs/tigr-asgi-contract-artifacts",\n  "version": "' + version + '"\n}\n',
         encoding="utf-8",
     )
     (root / "packages/contract-npm/package.json").write_text(
-        '{\n  "name": "@tigr/contract",\n  "version": "' + version + '"\n}\n',
+        '{\n  "name": "@tigrbljs/tigr-asgi-contract",\n  "version": "' + version + '"\n}\n',
         encoding="utf-8",
     )
     (root / "packages/artifacts-rs/Cargo.toml").write_text(

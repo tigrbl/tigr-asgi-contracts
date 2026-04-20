@@ -1,5 +1,5 @@
 [package]
-name = "tigr_contract_artifacts_rs"
+name = "tigr_asgi_contract_artifacts_rs"
 version = "0.1.2-dev3"
 edition = "2021"
 license = "Apache-2.0"
