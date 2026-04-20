@@ -28,6 +28,16 @@ on:
         required: true
         default: true
         type: boolean
+      publish_to_npmjs:
+        description: Publish npm distributions to npmjs
+        required: true
+        default: true
+        type: boolean
+      publish_to_crates:
+        description: Publish Rust crates to crates.io
+        required: true
+        default: true
+        type: boolean
 
 concurrency:
   group: publish-and-release-${{ inputs.rc_tag }}
@@ -57,6 +67,7 @@ jobs:
   publish-npm:
     name: Publish npm packages
     runs-on: ubuntu-latest
+    if: ${{ inputs.publish_to_npmjs }}
     steps:
       - name: Download promoted assets
         env:
@@ -128,6 +139,7 @@ jobs:
   publish-crates:
     name: Publish Rust crates
     runs-on: ubuntu-latest
+    if: ${{ inputs.publish_to_crates }}
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
