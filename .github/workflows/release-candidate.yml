@@ -92,8 +92,8 @@ jobs:
       - name: Verify npm bundles were produced
         shell: bash
         run: |
-          test -f dist/npm/tigr-contract-artifacts-*.tgz
-          test -f dist/npm/tigr-asgi-contract-*.tgz
+          test -f dist/npm/tigrbljs-tigr-asgi-contract-artifacts-*.tgz
+          test -f dist/npm/tigrbljs-tigr-asgi-contract-*.tgz
 
   verify-rust:
     name: Verify Rust matrix
