@@ -1,6 +1,6 @@
 {
   "name": "@tigr/contract-artifacts",
-  "version": "0.1.2-dev2",
+  "version": "0.1.2-dev3",
   "type": "module",
   "files": [
     "contract/**",
