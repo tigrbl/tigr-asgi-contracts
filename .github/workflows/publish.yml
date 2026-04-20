@@ -155,6 +155,21 @@ jobs:
     if: ${{ always() && inputs.create_github_release && contains(fromJSON('["success","skipped"]'), needs.publish-pypi.result) && contains(fromJSON('["success","skipped"]'), needs.publish-npm.result) && contains(fromJSON('["success","skipped"]'), needs.publish-crates.result) }}
     steps:
       - uses: actions/checkout@v4
+      - id: promoted
+        name: Resolve promoted target commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          target_commit=$(gh release view "${{ inputs.rc_tag }}" --json targetCommitish --jq '.targetCommitish')
+          echo "target_commit=$target_commit" >> "$GITHUB_OUTPUT"
+          git checkout "$target_commit"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - uses: astral-sh/setup-uv@v7
+      - run: uv sync --frozen --python 3.10
+      - run: uv run --frozen python tools/ssot_release_lifecycle.py publish
       - name: Download promoted assets
         env:
           GH_TOKEN: ${{ github.token }}
@@ -166,7 +181,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          target_commit=$(gh release view "${{ inputs.rc_tag }}" --json targetCommitish --jq '.targetCommitish')
+          target_commit="${{ steps.promoted.outputs.target_commit }}"
           version=$(tr -d '\r\n' < dist/promoted/VERSION)
           final_tag="tigr-asgi-contracts==${version}"
           if ! git ls-remote --tags origin "$final_tag" | grep -q "$final_tag"; then

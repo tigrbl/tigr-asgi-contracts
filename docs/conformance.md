@@ -25,3 +25,13 @@ Separate integration/conformance suites are responsible for proving:
 - Tigrcorn ↔ ASGI3 compatibility
 - Tigrcorn ↔ Tigrbl compatibility
 - versioned compatibility across releases
+
+## SSOT conformance
+
+Within this repository, SSOT conformance additionally requires:
+
+1. `ssot-registry 0.2.10` validation passes
+2. optional contract features are tracked as implemented rather than partial
+3. every implemented feature is claim-covered, while forbidden rows remain validated through the legality matrices and tests
+4. the current repo version has a non-draft SSOT boundary/release pair
+5. checked-in SSOT reports match the current validator output

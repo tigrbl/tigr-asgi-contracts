@@ -3,7 +3,7 @@
   "registry_path": ".ssot/registry.json",
   "from_schema_version": "0.1.0",
   "to_schema_version": "0.1.0",
-  "from_version": "0.2.8",
+  "from_version": "0.2.10",
   "to_version": "0.2.10",
   "migrations": [],
   "schema_migrations": [],
@@ -12,7 +12,8 @@
   "sync": {
     "adr": {
       "created": [],
-      "updated": [
+      "updated": [],
+      "unchanged": [
         "adr:0600",
         "adr:0601",
         "adr:0602",
@@ -27,12 +28,12 @@
         "adr:0611",
         "adr:0612",
         "adr:0613"
-      ],
-      "unchanged": []
+      ]
     },
     "spec": {
       "created": [],
-      "updated": [
+      "updated": [],
+      "unchanged": [
         "spc:0600",
         "spc:0601",
         "spc:0602",
@@ -48,8 +49,7 @@
         "spc:0612",
         "spc:0613",
         "spc:0614"
-      ],
-      "unchanged": []
+      ]
     }
   },
   "changed": true

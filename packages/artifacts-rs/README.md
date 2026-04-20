@@ -6,9 +6,9 @@ Canonical Rust artifact crate for the Tigr ASGI contract. This package ships the
 
 | Ecosystem | Package | Version | Path | Surface files | Notes |
 | --- | --- | --- | --- | --- | --- |
-| python | `tigr-contract-artifacts` | `0.1.2-dev1` | `packages/artifacts-py` | 1 | Vendored file accessors |
-| npm | `@tigr/contract-artifacts` | `0.1.2-dev1` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
-| rust | **`tigr_contract_artifacts_rs`** | `0.1.2-dev1` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
+| python | `tigr-contract-artifacts` | `0.1.2-dev2` | `packages/artifacts-py` | 1 | Vendored file accessors |
+| npm | `@tigr/contract-artifacts` | `0.1.2-dev2` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
+| rust | **`tigr_contract_artifacts_rs`** | `0.1.2-dev2` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
 
 ## Artifact Inventory Matrix
 
@@ -40,8 +40,8 @@ Canonical Rust artifact crate for the Tigr ASGI contract. This package ships the
 | Field | Value |
 | --- | --- |
 | Contract name | `tigr-asgi-contract` |
-| Contract version | `0.1.2-dev1` |
-| Artifact version | `0.1.2-dev1` |
+| Contract version | `0.1.2-dev2` |
+| Artifact version | `0.1.2-dev2` |
 | Serde version | `1` |
 | Schema draft | `2020-12` |
 | Bindings | 6 |

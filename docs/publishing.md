@@ -25,6 +25,8 @@ This repository uses a strict six-step release lifecycle:
    - `uv run --frozen python -m pytest -q`
 3. Commit source contract changes and generated downstream outputs together.
 
+`tools/generate_all.py` now also refreshes `.ssot/registry.json`, `.ssot/reports/*`, and the current version-aligned candidate boundary/release metadata.
+
 ### CI sequence
 
 1. Validate YAML and JSON Schema on Python `3.10` through `3.14`.
@@ -34,7 +36,8 @@ This repository uses a strict six-step release lifecycle:
    - Python `3.10` through `3.14`
    - Node `21` through `25`
    - Rust `1.91.0` through `1.95.0`
-5. Generate and upload a bindings preview artifact automatically on pull requests, `main` pushes, merge queues, and the daily scheduled CI run.
+5. Verify SSOT optional-feature and certification tests.
+6. Generate and upload a bindings preview artifact automatically on pull requests, `main` pushes, merge queues, and the daily scheduled CI run.
 
 ### Promotion sequence
 
@@ -45,10 +48,11 @@ The release-candidate workflow performs:
 1. matrix validation across Python `3.10` through `3.14`, Node `21` through `25`, and Rust `1.91.0` through `1.95.0`
 2. regeneration
 3. clean-tree verification
-4. package and release bundle build
-5. bundle upload
-6. optional GitHub release creation tagged as `tigr-asgi-contracts==<version>`
-7. optional PyPI publish of the Python wheel/sdist bundle
+4. SSOT boundary freeze plus release certification/promotion in the ephemeral workflow workspace
+5. package and release bundle build
+6. bundle upload
+7. optional GitHub release creation tagged as `tigr-asgi-contracts==<version>`
+8. optional PyPI publish of the Python wheel/sdist bundle
 
 ### Prepare sequence
 
@@ -58,8 +62,9 @@ The `prepare-release` workflow performs:
 
 1. version bump across `VERSION` and all package manifests
 2. version consistency verification
-3. commit and push of version-only metadata changes
-4. dispatch of `release-candidate` with explicit GitHub Release and PyPI publish toggles
+3. refresh SSOT registry reports and the version-aligned candidate boundary/release metadata
+4. commit and push version metadata plus `.ssot` metadata changes
+5. dispatch of `release-candidate` with explicit GitHub Release and PyPI publish toggles
 
 ### Publish sequence
 
@@ -69,6 +74,7 @@ Publishing uses the promoted candidate as the source of truth.
 - PyPI build and publish use `uv build` and `uv publish`.
 - npm publishes from the promoted tarballs, with an option to replay the most recent `1` to `5` release bundles.
 - crates.io publishes from the promoted source tag / commit.
+- After ecosystem publication succeeds, the final workflow marks the SSOT release as `published` in its ephemeral workspace before creating the final GitHub release.
 
 Required GitHub Actions secrets:
 

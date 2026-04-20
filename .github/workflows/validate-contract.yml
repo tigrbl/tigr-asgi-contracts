@@ -50,4 +50,5 @@ jobs:
       - uses: astral-sh/setup-uv@v7
       - run: uv sync --frozen --python ${{ matrix.python-version }}
       - run: uv run --frozen python tools/generate_all.py
+      - run: uv run --frozen python -m pytest -q tests/contract/test_optional_features.py tests/contract/test_ssot_certification.py
       - run: git diff --exit-code

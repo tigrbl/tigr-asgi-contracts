@@ -149,6 +149,7 @@ jobs:
       - run: uv run --frozen python tools/validate_jsonschema.py
       - run: uv run --frozen python tools/generate_all.py
       - run: git diff --exit-code
+      - run: uv run --frozen python tools/ssot_release_lifecycle.py certify-promote
       - run: uv run --frozen python tools/build_release_bundles.py
       - shell: bash
         run: |

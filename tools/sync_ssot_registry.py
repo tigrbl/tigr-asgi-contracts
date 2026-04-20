@@ -33,11 +33,12 @@ REGISTRY_PATH = ROOT / ".ssot" / "registry.json"
 LOCAL_SSOT_SITE = ROOT / ".tmp" / "ssot_registry_pkg"
 CONTRACT_REGISTRY_PATH = ROOT / "packages" / "contract-py" / "src" / "tigr_asgi_contract" / "registry.py"
 VERSION_PATH = ROOT / "VERSION"
+EXPECTED_SSOT_VERSION = "0.2.10"
 
 CODE_TO_STATUS = {
     "R": "implemented",
     "D": "implemented",
-    "O": "partial",
+    "O": "implemented",
     "F": "absent",
 }
 
@@ -117,6 +118,23 @@ def load_contract_registry():
     return module
 
 
+def require_ssot_version() -> None:
+    added_path = False
+    if LOCAL_SSOT_SITE.exists():
+        sys.path.insert(0, str(LOCAL_SSOT_SITE))
+        added_path = True
+    try:
+        import ssot_registry  # type: ignore
+    finally:
+        if added_path:
+            sys.path.pop(0)
+    version = getattr(ssot_registry, "__version__", None)
+    if version != EXPECTED_SSOT_VERSION:
+        raise RuntimeError(
+            f"Expected ssot-registry {EXPECTED_SSOT_VERSION}, found {version or 'unknown'}."
+        )
+
+
 def ssot_env() -> dict[str, str]:
     env = os.environ.copy()
     if LOCAL_SSOT_SITE.exists():
@@ -144,16 +162,18 @@ def load_registry() -> dict:
 
 
 def ensure_registry() -> None:
+    require_ssot_version()
     repo_id = norm(ROOT.name)
     repo_name = ROOT.name
     version = VERSION_PATH.read_text(encoding="utf-8").strip() if VERSION_PATH.exists() else "0.1.0"
     if REGISTRY_PATH.exists():
         try:
-            run_ssot("upgrade", ".")
+            run_ssot("upgrade", ".", "--sync-docs", "--write-report")
         except RuntimeError as exc:
             print(f"warning: ssot upgrade skipped: {exc}", file=sys.stderr)
     else:
         run_ssot("init", ".", "--repo-id", repo_id, "--repo-name", repo_name, "--version", version)
+        run_ssot("upgrade", ".", "--sync-docs", "--write-report")
 
 
 def artifact_slug(path: Path) -> str:
@@ -192,13 +212,16 @@ def evidence_id_for_file_test(test_id: str) -> str:
 def discover_test_cases() -> dict[str, list[str]]:
     cases: dict[str, list[str]] = {}
     for path in sorted(TESTS_ROOT.rglob("test_*.py")):
+        rel = rel_posix(path)
+        if not rel.startswith(("tests/codegen/", "tests/contract/", "tests/parity/")):
+            continue
         module = ast.parse(path.read_text(encoding="utf-8"))
         case_names = [
             node.name
             for node in module.body
             if isinstance(node, ast.FunctionDef) and node.name.startswith("test_")
         ]
-        cases[rel_posix(path)] = case_names
+        cases[rel] = case_names
     return cases
 
 
@@ -235,14 +258,17 @@ def build_specs() -> tuple[dict[str, FeatureSpec], dict[str, ClaimSpec], dict[st
     binding_family_ids: set[str] = set()
     family_subevent_ids: set[str] = set()
     binding_subevent_ids: set[str] = set()
+    optional_binding_family_ids: set[str] = set()
+    optional_binding_subevent_ids: set[str] = set()
     implemented_binding_family_ids: set[str] = set()
     implemented_family_subevent_ids: set[str] = set()
     implemented_binding_subevent_ids: set[str] = set()
-
     for binding, families in sorted(contract_registry.BINDING_FAMILY_MATRIX.items()):
         for family, code in sorted(families.items()):
             feat_id = f"feat:binding-family-{norm(binding)}-{norm(family)}"
             binding_family_ids.add(feat_id)
+            if code == "O":
+                optional_binding_family_ids.add(feat_id)
             if CODE_TO_STATUS[code] == "implemented":
                 implemented_binding_family_ids.add(feat_id)
             claim_ids = {"clm:bindings", "clm:families", "clm:legality-binding-family"} if CODE_TO_STATUS[code] == "implemented" else set()
@@ -273,6 +299,8 @@ def build_specs() -> tuple[dict[str, FeatureSpec], dict[str, ClaimSpec], dict[st
         for subevent, code in sorted(subevents.items()):
             feat_id = f"feat:binding-subevent-{norm(binding)}-{norm(subevent)}"
             binding_subevent_ids.add(feat_id)
+            if code == "O":
+                optional_binding_subevent_ids.add(feat_id)
             if CODE_TO_STATUS[code] == "implemented":
                 implemented_binding_subevent_ids.add(feat_id)
             claim_ids = {"clm:bindings", "clm:subevents", "clm:legality-binding-subevent"} if CODE_TO_STATUS[code] == "implemented" else set()
@@ -364,9 +392,25 @@ def build_specs() -> tuple[dict[str, FeatureSpec], dict[str, ClaimSpec], dict[st
         claim_ids={"clm:bindings", "clm:families", "clm:subevents"} | legality_claim_ids,
     )
     register_file_test(
+        "tests/contract/test_optional_features.py",
+        feature_ids=set(optional_binding_family_ids | optional_binding_subevent_ids),
+        claim_ids={
+            "clm:bindings",
+            "clm:families",
+            "clm:subevents",
+            "clm:legality-binding-family",
+            "clm:legality-binding-subevent",
+        },
+    )
+    register_file_test(
         "tests/contract/test_manifest.py",
         feature_ids={"feat:manifest"},
         claim_ids={"clm:manifest"},
+    )
+    register_file_test(
+        "tests/contract/test_ssot_certification.py",
+        feature_ids=set(features.keys()),
+        claim_ids=set(claims.keys()),
     )
     register_file_test(
         "tests/parity/test_cross_language_roundtrip.py",
@@ -414,9 +458,120 @@ def build_specs() -> tuple[dict[str, FeatureSpec], dict[str, ClaimSpec], dict[st
             {"feat:legality-binding-family", "feat:binding-family-webtransport-datagram"},
             {"clm:bindings", "clm:families", "clm:legality-binding-family"},
         ),
+        ("tests/contract/test_optional_features.py", "test_optional_binding_families_are_supported"): (
+            set(optional_binding_family_ids),
+            {"clm:bindings", "clm:families", "clm:legality-binding-family"},
+        ),
+        ("tests/contract/test_optional_features.py", "test_http_stream_optional_subevents_are_supported"): (
+            {
+                "feat:binding-subevent-http-stream-request-accept",
+                "feat:binding-subevent-http-stream-request-body-in",
+                "feat:binding-subevent-http-stream-request-disconnect",
+                "feat:binding-subevent-http-stream-response-body-out",
+                "feat:binding-subevent-http-stream-response-close",
+                "feat:binding-subevent-http-stream-stream-abort",
+                "feat:binding-subevent-http-stream-stream-flush",
+            },
+            {"clm:bindings", "clm:subevents", "clm:legality-binding-subevent"},
+        ),
+        ("tests/contract/test_optional_features.py", "test_jsonrpc_optional_subevents_are_supported"): (
+            {
+                "feat:binding-subevent-jsonrpc-request-accept",
+                "feat:binding-subevent-jsonrpc-request-disconnect",
+                "feat:binding-subevent-jsonrpc-response-close",
+                "feat:binding-subevent-jsonrpc-stream-chunk-in",
+                "feat:binding-subevent-jsonrpc-stream-chunk-out",
+                "feat:binding-subevent-jsonrpc-stream-close",
+                "feat:binding-subevent-jsonrpc-stream-emit-complete",
+                "feat:binding-subevent-jsonrpc-stream-finalize",
+                "feat:binding-subevent-jsonrpc-stream-open",
+            },
+            {"clm:bindings", "clm:subevents", "clm:legality-binding-subevent"},
+        ),
+        ("tests/contract/test_optional_features.py", "test_rest_optional_subevents_are_supported"): (
+            {
+                "feat:binding-subevent-rest-request-accept",
+                "feat:binding-subevent-rest-request-disconnect",
+                "feat:binding-subevent-rest-response-close",
+                "feat:binding-subevent-rest-stream-chunk-in",
+                "feat:binding-subevent-rest-stream-chunk-out",
+                "feat:binding-subevent-rest-stream-close",
+                "feat:binding-subevent-rest-stream-emit-complete",
+                "feat:binding-subevent-rest-stream-finalize",
+                "feat:binding-subevent-rest-stream-open",
+            },
+            {"clm:bindings", "clm:subevents", "clm:legality-binding-subevent"},
+        ),
+        ("tests/contract/test_optional_features.py", "test_websocket_optional_subevents_are_supported"): (
+            {
+                "feat:binding-subevent-websocket-message-ack",
+                "feat:binding-subevent-websocket-message-decode",
+                "feat:binding-subevent-websocket-message-nack",
+                "feat:binding-subevent-websocket-message-replay",
+                "feat:binding-subevent-websocket-message-snapshot",
+                "feat:binding-subevent-websocket-session-disconnect",
+                "feat:binding-subevent-websocket-session-emit-complete",
+                "feat:binding-subevent-websocket-session-heartbeat",
+                "feat:binding-subevent-websocket-session-sync",
+            },
+            {"clm:bindings", "clm:subevents", "clm:legality-binding-subevent"},
+        ),
+        ("tests/contract/test_optional_features.py", "test_sse_optional_subevents_are_supported"): (
+            {
+                "feat:binding-subevent-sse-request-accept",
+                "feat:binding-subevent-sse-request-body-in",
+                "feat:binding-subevent-sse-request-disconnect",
+                "feat:binding-subevent-sse-response-open",
+                "feat:binding-subevent-sse-response-close",
+                "feat:binding-subevent-sse-session-disconnect",
+                "feat:binding-subevent-sse-session-emit-complete",
+                "feat:binding-subevent-sse-session-heartbeat",
+                "feat:binding-subevent-sse-session-sync",
+                "feat:binding-subevent-sse-message-replay",
+                "feat:binding-subevent-sse-message-snapshot",
+                "feat:binding-subevent-sse-stream-abort",
+                "feat:binding-subevent-sse-stream-finalize",
+                "feat:binding-subevent-sse-stream-flush",
+            },
+            {"clm:bindings", "clm:subevents", "clm:legality-binding-subevent"},
+        ),
+        ("tests/contract/test_optional_features.py", "test_webtransport_optional_subevents_are_supported"): (
+            {
+                "feat:binding-family-webtransport-message",
+                "feat:binding-subevent-webtransport-datagram-ack",
+                "feat:binding-subevent-webtransport-session-disconnect",
+                "feat:binding-subevent-webtransport-session-emit-complete",
+                "feat:binding-subevent-webtransport-session-heartbeat",
+                "feat:binding-subevent-webtransport-session-sync",
+                "feat:binding-subevent-webtransport-message-ack",
+                "feat:binding-subevent-webtransport-message-decode",
+                "feat:binding-subevent-webtransport-message-emit-complete",
+                "feat:binding-subevent-webtransport-message-handle",
+                "feat:binding-subevent-webtransport-message-in",
+                "feat:binding-subevent-webtransport-message-nack",
+                "feat:binding-subevent-webtransport-message-out",
+                "feat:binding-subevent-webtransport-message-replay",
+                "feat:binding-subevent-webtransport-message-snapshot",
+                "feat:binding-subevent-webtransport-stream-abort",
+                "feat:binding-subevent-webtransport-stream-flush",
+            },
+            {"clm:bindings", "clm:subevents", "clm:legality-binding-family", "clm:legality-binding-subevent"},
+        ),
         ("tests/contract/test_manifest.py", "test_manifest_exists"): (
             {"feat:manifest"},
             {"clm:manifest"},
+        ),
+        ("tests/contract/test_ssot_certification.py", "test_all_features_are_claim_covered_and_complete"): (
+            set(features.keys()),
+            set(claims.keys()),
+        ),
+        ("tests/contract/test_ssot_certification.py", "test_current_release_matches_repo_version"): (
+            set(features.keys()),
+            set(claims.keys()),
+        ),
+        ("tests/contract/test_ssot_certification.py", "test_validation_report_is_green_and_blockers_are_empty"): (
+            set(features.keys()),
+            set(claims.keys()),
         ),
         ("tests/parity/test_cross_language_roundtrip.py", "test_cross_language_roundtrip_smoke"): (
             {"feat:bindings", "feat:families", "feat:binding-family-rest-request"},
@@ -515,15 +670,15 @@ def upsert_feature_rows(registry: dict, specs: dict[str, FeatureSpec]) -> tuple[
             row["implementation_status"] = spec.implementation_status
             changed = True
         row.setdefault("lifecycle", {"stage": "active", "replacement_feature_ids": [], "note": None})
-        row.setdefault(
-            "plan",
-            {
-                "horizon": "current",
-                "slot": None,
-                "target_claim_tier": "T2",
-                "target_lifecycle_stage": "active",
-            },
-        )
+        desired_plan = {
+            "horizon": "current" if spec.implementation_status == "implemented" else "out_of_bounds",
+            "slot": None,
+            "target_claim_tier": "T2",
+            "target_lifecycle_stage": "active",
+        }
+        if row.get("plan") != desired_plan:
+            row["plan"] = desired_plan
+            changed = True
         desired_claim_ids = sorted(spec.claim_ids)
         desired_test_ids = sorted(spec.test_ids)
         if row.get("claim_ids") != desired_claim_ids:
@@ -697,6 +852,7 @@ def main() -> None:
     ensure_registry()
     features, claims, tests, evidence = build_specs()
     registry = load_registry()
+    registry.setdefault("repo", {})["version"] = VERSION_PATH.read_text(encoding="utf-8").strip()
     feature_changes, feature_links = upsert_feature_rows(registry, features)
     claim_changes, claim_links = upsert_claim_rows(registry, claims)
     test_changes, test_links = upsert_test_rows(registry, tests)
