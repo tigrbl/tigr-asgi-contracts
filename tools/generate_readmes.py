@@ -598,11 +598,12 @@ def render_root_readme(data: dict, meta: dict[str, dict], modules: dict[str, dic
         4. Commit source and generated outputs together.
 
         ```bash
-        python tools/validate_yaml.py
-        python tools/validate_jsonschema.py
-        python tools/generate_all.py
-        python tools/check_versions.py
-        pytest -q
+        uv sync --frozen
+        uv run --frozen python tools/validate_yaml.py
+        uv run --frozen python tools/validate_jsonschema.py
+        uv run --frozen python tools/generate_all.py
+        uv run --frozen python tools/check_versions.py
+        uv run --frozen python -m pytest -q
         ```
 
         Do not hand-edit generated outputs under `packages/contract-*`, `contract/manifest.json`, `contract/checksums.txt`, or these generated README files.

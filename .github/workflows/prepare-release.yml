@@ -49,11 +49,14 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install Python release tooling
-        run: pip install -q tomli
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Sync Python release tooling
+        run: uv sync --frozen --python 3.10
 
       - name: Bump unified release version
-        run: python tools/bump_release_version.py --bump "${{ inputs.bump_type }}"
+        run: uv run --frozen python tools/bump_release_version.py --bump "${{ inputs.bump_type }}"
 
       - id: version
         name: Read bumped version
@@ -61,7 +64,7 @@ jobs:
         run: echo "version=$(tr -d '\r\n' < VERSION)" >> "$GITHUB_OUTPUT"
 
       - name: Verify bumped manifests
-        run: python tools/check_versions.py "${{ steps.version.outputs.version }}"
+        run: uv run --frozen python tools/check_versions.py "${{ steps.version.outputs.version }}"
 
       - name: Commit bumped versions
         run: |

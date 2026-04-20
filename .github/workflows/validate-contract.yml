@@ -27,11 +27,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - run: pip install -q PyYAML jsonschema tomli
-      - run: python tools/validate_yaml.py
-      - run: python tools/validate_jsonschema.py
-      - run: python tools/build_manifest.py
-      - run: python tools/build_checksums.py
+      - uses: astral-sh/setup-uv@v7
+      - run: uv sync --frozen --python ${{ matrix.python-version }}
+      - run: uv run --frozen python tools/validate_yaml.py
+      - run: uv run --frozen python tools/validate_jsonschema.py
+      - run: uv run --frozen python tools/build_manifest.py
+      - run: uv run --frozen python tools/build_checksums.py
       - run: git diff --exit-code -- contract/manifest.json contract/checksums.txt
 
   verify-generated-clean:
@@ -46,6 +47,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - run: pip install -q PyYAML jsonschema tomli
-      - run: python tools/generate_all.py
+      - uses: astral-sh/setup-uv@v7
+      - run: uv sync --frozen --python ${{ matrix.python-version }}
+      - run: uv run --frozen python tools/generate_all.py
       - run: git diff --exit-code

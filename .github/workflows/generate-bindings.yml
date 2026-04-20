@@ -24,8 +24,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - run: pip install -q PyYAML jsonschema tomli
-      - run: python tools/generate_all.py
+      - uses: astral-sh/setup-uv@v7
+      - run: uv sync --frozen --python 3.10
+      - run: uv run --frozen python tools/generate_all.py
       - run: git diff --stat > generated.diff.txt || true
       - run: tar -czf generated-bindings-preview.tar.gz packages/contract-py packages/contract-rs packages/contract-npm contract/manifest.json contract/checksums.txt
       - uses: actions/upload-artifact@v4

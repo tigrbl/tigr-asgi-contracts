@@ -109,6 +109,10 @@ jobs:
             mkdir -p "dist/promoted/$safe_tag"
             gh release download "$tag" --pattern "*.tgz" --dir "dist/promoted/$safe_tag"
           done < dist/promoted/recent_tags.txt
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - uses: astral-sh/setup-uv@v7
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -116,7 +120,7 @@ jobs:
       - env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          python tools/publish_npm_tarballs.py --root dist/promoted
+          uv run --no-project --python 3.10 python tools/publish_npm_tarballs.py --root dist/promoted
 
   publish-crates:
     runs-on: ubuntu-latest
@@ -126,17 +130,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-      - run: pip install -q pyyaml jsonschema tomli
+      - uses: astral-sh/setup-uv@v7
+      - run: uv sync --frozen --python 3.10
       - env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           target_commit=$(gh release view "${{ inputs.rc_tag }}" --json targetCommitish --jq '.targetCommitish')
           git checkout "$target_commit"
-      - run: python tools/check_versions.py
-      - run: python tools/generate_all.py
+      - run: uv run --frozen python tools/check_versions.py
+      - run: uv run --frozen python tools/generate_all.py
       - run: git diff --exit-code
-      - run: python packages/artifacts-rs/scripts/vendor_contract.py
+      - run: uv run --no-project --python 3.10 python packages/artifacts-rs/scripts/vendor_contract.py
       - env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
         run: |

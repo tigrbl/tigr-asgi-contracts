@@ -15,13 +15,14 @@ This repository uses a strict six-step release lifecycle:
 
 1. Edit `contract/`
 2. Run:
-   - `python tools/validate_yaml.py`
-   - `python tools/validate_jsonschema.py`
-   - `python tools/build_manifest.py`
-   - `python tools/build_checksums.py`
-   - `python tools/generate_all.py`
-   - `python tools/check_versions.py`
-   - `python -m pytest -q`
+   - `uv sync --frozen`
+   - `uv run --frozen python tools/validate_yaml.py`
+   - `uv run --frozen python tools/validate_jsonschema.py`
+   - `uv run --frozen python tools/build_manifest.py`
+   - `uv run --frozen python tools/build_checksums.py`
+   - `uv run --frozen python tools/generate_all.py`
+   - `uv run --frozen python tools/check_versions.py`
+   - `uv run --frozen python -m pytest -q`
 3. Commit source contract changes and generated downstream outputs together.
 
 ### CI sequence
@@ -65,8 +66,15 @@ The `prepare-release` workflow performs:
 Publishing uses the promoted candidate as the source of truth.
 
 - PyPI publishes from the promoted wheel/sdist artifacts.
+- PyPI build and publish use `uv build` and `uv publish`.
 - npm publishes from the promoted tarballs, with an option to replay the most recent `1` to `5` release bundles.
 - crates.io publishes from the promoted source tag / commit.
+
+Required GitHub Actions secrets:
+
+- `PYPI_API_TOKEN` for PyPI release publishing
+- `NPM_TOKEN` for npm publishing
+- `CARGO_REGISTRY_TOKEN` for crates.io publishing
 
 ### Release sequence
 

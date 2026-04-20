@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import shutil
 import subprocess
 import sys
@@ -10,10 +11,16 @@ DIST = ROOT / "dist" / "release"
 PYPI_DIST = DIST / "pypi"
 NPM_DIST = DIST / "npm"
 CRATES_DIST = DIST / "crates"
+PYTHON_VERSION = f"{sys.version_info.major}.{sys.version_info.minor}"
 
 
-def run(cmd: list[str], *, cwd: Path | None = None) -> None:
-    subprocess.run(cmd, cwd=str(cwd) if cwd else None, check=True)
+def run(cmd: list[str], *, cwd: Path | None = None, clean_python_env: bool = False) -> None:
+    env = None
+    if clean_python_env:
+        env = os.environ.copy()
+        for key in ("VIRTUAL_ENV", "CONDA_PREFIX", "PYTHONHOME", "PYTHONPATH", "UV_PROJECT_ENVIRONMENT"):
+            env.pop(key, None)
+    subprocess.run(cmd, cwd=str(cwd) if cwd else None, env=env, check=True)
 
 
 def clean() -> None:
@@ -25,8 +32,16 @@ def clean() -> None:
 
 
 def build_python() -> None:
-    run([sys.executable, "-m", "build", "packages/artifacts-py", "--sdist", "--wheel", "-o", str(PYPI_DIST)], cwd=ROOT)
-    run([sys.executable, "-m", "build", "packages/contract-py", "--sdist", "--wheel", "-o", str(PYPI_DIST)], cwd=ROOT)
+    run(
+        ["uv", "build", str(ROOT / "packages/artifacts-py"), "--sdist", "--wheel", "--out-dir", str(PYPI_DIST), "--python", PYTHON_VERSION],
+        cwd=ROOT,
+        clean_python_env=True,
+    )
+    run(
+        ["uv", "build", str(ROOT / "packages/contract-py"), "--sdist", "--wheel", "--out-dir", str(PYPI_DIST), "--python", PYTHON_VERSION],
+        cwd=ROOT,
+        clean_python_env=True,
+    )
 
 
 def build_npm() -> None:

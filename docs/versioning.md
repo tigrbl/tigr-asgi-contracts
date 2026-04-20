@@ -22,7 +22,7 @@ The following packages must align with `VERSION`:
 Use:
 
 ```bash
-python tools/check_versions.py
+uv run --frozen python tools/check_versions.py
 ```
 
 before promotion.
@@ -30,7 +30,7 @@ before promotion.
 To auto-increment the next release version across every manifest, use:
 
 ```bash
-python tools/bump_release_version.py --bump patch
+uv run --frozen python tools/bump_release_version.py --bump patch
 ```
 
 Valid bump types are `patch`, `minor`, `major`, and `finalize`.
