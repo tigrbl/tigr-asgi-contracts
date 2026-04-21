@@ -101,6 +101,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ inputs.publish_to_npmjs }}
     steps:
+      - uses: actions/checkout@v4
       - name: Download promoted assets
         env:
           GH_TOKEN: ${{ github.token }}
@@ -176,6 +177,8 @@ jobs:
     if: ${{ inputs.publish_to_crates }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: dtolnay/rust-toolchain@stable
       - uses: actions/setup-python@v5
         with:
@@ -206,6 +209,8 @@ jobs:
     if: ${{ always() && inputs.create_github_release && contains(fromJSON('["success","skipped"]'), needs.publish-pypi.result) && contains(fromJSON('["success","skipped"]'), needs.publish-npm.result) && contains(fromJSON('["success","skipped"]'), needs.publish-crates.result) }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Download promoted assets
         env:
           GH_TOKEN: ${{ github.token }}
