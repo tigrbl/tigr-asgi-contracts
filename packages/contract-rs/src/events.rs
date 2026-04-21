@@ -42,6 +42,12 @@ pub enum TransportEventType {
     TransportEmitComplete,
 }
 
+impl Default for TransportEventType {
+    fn default() -> Self {
+        Self::HttpRequest
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ContractEvent {
     pub r#type: TransportEventType,
