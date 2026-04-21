@@ -48,7 +48,6 @@ The release-candidate workflow performs:
 4. package and release bundle build
 5. bundle upload
 6. optional GitHub release creation tagged as `tigr-asgi-contracts==<version>`
-7. optional PyPI publish of the Python wheel/sdist bundle
 
 ### Prepare sequence
 
@@ -59,7 +58,8 @@ The `prepare-release` workflow performs:
 1. version bump across `VERSION` and all package manifests
 2. version consistency verification
 3. commit and push of version-only metadata changes
-4. dispatch of `release-candidate` with explicit GitHub Release and PyPI publish toggles
+4. dispatch of `release-candidate` with explicit GitHub Release toggle
+5. optional dispatch of `publish` with explicit PyPI, npm, and crates.io toggles
 
 ### Publish sequence
 
