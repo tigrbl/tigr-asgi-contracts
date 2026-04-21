@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 import tarfile
@@ -45,20 +46,44 @@ def read_tarball_metadata(path: Path) -> NpmTarball:
 
 
 def npm_version_exists(package_name: str, version: str) -> bool:
+    npm_env = build_npm_env()
     result = subprocess.run(
         ["npm", "view", f"{package_name}@{version}", "version", "--json"],
         check=False,
         capture_output=True,
         text=True,
+        env=npm_env,
     )
     return result.returncode == 0 and result.stdout.strip() not in {"", "null"}
+
+
+def build_npm_env() -> dict[str, str]:
+    env = os.environ.copy()
+    token = env.get("NPM_API_TOKEN") or env.get("NPM_TOKEN") or env.get("NODE_AUTH_TOKEN")
+    if token:
+        env["NPM_API_TOKEN"] = token
+        env["NPM_TOKEN"] = token
+        env["NODE_AUTH_TOKEN"] = token
+        env.setdefault("NPM_CONFIG_REGISTRY", "https://registry.npmjs.org/")
+        env.setdefault("NPM_CONFIG_ALWAYS_AUTH", "true")
+    return env
 
 
 def publish_tarball(tarball: NpmTarball) -> None:
     if npm_version_exists(tarball.package_name, tarball.version):
         print(f"skip existing {tarball.package_name}@{tarball.version}")
         return
-    subprocess.run(["npm", "publish", str(tarball.path), "--access", "public"], check=True)
+    npm_env = build_npm_env()
+    if not (npm_env.get("NODE_AUTH_TOKEN") or npm_env.get("NPM_TOKEN") or npm_env.get("NPM_API_TOKEN")):
+        raise RuntimeError(
+            "npm authentication token missing. Set NPM_API_TOKEN "
+            "(GitHub Actions secret name: secrets.NPM_API_TOKEN)."
+        )
+    subprocess.run(
+        ["npm", "publish", str(tarball.path), "--access", "public", "--registry", "https://registry.npmjs.org/"],
+        check=True,
+        env=npm_env,
+    )
 
 
 def main() -> int:
