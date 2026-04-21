@@ -1,5 +1,5 @@
-name: Release / Prepare Version
-run-name: Release / Prepare Version / ${{ inputs.bump_type }} / ${{ github.ref_name }}
+name: Release / Prepare Release
+run-name: Release / Prepare Release / ${{ inputs.bump_type }} / ${{ github.ref_name }}
 
 on:
   workflow_dispatch:
