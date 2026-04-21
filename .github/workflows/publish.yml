@@ -2,6 +2,37 @@ name: Release / Publish Artifacts
 run-name: Release / Publish Artifacts / ${{ inputs.rc_tag }}
 
 on:
+  workflow_call:
+    inputs:
+      rc_tag:
+        description: Promoted release tag to publish from
+        required: true
+        type: string
+      create_github_release:
+        description: Create a GitHub release for the promoted version
+        required: false
+        default: true
+        type: boolean
+      npm_release_count:
+        description: Number of recent release bundles to publish to npm
+        required: false
+        default: '1'
+        type: string
+      publish_to_pypi:
+        description: Publish Python distributions to PyPI
+        required: false
+        default: true
+        type: boolean
+      publish_to_npmjs:
+        description: Publish npm distributions to npmjs
+        required: false
+        default: true
+        type: boolean
+      publish_to_crates:
+        description: Publish Rust crates to crates.io
+        required: false
+        default: true
+        type: boolean
   workflow_dispatch:
     inputs:
       rc_tag:
