@@ -224,6 +224,10 @@ jobs:
         if: ${{ inputs.publish_to_npmjs }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_USERNAME: ${{ secrets.NPM_USERNAME }}
+          NPM_PASSWORD: ${{ secrets.NPM_PASSWORD }}
+          NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
         run: |
           uv run --no-project --python 3.10 python tools/publish_npm_tarballs.py --root dist/release/npm
       - name: Publish Rust crates to crates.io

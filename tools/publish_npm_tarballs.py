@@ -3,9 +3,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 import tarfile
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -54,11 +56,49 @@ def npm_version_exists(package_name: str, version: str) -> bool:
     return result.returncode == 0 and result.stdout.strip() not in {"", "null"}
 
 
-def publish_tarball(tarball: NpmTarball) -> None:
+def build_npm_env() -> dict[str, str]:
+    env = os.environ.copy()
+    token = env.get("NODE_AUTH_TOKEN") or env.get("NPM_TOKEN")
+    if token:
+        npmrc = tempfile.NamedTemporaryFile("w", delete=False, encoding="utf-8", suffix=".npmrc")
+        npmrc.write("registry=https://registry.npmjs.org/\n")
+        npmrc.write(f"//registry.npmjs.org/:_authToken={token}\n")
+        npmrc.write("always-auth=true\n")
+        npmrc.flush()
+        npmrc.close()
+        env["NPM_CONFIG_USERCONFIG"] = npmrc.name
+        return env
+
+    username = env.get("NPM_USERNAME")
+    password = env.get("NPM_PASSWORD")
+    email = env.get("NPM_EMAIL")
+    if username and password and email:
+        login = subprocess.run(
+            ["npm", "adduser", "--registry", "https://registry.npmjs.org", "--auth-type=legacy"],
+            input=f"{username}\n{password}\n{email}\n",
+            text=True,
+            capture_output=True,
+            check=False,
+            env=env,
+        )
+        if login.returncode != 0:
+            raise RuntimeError(
+                "npm authentication failed via NPM_USERNAME/NPM_PASSWORD/NPM_EMAIL.\n"
+                f"stdout:\n{login.stdout}\n\nstderr:\n{login.stderr}"
+            )
+        return env
+
+    raise RuntimeError(
+        "Missing npm credentials. Provide NODE_AUTH_TOKEN or NPM_TOKEN, "
+        "or set NPM_USERNAME, NPM_PASSWORD, and NPM_EMAIL."
+    )
+
+
+def publish_tarball(tarball: NpmTarball, env: dict[str, str]) -> None:
     if npm_version_exists(tarball.package_name, tarball.version):
         print(f"skip existing {tarball.package_name}@{tarball.version}")
         return
-    subprocess.run(["npm", "publish", str(tarball.path), "--access", "public"], check=True)
+    subprocess.run(["npm", "publish", str(tarball.path), "--access", "public"], check=True, env=env)
 
 
 def main() -> int:
@@ -66,9 +106,10 @@ def main() -> int:
     parser.add_argument("--root", type=Path, required=True, help="Root directory containing downloaded *.tgz files.")
     args = parser.parse_args()
 
+    env = build_npm_env()
     tarballs = [read_tarball_metadata(path) for path in sorted(args.root.rglob("*.tgz"))]
     for tarball in sorted(tarballs, key=lambda item: (parse_version(item.version), item.package_name)):
-        publish_tarball(tarball)
+        publish_tarball(tarball, env)
     return 0
 
 
