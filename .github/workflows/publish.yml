@@ -86,6 +86,7 @@ jobs:
       - name: Download promoted assets
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
           mkdir -p dist/promoted
           gh release download "${{ inputs.rc_tag }}" --dir dist/promoted
@@ -103,6 +104,7 @@ jobs:
       - name: Download promoted assets
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         shell: bash
         run: |
           mkdir -p dist/promoted/current
@@ -112,6 +114,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+          GH_REPO: ${{ github.repository }}
           CURRENT_TAG: ${{ inputs.rc_tag }}
           NPM_RELEASE_COUNT: ${{ inputs.npm_release_count }}
         shell: bash
