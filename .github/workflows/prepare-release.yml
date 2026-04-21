@@ -14,8 +14,8 @@ on:
           - minor
           - major
           - finalize
-      create_github_release:
-        description: Create a GitHub release from the bumped version
+      publish_to_gh:
+        description: Publish a GitHub release using the auto-generated tigr-asgi-contracts==<version> tag
         required: true
         default: true
         type: boolean
@@ -49,9 +49,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Ensure release candidate exists when publishing
-        if: ${{ (inputs.publish_to_pypi || inputs.publish_to_npmjs || inputs.publish_to_crates) && !inputs.create_github_release }}
+        if: ${{ (inputs.publish_to_pypi || inputs.publish_to_npmjs || inputs.publish_to_crates) && !inputs.publish_to_gh }}
         run: |
-          echo "Publishing requires create_github_release=true so the release-candidate tag can be consumed by publish.yml."
+          echo "Publishing requires publish_to_gh=true so the release-candidate tag can be consumed by publish.yml."
           exit 1
 
   bump-version:
@@ -111,7 +111,8 @@ jobs:
     uses: ./.github/workflows/release-candidate.yml
     with:
       ref_name: ${{ needs.bump-version.outputs.release_ref }}
-      create_github_release: ${{ inputs.create_github_release }}
+      create_github_release: ${{ inputs.publish_to_gh }}
+      force_prerelease: ${{ inputs.bump_type != 'finalize' }}
     secrets: inherit
 
   publish:
@@ -122,6 +123,7 @@ jobs:
     with:
       rc_tag: tigr-asgi-contracts==${{ needs.bump-version.outputs.version }}
       create_github_release: false
+      force_prerelease: ${{ inputs.bump_type != 'finalize' }}
       publish_to_pypi: ${{ inputs.publish_to_pypi }}
       publish_to_npmjs: ${{ inputs.publish_to_npmjs }}
       publish_to_crates: ${{ inputs.publish_to_crates }}
