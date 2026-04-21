@@ -6,9 +6,9 @@ Canonical Python artifact package for the Tigr ASGI contract. This package ships
 
 | Ecosystem | Package | Version | Path | Surface files | Notes |
 | --- | --- | --- | --- | --- | --- |
-| python | **`tigr-asgi-contract-artifacts`** | `0.1.2-dev10` | `packages/artifacts-py` | 1 | Vendored file accessors |
-| npm | `@tigrbljs/tigr-asgi-contract-artifacts` | `0.1.2-dev10` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
-| rust | `tigr_asgi_contract_artifacts_rs` | `0.1.2-dev10` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
+| python | **`tigr-asgi-contract-artifacts`** | `0.1.2-dev11` | `packages/artifacts-py` | 1 | Vendored file accessors |
+| npm | `@tigrbljs/tigr-asgi-contract-artifacts` | `0.1.2-dev11` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
+| rust | `tigr_asgi_contract_artifacts_rs` | `0.1.2-dev11` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
 
 ## Artifact Inventory Matrix
 
@@ -40,8 +40,8 @@ Canonical Python artifact package for the Tigr ASGI contract. This package ships
 | Field | Value |
 | --- | --- |
 | Contract name | `tigr-asgi-contract` |
-| Contract version | `0.1.2-dev10` |
-| Artifact version | `0.1.2-dev10` |
+| Contract version | `0.1.2-dev11` |
+| Artifact version | `0.1.2-dev11` |
 | Serde version | `1` |
 | Schema draft | `2020-12` |
 | Bindings | 6 |
