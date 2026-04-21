@@ -13,6 +13,11 @@ on:
         required: false
         default: true
         type: boolean
+      force_prerelease:
+        description: Mark the final GitHub release as a prerelease regardless of version suffix
+        required: false
+        default: false
+        type: boolean
       npm_release_count:
         description: Number of recent release bundles to publish to npm
         required: false
@@ -42,6 +47,11 @@ on:
         description: Create a GitHub release for the promoted version
         required: true
         default: true
+        type: boolean
+      force_prerelease:
+        description: Mark the final GitHub release as a prerelease regardless of version suffix
+        required: true
+        default: false
         type: boolean
       npm_release_count:
         description: Number of recent release bundles to publish to npm
@@ -233,7 +243,7 @@ jobs:
             git push origin "$final_tag"
           fi
           extra_args=(--latest)
-          if [[ "$version" == *"-dev"* ]]; then
+          if [[ "${{ inputs.force_prerelease }}" == 'true' || "$version" == *"-dev"* ]]; then
             extra_args+=(--prerelease)
           fi
           gh release create "$final_tag"             dist/promoted/*             --target "$target_commit"             --title "Release $final_tag"             --notes "Published from promoted release candidate ${{ inputs.rc_tag }}."             "${extra_args[@]}"

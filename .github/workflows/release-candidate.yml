@@ -14,6 +14,11 @@ on:
         required: false
         default: true
         type: boolean
+      force_prerelease:
+        description: Mark the GitHub release as a prerelease regardless of version suffix
+        required: false
+        default: false
+        type: boolean
   workflow_dispatch:
     inputs:
       ref_name:
@@ -24,6 +29,11 @@ on:
         description: Create a GitHub release for the current version tag
         required: true
         default: true
+        type: boolean
+      force_prerelease:
+        description: Mark the GitHub release as a prerelease regardless of version suffix
+        required: true
+        default: false
         type: boolean
 
 concurrency:
@@ -160,7 +170,7 @@ jobs:
         run: |
           target_commit="$(git rev-parse HEAD)"
           extra_args=()
-          if [[ "${{ steps.meta.outputs.version }}" == *"-dev"* ]]; then
+          if [[ "${{ inputs.force_prerelease }}" == 'true' || "${{ steps.meta.outputs.version }}" == *"-dev"* ]]; then
             extra_args+=(--prerelease)
           fi
           gh release create "${{ steps.meta.outputs.release_tag }}" \
