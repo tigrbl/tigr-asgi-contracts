@@ -132,7 +132,7 @@ jobs:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
       - env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_API_TOKEN }}
         run: |
           uv run --no-project --python 3.10 python tools/publish_npm_tarballs.py --root dist/promoted
 
@@ -159,7 +159,7 @@ jobs:
       - run: git diff --exit-code
       - run: uv run --no-project --python 3.10 python packages/artifacts-rs/scripts/vendor_contract.py
       - env:
-          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CRATES_API_TOKEN }}
         run: |
           cargo publish --manifest-path packages/artifacts-rs/Cargo.toml --allow-dirty --no-verify
           cargo publish --manifest-path packages/contract-rs/Cargo.toml --allow-dirty --no-verify

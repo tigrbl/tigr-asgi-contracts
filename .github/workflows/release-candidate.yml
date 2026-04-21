@@ -223,13 +223,13 @@ jobs:
       - name: Publish npm distributions to npmjs
         if: ${{ inputs.publish_to_npmjs }}
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_API_TOKEN }}
         run: |
           uv run --no-project --python 3.10 python tools/publish_npm_tarballs.py --root dist/release/npm
       - name: Publish Rust crates to crates.io
         if: ${{ inputs.publish_to_crates }}
         env:
-          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CRATES_API_TOKEN }}
         run: |
           uv run --no-project --python 3.10 python packages/artifacts-rs/scripts/vendor_contract.py
           cargo publish --manifest-path packages/artifacts-rs/Cargo.toml --allow-dirty --no-verify
