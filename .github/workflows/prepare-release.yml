@@ -44,8 +44,19 @@ permissions:
   contents: write
 
 jobs:
+  validate-inputs:
+    name: Validate publish inputs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ensure release candidate exists when publishing
+        if: ${{ (inputs.publish_to_pypi || inputs.publish_to_npmjs || inputs.publish_to_crates) && !inputs.create_github_release }}
+        run: |
+          echo "Publishing requires create_github_release=true so the release-candidate tag can be consumed by publish.yml."
+          exit 1
+
   bump-version:
     name: Bump version metadata
+    needs: validate-inputs
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.version.outputs.version }}
@@ -101,6 +112,16 @@ jobs:
     with:
       ref_name: ${{ needs.bump-version.outputs.release_ref }}
       create_github_release: ${{ inputs.create_github_release }}
+    secrets: inherit
+
+  publish:
+    name: Trigger publish workflow
+    needs: [bump-version, release-candidate]
+    if: ${{ inputs.publish_to_pypi || inputs.publish_to_npmjs || inputs.publish_to_crates }}
+    uses: ./.github/workflows/publish.yml
+    with:
+      rc_tag: tigr-asgi-contracts==${{ needs.bump-version.outputs.version }}
+      create_github_release: false
       publish_to_pypi: ${{ inputs.publish_to_pypi }}
       publish_to_npmjs: ${{ inputs.publish_to_npmjs }}
       publish_to_crates: ${{ inputs.publish_to_crates }}
