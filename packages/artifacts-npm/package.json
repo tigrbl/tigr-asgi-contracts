@@ -1,6 +1,6 @@
 {
   "name": "@tigrbljs/tigr-asgi-contract-artifacts",
-  "version": "0.1.2-dev6",
+  "version": "0.1.2-dev7",
   "type": "module",
   "files": [
     "contract/**",
