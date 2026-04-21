@@ -16,10 +16,10 @@ pub fn load_json(rel: &str) -> serde_json::Value {
     serde_json::from_str(&data).expect("parse json")
 }
 
-pub fn load_yaml(rel: &str) -> serde_yaml::Value {
+pub fn load_yaml(rel: &str) -> serde_yml::Value {
     let path = contract_root().join(rel);
     let data = fs::read_to_string(path).expect("read yaml");
-    serde_yaml::from_str(&data).expect("parse yaml")
+    serde_yml::from_str(&data).expect("parse yaml")
 }
 
 pub fn manifest() -> serde_json::Value {
