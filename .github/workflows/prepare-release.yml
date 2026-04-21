@@ -24,6 +24,16 @@ on:
         required: true
         default: false
         type: boolean
+      publish_to_npmjs:
+        description: Publish npm distributions to npmjs from the bumped version
+        required: true
+        default: false
+        type: boolean
+      publish_to_crates:
+        description: Publish Rust crates to crates.io from the bumped version
+        required: true
+        default: false
+        type: boolean
 
 concurrency:
   group: prepare-release-${{ github.ref }}
@@ -39,6 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.version.outputs.version }}
+      release_ref: ${{ steps.commit.outputs.release_ref }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -68,20 +79,29 @@ jobs:
       - name: Verify bumped manifests
         run: uv run --frozen python tools/check_versions.py "${{ steps.version.outputs.version }}"
 
-      - name: Commit bumped versions
+      - id: commit
+        name: Commit bumped versions
+        shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "chore(release): bump version to ${{ steps.version.outputs.version }}"
-          git push origin "HEAD:${{ github.ref_name }}"
+          if git diff --cached --quiet; then
+            echo "No version changes were generated; skipping commit."
+          else
+            git commit -m "chore(release): bump version to ${{ steps.version.outputs.version }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi
+          echo "release_ref=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
 
   release-candidate:
     name: Trigger release candidate workflow
     needs: bump-version
     uses: ./.github/workflows/release-candidate.yml
     with:
-      ref_name: ${{ github.ref_name }}
+      ref_name: ${{ needs.bump-version.outputs.release_ref }}
       create_github_release: ${{ inputs.create_github_release }}
       publish_to_pypi: ${{ inputs.publish_to_pypi }}
+      publish_to_npmjs: ${{ inputs.publish_to_npmjs }}
+      publish_to_crates: ${{ inputs.publish_to_crates }}
     secrets: inherit
