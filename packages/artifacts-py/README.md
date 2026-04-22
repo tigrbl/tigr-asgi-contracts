@@ -6,9 +6,9 @@ Canonical Python artifact package for the Tigr ASGI contract. This package ships
 
 | Ecosystem | Package | Version | Path | Surface files | Notes |
 | --- | --- | --- | --- | --- | --- |
-| python | **`tigr-asgi-contract-artifacts`** | `0.1.2-dev13` | `packages/artifacts-py` | 1 | Vendored file accessors |
-| npm | `@tigrbljs/tigr-asgi-contract-artifacts` | `0.1.2-dev13` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
-| rust | `tigr_asgi_contract_artifacts_rs` | `0.1.2-dev13` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
+| python | **`tigr-asgi-contract-artifacts`** | `0.1.2-dev14` | `packages/artifacts-py` | 1 | Vendored file accessors |
+| npm | `@tigrbljs/tigr-asgi-contract-artifacts` | `0.1.2-dev14` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
+| rust | `tigr_asgi_contract_artifacts_rs` | `0.1.2-dev14` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
 
 ## Artifact Inventory Matrix
 
@@ -26,7 +26,8 @@ Canonical Python artifact package for the Tigr ASGI contract. This package ships
 | `legality/family_subevent.yaml` | legality | `36fda0df963c` |
 | `schemas/compatibility.schema.json` | schema | `309ba3093d34` |
 | `schemas/completion.schema.json` | schema | `26e6082df0cd` |
-| `schemas/event.schema.json` | schema | `67bb67ddeaab` |
+| `schemas/event.schema.json` | schema | `2b1fc1fc7c79` |
+| `schemas/jsonrpc.schema.json` | schema | `c885d927555d` |
 | `schemas/scope.schema.json` | schema | `2698752580f8` |
 | `schemas/sse.schema.json` | schema | `42e060246611` |
 | `schemas/transport.schema.json` | schema | `865875cec84c` |
@@ -40,8 +41,8 @@ Canonical Python artifact package for the Tigr ASGI contract. This package ships
 | Field | Value |
 | --- | --- |
 | Contract name | `tigr-asgi-contract` |
-| Contract version | `0.1.2-dev13` |
-| Artifact version | `0.1.2-dev13` |
+| Contract version | `0.1.2-dev14` |
+| Artifact version | `0.1.2-dev14` |
 | Serde version | `1` |
 | Schema draft | `2020-12` |
 | Bindings | 6 |

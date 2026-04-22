@@ -1,7 +1,7 @@
 {
   "name": "tigr-asgi-contract",
-  "contract_version": "0.1.2-dev13",
-  "artifact_version": "0.1.2-dev13",
+  "contract_version": "0.1.2-dev14",
+  "artifact_version": "0.1.2-dev14",
   "serde_version": 1,
   "schema_draft": "2020-12",
   "files": [
@@ -55,7 +55,11 @@
     },
     {
       "path": "schemas/event.schema.json",
-      "sha256": "67bb67ddeaab88d5e9bb22f57526bd618e235853a5941e1bf01e03063d2d2dc7"
+      "sha256": "2b1fc1fc7c79cef39de6b7913f88c68735525e41c591cc26d99caaf6d10a0412"
+    },
+    {
+      "path": "schemas/jsonrpc.schema.json",
+      "sha256": "c885d927555d2712fae0833e6f60b8263995507347c6a9a06de6b2b798fedeb5"
     },
     {
       "path": "schemas/scope.schema.json",

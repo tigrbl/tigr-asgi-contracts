@@ -38,6 +38,18 @@ pub enum TransportEventType {
     WebtransportDisconnect,
     #[serde(rename = "webtransport.close")]
     WebtransportClose,
+    #[serde(rename = "lifespan.startup")]
+    LifespanStartup,
+    #[serde(rename = "lifespan.startup.complete")]
+    LifespanStartupComplete,
+    #[serde(rename = "lifespan.startup.failed")]
+    LifespanStartupFailed,
+    #[serde(rename = "lifespan.shutdown")]
+    LifespanShutdown,
+    #[serde(rename = "lifespan.shutdown.complete")]
+    LifespanShutdownComplete,
+    #[serde(rename = "lifespan.shutdown.failed")]
+    LifespanShutdownFailed,
     #[serde(rename = "transport.emit.complete")]
     TransportEmitComplete,
 }
@@ -51,5 +63,6 @@ impl Default for TransportEventType {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ContractEvent {
     pub r#type: TransportEventType,
+    pub message: Option<String>,
     pub payload: serde_json::Map<String, serde_json::Value>,
 }
