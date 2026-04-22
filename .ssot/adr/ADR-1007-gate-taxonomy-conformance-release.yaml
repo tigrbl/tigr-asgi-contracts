@@ -1,0 +1,39 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1007"
+number: 1007
+slug: "gate-taxonomy-conformance-release"
+title: "Gate taxonomy for conformance and release"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "Existing SSOT policy and workflows include validation, certification, promotion, release, and publication checks. These checks need a common taxonomy so evidence and release decisions are not collapsed into one generic gate."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  Existing SSOT policy and workflows include validation, certification, promotion, release, and publication checks. These checks need a common taxonomy so evidence and release decisions are not collapsed into one generic gate.
+  
+  ## Decision
+  
+  Gate families are separate ordered target features: conformance gates, certification gates, promotion gates, release gates, and publish gates.
+  
+  Conformance gates verify target behavior and artifact validity.
+  
+  Certification gates verify release readiness against SSOT claims, evidence, boundaries, and risks.
+  
+  Promotion gates verify candidate immutability and promoted bundle integrity.
+  
+  Release gates verify GitHub release creation from promoted artifacts.
+  
+  Publish gates verify package publication to configured ecosystems from promoted artifacts.
+  
+  ## Consequences
+  
+  Gates can be tested, evidenced, and failed independently.
+  
+  Release blockers can identify which gate family failed instead of reporting a generic release failure.

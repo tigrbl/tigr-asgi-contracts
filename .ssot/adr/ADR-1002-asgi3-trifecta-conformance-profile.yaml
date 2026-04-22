@@ -1,0 +1,31 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1002"
+number: 1002
+slug: "asgi3-trifecta-conformance-profile"
+title: "ASGI3 trifecta conformance profile"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "The contract needs to declare ASGI3 conformance without collapsing the three core ASGI surfaces into one ambiguous row. ASGI applications are governed through `scope`, `receive`, and `send`, while protocol families such as HTTP, WebSocket, Lifespan, and TLS extension add more specific expectations."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  The contract needs to declare ASGI3 conformance without collapsing the three core ASGI surfaces into one ambiguous row. ASGI applications are governed through `scope`, `receive`, and `send`, while protocol families such as HTTP, WebSocket, Lifespan, and TLS extension add more specific expectations.
+  
+  ## Decision
+  
+  ASGI3 conformance shall be modeled as one governed profile with separate target features for `scope`, `receive`, and `send`.
+  
+  Current ASGI conformance targets include ASGI core, ASGI HTTP, ASGI WebSocket, ASGI Lifespan, and ASGI TLS extension. The TLS extension is in current scope and must be represented as a governed target rather than left as an implicit future extension.
+  
+  ## Consequences
+  
+  ASGI target features can be bundled into one profile while retaining facet-level test and evidence links.
+  
+  Protocol-specific targets can require the ASGI3 facet targets without duplicating the core callable contract.

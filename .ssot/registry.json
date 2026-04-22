@@ -9544,7 +9544,10 @@
         "target_claim_tier": "T1",
         "target_lifecycle_stage": "active"
       },
-      "spec_ids": [],
+      "spec_ids": [
+        "spc:1005",
+        "spc:1010"
+      ],
       "claim_ids": [
         "clm:subevents",
         "clm:schemas-compatibility-schema",
@@ -9579,7 +9582,10 @@
         "target_claim_tier": "T1",
         "target_lifecycle_stage": "active"
       },
-      "spec_ids": [],
+      "spec_ids": [
+        "spc:1005",
+        "spc:1010"
+      ],
       "claim_ids": [
         "clm:subevents",
         "clm:schemas-compatibility-schema",
@@ -9616,7 +9622,10 @@
         "target_claim_tier": "T1",
         "target_lifecycle_stage": "active"
       },
-      "spec_ids": [],
+      "spec_ids": [
+        "spc:1005",
+        "spc:1010"
+      ],
       "claim_ids": [
         "clm:subevents",
         "clm:schemas-compatibility-schema",
@@ -9650,10 +9659,13 @@
       "plan": {
         "horizon": "current",
         "slot": null,
-        "target_claim_tier": "T1",
+        "target_claim_tier": "T2",
         "target_lifecycle_stage": "active"
       },
-      "spec_ids": [],
+      "spec_ids": [
+        "spc:1004",
+        "spc:1010"
+      ],
       "claim_ids": [
         "clm:compatibility",
         "clm:schemas-compatibility-schema",
@@ -9684,16 +9696,1085 @@
       "plan": {
         "horizon": "current",
         "slot": null,
-        "target_claim_tier": "T1",
+        "target_claim_tier": "T2",
         "target_lifecycle_stage": "active"
       },
-      "spec_ids": [],
+      "spec_ids": [
+        "spc:1004",
+        "spc:1010"
+      ],
       "claim_ids": [
         "clm:schemas-scope-schema"
       ],
       "test_ids": [
         "tst:contract-test-jsonschemas",
         "tst:case-contract-test-jsonschemas-all-schemas-are-valid"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-asgi-core",
+      "title": "Conformance target asgi.core",
+      "description": "Explicit target for ASGI core callable conformance.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1002",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:scope-types",
+        "clm:schemas-scope-schema",
+        "clm:schemas-event-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas",
+        "tst:case-contract-test-jsonschemas-all-schemas-are-valid"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-asgi-scope",
+      "title": "Conformance target asgi.scope",
+      "description": "Explicit ASGI3 scope facet target.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1002",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:scope-types",
+        "clm:schemas-scope-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas",
+        "tst:case-contract-test-jsonschemas-all-schemas-are-valid"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-asgi-receive",
+      "title": "Conformance target asgi.receive",
+      "description": "Explicit ASGI3 receive facet target.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1002",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:schemas-event-schema",
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-legality",
+        "tst:contract-test-jsonschemas",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-asgi-send",
+      "title": "Conformance target asgi.send",
+      "description": "Explicit ASGI3 send facet target.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1002",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:schemas-event-schema",
+        "clm:subevents",
+        "clm:completion"
+      ],
+      "test_ids": [
+        "tst:contract-test-legality",
+        "tst:contract-test-jsonschemas",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-asgi-http",
+      "title": "Conformance target asgi.http",
+      "description": "Explicit ASGI HTTP target.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1002",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:scope-types",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-legality",
+        "tst:contract-test-jsonschemas",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-asgi-websocket",
+      "title": "Conformance target asgi.websocket",
+      "description": "Explicit ASGI WebSocket target.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1002",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:scope-types",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-event-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-legality",
+        "tst:contract-test-jsonschemas",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-asgi-lifespan",
+      "title": "Conformance target asgi.lifespan",
+      "description": "Explicit ASGI Lifespan target.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1002",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:scope-types",
+        "clm:schemas-scope-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas",
+        "tst:case-contract-test-jsonschemas-all-schemas-are-valid"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-asgi-tls-extension",
+      "title": "Conformance target asgi.tls-extension",
+      "description": "Explicit ASGI TLS extension target.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1002",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:scope-types",
+        "clm:schemas-scope-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas",
+        "tst:case-contract-test-jsonschemas-all-schemas-are-valid"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-http-semantics",
+      "title": "Conformance target http.semantics",
+      "description": "Explicit HTTP semantics target for RFC 9110.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1003",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:schemas-transport-schema",
+        "clm:schemas-event-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-legality",
+        "tst:contract-test-jsonschemas",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-http1",
+      "title": "Conformance target http1",
+      "description": "Explicit HTTP/1.1 target for RFC 9112.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1003",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-legality",
+        "tst:contract-test-jsonschemas",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-http2",
+      "title": "Conformance target http2",
+      "description": "Explicit HTTP/2 target for RFC 9113.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1003",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-legality",
+        "tst:contract-test-jsonschemas",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-http3",
+      "title": "Conformance target http3",
+      "description": "Explicit HTTP/3 target for RFC 9114.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1003",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-legality",
+        "tst:contract-test-jsonschemas",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-websocket-rfc6455",
+      "title": "Conformance target websocket.rfc6455",
+      "description": "Explicit WebSocket RFC 6455 target.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1003",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-event-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-legality",
+        "tst:contract-test-jsonschemas",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-websocket-http2",
+      "title": "Conformance target websocket.http2",
+      "description": "Explicit WebSocket over HTTP/2 target for RFC 8441.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1003",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-legality",
+        "tst:contract-test-jsonschemas",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-websocket-http3",
+      "title": "Conformance target websocket.http3",
+      "description": "Explicit WebSocket over HTTP/3 target for RFC 9220.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1003",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-legality",
+        "tst:contract-test-jsonschemas",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-sse-whatwg-eventsource",
+      "title": "Conformance target sse.whatwg-eventsource",
+      "description": "Explicit WHATWG EventSource target for SSE behavior.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1003",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:schemas-sse-schema",
+        "clm:schemas-event-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-legality",
+        "tst:contract-test-jsonschemas",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-webtransport-w3c",
+      "title": "Conformance target webtransport.w3c",
+      "description": "Explicit W3C WebTransport API target.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1003",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:schemas-webtransport-schema",
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-legality",
+        "tst:contract-test-jsonschemas",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-webtransport-ietf-h3",
+      "title": "Conformance target webtransport.ietf-h3",
+      "description": "Explicit WebTransport over HTTP/3 target.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1003",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:schemas-webtransport-schema",
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-legality",
+        "tst:contract-test-jsonschemas",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-quic",
+      "title": "Conformance target quic",
+      "description": "Explicit QUIC target for WebTransport-related transport assumptions.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1003",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-legality",
+        "tst:contract-test-jsonschemas",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-http-datagram",
+      "title": "Conformance target http.datagram",
+      "description": "Explicit HTTP Datagram/Capsule target.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1003",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:schemas-webtransport-schema",
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-legality",
+        "tst:contract-test-jsonschemas",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-json",
+      "title": "Conformance target json",
+      "description": "Explicit RFC 8259 JSON target for payload and schema JSON.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1004",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas",
+        "tst:case-contract-test-jsonschemas-all-schemas-are-valid"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-json-canonical",
+      "title": "Conformance target json.canonical",
+      "description": "Explicit RFC 8785 JCS target for canonical artifacts, manifests, checksums, and snapshots.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1004",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:checksums",
+        "clm:manifest"
+      ],
+      "test_ids": [
+        "tst:contract-test-checksums",
+        "tst:contract-test-manifest"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-jsonrpc-2-0",
+      "title": "Conformance target jsonrpc.2.0",
+      "description": "Explicit full JSON-RPC 2.0 target.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1004",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:bindings",
+        "clm:schemas-event-schema",
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-legality",
+        "tst:contract-test-jsonschemas",
+        "tst:codegen-test-rust-codegen",
+        "tst:codegen-test-ts-codegen"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-json-duplicate-key-canonical",
+      "title": "Conformance target json.duplicate-key-canonical",
+      "description": "Explicit duplicate-key rejection target for canonical JSON paths.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1004",
+        "spc:1010"
+      ],
+      "claim_ids": [
+        "clm:checksums",
+        "clm:manifest"
+      ],
+      "test_ids": [
+        "tst:contract-test-checksums",
+        "tst:contract-test-manifest"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-interop-autobahn",
+      "title": "Conformance evidence target interop.autobahn",
+      "description": "Accepted optional external evidence target for Autobahn WebSocket tests.",
+      "implementation_status": "absent",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "future",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1006",
+        "spc:1010",
+        "spc:1011"
+      ],
+      "claim_ids": [
+        "clm:schemas-websocket-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-interop-wpt",
+      "title": "Conformance evidence target interop.wpt",
+      "description": "Accepted optional external evidence target for Web Platform Tests.",
+      "implementation_status": "absent",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "future",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1006",
+        "spc:1010",
+        "spc:1011"
+      ],
+      "claim_ids": [
+        "clm:schemas-sse-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-interop-jsonschema-test-suite",
+      "title": "Conformance evidence target interop.jsonschema-test-suite",
+      "description": "Accepted optional external evidence target for JSON Schema Test Suite.",
+      "implementation_status": "absent",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "future",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1006",
+        "spc:1010",
+        "spc:1011"
+      ],
+      "claim_ids": [
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas",
+        "tst:case-contract-test-jsonschemas-all-schemas-are-valid"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-interop-asgi-downstream",
+      "title": "Conformance evidence target interop.asgi-downstream",
+      "description": "Accepted optional external evidence target for downstream ASGI/runtime suites.",
+      "implementation_status": "absent",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "future",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1006",
+        "spc:1010",
+        "spc:1011"
+      ],
+      "claim_ids": [
+        "clm:scope-types",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas",
+        "tst:case-contract-test-jsonschemas-all-schemas-are-valid"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-gate-conformance",
+      "title": "Gate target conformance",
+      "description": "Explicit gate family target for conformance checks.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1007",
+        "spc:1010",
+        "spc:1011"
+      ],
+      "claim_ids": [
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas",
+        "tst:contract-test-legality",
+        "tst:parity-test-cross-language-roundtrip"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-gate-certification",
+      "title": "Gate target certification",
+      "description": "Explicit gate family target for release certification checks.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1007",
+        "spc:1010",
+        "spc:1011"
+      ],
+      "claim_ids": [
+        "clm:checksums",
+        "clm:manifest"
+      ],
+      "test_ids": [
+        "tst:contract-test-checksums",
+        "tst:contract-test-manifest"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-gate-promotion",
+      "title": "Gate target promotion",
+      "description": "Explicit gate family target for promoted candidate integrity.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1007",
+        "spc:1010",
+        "spc:1011"
+      ],
+      "claim_ids": [
+        "clm:checksums",
+        "clm:manifest"
+      ],
+      "test_ids": [
+        "tst:contract-test-checksums",
+        "tst:contract-test-manifest"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-gate-release",
+      "title": "Gate target release",
+      "description": "Explicit gate family target for GitHub release creation from promoted artifacts.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1007",
+        "spc:1010",
+        "spc:1011"
+      ],
+      "claim_ids": [
+        "clm:checksums",
+        "clm:manifest"
+      ],
+      "test_ids": [
+        "tst:contract-test-checksums",
+        "tst:contract-test-manifest"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-gate-publish",
+      "title": "Gate target publish",
+      "description": "Explicit gate family target for package publication from promoted artifacts.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1007",
+        "spc:1008",
+        "spc:1010",
+        "spc:1011"
+      ],
+      "claim_ids": [
+        "clm:checksums",
+        "clm:manifest"
+      ],
+      "test_ids": [
+        "tst:contract-test-checksums",
+        "tst:contract-test-manifest"
       ],
       "requires": []
     }
@@ -9783,7 +10864,24 @@
         "feat:schemas-webtransport-schema",
         "feat:checksums",
         "feat:manifest",
-        "feat:target-lang-rust"
+        "feat:target-lang-rust",
+        "feat:target-asgi-receive",
+        "feat:target-asgi-send",
+        "feat:target-asgi-http",
+        "feat:target-asgi-websocket",
+        "feat:target-http-semantics",
+        "feat:target-http1",
+        "feat:target-http2",
+        "feat:target-http3",
+        "feat:target-websocket-rfc6455",
+        "feat:target-websocket-http2",
+        "feat:target-websocket-http3",
+        "feat:target-sse-whatwg-eventsource",
+        "feat:target-webtransport-w3c",
+        "feat:target-webtransport-ietf-h3",
+        "feat:target-quic",
+        "feat:target-http-datagram",
+        "feat:target-jsonrpc-2-0"
       ],
       "claim_ids": [
         "clm:bindings",
@@ -9842,7 +10940,24 @@
         "feat:schemas-webtransport-schema",
         "feat:checksums",
         "feat:manifest",
-        "feat:target-lang-typescript"
+        "feat:target-lang-typescript",
+        "feat:target-asgi-receive",
+        "feat:target-asgi-send",
+        "feat:target-asgi-http",
+        "feat:target-asgi-websocket",
+        "feat:target-http-semantics",
+        "feat:target-http1",
+        "feat:target-http2",
+        "feat:target-http3",
+        "feat:target-websocket-rfc6455",
+        "feat:target-websocket-http2",
+        "feat:target-websocket-http3",
+        "feat:target-sse-whatwg-eventsource",
+        "feat:target-webtransport-w3c",
+        "feat:target-webtransport-ietf-h3",
+        "feat:target-quic",
+        "feat:target-http-datagram",
+        "feat:target-jsonrpc-2-0"
       ],
       "claim_ids": [
         "clm:bindings",
@@ -9900,7 +11015,13 @@
         "feat:schemas-websocket-schema",
         "feat:schemas-webtransport-schema",
         "feat:checksums",
-        "feat:manifest"
+        "feat:manifest",
+        "feat:target-json-canonical",
+        "feat:target-json-duplicate-key-canonical",
+        "feat:target-gate-certification",
+        "feat:target-gate-promotion",
+        "feat:target-gate-release",
+        "feat:target-gate-publish"
       ],
       "claim_ids": [
         "clm:bindings",
@@ -9958,7 +11079,34 @@
         "feat:schemas-websocket-schema",
         "feat:schemas-webtransport-schema",
         "feat:target-jsonschema-2020-12",
-        "feat:target-base64"
+        "feat:target-base64",
+        "feat:target-asgi-core",
+        "feat:target-asgi-scope",
+        "feat:target-asgi-receive",
+        "feat:target-asgi-send",
+        "feat:target-asgi-http",
+        "feat:target-asgi-websocket",
+        "feat:target-asgi-lifespan",
+        "feat:target-asgi-tls-extension",
+        "feat:target-http-semantics",
+        "feat:target-http1",
+        "feat:target-http2",
+        "feat:target-http3",
+        "feat:target-websocket-rfc6455",
+        "feat:target-websocket-http2",
+        "feat:target-websocket-http3",
+        "feat:target-sse-whatwg-eventsource",
+        "feat:target-webtransport-w3c",
+        "feat:target-webtransport-ietf-h3",
+        "feat:target-quic",
+        "feat:target-http-datagram",
+        "feat:target-json",
+        "feat:target-jsonrpc-2-0",
+        "feat:target-interop-autobahn",
+        "feat:target-interop-wpt",
+        "feat:target-interop-jsonschema-test-suite",
+        "feat:target-interop-asgi-downstream",
+        "feat:target-gate-conformance"
       ],
       "claim_ids": [
         "clm:bindings",
@@ -10336,7 +11484,25 @@
         "feat:binding-subevent-webtransport-stream-flush",
         "feat:binding-subevent-webtransport-stream-open",
         "feat:binding-family-http-stream-datagram",
-        "feat:binding-family-http-stream-message"
+        "feat:binding-family-http-stream-message",
+        "feat:target-asgi-receive",
+        "feat:target-asgi-send",
+        "feat:target-asgi-http",
+        "feat:target-asgi-websocket",
+        "feat:target-http-semantics",
+        "feat:target-http1",
+        "feat:target-http2",
+        "feat:target-http3",
+        "feat:target-websocket-rfc6455",
+        "feat:target-websocket-http2",
+        "feat:target-websocket-http3",
+        "feat:target-sse-whatwg-eventsource",
+        "feat:target-webtransport-w3c",
+        "feat:target-webtransport-ietf-h3",
+        "feat:target-quic",
+        "feat:target-http-datagram",
+        "feat:target-jsonrpc-2-0",
+        "feat:target-gate-conformance"
       ],
       "claim_ids": [
         "clm:bindings",
@@ -10391,7 +11557,13 @@
         "feat:schemas-transport-schema",
         "feat:schemas-websocket-schema",
         "feat:schemas-webtransport-schema",
-        "feat:manifest"
+        "feat:manifest",
+        "feat:target-json-canonical",
+        "feat:target-json-duplicate-key-canonical",
+        "feat:target-gate-certification",
+        "feat:target-gate-promotion",
+        "feat:target-gate-release",
+        "feat:target-gate-publish"
       ],
       "claim_ids": [
         "clm:bindings",
@@ -10450,7 +11622,8 @@
         "feat:binding-family-rest-request",
         "feat:target-lang-python",
         "feat:target-lang-rust",
-        "feat:target-lang-typescript"
+        "feat:target-lang-typescript",
+        "feat:target-gate-conformance"
       ],
       "claim_ids": [
         "clm:bindings",
@@ -10813,7 +11986,14 @@
         "feat:schemas-websocket-schema",
         "feat:schemas-webtransport-schema",
         "feat:target-jsonschema-2020-12",
-        "feat:target-base64"
+        "feat:target-base64",
+        "feat:target-asgi-core",
+        "feat:target-asgi-scope",
+        "feat:target-asgi-lifespan",
+        "feat:target-asgi-tls-extension",
+        "feat:target-json",
+        "feat:target-interop-jsonschema-test-suite",
+        "feat:target-interop-asgi-downstream"
       ],
       "claim_ids": [
         "clm:schemas-compatibility-schema",
@@ -11232,7 +12412,22 @@
         "feat:binding-subevent-webtransport-session-heartbeat",
         "feat:binding-subevent-webtransport-session-sync",
         "feat:binding-subevent-webtransport-stream-abort",
-        "feat:binding-subevent-webtransport-stream-flush"
+        "feat:binding-subevent-webtransport-stream-flush",
+        "feat:target-asgi-http",
+        "feat:target-asgi-websocket",
+        "feat:target-http-semantics",
+        "feat:target-http1",
+        "feat:target-http2",
+        "feat:target-http3",
+        "feat:target-websocket-rfc6455",
+        "feat:target-websocket-http2",
+        "feat:target-websocket-http3",
+        "feat:target-sse-whatwg-eventsource",
+        "feat:target-webtransport-w3c",
+        "feat:target-webtransport-ietf-h3",
+        "feat:target-quic",
+        "feat:target-http-datagram",
+        "feat:target-jsonrpc-2-0"
       ],
       "test_ids": [
         "tst:case-codegen-test-python-codegen-python-binding-supports-family",
@@ -11308,7 +12503,8 @@
       "kind": "conformance",
       "description": "contract/completion.yaml is covered by repository tests and tracked evidence.",
       "feature_ids": [
-        "feat:completion"
+        "feat:completion",
+        "feat:target-asgi-send"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -11473,7 +12669,14 @@
       "kind": "conformance",
       "description": "contract/scope_types.yaml is covered by repository tests and tracked evidence.",
       "feature_ids": [
-        "feat:scope-types"
+        "feat:scope-types",
+        "feat:target-asgi-core",
+        "feat:target-asgi-scope",
+        "feat:target-asgi-http",
+        "feat:target-asgi-websocket",
+        "feat:target-asgi-lifespan",
+        "feat:target-asgi-tls-extension",
+        "feat:target-interop-asgi-downstream"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -11791,7 +12994,9 @@
         "feat:binding-subevent-webtransport-stream-flush",
         "feat:target-lang-python",
         "feat:target-lang-rust",
-        "feat:target-lang-typescript"
+        "feat:target-lang-typescript",
+        "feat:target-asgi-receive",
+        "feat:target-asgi-send"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12236,7 +13441,10 @@
         "feat:target-lang-python",
         "feat:target-lang-rust",
         "feat:target-lang-typescript",
-        "feat:target-jsonschema-2020-12"
+        "feat:target-jsonschema-2020-12",
+        "feat:target-json",
+        "feat:target-interop-jsonschema-test-suite",
+        "feat:target-gate-conformance"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12264,7 +13472,10 @@
         "feat:target-lang-python",
         "feat:target-lang-rust",
         "feat:target-lang-typescript",
-        "feat:target-jsonschema-2020-12"
+        "feat:target-jsonschema-2020-12",
+        "feat:target-json",
+        "feat:target-interop-jsonschema-test-suite",
+        "feat:target-gate-conformance"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12292,7 +13503,20 @@
         "feat:target-lang-python",
         "feat:target-lang-rust",
         "feat:target-lang-typescript",
-        "feat:target-jsonschema-2020-12"
+        "feat:target-jsonschema-2020-12",
+        "feat:target-asgi-core",
+        "feat:target-asgi-receive",
+        "feat:target-asgi-send",
+        "feat:target-asgi-http",
+        "feat:target-asgi-websocket",
+        "feat:target-http-semantics",
+        "feat:target-websocket-rfc6455",
+        "feat:target-sse-whatwg-eventsource",
+        "feat:target-json",
+        "feat:target-jsonrpc-2-0",
+        "feat:target-interop-jsonschema-test-suite",
+        "feat:target-interop-asgi-downstream",
+        "feat:target-gate-conformance"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12321,7 +13545,16 @@
         "feat:target-lang-rust",
         "feat:target-lang-typescript",
         "feat:target-jsonschema-2020-12",
-        "feat:target-base64"
+        "feat:target-base64",
+        "feat:target-asgi-core",
+        "feat:target-asgi-scope",
+        "feat:target-asgi-http",
+        "feat:target-asgi-lifespan",
+        "feat:target-asgi-tls-extension",
+        "feat:target-json",
+        "feat:target-interop-jsonschema-test-suite",
+        "feat:target-interop-asgi-downstream",
+        "feat:target-gate-conformance"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12349,7 +13582,12 @@
         "feat:target-lang-python",
         "feat:target-lang-rust",
         "feat:target-lang-typescript",
-        "feat:target-jsonschema-2020-12"
+        "feat:target-jsonschema-2020-12",
+        "feat:target-sse-whatwg-eventsource",
+        "feat:target-json",
+        "feat:target-interop-wpt",
+        "feat:target-interop-jsonschema-test-suite",
+        "feat:target-gate-conformance"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12377,7 +13615,21 @@
         "feat:target-lang-python",
         "feat:target-lang-rust",
         "feat:target-lang-typescript",
-        "feat:target-jsonschema-2020-12"
+        "feat:target-jsonschema-2020-12",
+        "feat:target-http-semantics",
+        "feat:target-http1",
+        "feat:target-http2",
+        "feat:target-http3",
+        "feat:target-websocket-http2",
+        "feat:target-websocket-http3",
+        "feat:target-webtransport-w3c",
+        "feat:target-webtransport-ietf-h3",
+        "feat:target-quic",
+        "feat:target-http-datagram",
+        "feat:target-json",
+        "feat:target-jsonrpc-2-0",
+        "feat:target-interop-jsonschema-test-suite",
+        "feat:target-gate-conformance"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12405,7 +13657,15 @@
         "feat:target-lang-python",
         "feat:target-lang-rust",
         "feat:target-lang-typescript",
-        "feat:target-jsonschema-2020-12"
+        "feat:target-jsonschema-2020-12",
+        "feat:target-asgi-websocket",
+        "feat:target-websocket-rfc6455",
+        "feat:target-websocket-http2",
+        "feat:target-websocket-http3",
+        "feat:target-json",
+        "feat:target-interop-autobahn",
+        "feat:target-interop-jsonschema-test-suite",
+        "feat:target-gate-conformance"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12433,7 +13693,14 @@
         "feat:target-lang-python",
         "feat:target-lang-rust",
         "feat:target-lang-typescript",
-        "feat:target-jsonschema-2020-12"
+        "feat:target-jsonschema-2020-12",
+        "feat:target-webtransport-w3c",
+        "feat:target-webtransport-ietf-h3",
+        "feat:target-http-datagram",
+        "feat:target-json",
+        "feat:target-interop-wpt",
+        "feat:target-interop-jsonschema-test-suite",
+        "feat:target-gate-conformance"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12459,7 +13726,13 @@
       "feature_ids": [
         "feat:checksums",
         "feat:target-lang-rust",
-        "feat:target-lang-typescript"
+        "feat:target-lang-typescript",
+        "feat:target-json-canonical",
+        "feat:target-json-duplicate-key-canonical",
+        "feat:target-gate-certification",
+        "feat:target-gate-promotion",
+        "feat:target-gate-release",
+        "feat:target-gate-publish"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12485,7 +13758,13 @@
       "feature_ids": [
         "feat:manifest",
         "feat:target-lang-rust",
-        "feat:target-lang-typescript"
+        "feat:target-lang-typescript",
+        "feat:target-json-canonical",
+        "feat:target-json-duplicate-key-canonical",
+        "feat:target-gate-certification",
+        "feat:target-gate-promotion",
+        "feat:target-gate-release",
+        "feat:target-gate-publish"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -13550,6 +14829,118 @@
       "status_notes": []
     },
     {
+      "id": "adr:1002",
+      "number": 1002,
+      "slug": "asgi3-trifecta-conformance-profile",
+      "title": "ASGI3 trifecta conformance profile",
+      "path": ".ssot/adr/ADR-1002-asgi3-trifecta-conformance-profile.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "259a7cfc87dfbc342c60e72054b83856dded89d191a4eb8bdf10f89b6bdfc7a0",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": []
+    },
+    {
+      "id": "adr:1003",
+      "number": 1003,
+      "slug": "protocol-standards-conformance-profile",
+      "title": "Protocol standards conformance profile",
+      "path": ".ssot/adr/ADR-1003-protocol-standards-conformance-profile.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "ea03fc52fa7e3bd20d3547cef2a73644034f58a8db6f4b72a638a267bef248ca",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": []
+    },
+    {
+      "id": "adr:1004",
+      "number": 1004,
+      "slug": "frame-payload-serialization-targets",
+      "title": "Frame and payload serialization targets",
+      "path": ".ssot/adr/ADR-1004-frame-payload-serialization-targets.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "5ba1ad1e64d03a750f9a0b1bb0002e1075fc6175609871473cf170d26456acb3",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": []
+    },
+    {
+      "id": "adr:1005",
+      "number": 1005,
+      "slug": "generated-package-language-parity-targets",
+      "title": "Generated package and language parity targets",
+      "path": ".ssot/adr/ADR-1005-generated-package-language-parity-targets.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "141a6d68f3916efbaf61f8f30b02995074198cd7852047ecdefe9c32d4d54507",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": []
+    },
+    {
+      "id": "adr:1006",
+      "number": 1006,
+      "slug": "external-interoperability-evidence-policy",
+      "title": "External interoperability evidence policy",
+      "path": ".ssot/adr/ADR-1006-external-interoperability-evidence-policy.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "b7acf79ea17ed6d6815d59a283e53447f783a2337776d2c021282dd6a972e074",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": []
+    },
+    {
+      "id": "adr:1007",
+      "number": 1007,
+      "slug": "gate-taxonomy-conformance-release",
+      "title": "Gate taxonomy for conformance and release",
+      "path": ".ssot/adr/ADR-1007-gate-taxonomy-conformance-release.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "73a79dd5eb25a880df8177d2fa7258bde87bd1d94368958306a954cc193e8b16",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": []
+    },
+    {
+      "id": "adr:1008",
+      "number": 1008,
+      "slug": "publishing-targets-registry-release-policy",
+      "title": "Publishing targets and registry release policy",
+      "path": ".ssot/adr/ADR-1008-publishing-targets-registry-release-policy.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "78dec014943abc65e688a3b5838357a86a6d09bde0894382d593f6021626e750",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": []
+    },
+    {
       "id": "adr:1009",
       "number": 1009,
       "slug": "repository-tree-generated-artifact-ownership",
@@ -13560,6 +14951,38 @@
       "immutable": false,
       "package_version": "0.2.10",
       "content_sha256": "4cfc104451f64a2a076f96c1c8210cacb4a255cdb737fa2295f8ff1030e98204",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": []
+    },
+    {
+      "id": "adr:1010",
+      "number": 1010,
+      "slug": "conformance-target-representation-in-ssot",
+      "title": "Conformance target representation in SSOT",
+      "path": ".ssot/adr/ADR-1010-conformance-target-representation-in-ssot.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "23b2cb47fc4ac0b3bbe99baf9a16d4d5fcdc365744bd36415b08d6b1f18ee90b",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": []
+    },
+    {
+      "id": "adr:1011",
+      "number": 1011,
+      "slug": "conformance-evidence-retention-policy",
+      "title": "Conformance evidence retention policy",
+      "path": ".ssot/adr/ADR-1011-conformance-evidence-retention-policy.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "8ce9400369a6353bcde12d8e2295d8e01a7440d62156bed2c892134abd90a858",
       "status": "accepted",
       "supersedes": [],
       "superseded_by": [],
@@ -13821,6 +15244,159 @@
       "superseded_by": [],
       "status_notes": [],
       "kind": "normative"
+    },
+    {
+      "id": "spc:1002",
+      "number": 1002,
+      "slug": "asgi3-target-profile",
+      "title": "ASGI3 target profile",
+      "path": ".ssot/specs/SPEC-1002-asgi3-target-profile.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "1158d7939588bed1fb33ac823b5dfebaf9307caef0521b853694b1cd9f9cf6a3",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": [],
+      "kind": "normative"
+    },
+    {
+      "id": "spc:1003",
+      "number": 1003,
+      "slug": "protocol-standards-targets",
+      "title": "Protocol standards targets",
+      "path": ".ssot/specs/SPEC-1003-protocol-standards-targets.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "a9dedde1bc393c342687d196d07bb7ffa92c63577fce2878267f1ec5feca8f86",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": [],
+      "kind": "normative"
+    },
+    {
+      "id": "spc:1004",
+      "number": 1004,
+      "slug": "frame-payload-target-semantics",
+      "title": "Frame and payload target semantics",
+      "path": ".ssot/specs/SPEC-1004-frame-payload-target-semantics.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "8fa71a521b492d1ffbb7ce967456be6bfd0410b5d56145b3b2d90eba44139138",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": [],
+      "kind": "normative"
+    },
+    {
+      "id": "spc:1005",
+      "number": 1005,
+      "slug": "generated-language-parity-targets",
+      "title": "Generated language parity targets",
+      "path": ".ssot/specs/SPEC-1005-generated-language-parity-targets.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "0b944309db5a30faa076afbf47c85bd9b6135408fa39b7f603a38416835c2f0c",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": [],
+      "kind": "normative"
+    },
+    {
+      "id": "spc:1006",
+      "number": 1006,
+      "slug": "external-interoperability-evidence-sources",
+      "title": "External interoperability evidence sources",
+      "path": ".ssot/specs/SPEC-1006-external-interoperability-evidence-sources.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "70011dfc5e5a8b5305d37009085303df4d5b7b61f256e1460ff5f703d15baf43",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": [],
+      "kind": "governance"
+    },
+    {
+      "id": "spc:1007",
+      "number": 1007,
+      "slug": "gate-family-ordering",
+      "title": "Gate family ordering",
+      "path": ".ssot/specs/SPEC-1007-gate-family-ordering.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "87bb121324069b2a671095d27a2711f0c677c8dd9c4d724c3cb8d34a3bb62804",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": [],
+      "kind": "governance"
+    },
+    {
+      "id": "spc:1008",
+      "number": 1008,
+      "slug": "strict-verified-publishing-policy",
+      "title": "Strict verified publishing policy",
+      "path": ".ssot/specs/SPEC-1008-strict-verified-publishing-policy.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "b13843a56b10552bcbf6ceef7268bb8e128f0cb51dc5ed21f68afce539c60822",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": [],
+      "kind": "operational"
+    },
+    {
+      "id": "spc:1010",
+      "number": 1010,
+      "slug": "conformance-target-ssot-representation",
+      "title": "Conformance target SSOT representation",
+      "path": ".ssot/specs/SPEC-1010-conformance-target-ssot-representation.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "5a74f52c5d6be8968eeb905bcd36cadc6f324e6a3e93b566f0c13c72b8944a0f",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": [],
+      "kind": "normative"
+    },
+    {
+      "id": "spc:1011",
+      "number": 1011,
+      "slug": "conformance-evidence-retention",
+      "title": "Conformance evidence retention",
+      "path": ".ssot/specs/SPEC-1011-conformance-evidence-retention.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "989a44a4960e34618a4e36f4e7692cc1e96c19b5541e7018f2fa72521599a519",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": [],
+      "kind": "governance"
     }
   ],
   "profiles": []

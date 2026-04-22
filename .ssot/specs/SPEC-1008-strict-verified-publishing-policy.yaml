@@ -1,0 +1,28 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1008"
+number: 1008
+slug: "strict-verified-publishing-policy"
+title: "Strict verified publishing policy"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines publishing target policy for GitHub Releases, PyPI, npmjs, and crates.io."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines publishing target policy for GitHub Releases, PyPI, npmjs, and crates.io.
+  
+  ## Requirements
+  
+  Publishing uses promoted artifacts or promoted source tags and commits.
+  
+  Workflows must align secret names and supported runtime versions.
+  
+  Release-gated Cargo publication must not use `cargo publish --no-verify`.
+spec_kind: "operational"

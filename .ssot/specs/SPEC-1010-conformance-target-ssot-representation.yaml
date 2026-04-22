@@ -1,0 +1,28 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1010"
+number: 1010
+slug: "conformance-target-ssot-representation"
+title: "Conformance target SSOT representation"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines the current SSOT representation for conformance targets."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines the current SSOT representation for conformance targets.
+  
+  ## Requirements
+  
+  Conformance targets use `feat:target-*` feature rows.
+  
+  Profiles may bundle target features.
+  
+  Future first-class target entities must preserve or migrate existing feature rows.
+spec_kind: "normative"

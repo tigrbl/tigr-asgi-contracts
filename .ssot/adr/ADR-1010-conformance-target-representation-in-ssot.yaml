@@ -1,0 +1,33 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1010"
+number: 1010
+slug: "conformance-target-representation-in-ssot"
+title: "Conformance target representation in SSOT"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "ADR-1001 established that conformance targets must be explicit. The current SSOT schema already has feature, profile, claim, test, evidence, boundary, and release entities, but it does not have a first-class `conformance_target` entity."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  ADR-1001 established that conformance targets must be explicit. The current SSOT schema already has feature, profile, claim, test, evidence, boundary, and release entities, but it does not have a first-class `conformance_target` entity.
+  
+  ## Decision
+  
+  Conformance targets shall be represented as SSOT feature rows using the `feat:target-*` namespace.
+  
+  Profiles may bundle target features into reusable conformance profiles.
+  
+  A future SSOT schema may add a first-class `conformance_target` entity, but that future change must preserve or migrate the feature rows rather than invalidating current target governance.
+  
+  ## Consequences
+  
+  Target rows can use existing planning, lifecycle, claim, test, evidence, boundary, and release gates immediately.
+  
+  The repository avoids schema/tooling changes before it can track target coverage.

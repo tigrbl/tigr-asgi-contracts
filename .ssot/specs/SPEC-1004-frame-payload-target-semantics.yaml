@@ -1,0 +1,30 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1004"
+number: 1004
+slug: "frame-payload-target-semantics"
+title: "Frame and payload target semantics"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines frame and payload target semantics for JSON, canonical JSON, JSON-RPC, and duplicate-key policy."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines frame and payload target semantics for JSON, canonical JSON, JSON-RPC, and duplicate-key policy.
+  
+  ## Requirements
+  
+  JSON payload and schema surfaces target RFC 8259.
+  
+  Canonical repository artifacts target RFC 8785 JCS.
+  
+  JSON-RPC target features cover full JSON-RPC 2.0 behavior.
+  
+  Duplicate JSON object keys are rejected in canonical contract inputs and deterministic artifact paths.
+spec_kind: "normative"

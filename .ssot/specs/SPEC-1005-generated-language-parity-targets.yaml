@@ -1,0 +1,26 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1005"
+number: 1005
+slug: "generated-language-parity-targets"
+title: "Generated language parity targets"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines generated language parity targets."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines generated language parity targets.
+  
+  ## Requirements
+  
+  Current language parity targets are Python, Rust, and TypeScript generated contract artifacts.
+  
+  TSX and UI parity are out of current scope unless introduced later as explicit target features.
+spec_kind: "normative"

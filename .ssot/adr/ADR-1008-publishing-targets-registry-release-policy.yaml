@@ -1,0 +1,35 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1008"
+number: 1008
+slug: "publishing-targets-registry-release-policy"
+title: "Publishing targets and registry release policy"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "The repository publishes to GitHub Releases, PyPI, npmjs, and crates.io. Documentation and workflows must agree on secrets, runtime versions, artifact provenance, and verification strictness."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  The repository publishes to GitHub Releases, PyPI, npmjs, and crates.io. Documentation and workflows must agree on secrets, runtime versions, artifact provenance, and verification strictness.
+  
+  ## Decision
+  
+  Publishing shall use strict verified promoted artifacts.
+  
+  GitHub Releases, PyPI, npmjs, and crates.io publications must come from promoted artifacts or promoted source tags/commits.
+  
+  Publish workflows must use aligned secret names and supported runtime versions.
+  
+  Release-gated Cargo publication shall not use `cargo publish --no-verify`.
+  
+  ## Consequences
+  
+  Publish gates become stricter than advisory workflow dispatch.
+  
+  Existing workflow differences around secret names, runtime versions, and Cargo verification must be corrected before package publishing targets can be promoted.

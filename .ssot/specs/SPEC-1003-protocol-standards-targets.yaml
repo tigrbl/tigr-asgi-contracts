@@ -1,0 +1,30 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1003"
+number: 1003
+slug: "protocol-standards-targets"
+title: "Protocol standards targets"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines protocol standards targets for HTTP, WebSocket, SSE, WebTransport, QUIC, and HTTP Datagrams."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines protocol standards targets for HTTP, WebSocket, SSE, WebTransport, QUIC, and HTTP Datagrams.
+  
+  ## Requirements
+  
+  HTTP target features cover RFC 9110, RFC 9112, RFC 9113, and RFC 9114.
+  
+  WebSocket target features cover RFC 6455, RFC 8441, and RFC 9220.
+  
+  SSE target features cover WHATWG EventSource behavior.
+  
+  WebTransport target features cover W3C WebTransport API shape, WebTransport over HTTP/3, QUIC, and HTTP Datagrams/Capsule behavior.
+spec_kind: "normative"

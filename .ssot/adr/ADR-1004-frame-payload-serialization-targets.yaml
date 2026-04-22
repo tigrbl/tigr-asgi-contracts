@@ -1,0 +1,35 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1004"
+number: 1004
+slug: "frame-payload-serialization-targets"
+title: "Frame and payload serialization targets"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "The contract uses framing values such as JSON, JSON-RPC, bytes, SSE, raw, and application-specific frames. These labels need governed semantics so generated packages and downstream implementations can distinguish envelope shape from full protocol conformance."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  The contract uses framing values such as JSON, JSON-RPC, bytes, SSE, raw, and application-specific frames. These labels need governed semantics so generated packages and downstream implementations can distinguish envelope shape from full protocol conformance.
+  
+  ## Decision
+  
+  JSON-RPC conformance means full JSON-RPC 2.0, including request, response, error, notification, batch, and id semantics.
+  
+  JSON payload and schema surfaces target RFC 8259 JSON.
+  
+  RFC 8785 JSON Canonicalization Scheme applies to canonical artifacts, manifests, checksums, snapshots, and other deterministic repository artifacts. It does not automatically apply to all runtime payloads.
+  
+  Duplicate JSON object keys are rejected in canonical paths and generated contract inputs. Runtime payload duplicate-key behavior is target-specific unless separately governed.
+  
+  ## Consequences
+  
+  The repo can govern deterministic artifacts without imposing canonical JSON on every runtime payload.
+  
+  JSON-RPC can be validated as a protocol target rather than a loose framing enum.

@@ -1,0 +1,37 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1003"
+number: 1003
+slug: "protocol-standards-conformance-profile"
+title: "Protocol standards conformance profile"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "Binding names such as REST, SSE, WebSocket, and WebTransport imply protocols, but they do not state which standards are normative or how deep conformance goes."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  Binding names such as REST, SSE, WebSocket, and WebTransport imply protocols, but they do not state which standards are normative or how deep conformance goes.
+  
+  ## Decision
+  
+  Protocol conformance shall be represented as explicit target features.
+  
+  HTTP targets include RFC 9110 HTTP semantics, RFC 9112 HTTP/1.1, RFC 9113 HTTP/2, and RFC 9114 HTTP/3.
+  
+  WebSocket targets include RFC 6455 WebSocket, RFC 8441 WebSocket over HTTP/2, and RFC 9220 WebSocket over HTTP/3. Optional WebSocket extensions are separate future target features.
+  
+  SSE targets full WHATWG EventSource behavior.
+  
+  WebTransport targets include W3C WebTransport API shape, IETF WebTransport over HTTP/3, RFC 9000 QUIC, and HTTP Datagrams/Capsule behavior.
+  
+  ## Consequences
+  
+  Protocol claims become queryable and gateable by target rather than inferred from binding names.
+  
+  Runtime implementations can claim a subset of protocol targets without overstating full-stack support.

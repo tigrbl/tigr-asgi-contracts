@@ -1,0 +1,26 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1006"
+number: 1006
+slug: "external-interoperability-evidence-sources"
+title: "External interoperability evidence sources"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines accepted external interop evidence sources."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines accepted external interop evidence sources.
+  
+  ## Requirements
+  
+  Autobahn, Web Platform Tests, JSON Schema Test Suite, and downstream ASGI/runtime suites may be linked as SSOT evidence.
+  
+  External suites are optional accepted evidence until another target-specific specification makes them mandatory.
+spec_kind: "governance"

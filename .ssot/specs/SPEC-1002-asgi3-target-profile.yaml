@@ -1,0 +1,28 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1002"
+number: 1002
+slug: "asgi3-target-profile"
+title: "ASGI3 target profile"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines the ASGI3 conformance profile for this repository."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines the ASGI3 conformance profile for this repository.
+  
+  ## Requirements
+  
+  The ASGI3 profile contains target features for ASGI core, ASGI scope, ASGI receive, ASGI send, ASGI HTTP, ASGI WebSocket, ASGI Lifespan, and ASGI TLS extension.
+  
+  The ASGI scope, receive, and send targets are separate facets and may have independent claims, tests, and evidence.
+  
+  Protocol targets may depend on the ASGI3 profile or the relevant ASGI facet targets.
+spec_kind: "normative"

@@ -1,0 +1,28 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1007"
+number: 1007
+slug: "gate-family-ordering"
+title: "Gate family ordering"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines gate family target ordering."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines gate family target ordering.
+  
+  ## Requirements
+  
+  Gate families are conformance, certification, promotion, release, and publish.
+  
+  Gate family target features are ordered in that sequence.
+  
+  Each gate family may have independent claims, tests, and evidence.
+spec_kind: "governance"

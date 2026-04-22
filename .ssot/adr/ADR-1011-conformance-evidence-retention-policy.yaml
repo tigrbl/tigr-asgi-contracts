@@ -1,0 +1,33 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1011"
+number: 1011
+slug: "conformance-evidence-retention-policy"
+title: "Conformance evidence retention policy"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "Conformance and interop evidence must survive beyond a single CI run if it is used to certify, promote, release, or publish a governed target."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  Conformance and interop evidence must survive beyond a single CI run if it is used to certify, promote, release, or publish a governed target.
+  
+  ## Decision
+  
+  Conformance evidence shall be retained as SSOT evidence rows and durable evidence artifacts under the configured SSOT evidence roots.
+  
+  Boundary and release snapshots shall include hashes for evidence used to support certification, promotion, release, and publication decisions.
+  
+  CI artifacts may supplement SSOT evidence, but CI artifacts alone are not sufficient for durable conformance certification.
+  
+  ## Consequences
+  
+  Release decisions can be audited after CI artifacts expire.
+  
+  External-suite evidence can be linked into claims and snapshots when target-specific gates require it.

@@ -1,0 +1,28 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1011"
+number: 1011
+slug: "conformance-evidence-retention"
+title: "Conformance evidence retention"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines durable conformance evidence retention."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines durable conformance evidence retention.
+  
+  ## Requirements
+  
+  Conformance evidence used for certification, promotion, release, or publication is retained as SSOT evidence rows and durable artifacts.
+  
+  Boundary and release snapshots include hashes for retained evidence.
+  
+  CI-only artifacts are supplemental and do not replace durable SSOT evidence.
+spec_kind: "governance"

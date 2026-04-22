@@ -1,0 +1,31 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1005"
+number: 1005
+slug: "generated-package-language-parity-targets"
+title: "Generated package and language parity targets"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "The repository generates downstream language artifacts from canonical contract sources and already tests Python, Rust, and TypeScript parity."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  The repository generates downstream language artifacts from canonical contract sources and already tests Python, Rust, and TypeScript parity.
+  
+  ## Decision
+  
+  Language parity targets are Python, Rust, and TypeScript generated contract parity.
+  
+  TSX and UI component parity are out of current scope. They may be introduced later as explicit target features if the repository gains TSX artifacts and tests.
+  
+  ## Consequences
+  
+  Current parity claims stay aligned with generated packages that exist today.
+  
+  TSX is not silently implied by TypeScript support.

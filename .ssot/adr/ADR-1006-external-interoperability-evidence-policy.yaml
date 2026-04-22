@@ -1,0 +1,33 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1006"
+number: 1006
+slug: "external-interoperability-evidence-policy"
+title: "External interoperability evidence policy"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "External suites such as Autobahn, Web Platform Tests, JSON Schema Test Suite, and downstream ASGI suites can provide stronger interoperability evidence than repository tests alone."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  External suites such as Autobahn, Web Platform Tests, JSON Schema Test Suite, and downstream ASGI suites can provide stronger interoperability evidence than repository tests alone.
+  
+  ## Decision
+  
+  External interop suites are accepted SSOT evidence sources.
+  
+  Recognized suites include Autobahn for WebSocket behavior, Web Platform Tests for browser-facing protocol behavior, JSON Schema Test Suite for JSON Schema behavior, and downstream ASGI/runtime suites for integration compatibility.
+  
+  External suites are not mandatory release gates until target-specific ADRs or SPECs require them.
+  
+  ## Consequences
+  
+  The repository can ingest external evidence without blocking all releases on external suites immediately.
+  
+  Target-specific gates can later promote selected suites from accepted evidence to required evidence.
