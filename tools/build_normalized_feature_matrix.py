@@ -1030,7 +1030,8 @@ def validate_workbook(
         if bad is not None:
             raise AssertionError(f"workbook zip integrity failed at {bad}")
         workbook = ET.fromstring(archive.read("xl/workbook.xml"))
-        sheet_names = [sheet.attrib["name"] for sheet in workbook.find("main:sheets", NS) or []]
+        sheets = workbook.find("main:sheets", NS)
+        sheet_names = [sheet.attrib["name"] for sheet in (list(sheets) if sheets is not None else [])]
     expected = ["Normalized Features", "Source Rows", "Duplicate Groups", "Rejected Rows", "Column Dictionary"]
     if sheet_names != expected:
         raise AssertionError(f"unexpected sheets: {sheet_names}")
