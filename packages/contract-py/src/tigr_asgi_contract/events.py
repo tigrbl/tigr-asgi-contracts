@@ -21,9 +21,16 @@ class TransportEventType(StrEnum):
     WEBTRANSPORT_DATAGRAM_SEND = 'webtransport.datagram.send'
     WEBTRANSPORT_DISCONNECT = 'webtransport.disconnect'
     WEBTRANSPORT_CLOSE = 'webtransport.close'
+    LIFESPAN_STARTUP = 'lifespan.startup'
+    LIFESPAN_STARTUP_COMPLETE = 'lifespan.startup.complete'
+    LIFESPAN_STARTUP_FAILED = 'lifespan.startup.failed'
+    LIFESPAN_SHUTDOWN = 'lifespan.shutdown'
+    LIFESPAN_SHUTDOWN_COMPLETE = 'lifespan.shutdown.complete'
+    LIFESPAN_SHUTDOWN_FAILED = 'lifespan.shutdown.failed'
     TRANSPORT_EMIT_COMPLETE = 'transport.emit.complete'
 
 
 class ContractEvent(BaseModel):
     type: TransportEventType
+    message: str | None = None
     payload: dict = Field(default_factory=dict)

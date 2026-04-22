@@ -6,32 +6,32 @@
 
 | Ecosystem | Package | Version | Path | Surface files | Notes |
 | --- | --- | --- | --- | --- | --- |
-| python | `tigr-asgi-contract-artifacts` | `0.1.2-dev13` | `packages/artifacts-py` | 1 | Vendored file accessors |
-| npm | `@tigrbljs/tigr-asgi-contract-artifacts` | `0.1.2-dev13` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
-| rust | `tigr_asgi_contract_artifacts_rs` | `0.1.2-dev13` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
+| python | `tigr-asgi-contract-artifacts` | `0.1.2-dev14` | `packages/artifacts-py` | 1 | Vendored file accessors |
+| npm | `@tigrbljs/tigr-asgi-contract-artifacts` | `0.1.2-dev14` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
+| rust | `tigr_asgi_contract_artifacts_rs` | `0.1.2-dev14` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
 
 ## Contract Package Matrix
 
 | Ecosystem | Package | Version | Path | Surface files | Notes |
 | --- | --- | --- | --- | --- | --- |
-| python | `tigr-asgi-contract` | `0.1.2-dev13` | `packages/contract-py` | 16 | Enums, models, validators |
-| npm | `@tigrbljs/tigr-asgi-contract` | `0.1.2-dev13` | `packages/contract-npm` | 18 | TypeScript and TSX surfaces |
-| rust | `tigr_asgi_contract_rs` | `0.1.2-dev13` | `packages/contract-rs` | 15 | Serde-friendly contract surfaces |
+| python | `tigr-asgi-contract` | `0.1.2-dev14` | `packages/contract-py` | 16 | Enums, models, validators |
+| npm | `@tigrbljs/tigr-asgi-contract` | `0.1.2-dev14` | `packages/contract-npm` | 18 | TypeScript and TSX surfaces |
+| rust | `tigr_asgi_contract_rs` | `0.1.2-dev14` | `packages/contract-rs` | 15 | Serde-friendly contract surfaces |
 
 ## Release Matrix
 
 | Field | Value |
 | --- | --- |
 | Contract name | `tigr-asgi-contract` |
-| Contract version | `0.1.2-dev13` |
-| Artifact version | `0.1.2-dev13` |
+| Contract version | `0.1.2-dev14` |
+| Artifact version | `0.1.2-dev14` |
 | Serde version | `1` |
 | Schema draft | `2020-12` |
 | Bindings | 6 |
 | Families | 5 |
 | Subevents | 42 |
 | Scope types | 4 |
-| Event types | 19 |
+| Event types | 25 |
 
 ## Scope Type Matrix
 
@@ -91,6 +91,12 @@
 | `webtransport.datagram.send` | `webtransport` | `webtransport` | `datagram.ack`, `datagram.out`, `message.ack`, `message.nack` | Outbound WebTransport datagram |
 | `webtransport.disconnect` | `webtransport` | `webtransport` | `session.disconnect` | WebTransport disconnect signal |
 | `webtransport.close` | `webtransport` | `webtransport` | `datagram.close`, `session.close`, `stream.abort`, `stream.close` | WebTransport close event |
+| `lifespan.startup` | `http, websocket, webtransport` | - | - |  |
+| `lifespan.startup.complete` | `http, websocket, webtransport` | - | - |  |
+| `lifespan.startup.failed` | `http, websocket, webtransport` | - | - |  |
+| `lifespan.shutdown` | `http, websocket, webtransport` | - | - |  |
+| `lifespan.shutdown.complete` | `http, websocket, webtransport` | - | - |  |
+| `lifespan.shutdown.failed` | `http, websocket, webtransport` | - | - |  |
 | `transport.emit.complete` | `http, websocket, webtransport` | `http.stream`, `jsonrpc`, `rest`, `sse`, `websocket`, `webtransport` | `datagram.emit_complete`, `message.emit_complete`, `response.emit_complete`, `session.emit_complete`, `stream.emit_complete` | Completion emission event |
 
 ## Family Matrix
