@@ -1,0 +1,56 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1000"
+number: 1000
+slug: "event-type-subevent-direction-taxonomy"
+title: "Separate event types, subevents, and direction taxonomy"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "The contract distinguishes concrete ASGI/transport event type names from semantic contract subevents."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  The contract distinguishes concrete ASGI/transport event type names from semantic contract subevents.
+  
+  Event types are wire/runtime message names carried in an event object's `type` field, such as `http.request`, `websocket.receive`, `webtransport.stream.send`, or `transport.emit.complete`.
+  
+  Subevents are semantic phases used by the contract taxonomy, such as `request.body_in`, `response.body_out`, `session.open`, `message.decode`, `stream.abort`, and `datagram.ack`.
+  
+  Generated matrices currently derive a `direction` column for transport-backed subevents. Current generated direction values include `receive`, `send`, and `receive/send`. The lifespan matrix also introduces internal runtime lifecycle rows, such as `lifecycle.drain.begin` and `lifecycle.shutdown.context_exit`, but these are documentation-level classifications until lifecycle subevents become canonical contract entities.
+  
+  ## Decision
+  
+  Event type, subevent, and direction/domain are separate axes.
+  
+  The contract shall treat event type as the concrete ASGI/transport message identifier. Event types belong to the event schema and remain close to wire/runtime message names.
+  
+  The contract shall treat subevent as the semantic contract phase. Subevents belong to named semantic families such as request, response, session, message, stream, datagram, and any future lifecycle family.
+  
+  The contract shall not infer all subevent semantics from event type alone. Multiple subevents may map to the same event type when binding, family, scope, or protocol context differentiates the semantic phase.
+  
+  Direction/domain shall be represented as first-class matrix metadata for subevent mappings. Existing transport subevents may be receive-only, send-only, or receive/send. Future lifecycle subevents may be internal-only unless they intentionally bind to ASGI send or receive messages.
+  
+  The direction/domain vocabulary shall be explicit rather than implicit:
+  
+  - `receive`: consumed from an ASGI/transport peer.
+  - `send`: emitted to an ASGI/transport peer.
+  - `receive/send`: valid on both sides for at least one governed mapping.
+  - `internal`: runtime-only lifecycle state with no direct ASGI/transport message.
+  
+  If future semantics require combinations such as send/internal or receive/internal, those combinations must be introduced deliberately as governed vocabulary rather than encoded ad hoc in prose.
+  
+  ## Consequences
+  
+  Generated matrices can answer whether a subevent is send-only, receive-only, receive/send, or internal-only without collapsing that answer into event type naming.
+  
+  Lifespan and lifecycle governance can add internal runtime phases without pretending that every phase is a transport event.
+  
+  Schema and generator changes should preserve the distinction between the wire event type enum and the semantic subevent taxonomy.
+  
+  Feature, test, and evidence rows should cite the semantic subevent when validating behavior and cite the concrete event type when validating wire compatibility.
