@@ -1,0 +1,37 @@
+# Lifespan Subevent Matrix
+
+This matrix separates ASGI lifespan messages, internal runtime lifecycle subevents, and public callback registration surfaces. The current contract schema declares `lifespan` as a scope type, but lifespan and `lifecycle.*` rows below are not yet first-class transport-event subevents in the generated contract matrices.
+
+| Subevent | Layer | Direction | Status | Current behavior | Gap |
+| --- | --- | --- | --- | --- | --- |
+| `lifespan.startup` | ASGI message | receive | implemented | `_handle_lifespan` waits for this first message | none |
+| `lifespan.startup.complete` | ASGI message | send | implemented | sent after lifespan context enters and startup handlers run | none |
+| `lifespan.startup.failed` | ASGI message | send | implemented | sent when context enter or startup handlers fail | none |
+| `lifespan.shutdown` | ASGI message | receive | implemented | received after successful startup | none |
+| `lifespan.shutdown.complete` | ASGI message | send | implemented | sent after shutdown handlers and context exit attempt | none |
+| `lifespan.shutdown.failed` | ASGI message | send | missing | shutdown exceptions are swallowed and complete is still sent | needs explicit failure policy |
+| `lifecycle.startup.receive` | runtime subevent | internal | missing | implied by receiving `lifespan.startup` | not named/traced |
+| `lifecycle.startup.context_enter` | runtime subevent | internal | partially implemented | lifespan context manager is entered if configured | not named/traced |
+| `lifecycle.startup.handlers_begin` | runtime subevent | internal | partially implemented | startup handlers are run | not named/traced |
+| `lifecycle.startup.handlers_complete` | runtime subevent | internal | partially implemented | successful handler completion is implicit | not named/traced |
+| `lifecycle.startup.complete` | runtime subevent | internal | partially implemented | maps to `lifespan.startup.complete` | not named/traced |
+| `lifecycle.startup.failed` | runtime subevent | internal | partially implemented | maps to `lifespan.startup.failed` | not named/traced |
+| `lifecycle.drain.begin` | runtime subevent | internal | missing | CLI has drain timeout surface, but no app/runtime drain event | needs drain state machine |
+| `lifecycle.drain.reject_new_work` | runtime subevent | internal | missing | no first-class new-work gate during drain | needed for graceful shutdown |
+| `lifecycle.drain.inflight_wait` | runtime subevent | internal | missing | no governed wait-for-inflight lifecycle event | needed for bounded drain |
+| `lifecycle.drain.inflight_cancel` | runtime subevent | internal | missing | no governed cancellation event for over-budget work | needed for shutdown safety |
+| `lifecycle.drain.session_close` | runtime subevent | internal | missing | no governed session close during drain | needed for SSE/WS/WT |
+| `lifecycle.drain.stream_cancel` | runtime subevent | internal | missing | no governed stream cancel during drain | needed for HTTP stream/WT stream |
+| `lifecycle.drain.emit_complete` | runtime subevent | internal | missing | no lifecycle-specific completion event | should align with `transport.emit.complete` |
+| `lifecycle.drain.complete` | runtime subevent | internal | missing | drain completion not represented | needed before shutdown |
+| `lifecycle.drain.failed` | runtime subevent | internal | missing | drain failure not represented | needed for timeout/cancel failure |
+| `lifecycle.shutdown.receive` | runtime subevent | internal | missing | implied by receiving `lifespan.shutdown` | not named/traced |
+| `lifecycle.shutdown.handlers_begin` | runtime subevent | internal | partially implemented | shutdown handlers are run | not named/traced |
+| `lifecycle.shutdown.handlers_complete` | runtime subevent | internal | partially implemented | successful handler completion is implicit | not named/traced |
+| `lifecycle.shutdown.context_exit` | runtime subevent | internal | partially implemented | lifespan context exits if configured | not named/traced |
+| `lifecycle.shutdown.complete` | runtime subevent | internal | partially implemented | maps to `lifespan.shutdown.complete` | not named/traced |
+| `lifecycle.shutdown.failed` | runtime subevent | internal | missing | shutdown exceptions are swallowed | needs failure semantics |
+| `app.on_event.startup.register` | public callback surface | API | implemented | `add_event_handler("startup", ...)` and `on_event("startup")` work | none |
+| `app.on_event.shutdown.register` | public callback surface | API | implemented | `add_event_handler("shutdown", ...)` and `on_event("shutdown")` work | none |
+| `app.on_event.unsupported.reject` | public callback surface | API | implemented | unsupported event names raise `ValueError` | none |
+| `app.on_lifecycle.*` | public callback surface | API | missing | no deeper public lifecycle hook API | only add if public subevent hooks are desired |
