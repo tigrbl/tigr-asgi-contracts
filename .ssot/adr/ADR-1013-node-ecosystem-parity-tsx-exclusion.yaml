@@ -1,0 +1,33 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1013"
+number: 1013
+slug: "node-ecosystem-parity-tsx-exclusion"
+title: "Node ecosystem parity and TSX exclusion"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "The repository generates a TypeScript/npm package for Node ecosystem consumers. It has also generated TSX helper files, but the locked language-parity decision says parity concerns generated contract surfaces, not frontend UI components."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  The repository generates a TypeScript/npm package for Node ecosystem consumers. It has also generated TSX helper files, but the locked language-parity decision says parity concerns generated contract surfaces, not frontend UI components.
+  
+  ## Decision
+  
+  Node ecosystem parity means the generated TypeScript/npm contract package.
+  
+  TSX and frontend UI output are out of current conformance scope. TSX is not silently included by TypeScript support.
+  
+  If a TSX feature row is needed for traceability, it must be represented as out of bounds. TSX parity tests must be deleted or replaced with tests for the TypeScript/npm contract package.
+  
+  ## Consequences
+  
+  Language parity remains Python, Rust, and TypeScript/npm generated contract parity.
+  
+  Frontend helper artifacts may exist as package conveniences, but they do not prove or expand conformance.

@@ -8,7 +8,7 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "This specification defines publishing target policy for GitHub Releases, PyPI, npmjs, and crates.io."
+summary: "This specification defines strict verified publishing policy."
 supersedes: []
 superseded_by: []
 status_notes: []
@@ -16,13 +16,19 @@ references: []
 body: |-
   ## Scope
   
-  This specification defines publishing target policy for GitHub Releases, PyPI, npmjs, and crates.io.
+  This specification defines strict verified publishing policy.
   
   ## Requirements
   
-  Publishing uses promoted artifacts or promoted source tags and commits.
+  Publishing must use promoted artifacts for GitHub Releases, PyPI, npmjs, and crates.io.
   
-  Workflows must align secret names and supported runtime versions.
+  Workflow and documentation secret names must align on `PYPI_API_TOKEN`, `NPM_API_TOKEN`, and `CRATES_API_TOKEN`.
   
-  Release-gated Cargo publication must not use `cargo publish --no-verify`.
+  Publish workflows must preserve artifact provenance from promotion through publication.
+  
+  Strict publish policy does not allow `cargo publish --no-verify` as a final implemented state. SPEC-1017 defines the temporary debt threshold for crates.io.
+  
+  ## Validation
+  
+  Publish claims must link to workflow-backed evidence showing verification commands, promoted artifact provenance, registry target, and result.
 spec_kind: "operational"

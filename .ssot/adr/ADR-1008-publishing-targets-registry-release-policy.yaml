@@ -8,7 +8,7 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "The repository publishes to GitHub Releases, PyPI, npmjs, and crates.io. Documentation and workflows must agree on secrets, runtime versions, artifact provenance, and verification strictness."
+summary: "The repository publishes generated artifacts to GitHub Releases, PyPI, npmjs, and crates.io. Publishing needs strict verification so released packages correspond to promoted artifacts rather than local or unverified builds."
 supersedes: []
 superseded_by: []
 status_notes: []
@@ -16,20 +16,18 @@ references: []
 body: |-
   ## Context
   
-  The repository publishes to GitHub Releases, PyPI, npmjs, and crates.io. Documentation and workflows must agree on secrets, runtime versions, artifact provenance, and verification strictness.
+  The repository publishes generated artifacts to GitHub Releases, PyPI, npmjs, and crates.io. Publishing needs strict verification so released packages correspond to promoted artifacts rather than local or unverified builds.
   
   ## Decision
   
-  Publishing shall use strict verified promoted artifacts.
+  Publishing must use promoted artifacts and strict verification for GitHub Releases, PyPI, npmjs, and crates.io.
   
-  GitHub Releases, PyPI, npmjs, and crates.io publications must come from promoted artifacts or promoted source tags/commits.
+  Workflow and documentation secret names must align on the workflow names: `PYPI_API_TOKEN`, `NPM_API_TOKEN`, and `CRATES_API_TOKEN`.
   
-  Publish workflows must use aligned secret names and supported runtime versions.
-  
-  Release-gated Cargo publication shall not use `cargo publish --no-verify`.
+  `cargo publish --no-verify` is not part of the final strict publish policy. ADR-1017 records it as temporary debt and blocks crates.io publish target implementation while it remains.
   
   ## Consequences
   
-  Publish gates become stricter than advisory workflow dispatch.
+  Publish workflows and docs can be audited against one secret-name set.
   
-  Existing workflow differences around secret names, runtime versions, and Cargo verification must be corrected before package publishing targets can be promoted.
+  The crates.io target remains partial until cargo verification is strict and evidenced.

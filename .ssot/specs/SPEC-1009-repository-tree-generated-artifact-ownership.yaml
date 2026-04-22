@@ -1,0 +1,34 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1009"
+number: 1009
+slug: "repository-tree-generated-artifact-ownership"
+title: "Repository Tree And Generated Artifact Ownership"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines repository tree ownership for canonical inputs, governance sources, generated/package outputs, and documentation projections."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines repository tree ownership for canonical inputs, governance sources, generated/package outputs, and documentation projections.
+  
+  ## Requirements
+  
+  The `contract/` tree is the canonical source for contract vocabulary, schemas, matrices, compatibility metadata, manifests, and checksums.
+  
+  The `.ssot/` tree is the canonical governance source for ADRs, SPECs, registry entities, claims, evidence, boundaries, releases, reports, and generated SSOT exports.
+  
+  Generated language packages, package readmes, release bundles, and generated documentation are projections of canonical inputs. Generated outputs must not be hand-edited as the source of truth for contract semantics.
+  
+  Documentation explains and projects SSOT and contract decisions. When documentation conflicts with `.ssot/` or `contract/`, the canonical SSOT and contract sources win.
+  
+  ## Validation
+  
+  Contract changes start in canonical contract files and are propagated through generation. SSOT governance changes start in SSOT documents or entities through SSOT tooling.
+spec_kind: "normative"

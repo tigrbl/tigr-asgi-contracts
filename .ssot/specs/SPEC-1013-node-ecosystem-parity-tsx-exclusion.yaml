@@ -1,0 +1,34 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1013"
+number: 1013
+slug: "node-ecosystem-parity-tsx-exclusion"
+title: "Node Ecosystem Parity And TSX Exclusion"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines Node ecosystem parity and the exclusion of TSX/UI output from current conformance scope."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines Node ecosystem parity and the exclusion of TSX/UI output from current conformance scope.
+  
+  ## Requirements
+  
+  The governed Node ecosystem surface is the generated TypeScript/npm contract package, including generated TypeScript contract files and npm package contract exports.
+  
+  TSX and frontend UI output are out of current conformance scope.
+  
+  If TSX is tracked in SSOT, it must be represented by an out-of-bounds feature row.
+  
+  TSX parity assertions must be deleted or replaced with TypeScript/npm contract package tests.
+  
+  ## Validation
+  
+  Node ecosystem parity evidence must target generated TypeScript/npm contract artifacts, not TSX UI helpers.
+spec_kind: "normative"

@@ -8,7 +8,7 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "Conformance and interop evidence must survive beyond a single CI run if it is used to certify, promote, release, or publish a governed target."
+summary: "Conformance evidence must remain inspectable after target, boundary, release, and publication decisions. The repository needs a retention rule that preserves the proof chain without treating transient CI logs as the only source of truth."
 supersedes: []
 superseded_by: []
 status_notes: []
@@ -16,18 +16,18 @@ references: []
 body: |-
   ## Context
   
-  Conformance and interop evidence must survive beyond a single CI run if it is used to certify, promote, release, or publish a governed target.
+  Conformance evidence must remain inspectable after target, boundary, release, and publication decisions. The repository needs a retention rule that preserves the proof chain without treating transient CI logs as the only source of truth.
   
   ## Decision
   
-  Conformance evidence shall be retained as SSOT evidence rows and durable evidence artifacts under the configured SSOT evidence roots.
+  Conformance evidence is retained as SSOT evidence rows and referenced artifacts.
   
-  Boundary and release snapshots shall include hashes for evidence used to support certification, promotion, release, and publication decisions.
+  Promotion and release snapshots must include SHA-256 hashes for core artifacts: canonical schemas, generated contract/package outputs, `.ssot/registry.json`, evidence artifacts, release manifests, and promoted bundle manifests.
   
-  CI artifacts may supplement SSOT evidence, but CI artifacts alone are not sufficient for durable conformance certification.
+  Evidence rows must be sufficient to connect claims, tests, target features, boundaries, and releases to the artifacts that proved them.
   
   ## Consequences
   
-  Release decisions can be audited after CI artifacts expire.
+  Boundary and release review can compare stable hashes rather than relying on mutable workspace state.
   
-  External-suite evidence can be linked into claims and snapshots when target-specific gates require it.
+  Publication can trace back to promoted artifacts and retained evidence.

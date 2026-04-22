@@ -26,7 +26,19 @@
         "webtransport.datagram.send",
         "webtransport.disconnect",
         "webtransport.close",
+        "lifespan.startup",
+        "lifespan.startup.complete",
+        "lifespan.startup.failed",
+        "lifespan.shutdown",
+        "lifespan.shutdown.complete",
+        "lifespan.shutdown.failed",
         "transport.emit.complete"
+      ]
+    },
+    "message": {
+      "type": [
+        "string",
+        "null"
       ]
     },
     "payload": {

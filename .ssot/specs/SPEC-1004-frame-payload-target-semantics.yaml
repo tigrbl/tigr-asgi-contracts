@@ -22,9 +22,15 @@ body: |-
   
   JSON payload and schema surfaces target RFC 8259.
   
-  Canonical repository artifacts target RFC 8785 JCS.
+  Canonical repository artifacts, manifests, checksums, boundary snapshots, release snapshots, and other deterministic artifact paths target RFC 8785 JCS.
   
-  JSON-RPC target features cover full JSON-RPC 2.0 behavior.
+  JSON-RPC target features cover JSON-RPC 2.0 contract surfaces: request, response, error, notification, batch, id, and version field semantics.
   
-  Duplicate JSON object keys are rejected in canonical contract inputs and deterministic artifact paths.
+  JSON-RPC coverage in this repository is scoped to schemas, types, values, generated code, and fixtures. Runtime handler dispatch, method execution, and runtime response behavior are downstream concerns unless separately governed.
+  
+  Duplicate JSON object keys are rejected in canonical contract inputs and deterministic artifact paths. Runtime payload duplicate-key behavior is target-specific unless separately governed.
+  
+  ## Validation
+  
+  JSON, canonical JSON, duplicate-key, and JSON-RPC claims must link to schema, generated code, fixture, evidence, or package tests that match this contract-only scope.
 spec_kind: "normative"

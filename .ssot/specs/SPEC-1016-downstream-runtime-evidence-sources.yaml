@@ -1,0 +1,32 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1016"
+number: 1016
+slug: "downstream-runtime-evidence-sources"
+title: "Downstream Runtime Evidence Sources"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines downstream runtime evidence sources."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines downstream runtime evidence sources.
+  
+  ## Requirements
+  
+  The named downstream ASGI evidence-source set is tigrcorn, uvicorn, hypercorn, and gunicorn.
+  
+  These runtimes are evidence sources for this repository. They are not package outputs owned by this repository.
+  
+  Other runtimes are tracked as out of bounds when they appear in documentation, tests, issues, claims, or evidence discussions.
+  
+  ## Validation
+  
+  Runtime evidence rows must identify the runtime source when evidence is runtime-derived. Adding another runtime to the named set requires a future accepted decision.
+spec_kind: "governance"

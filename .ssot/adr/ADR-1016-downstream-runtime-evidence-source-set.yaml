@@ -1,0 +1,33 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1016"
+number: 1016
+slug: "downstream-runtime-evidence-source-set"
+title: "Downstream runtime evidence-source set"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "External ASGI interoperability evidence is allowed, but the repo needs a named downstream runtime evidence-source set so future evidence rows and out-of-bounds rows do not drift."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  External ASGI interoperability evidence is allowed, but the repo needs a named downstream runtime evidence-source set so future evidence rows and out-of-bounds rows do not drift.
+  
+  ## Decision
+  
+  tigrcorn, uvicorn, hypercorn, and gunicorn are the named downstream ASGI evidence-source set.
+  
+  These runtimes are evidence sources for this repository, not package outputs owned by this repository.
+  
+  Other ASGI runtimes are tracked as out of bounds when they appear in docs, tests, issues, claims, or evidence discussions.
+  
+  ## Consequences
+  
+  Runtime evidence can be linked consistently without implying this repository owns runtime implementations.
+  
+  Adding another runtime to the supported evidence-source set requires a future decision.

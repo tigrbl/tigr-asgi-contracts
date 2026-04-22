@@ -1,0 +1,32 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1014"
+number: 1014
+slug: "concrete-conformance-profiles"
+title: "Concrete Conformance Profiles"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines the concrete conformance profiles used by this repository."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines the concrete conformance profiles used by this repository.
+  
+  ## Requirements
+  
+  Initial profile rows must use `prf:target-*` identifiers.
+  
+  The initial profile set is ASGI3, HTTP, WebSocket, SSE, WebTransport, JSON/payload, language parity, and gates.
+  
+  Profile pass/fail and maturity are derived from included feature rows and nested profiles. Profile status must not override member feature maturity.
+  
+  ## Validation
+  
+  Profile membership must be expressed through SSOT profile feature links or nested profile links. Boundaries and releases may reference these profiles after they exist.
+spec_kind: "normative"

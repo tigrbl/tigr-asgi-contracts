@@ -1,0 +1,33 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1015"
+number: 1015
+slug: "testable-leaf-feature-granularity"
+title: "Testable leaf feature granularity"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "The repository already has parent target rows for ASGI, protocol standards, serialization targets, language parity, external suites, and gates. Some decisions now require more precise feature rows for testable contract surfaces without creating exhaustive clause-by-clause copies of every external standard."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  The repository already has parent target rows for ASGI, protocol standards, serialization targets, language parity, external suites, and gates. Some decisions now require more precise feature rows for testable contract surfaces without creating exhaustive clause-by-clause copies of every external standard.
+  
+  ## Decision
+  
+  Target rows remain parent rows. Leaf feature rows are added only for testable contract surfaces that this repository can validate through schema, type, value, codegen, fixture, evidence, or package checks.
+  
+  Covered external-standard leaf features default to T2 when repo tests cover them.
+  
+  This policy covers ASGI TLS extension field leaves, JSON-RPC 2.0 core message leaves, canonical JSON leaves, and future similar leaves.
+  
+  ## Consequences
+  
+  Feature granularity follows testable contract boundaries rather than every prose requirement in an external standard.
+  
+  Leaves can be partial/current while parent targets remain partial/current or implemented according to their evidence.

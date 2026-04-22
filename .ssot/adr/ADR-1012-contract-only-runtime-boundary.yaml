@@ -1,0 +1,35 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1012"
+number: 1012
+slug: "contract-only-runtime-boundary"
+title: "Contract-only runtime boundary"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "Outstanding conformance work includes schema and generated-contract surfaces that name runtime concepts such as ASGI lifespan failure, TLS extension metadata, protocol frames, and downstream evidence. Without a boundary decision, these contract artifacts can be mistaken for runtime execution requirements."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  Outstanding conformance work includes schema and generated-contract surfaces that name runtime concepts such as ASGI lifespan failure, TLS extension metadata, protocol frames, and downstream evidence. Without a boundary decision, these contract artifacts can be mistaken for runtime execution requirements.
+  
+  ## Decision
+  
+  This repository governs schemas, types, values, generated contract artifacts, SSOT rows, evidence metadata, and deterministic snapshots.
+  
+  This repository does not govern downstream runtime emission behavior, cleanup behavior, lifecycle execution, connection draining, session handling, or server behavior unless a future repo-local ADR explicitly expands scope.
+  
+  `lifespan.shutdown.failed` is governed here as an ASGI-compatible schema and generated-code contract surface. The decision to emit that message, the conditions for emission, cleanup ordering, and failure propagation are downstream runtime concerns.
+  
+  Contract schema versions are bumped when JSON schema wire shape or generated contract APIs change. SSOT registry schema upgrades remain CLI-only.
+  
+  ## Consequences
+  
+  Conformance claims in this repository must be phrased as contract/schema/type/codegen/evidence claims unless a later ADR adds runtime scope.
+  
+  Downstream projects may use these contracts to implement runtime behavior, but runtime behavior is not implied by the existence of a contract row.

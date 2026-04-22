@@ -1,0 +1,33 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1014"
+number: 1014
+slug: "concrete-conformance-profile-instantiation"
+title: "Concrete conformance profile instantiation"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "ADR-1010 represents conformance targets as `feat:target-*` feature rows and allows profiles to bundle target features. The registry currently supports first-class profile rows, so the core conformance bundles can be made concrete rather than only described in prose."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  ADR-1010 represents conformance targets as `feat:target-*` feature rows and allows profiles to bundle target features. The registry currently supports first-class profile rows, so the core conformance bundles can be made concrete rather than only described in prose.
+  
+  ## Decision
+  
+  Create concrete conformance profiles now using `prf:target-*` identifiers.
+  
+  Profile pass/fail and maturity are derived from member feature rows. Profile status is not an independent claim of implementation completeness.
+  
+  Initial profiles are ASGI3, HTTP, WebSocket, SSE, WebTransport, JSON/payload, language parity, and gates.
+  
+  ## Consequences
+  
+  Boundaries and releases may reference target profiles without losing feature-level test and evidence links.
+  
+  Profile evaluation remains a derived view over included features and nested profiles.

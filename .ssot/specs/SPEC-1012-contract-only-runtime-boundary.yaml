@@ -1,0 +1,34 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1012"
+number: 1012
+slug: "contract-only-runtime-boundary"
+title: "Contract-Only Runtime Boundary"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines the runtime boundary for this repository."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines the runtime boundary for this repository.
+  
+  ## Requirements
+  
+  In-scope surfaces are schemas, types, values, generated contracts, SSOT rows, evidence metadata, and deterministic snapshots.
+  
+  Out-of-scope surfaces are downstream runtime emission behavior, cleanup behavior, lifecycle execution, connection drain, session handling, and server behavior.
+  
+  Contract schema versions must be bumped when JSON schema wire shape or generated contract APIs change.
+  
+  SSOT registry schema upgrades must be performed through SSOT CLI tooling.
+  
+  ## Validation
+  
+  Contract rows and tests must not claim downstream runtime behavior unless a future accepted ADR and SPEC expand this repository's scope.
+spec_kind: "normative"

@@ -1,0 +1,34 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1017"
+number: 1017
+slug: "publish-target-debt-implementation-threshold"
+title: "Publish Target Debt And Implementation Threshold"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines publish target rows, implementation thresholds, and publish debt handling."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines publish target rows, implementation thresholds, and publish debt handling.
+  
+  ## Requirements
+  
+  Publish target rows cover GitHub Releases, PyPI, npmjs, and crates.io.
+  
+  Publish targets require workflow-backed evidence before they can be marked implemented.
+  
+  Workflow-backed evidence must cover aligned secrets, runtime versions, verification commands, promoted artifact provenance, and SSOT evidence rows or tests.
+  
+  `cargo publish --no-verify` is blocking debt for crates.io implemented status. While it remains, the crates.io publish target must remain partial/current.
+  
+  ## Validation
+  
+  Publish target implementation requires evidence that the registry publish path used promoted artifacts and strict verification.
+spec_kind: "operational"

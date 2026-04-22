@@ -1,0 +1,40 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1000"
+number: 1000
+slug: "event-type-subevent-direction-taxonomy"
+title: "Event Type, Subevent, And Direction Taxonomy"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines the contract taxonomy terms used by the repository: `type`, `subevent`, `binding`, `protocols`, `family`, and `direction`."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines the contract taxonomy terms used by the repository: `type`, `subevent`, `binding`, `protocols`, `family`, and `direction`.
+  
+  ## Requirements
+  
+  `type` names the ASGI/base event type or contract event type.
+  
+  `subevent` names the semantic action represented by a contract row or generated matrix cell.
+  
+  `binding` names the contract binding profile, such as REST, JSON-RPC, HTTP stream, SSE, WebSocket, or WebTransport.
+  
+  `protocols` names wire protocol identifiers and external protocol targets.
+  
+  `family` names the semantic event family used by legality and capability matrices.
+  
+  `direction` is a derived classification from event and transport semantics. It is not a primary contract key.
+  
+  Internal lifecycle subevents are current taxonomy rows when documented by this repository, but their presence does not define runtime execution behavior.
+  
+  ## Validation
+  
+  Taxonomy changes must be reflected in SSOT rows, generated matrices, or generated contract outputs before they can be claimed as implemented.
+spec_kind: "normative"

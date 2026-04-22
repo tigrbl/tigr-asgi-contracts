@@ -1,0 +1,34 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1015"
+number: 1015
+slug: "testable-leaf-feature-granularity"
+title: "Testable Leaf Feature Granularity"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines when parent conformance target rows require leaf feature rows."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines when parent conformance target rows require leaf feature rows.
+  
+  ## Requirements
+  
+  Target rows remain parent rows. Leaf feature rows are added for testable contract surfaces only.
+  
+  Testable contract surfaces include schema, type, value, codegen, fixture, evidence, and package checks that this repository can validate.
+  
+  Covered external-standard leaf features default to T2 when repository tests cover the leaf contract surface.
+  
+  First explicit leaf families are ASGI TLS extension fields, JSON-RPC 2.0 core messages, and canonical JSON/JCS surfaces.
+  
+  ## Validation
+  
+  Leaf rows should not be created solely for untestable prose. They must support concrete tests, evidence, or package checks before promotion.
+spec_kind: "normative"

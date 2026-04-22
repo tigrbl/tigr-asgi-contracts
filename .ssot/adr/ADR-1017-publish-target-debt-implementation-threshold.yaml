@@ -1,0 +1,33 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1017"
+number: 1017
+slug: "publish-target-debt-implementation-threshold"
+title: "Publish-target debt and implementation threshold"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "ADR-1008 defines strict verified publishing, but the implementation plan needs package-specific target rows and a temporary debt policy for crates.io verification drift."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  ADR-1008 defines strict verified publishing, but the implementation plan needs package-specific target rows and a temporary debt policy for crates.io verification drift.
+  
+  ## Decision
+  
+  GitHub Releases, PyPI, npmjs, and crates.io receive first-class publish target feature rows as partial/current targets.
+  
+  Publish targets require workflow-backed evidence before they can be marked implemented. Evidence must cover aligned secrets, runtime versions, verification commands, and promoted artifact provenance.
+  
+  `cargo publish --no-verify` is temporary debt. While it remains, the crates.io publish target must stay partial/current and cannot be marked implemented.
+  
+  ## Consequences
+  
+  Publish target rows can be planned and linked before full evidence exists.
+  
+  Strict publish conformance is not achieved until each registry target has passing workflow-backed evidence.

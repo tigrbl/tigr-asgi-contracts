@@ -8,7 +8,7 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "This specification defines durable conformance evidence retention."
+summary: "This specification defines conformance evidence retention."
 supersedes: []
 superseded_by: []
 status_notes: []
@@ -16,13 +16,17 @@ references: []
 body: |-
   ## Scope
   
-  This specification defines durable conformance evidence retention.
+  This specification defines conformance evidence retention.
   
   ## Requirements
   
-  Conformance evidence used for certification, promotion, release, or publication is retained as SSOT evidence rows and durable artifacts.
+  Conformance evidence is retained as SSOT evidence rows and referenced artifacts.
   
-  Boundary and release snapshots include hashes for retained evidence.
+  Promotion and release snapshots must include SHA-256 hashes for core artifacts: canonical schemas, generated contract/package outputs, `.ssot/registry.json`, evidence artifacts, release manifests, and promoted bundle manifests.
   
-  CI-only artifacts are supplemental and do not replace durable SSOT evidence.
+  Evidence rows must connect claims, tests, target features, boundaries, and releases to the artifacts that proved them.
+  
+  ## Validation
+  
+  Promotion and release review must be able to compare retained SHA-256 hashes rather than relying on mutable workspace state.
 spec_kind: "governance"

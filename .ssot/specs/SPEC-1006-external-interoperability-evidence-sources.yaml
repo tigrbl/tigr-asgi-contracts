@@ -8,7 +8,7 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "This specification defines accepted external interop evidence sources."
+summary: "This specification defines external interoperability evidence sources."
 supersedes: []
 superseded_by: []
 status_notes: []
@@ -16,11 +16,17 @@ references: []
 body: |-
   ## Scope
   
-  This specification defines accepted external interop evidence sources.
+  This specification defines external interoperability evidence sources.
   
   ## Requirements
   
-  Autobahn, Web Platform Tests, JSON Schema Test Suite, and downstream ASGI/runtime suites may be linked as SSOT evidence.
+  Accepted external evidence sources include Autobahn, Web Platform Tests, JSON Schema Test Suite, and downstream ASGI suites.
   
-  External suites are optional accepted evidence until another target-specific specification makes them mandatory.
+  External suite target rows remain planned or future until durable evidence rows exist.
+  
+  External suite evidence is optional below T4. Applicable external-suite evidence is required for T4 conformance or certification.
+  
+  ## Validation
+  
+  External evidence rows must identify the suite, target, version or commit where available, artifact location, and linked feature or claim.
 spec_kind: "governance"
