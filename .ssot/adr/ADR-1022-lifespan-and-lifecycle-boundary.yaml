@@ -1,0 +1,37 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1022"
+number: 1022
+slug: "lifespan-and-lifecycle-boundary"
+title: "ASGI lifespan events and internal lifecycle phases are separate"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "ASGI lifespan event surfaces are separate from internal lifecycle classifications such as drain, handler, context, and inflight phases."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  ADR-1000 separates event types, subevents, and direction taxonomy. It also notes that lifecycle rows are documentation-level classifications until lifecycle subevents become canonical contract entities.
+  
+  The normalized feature matrix includes both ASGI-facing lifespan event rows and internal lifecycle classification rows.
+  
+  ## Decision
+  
+  `lifespan.startup`, `lifespan.startup.complete`, `lifespan.startup.failed`, `lifespan.shutdown`, `lifespan.shutdown.complete`, and `lifespan.shutdown.failed` are ASGI-facing event and schema surfaces.
+  
+  `lifecycle.*` rows, including drain, handler phases, context phases, inflight wait or cancel, and reject-new-work, are internal lifecycle classification surfaces unless a later ADR expands contract scope.
+  
+  Internal lifecycle rows may be retained as review candidates or evidence taxonomy. They must not be promoted as ASGI event features without an explicit decision.
+  
+  Runtime lifecycle execution remains downstream under ADR-1012.
+  
+  ## Consequences
+  
+  Lifespan contract work can proceed without conflating ASGI event schemas with runtime lifecycle execution.
+  
+  Future lifecycle governance must explicitly state whether an internal lifecycle surface becomes canonical contract scope.

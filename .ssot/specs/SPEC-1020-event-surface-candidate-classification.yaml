@@ -1,0 +1,39 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1020"
+number: 1020
+slug: "event-surface-candidate-classification"
+title: "Event Surface Candidate Classification"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines how concrete event type and event schema candidates are classified before SSOT feature promotion."
+supersedes: []
+superseded_by: []
+status_notes: []
+references:
+  - "adr:1000"
+  - "adr:1018"
+  - "adr:1019"
+body: |-
+  ## Scope
+  
+  This specification governs normalized feature candidates whose surface key is `event:<transport_event_type>` or `event:<schema_path>`.
+  
+  ## Requirements
+  
+  Event promotion grain is one concrete event type or event schema surface.
+  
+  Event type, subevent, binding, protocol, family, and direction remain separate axes under ADR-1000.
+  
+  Absent proposed events, including future HTTP, WebSocket, WebTransport, and transport extension events, default to future review candidates unless a later decision rejects or promotes them.
+  
+  Lifespan event types are classified as concrete event types by this specification, but ASGI lifespan and internal lifecycle boundary details are governed by SPEC-1024.
+  
+  Event promotion does not imply runtime emission behavior. It governs schema shape, generated type surfaces, fixtures, and evidence metadata.
+  
+  ## Validation
+  
+  A promoted event candidate must preserve its concrete event type or event schema path and must not infer subevent semantics from event type alone.
+spec_kind: "normative"

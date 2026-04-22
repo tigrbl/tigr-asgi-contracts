@@ -1,0 +1,44 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1019"
+number: 1019
+slug: "feature-surface-promotion-grain"
+title: "Feature promotion uses governed surface keys"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "Normalized matrix promotion uses one governed feature surface as the unit of review, dedupe, and registry mutation."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  ADR-1015 allows testable leaf feature granularity. The normalized feature matrix introduces many source rows that overlap, duplicate, or restate the same governed surface.
+  
+  A promotion rule is needed so source rows do not turn into duplicate registry features.
+  
+  ## Decision
+  
+  The promotion unit is one governed feature surface, not one raw workbook row or source CSV row.
+  
+  Approved normalized surface key families are:
+  
+  - `schema:<schema_path>`
+  - `event:<transport_event_type>` or `event:<schema_path>`
+  - `scope:<scope_type>|family:<family>|subevent:<subevent>`
+  - `frame:<frame_or_framing_name>`
+  - `concern:<concern>`
+  - `lifespan:<subevent>`
+  
+  Exact existing SSOT feature ID matches update or annotate existing rows. They do not create duplicate rows.
+  
+  Weak semantic matches require manual review before registry mutation.
+  
+  ## Consequences
+  
+  The registry can gain testable leaves without duplicating every source row.
+  
+  Candidate IDs remain review-only until their surface key, provenance, and existing-match result are reviewed.

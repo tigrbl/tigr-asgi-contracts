@@ -1,0 +1,37 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1018"
+number: 1018
+slug: "normalized-feature-matrix-review-governance"
+title: "Normalized feature matrices are review artifacts"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "Normalized feature matrices may propose SSOT work, but they are generated review artifacts and do not mutate canonical registry rows by existence alone."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  ADR-0609 establishes that generated projections are non-canonical. The normalized master feature matrix applies that rule to a specific review workflow that consolidates source CSV and XLSX artifacts into candidate feature surfaces.
+  
+  `reports/normalized_master_feature_matrix.xlsx` preserves source rows, duplicate groups, rejected rows, and normalized feature candidates. Its rows are useful for review and promotion planning, but they are not canonical SSOT entities.
+  
+  ## Decision
+  
+  `reports/normalized_master_feature_matrix.xlsx` is a generated review artifact, not canonical SSOT.
+  
+  Rows in the normalized matrix may propose SSOT features, but they do not create, update, replace, or supersede registry rows by existence alone.
+  
+  Promotion from the normalized matrix must be explicit. Any promotion must preserve provenance from source rows and duplicate groups.
+  
+  Invalid cartesian permutations remain rejection and provenance evidence. They are not feature candidates.
+  
+  ## Consequences
+  
+  Review work can use the normalized matrix without treating every row as approved registry content.
+  
+  Later promotion passes must name which candidate rows are being promoted and must keep enough source provenance for audit and rollback.

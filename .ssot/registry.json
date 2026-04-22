@@ -9624,7 +9624,8 @@
       },
       "spec_ids": [
         "spc:1005",
-        "spc:1010"
+        "spc:1010",
+        "spc:1013"
       ],
       "claim_ids": [
         "clm:subevents",
@@ -9954,7 +9955,8 @@
       },
       "spec_ids": [
         "spc:1002",
-        "spc:1010"
+        "spc:1010",
+        "spc:1015"
       ],
       "claim_ids": [
         "clm:scope-types",
@@ -10412,7 +10414,9 @@
       },
       "spec_ids": [
         "spc:1004",
-        "spc:1010"
+        "spc:1010",
+        "spc:1015",
+        "spc:1011"
       ],
       "claim_ids": [
         "clm:checksums",
@@ -10442,7 +10446,8 @@
       },
       "spec_ids": [
         "spc:1004",
-        "spc:1010"
+        "spc:1010",
+        "spc:1015"
       ],
       "claim_ids": [
         "clm:bindings",
@@ -10475,7 +10480,9 @@
       },
       "spec_ids": [
         "spc:1004",
-        "spc:1010"
+        "spc:1010",
+        "spc:1015",
+        "spc:1011"
       ],
       "claim_ids": [
         "clm:checksums",
@@ -10602,7 +10609,8 @@
       "spec_ids": [
         "spc:1006",
         "spc:1010",
-        "spc:1011"
+        "spc:1011",
+        "spc:1016"
       ],
       "claim_ids": [
         "clm:scope-types",
@@ -10766,6 +10774,666 @@
         "spc:1007",
         "spc:1008",
         "spc:1010",
+        "spc:1011",
+        "spc:1017"
+      ],
+      "claim_ids": [
+        "clm:checksums",
+        "clm:manifest"
+      ],
+      "test_ids": [
+        "tst:contract-test-checksums",
+        "tst:contract-test-manifest"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lang-tsx",
+      "title": "Out-of-bounds TSX/UI parity target",
+      "description": "TSX and frontend UI output are out of current conformance scope; TypeScript/npm remains the governed Node contract surface.",
+      "implementation_status": "absent",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "out_of_bounds",
+        "slot": null,
+        "target_claim_tier": "T4",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1013"
+      ],
+      "claim_ids": [],
+      "test_ids": [],
+      "requires": []
+    },
+    {
+      "id": "feat:evidence-source-runtime-tigrcorn",
+      "title": "Evidence source runtime tigrcorn",
+      "description": "Named downstream ASGI runtime evidence source for T4 conformance or certification evidence.",
+      "implementation_status": "absent",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "future",
+        "slot": null,
+        "target_claim_tier": "T4",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1016"
+      ],
+      "claim_ids": [],
+      "test_ids": [],
+      "requires": []
+    },
+    {
+      "id": "feat:evidence-source-runtime-uvicorn",
+      "title": "Evidence source runtime uvicorn",
+      "description": "Named downstream ASGI runtime evidence source for T4 conformance or certification evidence.",
+      "implementation_status": "absent",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "future",
+        "slot": null,
+        "target_claim_tier": "T4",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1016"
+      ],
+      "claim_ids": [],
+      "test_ids": [],
+      "requires": []
+    },
+    {
+      "id": "feat:evidence-source-runtime-hypercorn",
+      "title": "Evidence source runtime hypercorn",
+      "description": "Named downstream ASGI runtime evidence source for T4 conformance or certification evidence.",
+      "implementation_status": "absent",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "future",
+        "slot": null,
+        "target_claim_tier": "T4",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1016"
+      ],
+      "claim_ids": [],
+      "test_ids": [],
+      "requires": []
+    },
+    {
+      "id": "feat:evidence-source-runtime-gunicorn",
+      "title": "Evidence source runtime gunicorn",
+      "description": "Named downstream ASGI runtime evidence source for T4 conformance or certification evidence.",
+      "implementation_status": "absent",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "future",
+        "slot": null,
+        "target_claim_tier": "T4",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1016"
+      ],
+      "claim_ids": [],
+      "test_ids": [],
+      "requires": []
+    },
+    {
+      "id": "feat:target-publish-github-releases",
+      "title": "Target Publish GitHub Releases",
+      "description": "Govern GitHub Releases as a partial current publish target that requires workflow-backed evidence before implemented status.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1008",
+        "spc:1017"
+      ],
+      "claim_ids": [
+        "clm:manifest",
+        "clm:checksums"
+      ],
+      "test_ids": [
+        "tst:contract-test-manifest",
+        "tst:contract-test-checksums"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-publish-pypi",
+      "title": "Target Publish PyPI",
+      "description": "Govern PyPI as a partial current publish target that requires workflow-backed evidence before implemented status.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1008",
+        "spc:1017"
+      ],
+      "claim_ids": [
+        "clm:manifest",
+        "clm:checksums"
+      ],
+      "test_ids": [
+        "tst:contract-test-manifest",
+        "tst:contract-test-checksums"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-publish-npmjs",
+      "title": "Target Publish npmjs",
+      "description": "Govern npmjs as a partial current publish target that requires workflow-backed evidence before implemented status.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1008",
+        "spc:1017"
+      ],
+      "claim_ids": [
+        "clm:manifest",
+        "clm:checksums"
+      ],
+      "test_ids": [
+        "tst:contract-test-manifest",
+        "tst:contract-test-checksums"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-publish-crates-io",
+      "title": "Target Publish crates.io",
+      "description": "Govern crates.io as a partial current publish target that remains blocked from implemented while cargo publish verification debt exists.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1008",
+        "spc:1017"
+      ],
+      "claim_ids": [
+        "clm:manifest",
+        "clm:checksums"
+      ],
+      "test_ids": [
+        "tst:contract-test-manifest",
+        "tst:contract-test-checksums"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:debt-publish-crates-no-verify",
+      "title": "Debt Publish crates.io No Verify",
+      "description": "Track temporary cargo publish --no-verify debt that blocks crates.io publish target implementation.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1017"
+      ],
+      "claim_ids": [
+        "clm:manifest",
+        "clm:checksums"
+      ],
+      "test_ids": [
+        "tst:contract-test-manifest",
+        "tst:contract-test-checksums"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifespan-shutdown-failed-contract",
+      "title": "Target Lifespan Shutdown Failed Contract",
+      "description": "Represent lifespan.shutdown.failed as an ASGI-compatible schema/codegen contract surface without a runtime emission mandate.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:schemas-event-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-asgi-tls-field-version",
+      "title": "Target ASGI TLS Field Version",
+      "description": "Track the ASGI TLS extension version field as a testable contract leaf.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1002",
+        "spc:1015"
+      ],
+      "claim_ids": [
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-asgi-tls-field-cipher",
+      "title": "Target ASGI TLS Field Cipher",
+      "description": "Track the ASGI TLS extension cipher field as a testable contract leaf.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1002",
+        "spc:1015"
+      ],
+      "claim_ids": [
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-asgi-tls-field-verified",
+      "title": "Target ASGI TLS Field Verified",
+      "description": "Track the ASGI TLS extension verified field as a testable contract leaf.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1002",
+        "spc:1015"
+      ],
+      "claim_ids": [
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-asgi-tls-field-peer-identity",
+      "title": "Target ASGI TLS Field Peer Identity",
+      "description": "Track the ASGI TLS extension peer identity field as a testable contract leaf.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1002",
+        "spc:1015"
+      ],
+      "claim_ids": [
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-asgi-tls-field-peer-cert",
+      "title": "Target ASGI TLS Field Peer Cert",
+      "description": "Track the ASGI TLS extension peer certificate field as a testable contract leaf.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1002",
+        "spc:1015"
+      ],
+      "claim_ids": [
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-jsonrpc-request",
+      "title": "Target JSON-RPC Request",
+      "description": "Track JSON-RPC 2.0 request messages as a testable contract leaf.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1004",
+        "spc:1015"
+      ],
+      "claim_ids": [
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-jsonrpc-response",
+      "title": "Target JSON-RPC Response",
+      "description": "Track JSON-RPC 2.0 response messages as a testable contract leaf.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1004",
+        "spc:1015"
+      ],
+      "claim_ids": [
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-jsonrpc-error",
+      "title": "Target JSON-RPC Error",
+      "description": "Track JSON-RPC 2.0 error objects as a testable contract leaf.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1004",
+        "spc:1015"
+      ],
+      "claim_ids": [
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-jsonrpc-notification",
+      "title": "Target JSON-RPC Notification",
+      "description": "Track JSON-RPC 2.0 notifications as a testable contract leaf.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1004",
+        "spc:1015"
+      ],
+      "claim_ids": [
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-jsonrpc-batch",
+      "title": "Target JSON-RPC Batch",
+      "description": "Track JSON-RPC 2.0 batch messages as a testable contract leaf.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1004",
+        "spc:1015"
+      ],
+      "claim_ids": [
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-jsonrpc-id",
+      "title": "Target JSON-RPC ID",
+      "description": "Track JSON-RPC 2.0 id handling as a testable contract leaf.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1004",
+        "spc:1015"
+      ],
+      "claim_ids": [
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-jsonrpc-version-field",
+      "title": "Target JSON-RPC Version Field",
+      "description": "Track JSON-RPC 2.0 jsonrpc version field handling as a testable contract leaf.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1004",
+        "spc:1015"
+      ],
+      "claim_ids": [
+        "clm:schemas-transport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-json-canonical-artifacts",
+      "title": "Target JSON Canonical Artifacts",
+      "description": "Track RFC 8785/JCS canonical artifact and snapshot behavior as a testable contract leaf.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1004",
+        "spc:1015",
         "spc:1011"
       ],
       "claim_ids": [
@@ -10775,6 +11443,625 @@
       "test_ids": [
         "tst:contract-test-checksums",
         "tst:contract-test-manifest"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-json-duplicate-key-canonical-paths",
+      "title": "Target JSON Duplicate Key Canonical Paths",
+      "description": "Track duplicate-key rejection for canonical JSON paths as a testable contract leaf.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1004",
+        "spc:1015",
+        "spc:1011"
+      ],
+      "claim_ids": [
+        "clm:checksums",
+        "clm:manifest"
+      ],
+      "test_ids": [
+        "tst:contract-test-checksums",
+        "tst:contract-test-manifest"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-startup-receive",
+      "title": "Target Lifecycle Startup Receive",
+      "description": "Track lifecycle.startup.receive as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-startup-context-enter",
+      "title": "Target Lifecycle Startup Context Enter",
+      "description": "Track lifecycle.startup.context_enter as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-startup-handlers-begin",
+      "title": "Target Lifecycle Startup Handlers Begin",
+      "description": "Track lifecycle.startup.handlers_begin as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-startup-handlers-complete",
+      "title": "Target Lifecycle Startup Handlers Complete",
+      "description": "Track lifecycle.startup.handlers_complete as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-startup-complete",
+      "title": "Target Lifecycle Startup Complete",
+      "description": "Track lifecycle.startup.complete as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-startup-failed",
+      "title": "Target Lifecycle Startup Failed",
+      "description": "Track lifecycle.startup.failed as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-drain-begin",
+      "title": "Target Lifecycle Drain Begin",
+      "description": "Track lifecycle.drain.begin as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-drain-reject-new-work",
+      "title": "Target Lifecycle Drain Reject New Work",
+      "description": "Track lifecycle.drain.reject_new_work as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-drain-inflight-wait",
+      "title": "Target Lifecycle Drain Inflight Wait",
+      "description": "Track lifecycle.drain.inflight_wait as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-drain-inflight-cancel",
+      "title": "Target Lifecycle Drain Inflight Cancel",
+      "description": "Track lifecycle.drain.inflight_cancel as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-drain-session-close",
+      "title": "Target Lifecycle Drain Session Close",
+      "description": "Track lifecycle.drain.session_close as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-drain-stream-cancel",
+      "title": "Target Lifecycle Drain Stream Cancel",
+      "description": "Track lifecycle.drain.stream_cancel as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-drain-emit-complete",
+      "title": "Target Lifecycle Drain Emit Complete",
+      "description": "Track lifecycle.drain.emit_complete as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-drain-complete",
+      "title": "Target Lifecycle Drain Complete",
+      "description": "Track lifecycle.drain.complete as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-drain-failed",
+      "title": "Target Lifecycle Drain Failed",
+      "description": "Track lifecycle.drain.failed as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-shutdown-receive",
+      "title": "Target Lifecycle Shutdown Receive",
+      "description": "Track lifecycle.shutdown.receive as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-shutdown-handlers-begin",
+      "title": "Target Lifecycle Shutdown Handlers Begin",
+      "description": "Track lifecycle.shutdown.handlers_begin as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-shutdown-handlers-complete",
+      "title": "Target Lifecycle Shutdown Handlers Complete",
+      "description": "Track lifecycle.shutdown.handlers_complete as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-shutdown-context-exit",
+      "title": "Target Lifecycle Shutdown Context Exit",
+      "description": "Track lifecycle.shutdown.context_exit as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-shutdown-complete",
+      "title": "Target Lifecycle Shutdown Complete",
+      "description": "Track lifecycle.shutdown.complete as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lifecycle-shutdown-failed",
+      "title": "Target Lifecycle Shutdown Failed",
+      "description": "Track lifecycle.shutdown.failed as a current taxonomy-only internal lifecycle subevent.",
+      "implementation_status": "partial",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T2",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [
+        "spc:1000",
+        "spc:1012"
+      ],
+      "claim_ids": [
+        "clm:subevents"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas"
       ],
       "requires": []
     }
@@ -11021,7 +12308,14 @@
         "feat:target-gate-certification",
         "feat:target-gate-promotion",
         "feat:target-gate-release",
-        "feat:target-gate-publish"
+        "feat:target-gate-publish",
+        "feat:target-publish-github-releases",
+        "feat:target-publish-pypi",
+        "feat:target-publish-npmjs",
+        "feat:target-publish-crates-io",
+        "feat:debt-publish-crates-no-verify",
+        "feat:target-json-canonical-artifacts",
+        "feat:target-json-duplicate-key-canonical-paths"
       ],
       "claim_ids": [
         "clm:bindings",
@@ -11106,7 +12400,41 @@
         "feat:target-interop-wpt",
         "feat:target-interop-jsonschema-test-suite",
         "feat:target-interop-asgi-downstream",
-        "feat:target-gate-conformance"
+        "feat:target-gate-conformance",
+        "feat:target-lifespan-shutdown-failed-contract",
+        "feat:target-asgi-tls-field-version",
+        "feat:target-asgi-tls-field-cipher",
+        "feat:target-asgi-tls-field-verified",
+        "feat:target-asgi-tls-field-peer-identity",
+        "feat:target-asgi-tls-field-peer-cert",
+        "feat:target-jsonrpc-request",
+        "feat:target-jsonrpc-response",
+        "feat:target-jsonrpc-error",
+        "feat:target-jsonrpc-notification",
+        "feat:target-jsonrpc-batch",
+        "feat:target-jsonrpc-id",
+        "feat:target-jsonrpc-version-field",
+        "feat:target-lifecycle-startup-receive",
+        "feat:target-lifecycle-startup-context-enter",
+        "feat:target-lifecycle-startup-handlers-begin",
+        "feat:target-lifecycle-startup-handlers-complete",
+        "feat:target-lifecycle-startup-complete",
+        "feat:target-lifecycle-startup-failed",
+        "feat:target-lifecycle-drain-begin",
+        "feat:target-lifecycle-drain-reject-new-work",
+        "feat:target-lifecycle-drain-inflight-wait",
+        "feat:target-lifecycle-drain-inflight-cancel",
+        "feat:target-lifecycle-drain-session-close",
+        "feat:target-lifecycle-drain-stream-cancel",
+        "feat:target-lifecycle-drain-emit-complete",
+        "feat:target-lifecycle-drain-complete",
+        "feat:target-lifecycle-drain-failed",
+        "feat:target-lifecycle-shutdown-receive",
+        "feat:target-lifecycle-shutdown-handlers-begin",
+        "feat:target-lifecycle-shutdown-handlers-complete",
+        "feat:target-lifecycle-shutdown-context-exit",
+        "feat:target-lifecycle-shutdown-complete",
+        "feat:target-lifecycle-shutdown-failed"
       ],
       "claim_ids": [
         "clm:bindings",
@@ -11563,7 +12891,14 @@
         "feat:target-gate-certification",
         "feat:target-gate-promotion",
         "feat:target-gate-release",
-        "feat:target-gate-publish"
+        "feat:target-gate-publish",
+        "feat:target-publish-github-releases",
+        "feat:target-publish-pypi",
+        "feat:target-publish-npmjs",
+        "feat:target-publish-crates-io",
+        "feat:debt-publish-crates-no-verify",
+        "feat:target-json-canonical-artifacts",
+        "feat:target-json-duplicate-key-canonical-paths"
       ],
       "claim_ids": [
         "clm:bindings",
@@ -12996,7 +14331,28 @@
         "feat:target-lang-rust",
         "feat:target-lang-typescript",
         "feat:target-asgi-receive",
-        "feat:target-asgi-send"
+        "feat:target-asgi-send",
+        "feat:target-lifecycle-startup-receive",
+        "feat:target-lifecycle-startup-context-enter",
+        "feat:target-lifecycle-startup-handlers-begin",
+        "feat:target-lifecycle-startup-handlers-complete",
+        "feat:target-lifecycle-startup-complete",
+        "feat:target-lifecycle-startup-failed",
+        "feat:target-lifecycle-drain-begin",
+        "feat:target-lifecycle-drain-reject-new-work",
+        "feat:target-lifecycle-drain-inflight-wait",
+        "feat:target-lifecycle-drain-inflight-cancel",
+        "feat:target-lifecycle-drain-session-close",
+        "feat:target-lifecycle-drain-stream-cancel",
+        "feat:target-lifecycle-drain-emit-complete",
+        "feat:target-lifecycle-drain-complete",
+        "feat:target-lifecycle-drain-failed",
+        "feat:target-lifecycle-shutdown-receive",
+        "feat:target-lifecycle-shutdown-handlers-begin",
+        "feat:target-lifecycle-shutdown-handlers-complete",
+        "feat:target-lifecycle-shutdown-context-exit",
+        "feat:target-lifecycle-shutdown-complete",
+        "feat:target-lifecycle-shutdown-failed"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -13516,7 +14872,8 @@
         "feat:target-jsonrpc-2-0",
         "feat:target-interop-jsonschema-test-suite",
         "feat:target-interop-asgi-downstream",
-        "feat:target-gate-conformance"
+        "feat:target-gate-conformance",
+        "feat:target-lifespan-shutdown-failed-contract"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -13629,7 +14986,19 @@
         "feat:target-json",
         "feat:target-jsonrpc-2-0",
         "feat:target-interop-jsonschema-test-suite",
-        "feat:target-gate-conformance"
+        "feat:target-gate-conformance",
+        "feat:target-asgi-tls-field-version",
+        "feat:target-asgi-tls-field-cipher",
+        "feat:target-asgi-tls-field-verified",
+        "feat:target-asgi-tls-field-peer-identity",
+        "feat:target-asgi-tls-field-peer-cert",
+        "feat:target-jsonrpc-request",
+        "feat:target-jsonrpc-response",
+        "feat:target-jsonrpc-error",
+        "feat:target-jsonrpc-notification",
+        "feat:target-jsonrpc-batch",
+        "feat:target-jsonrpc-id",
+        "feat:target-jsonrpc-version-field"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -13732,7 +15101,14 @@
         "feat:target-gate-certification",
         "feat:target-gate-promotion",
         "feat:target-gate-release",
-        "feat:target-gate-publish"
+        "feat:target-gate-publish",
+        "feat:target-publish-github-releases",
+        "feat:target-publish-pypi",
+        "feat:target-publish-npmjs",
+        "feat:target-publish-crates-io",
+        "feat:debt-publish-crates-no-verify",
+        "feat:target-json-canonical-artifacts",
+        "feat:target-json-duplicate-key-canonical-paths"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -13764,7 +15140,14 @@
         "feat:target-gate-certification",
         "feat:target-gate-promotion",
         "feat:target-gate-release",
-        "feat:target-gate-publish"
+        "feat:target-gate-publish",
+        "feat:target-publish-github-releases",
+        "feat:target-publish-pypi",
+        "feat:target-publish-npmjs",
+        "feat:target-publish-crates-io",
+        "feat:debt-publish-crates-no-verify",
+        "feat:target-json-canonical-artifacts",
+        "feat:target-json-duplicate-key-canonical-paths"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -15083,6 +16466,86 @@
       "supersedes": [],
       "superseded_by": [],
       "status_notes": []
+    },
+    {
+      "id": "adr:1018",
+      "number": 1018,
+      "slug": "normalized-feature-matrix-review-governance",
+      "title": "Normalized feature matrices are review artifacts",
+      "path": ".ssot/adr/ADR-1018-normalized-feature-matrix-review-governance.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "b756fd3dad930648302a6c3c94b73f4942142989966a1135f28719c148e15a5f",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": []
+    },
+    {
+      "id": "adr:1019",
+      "number": 1019,
+      "slug": "feature-surface-promotion-grain",
+      "title": "Feature promotion uses governed surface keys",
+      "path": ".ssot/adr/ADR-1019-feature-surface-promotion-grain.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "cb536a50aa21d8a825135b574b1682d635ec87652ecbcf3c42e0adafe7303177",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": []
+    },
+    {
+      "id": "adr:1020",
+      "number": 1020,
+      "slug": "transport-security-discovery-concerns",
+      "title": "Transport, security, and discovery concerns are not ASGI scope types",
+      "path": ".ssot/adr/ADR-1020-transport-security-discovery-concerns.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "550a7bacdacb9e9a5eb4d860d788af48c31ae67a06749df3ad04d6db37d12345",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": []
+    },
+    {
+      "id": "adr:1021",
+      "number": 1021,
+      "slug": "frame-surface-boundary",
+      "title": "Wire frame surfaces are tracked without implying runtime frame handling",
+      "path": ".ssot/adr/ADR-1021-frame-surface-boundary.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "d978e0d55b7f83fbacc00749aa20b8edc0ae60718f123950984bf4cdb061a2e8",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": []
+    },
+    {
+      "id": "adr:1022",
+      "number": 1022,
+      "slug": "lifespan-and-lifecycle-boundary",
+      "title": "ASGI lifespan events and internal lifecycle phases are separate",
+      "path": ".ssot/adr/ADR-1022-lifespan-and-lifecycle-boundary.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "e755f812b6a7b60b90b6fe353a27921848db6b499263993078b2b2c80656446a",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": []
     }
   ],
   "specs": [
@@ -15629,6 +17092,176 @@
       "superseded_by": [],
       "status_notes": [],
       "kind": "operational"
+    },
+    {
+      "id": "spc:1018",
+      "number": 1018,
+      "slug": "normalized-feature-matrix-review-and-promotion",
+      "title": "Normalized Feature Matrix Review And Promotion",
+      "path": ".ssot/specs/SPEC-1018-normalized-feature-matrix-review-and-promotion.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "970fc8c0acadbf6a873cedd721668cb9745005ac4721084325579a75f2c51d37",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": [],
+      "kind": "normative"
+    },
+    {
+      "id": "spc:1019",
+      "number": 1019,
+      "slug": "schema-surface-candidate-classification",
+      "title": "Schema Surface Candidate Classification",
+      "path": ".ssot/specs/SPEC-1019-schema-surface-candidate-classification.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "d3f676764eac0bc33f6293f86baa70f8dc2af72994d48142452a170db4324128",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": [],
+      "kind": "normative"
+    },
+    {
+      "id": "spc:1020",
+      "number": 1020,
+      "slug": "event-surface-candidate-classification",
+      "title": "Event Surface Candidate Classification",
+      "path": ".ssot/specs/SPEC-1020-event-surface-candidate-classification.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "fe859af609f2b4eef22a96f9a90ef4f5d1605088be65ea3da2cbf66bf1429ab2",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": [],
+      "kind": "normative"
+    },
+    {
+      "id": "spc:1021",
+      "number": 1021,
+      "slug": "scope-family-subevent-surface-classification",
+      "title": "Scope Family Subevent Surface Classification",
+      "path": ".ssot/specs/SPEC-1021-scope-family-subevent-surface-classification.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "fd0fca5a3f77110df6f8210df1929e0e80714b6ef5e29f3fc96796141cbdcd55",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": [],
+      "kind": "normative"
+    },
+    {
+      "id": "spc:1022",
+      "number": 1022,
+      "slug": "transport-security-discovery-concern-classification",
+      "title": "Transport Security Discovery Concern Classification",
+      "path": ".ssot/specs/SPEC-1022-transport-security-discovery-concern-classification.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "45e386ffa7b06b33becd7b993cd76429a86157ae258799b1e46ab3732129e4ae",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": [],
+      "kind": "normative"
+    },
+    {
+      "id": "spc:1023",
+      "number": 1023,
+      "slug": "wire-frame-surface-boundary",
+      "title": "Wire Frame Surface Boundary",
+      "path": ".ssot/specs/SPEC-1023-wire-frame-surface-boundary.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "25c97e2bb501af5707cd7636313307053d1077487175129182410d8b7c461803",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": [],
+      "kind": "normative"
+    },
+    {
+      "id": "spc:1024",
+      "number": 1024,
+      "slug": "asgi-lifespan-and-internal-lifecycle-boundary",
+      "title": "ASGI Lifespan And Internal Lifecycle Boundary",
+      "path": ".ssot/specs/SPEC-1024-asgi-lifespan-and-internal-lifecycle-boundary.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "d46a931decb07aacf5739a7c6378429f43cbdce5021de1127fe474ea3b321ce2",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": [],
+      "kind": "normative"
+    },
+    {
+      "id": "spc:1025",
+      "number": 1025,
+      "slug": "http-header-path-query-and-peer-metadata-schemas",
+      "title": "HTTP Header Path Query And Peer Metadata Schemas",
+      "path": ".ssot/specs/SPEC-1025-http-header-path-query-and-peer-metadata-schemas.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "8f55888fd15bfb46fd84beb587bf02f783da9e6200a4cd57cb59fbe92f44d07e",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": [],
+      "kind": "normative"
+    },
+    {
+      "id": "spc:1026",
+      "number": 1026,
+      "slug": "proxy-forwarding-and-peer-trust-metadata",
+      "title": "Proxy Forwarding And Peer Trust Metadata",
+      "path": ".ssot/specs/SPEC-1026-proxy-forwarding-and-peer-trust-metadata.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "4654c633644ab7b4a81b12364055f8ac0f0bc0af8b3a4a8a54e6647d7b0f29f2",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": [],
+      "kind": "normative"
+    },
+    {
+      "id": "spc:1027",
+      "number": 1027,
+      "slug": "http-upgrade-trailers-early-hints-and-redirect-surfaces",
+      "title": "HTTP Upgrade Trailers Early Hints And Redirect Surfaces",
+      "path": ".ssot/specs/SPEC-1027-http-upgrade-trailers-early-hints-and-redirect-surfaces.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "df94a277a4df88a81d294c9f78a2004feea3ab7a8386c8a0d8ff16b0fed19395",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": [],
+      "kind": "normative"
     }
   ],
   "profiles": []

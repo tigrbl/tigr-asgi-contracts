@@ -1,0 +1,35 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1022"
+number: 1022
+slug: "transport-security-discovery-concern-classification"
+title: "Transport Security Discovery Concern Classification"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines how transport, security, discovery, and HTTP-adjacent concerns are classified before feature promotion."
+supersedes: []
+superseded_by: []
+status_notes: []
+references:
+  - "adr:1020"
+body: |-
+  ## Scope
+  
+  This specification governs normalized `concern:<concern>` candidates for transport, security, discovery, and HTTP-adjacent surfaces.
+  
+  ## Requirements
+  
+  TLS, mTLS, ALPN, ECH, Alt-Svc, SVCB, HTTPS DNS record, HTTPS/SVCB, HTTP/3 advertisement, proxy forwarding, redirect, upgrade, trailers, and early hints remain distinct concerns.
+  
+  These concerns do not become ASGI scope types by default.
+  
+  Scope schemas may reference derived or negotiated facts only when this repository explicitly owns the contract schema shape.
+  
+  Runtime trust behavior, certificate validation behavior, DNS resolution behavior, server advertisement behavior, redirect following, upgrade handling, and trailer emission behavior remain downstream unless separately governed.
+  
+  ## Validation
+  
+  Promotion must not merge distinct concerns into a generic transport-extension feature and must not create new ASGI scope types without another accepted decision.
+spec_kind: "normative"

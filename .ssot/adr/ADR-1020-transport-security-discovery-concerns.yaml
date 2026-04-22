@@ -1,0 +1,35 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1020"
+number: 1020
+slug: "transport-security-discovery-concerns"
+title: "Transport, security, and discovery concerns are not ASGI scope types"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "Transport, security, discovery, and HTTP-adjacent concerns remain separate governed concerns unless a later decision elevates a concern into an owned contract schema or runtime-scope surface."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  ADR-1012 sets a contract-only runtime boundary. The normalized feature matrix surfaces transport, security, discovery, and HTTP-adjacent concerns that can be confused with ASGI scope types or runtime behavior.
+  
+  ## Decision
+  
+  `https`, `h3`, `quic`, `tls`, `mTLS`, `ALPN`, `ECH`, `Alt-Svc`, `SVCB`, `HTTPS DNS record`, proxy forwarding, redirect, upgrade, trailers, and early hints are governed as transport, security, discovery, or HTTP concerns unless a later ADR elevates one into a schema or runtime-scope contract.
+  
+  These concerns must remain distinguishable. They must not be collapsed into a single generic transport-extension feature.
+  
+  Scope schemas may reference derived or negotiated facts only when this repository explicitly owns their contract schema shape.
+  
+  Runtime trust behavior, certificate validation behavior, DNS resolution behavior, and server advertisement behavior remain downstream unless separately governed.
+  
+  ## Consequences
+  
+  The registry can track transport-adjacent work without expanding ASGI scope types accidentally.
+  
+  Future ADRs can promote a specific concern to a schema or runtime-scope contract when the ownership boundary is clear.

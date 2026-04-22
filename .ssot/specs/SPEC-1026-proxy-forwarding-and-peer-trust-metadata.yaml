@@ -1,0 +1,34 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1026"
+number: 1026
+slug: "proxy-forwarding-and-peer-trust-metadata"
+title: "Proxy Forwarding And Peer Trust Metadata"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines proxy forwarding and peer provenance metadata surfaces without governing runtime trust or rewrite behavior."
+supersedes: []
+superseded_by: []
+status_notes: []
+references:
+  - "adr:1012"
+  - "adr:1020"
+body: |-
+  ## Scope
+  
+  This specification governs proxy forwarding and peer trust metadata candidates.
+  
+  ## Requirements
+  
+  `Forwarded`, `X-Forwarded-*`, `X-Real-IP`, and PROXY protocol inputs are distinct metadata surfaces.
+  
+  This repository represents observed and provenance metadata only. Trust decisions, trusted proxy configuration, and client/server/scheme rewrites are downstream runtime behavior unless separately governed.
+  
+  Forwarded and proxy-derived values remain separate provenance surfaces from base ASGI `client`, `server`, and `scheme` fields.
+  
+  ## Validation
+  
+  Promoted proxy metadata candidates must not overwrite canonical ASGI peer fields or imply trusted-proxy runtime behavior.
+spec_kind: "normative"

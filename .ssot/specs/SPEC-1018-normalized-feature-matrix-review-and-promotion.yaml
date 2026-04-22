@@ -1,0 +1,42 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1018"
+number: 1018
+slug: "normalized-feature-matrix-review-and-promotion"
+title: "Normalized Feature Matrix Review And Promotion"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines the review and promotion contract for normalized feature matrix candidates."
+supersedes: []
+superseded_by: []
+status_notes: []
+references:
+  - "adr:1018"
+  - "adr:1019"
+body: |-
+  ## Scope
+  
+  This specification governs review and promotion from `reports/normalized_master_feature_matrix.xlsx`.
+  
+  ## Requirements
+  
+  The normalized workbook is review-only. Its rows do not create, update, replace, or supersede SSOT registry rows by existence alone.
+  
+  The workbook must preserve `Normalized Features`, `Source Rows`, `Duplicate Groups`, `Rejected Rows`, and `Column Dictionary` sheets.
+  
+  Promotion requires a stable candidate feature id, a governed feature surface key, source-row provenance, duplicate-group review, and rejected-row preservation.
+  
+  Approved surface key families are `schema`, `event`, `scope`, `frame`, `concern`, and `lifespan` as defined by ADR-1019.
+  
+  Exact existing SSOT feature id matches update or annotate existing rows. Weak semantic matches require manual review before registry mutation.
+  
+  Invalid cartesian permutations and unsupported rows without governed surfaces remain rejection or provenance evidence.
+  
+  ## Validation
+  
+  The workbook must have unique normalized candidate ids, all promoted source rows must link to duplicate groups, and all source rows must appear in either source provenance or rejected rows.
+  
+  A promotion pass must name the candidate rows it promotes. Bulk promotion of all workbook candidates is forbidden unless a later decision explicitly authorizes it.
+spec_kind: "normative"

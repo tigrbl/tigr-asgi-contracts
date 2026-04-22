@@ -1,0 +1,38 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1021"
+number: 1021
+slug: "scope-family-subevent-surface-classification"
+title: "Scope Family Subevent Surface Classification"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines how scope, family, and subevent matrix candidates preserve legality facts before feature promotion."
+supersedes: []
+superseded_by: []
+status_notes: []
+references:
+  - "adr:1000"
+  - "adr:1019"
+body: |-
+  ## Scope
+  
+  This specification governs normalized feature candidates whose surface key is `scope:<scope_type>|family:<family>|subevent:<subevent>`.
+  
+  ## Requirements
+  
+  Multi-scope rows preserve the combined scope set as the governed surface when the normalized matrix deduped them that way.
+  
+  Binding legality values `R`, `O`, `D`, and `F` are preserved as legality facts. They do not collapse into implementation status.
+  
+  `D` is an allowed non-forbidden legality fact that requires review and documentation.
+  
+  Valid matrix rows may become feature candidates. Invalid cartesian permutations remain rejection or provenance rows under SPEC-1018.
+  
+  Scope, family, subevent, binding, protocol, and direction remain separate taxonomy axes.
+  
+  ## Validation
+  
+  A promoted scope/family/subevent candidate must retain its legality columns and must not discard `O` or `D` facts when deriving implementation status or planning horizon.
+spec_kind: "normative"

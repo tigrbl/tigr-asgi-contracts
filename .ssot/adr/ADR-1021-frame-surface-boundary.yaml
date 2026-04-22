@@ -1,0 +1,35 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1021"
+number: 1021
+slug: "frame-surface-boundary"
+title: "Wire frame surfaces are tracked without implying runtime frame handling"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "Wire frame rows may be tracked as contract and evidence surfaces, but they do not imply protocol parser or runtime frame-handler ownership by this repository."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  ADR-1004 governs frame and payload serialization targets. The normalized feature matrix expands the frame inventory across HTTP/2, HTTP/3, QUIC, Capsule, MASQUE, PROXY protocol, JSON-RPC, SSE, WebSocket, and WebTransport.
+  
+  ## Decision
+  
+  HTTP/2, HTTP/3, QUIC, Capsule, MASQUE, PROXY protocol, JSON-RPC, SSE, WebSocket, and WebTransport frame rows may be tracked as contract or evidence surfaces.
+  
+  A frame feature means this repository can govern schema shape, naming, serialization metadata, fixtures, generated types, or evidence references.
+  
+  A frame feature does not imply that this repository implements protocol parsing, connection state machines, routing, flow control, retransmission, or runtime frame handling.
+  
+  Frame candidates should be promoted only when there is a testable contract surface or evidence metadata surface.
+  
+  ## Consequences
+  
+  The expanded frame inventory can be reviewed without overstating runtime ownership.
+  
+  Protocol implementation behavior remains downstream unless a later ADR explicitly expands this repository's scope.

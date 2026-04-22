@@ -1,0 +1,36 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1025"
+number: 1025
+slug: "http-header-path-query-and-peer-metadata-schemas"
+title: "HTTP Header Path Query And Peer Metadata Schemas"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines core ASGI HTTP metadata schema candidates for headers, path fields, query strings, peers, and scope metadata."
+supersedes: []
+superseded_by: []
+status_notes: []
+references:
+  - "adr:1012"
+  - "adr:1019"
+body: |-
+  ## Scope
+  
+  This specification governs schema candidates for ASGI header, path, query, peer, and scope metadata surfaces.
+  
+  ## Requirements
+  
+  Headers are ordered byte-name and byte-value pairs. Duplicate headers are preserved and header name casing is not normalized by the canonical ASGI header schema.
+  
+  Decoded `path`, byte `raw_path`, `root_path`, and byte `query_string` remain distinct schema surfaces.
+  
+  `client`, `server`, `state`, `scheme`, `method`, and scope type are direct ASGI scope metadata schemas.
+  
+  Derived normalized views may be modeled as separate candidates only when explicitly governed. They must not replace the canonical ASGI field schemas.
+  
+  ## Validation
+  
+  Promoted metadata schemas must preserve ASGI field distinctions and must not collapse ordered byte-pair headers into normalized string maps.
+spec_kind: "normative"

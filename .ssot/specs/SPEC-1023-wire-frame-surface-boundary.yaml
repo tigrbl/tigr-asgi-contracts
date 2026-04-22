@@ -1,0 +1,38 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1023"
+number: 1023
+slug: "wire-frame-surface-boundary"
+title: "Wire Frame Surface Boundary"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines how named frame and framing surfaces are classified without implying runtime protocol handling."
+supersedes: []
+superseded_by: []
+status_notes: []
+references:
+  - "adr:1004"
+  - "adr:1021"
+body: |-
+  ## Scope
+  
+  This specification governs normalized `frame:<frame_or_framing_name>` candidates.
+  
+  ## Requirements
+  
+  Frame promotion grain is one named frame or framing surface.
+  
+  HTTP/2, HTTP/3, and QUIC low-level frames default to future or evidence candidates unless concrete contract schemas or fixtures exist.
+  
+  App-level rows such as `json`, `jsonrpc`, `sse`, `raw`, `bytes`, `grpc`, and `app-channel` are contract framing surfaces, not wire protocol frames.
+  
+  Frame candidates may govern schema shape, naming, serialization metadata, fixtures, generated types, or evidence references.
+  
+  Frame candidates do not imply protocol parsing, connection state machines, routing, flow control, retransmission, or runtime frame handling.
+  
+  ## Validation
+  
+  A promoted frame candidate must identify whether it is a wire frame, contract framing surface, or evidence-only candidate.
+spec_kind: "normative"

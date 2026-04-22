@@ -1,0 +1,36 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1027"
+number: 1027
+slug: "http-upgrade-trailers-early-hints-and-redirect-surfaces"
+title: "HTTP Upgrade Trailers Early Hints And Redirect Surfaces"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification classifies HTTP trailers, early hints, redirects, and upgrades as contract metadata surfaces while keeping runtime behavior downstream."
+supersedes: []
+superseded_by: []
+status_notes: []
+references:
+  - "adr:1012"
+  - "adr:1020"
+body: |-
+  ## Scope
+  
+  This specification governs HTTP-adjacent candidates for trailers, early hints, redirects, and upgrades.
+  
+  ## Requirements
+  
+  Trailers are represented through the future `http.response.trailers` event surface plus shared header-pair and header-list schemas.
+  
+  Early hints are classified as HTTP informational response metadata, not runtime emission behavior.
+  
+  Redirects and upgrades are classified as status and header metadata surfaces.
+  
+  Redirect following, upgrade handling, trailer emission, and early-hints emission behavior remain downstream runtime behavior unless separately governed.
+  
+  ## Validation
+  
+  Promoted HTTP-adjacent candidates must preserve the distinction between metadata/schema surfaces and runtime behavior.
+spec_kind: "normative"

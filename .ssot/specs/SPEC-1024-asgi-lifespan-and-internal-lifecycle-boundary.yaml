@@ -1,0 +1,37 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1024"
+number: 1024
+slug: "asgi-lifespan-and-internal-lifecycle-boundary"
+title: "ASGI Lifespan And Internal Lifecycle Boundary"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification separates ASGI-facing lifespan event surfaces from internal lifecycle classification rows."
+supersedes: []
+superseded_by: []
+status_notes: []
+references:
+  - "adr:1000"
+  - "adr:1012"
+  - "adr:1022"
+body: |-
+  ## Scope
+  
+  This specification governs ASGI lifespan event candidates and internal `lifecycle.*` classification candidates.
+  
+  ## Requirements
+  
+  `lifespan.startup`, `lifespan.startup.complete`, `lifespan.startup.failed`, `lifespan.shutdown`, `lifespan.shutdown.complete`, and `lifespan.shutdown.failed` are ASGI-facing event and schema surfaces.
+  
+  `lifespan.startup.failed` and `lifespan.shutdown.failed` remain ASGI-facing surfaces even though runtime emission behavior is downstream.
+  
+  Internal `lifecycle.*` rows may become future feature candidates, but they do not become ASGI event features without another accepted decision.
+  
+  Runtime handler, context, drain, inflight, cleanup, and rejection behavior claims remain downstream and are not governed by this repository.
+  
+  ## Validation
+  
+  Promotion must distinguish ASGI lifespan event candidates from internal lifecycle candidates and must not use internal lifecycle candidates to claim runtime lifecycle behavior.
+spec_kind: "normative"
