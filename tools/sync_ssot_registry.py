@@ -529,6 +529,10 @@ def build_specs() -> tuple[dict[str, FeatureSpec], dict[str, ClaimSpec], dict[st
             set(all_artifact_feature_ids),
             set(all_artifact_claim_ids),
         ),
+        ("tests/codegen/test_rust_codegen.py", "test_rust_events_match_event_schema"): (
+            set(all_artifact_feature_ids),
+            set(all_artifact_claim_ids),
+        ),
         ("tests/codegen/test_ts_codegen.py", "test_ts_generated_files_exist"): (
             set(all_artifact_feature_ids),
             set(all_artifact_claim_ids),

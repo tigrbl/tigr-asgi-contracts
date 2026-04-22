@@ -7,7 +7,7 @@ CONTRACT = ROOT / "contract"
 
 def sha256(path: Path) -> str:
     h = hashlib.sha256()
-    h.update(path.read_bytes())
+    h.update(path.read_bytes().replace(b"\r\n", b"\n"))
     return h.hexdigest()
 
 def main() -> None:
