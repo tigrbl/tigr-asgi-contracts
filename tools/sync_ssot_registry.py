@@ -25,6 +25,8 @@ from dataclasses import dataclass, field
 from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
 
+import build_normalized_feature_matrix as normalized_matrix
+
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT_ROOT = ROOT / "contract"
@@ -48,6 +50,28 @@ CODE_LABEL = {
     "F": "forbidden",
 }
 
+NORMALIZED_MATRIX_EXACT_EXISTING_FEATURE_IDS = {
+    "feat:schemas-scope-schema",
+    "feat:schemas-transport-schema",
+}
+
+HTTP_ADJACENT_TERMS = {
+    "early hints",
+    "early-hints",
+    "trailers",
+    "trailer",
+    "redirect",
+    "upgrade",
+}
+
+PROXY_METADATA_TERMS = {
+    "forwarded",
+    "x-forwarded",
+    "x-real-ip",
+    "proxy",
+    "peer",
+}
+
 
 @dataclass
 class FeatureSpec:
@@ -55,8 +79,13 @@ class FeatureSpec:
     title: str
     description: str
     implementation_status: str = "implemented"
+    plan_horizon: str = "current"
+    target_claim_tier: str = "T2"
     claim_ids: set[str] = field(default_factory=set)
     test_ids: set[str] = field(default_factory=set)
+    spec_ids: set[str] = field(default_factory=set)
+    matrix_provenance: dict[str, str] = field(default_factory=dict)
+    overwrite_links: bool = True
 
 
 @dataclass
@@ -200,6 +229,108 @@ def discover_test_cases() -> dict[str, list[str]]:
         ]
         cases[rel_posix(path)] = case_names
     return cases
+
+
+def normalized_candidate_spec_ids(row: dict[str, str]) -> set[str]:
+    kind = row.get("feature_kind", "")
+    surface_key = row.get("feature_surface_key", "").lower()
+    title = row.get("title", "").lower()
+    schema_path = row.get("schema_path", "").lower()
+    concern = row.get("concern", "").lower()
+    haystack = " ".join([surface_key, title, schema_path, concern])
+
+    if kind == "schema":
+        spec_ids = {"spc:1019"}
+        if any(term in haystack for term in PROXY_METADATA_TERMS):
+            spec_ids.add("spc:1026")
+        if any(term in haystack for term in HTTP_ADJACENT_TERMS):
+            spec_ids.add("spc:1027")
+        if any(
+            term in haystack
+            for term in (
+                "header",
+                "path",
+                "query",
+                "client",
+                "server",
+                "state",
+                "scheme",
+                "method",
+                "scope",
+            )
+        ):
+            spec_ids.add("spc:1025")
+        return spec_ids
+    if kind == "event":
+        spec_ids = {"spc:1000", "spc:1020"}
+        if "lifespan." in haystack:
+            spec_ids.add("spc:1024")
+        if any(term in haystack for term in HTTP_ADJACENT_TERMS):
+            spec_ids.add("spc:1027")
+        return spec_ids
+    if kind == "scope":
+        return {"spc:1000", "spc:1012", "spc:1021"}
+    if kind == "frame":
+        return {"spc:1004", "spc:1023"}
+    if kind == "concern":
+        spec_ids = {"spc:1022"}
+        if any(term in haystack for term in PROXY_METADATA_TERMS):
+            spec_ids.add("spc:1026")
+        if any(term in haystack for term in HTTP_ADJACENT_TERMS):
+            spec_ids.add("spc:1027")
+        return spec_ids
+    if kind == "lifespan":
+        return {"spc:1012", "spc:1024"}
+    return {"spc:1018"}
+
+
+def normalized_candidate_description(row: dict[str, str]) -> str:
+    description = row.get("description", "").strip() or (
+        f"Normalized feature candidate for {row.get('feature_surface_key', '').strip()}."
+    )
+    return (
+        f"{description} Promoted from reports/normalized_master_feature_matrix.xlsx "
+        f"as agreed normalized candidate {row.get('candidate_feature_id')}."
+    )
+
+
+def normalized_candidate_provenance(row: dict[str, str]) -> dict[str, str]:
+    return {
+        "source": "reports/normalized_master_feature_matrix.xlsx",
+        "feature_surface_key": row.get("feature_surface_key", ""),
+        "source_count": row.get("source_count", ""),
+        "source_files": row.get("source_files", ""),
+        "source_sheets": row.get("source_sheets", ""),
+        "source_rows": row.get("source_rows", ""),
+        "primary_source": (
+            f"{row.get('primary_source_file', '')}:{row.get('primary_source_row', '')}"
+        ).strip(":"),
+        "dedupe_confidence": row.get("dedupe_confidence", ""),
+        "review_status": "promoted",
+    }
+
+
+def build_normalized_candidate_feature_specs() -> dict[str, FeatureSpec]:
+    records, _ = normalized_matrix.load_source_records()
+    groups, _ = normalized_matrix.group_records(records)
+    rows = normalized_matrix.normalized_rows(groups)
+    specs: dict[str, FeatureSpec] = {}
+    for row in rows:
+        candidate_id = row["candidate_feature_id"]
+        if candidate_id in NORMALIZED_MATRIX_EXACT_EXISTING_FEATURE_IDS:
+            continue
+        specs[candidate_id] = FeatureSpec(
+            entity_id=candidate_id,
+            title=row["title"],
+            description=normalized_candidate_description(row),
+            implementation_status=row["implementation_status"],
+            plan_horizon=row["plan_horizon"],
+            target_claim_tier=row["target_claim_tier"] or "T2",
+            spec_ids=normalized_candidate_spec_ids(row),
+            matrix_provenance=normalized_candidate_provenance(row),
+            overwrite_links=False,
+        )
+    return specs
 
 
 def build_specs() -> tuple[dict[str, FeatureSpec], dict[str, ClaimSpec], dict[str, TestSpec], dict[str, EvidenceSpec]]:
@@ -438,6 +569,8 @@ def build_specs() -> tuple[dict[str, FeatureSpec], dict[str, ClaimSpec], dict[st
 
     for path_str, case_names in discover_test_cases().items():
         for case_name in case_names:
+            if (path_str, case_name) not in case_links:
+                continue
             feature_ids, claim_ids = case_links[(path_str, case_name)]
             case_id = case_test_id(ROOT / path_str, case_name)
             evidence_id = evidence_id_for_file_test(file_test_id(ROOT / path_str))
@@ -460,6 +593,8 @@ def build_specs() -> tuple[dict[str, FeatureSpec], dict[str, ClaimSpec], dict[st
             if evidence_id in evidence:
                 evidence[evidence_id].test_ids.add(case_id)
                 evidence[evidence_id].claim_ids.update(claim_ids)
+
+    features.update(build_normalized_candidate_feature_specs())
 
     return features, claims, tests, evidence
 
@@ -489,19 +624,23 @@ def upsert_feature_rows(registry: dict, specs: dict[str, FeatureSpec]) -> tuple[
                 "implementation_status": spec.implementation_status,
                 "lifecycle": {"stage": "active", "replacement_feature_ids": [], "note": None},
                 "plan": {
-                    "horizon": "current",
+                    "horizon": spec.plan_horizon,
                     "slot": None,
-                    "target_claim_tier": "T2",
+                    "target_claim_tier": spec.target_claim_tier,
                     "target_lifecycle_stage": "active",
                 },
                 "claim_ids": sorted(spec.claim_ids),
                 "test_ids": sorted(spec.test_ids),
                 "requires": [],
             }
+            if spec.spec_ids:
+                row["spec_ids"] = sorted(spec.spec_ids)
+            if spec.matrix_provenance:
+                row["matrix_provenance"] = spec.matrix_provenance
             rows.append(row)
             lookup[spec.entity_id] = row
             created_or_updated += 1
-            links_added += len(spec.claim_ids) + len(spec.test_ids)
+            links_added += len(spec.claim_ids) + len(spec.test_ids) + len(spec.spec_ids)
             continue
 
         changed = False
@@ -524,15 +663,39 @@ def upsert_feature_rows(registry: dict, specs: dict[str, FeatureSpec]) -> tuple[
                 "target_lifecycle_stage": "active",
             },
         )
-        desired_claim_ids = sorted(spec.claim_ids)
-        desired_test_ids = sorted(spec.test_ids)
-        if row.get("claim_ids") != desired_claim_ids:
-            row["claim_ids"] = desired_claim_ids
-            changed = True
-        if row.get("test_ids") != desired_test_ids:
-            row["test_ids"] = desired_test_ids
-            changed = True
-        links_added += len(desired_claim_ids) + len(desired_test_ids)
+        if spec.matrix_provenance:
+            plan = row["plan"]
+            desired_plan = {
+                "horizon": spec.plan_horizon,
+                "slot": plan.get("slot"),
+                "target_claim_tier": spec.target_claim_tier,
+                "target_lifecycle_stage": plan.get("target_lifecycle_stage", "active"),
+            }
+            if plan != desired_plan:
+                row["plan"] = desired_plan
+                changed = True
+            if row.get("matrix_provenance") != spec.matrix_provenance:
+                row["matrix_provenance"] = spec.matrix_provenance
+                changed = True
+        desired_spec_ids = sorted(spec.spec_ids)
+        if desired_spec_ids:
+            row["spec_ids"], added = merge_sorted_unique(row.get("spec_ids"), spec.spec_ids)
+            links_added += added
+        if spec.overwrite_links:
+            desired_claim_ids = sorted(spec.claim_ids)
+            desired_test_ids = sorted(spec.test_ids)
+            if row.get("claim_ids") != desired_claim_ids:
+                row["claim_ids"] = desired_claim_ids
+                changed = True
+            if row.get("test_ids") != desired_test_ids:
+                row["test_ids"] = desired_test_ids
+                changed = True
+            links_added += len(desired_claim_ids) + len(desired_test_ids)
+        else:
+            row["claim_ids"], added = merge_sorted_unique(row.get("claim_ids"), spec.claim_ids)
+            links_added += added
+            row["test_ids"], added = merge_sorted_unique(row.get("test_ids"), spec.test_ids)
+            links_added += added
         row.setdefault("requires", [])
         if changed:
             created_or_updated += 1

@@ -2,45 +2,27 @@
   "passed": false,
   "registry_path": ".ssot/registry.json",
   "failures": [
-    "adrs.adr:0001 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "adrs.adr:0002 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "adrs.adr:0003 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "adrs.adr:0004 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "adrs.adr:0005 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "adrs.adr:0006 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "adrs.adr:0007 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "adrs.adr:0008 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "adrs.adr:0009 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "adrs.adr:0010 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "adrs.adr:0011 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "adrs.adr:0012 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "specs.spc:0001 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "specs.spc:0002 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "specs.spc:0003 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "specs.spc:0004 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "specs.spc:0005 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "specs.spc:0006 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "specs.spc:0007 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "specs.spc:0008 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "specs.spc:0009 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "specs.spc:0010 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "specs.spc:0011 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "specs.spc:0012 is SSOT-managed and immutable, but content hash differs from packaged source",
-    "specs.spc:0013 is SSOT-managed and immutable, but content hash differs from packaged source"
+    "Registry schema_version must be 9"
   ],
   "warnings": [],
   "summary": {
     "counts": {
-      "features": 346,
+      "features": 754,
+      "profiles": 0,
       "tests": 22,
-      "claims": 22,
+      "claims": 23,
       "evidence": 11,
       "issues": 0,
       "risks": 0,
       "boundaries": 1,
       "releases": 1,
-      "adrs": 12,
-      "specs": 13
+      "adrs": 37,
+      "specs": 42
+    },
+    "profile_status": {
+      "passing": 0,
+      "failing": 0,
+      "draft": 0
     }
   }
 }
