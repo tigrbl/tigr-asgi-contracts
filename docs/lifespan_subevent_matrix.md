@@ -1,6 +1,6 @@
 # Lifespan Subevent Matrix
 
-This matrix separates ASGI lifespan messages, internal runtime lifecycle subevents, and public callback registration surfaces. The current contract schema declares `lifespan` as a scope type, but lifespan and `lifecycle.*` rows below are not yet first-class transport-event subevents in the generated contract matrices.
+This matrix separates ASGI lifespan messages and internal runtime lifecycle subevents. The current contract schema declares `lifespan` as a scope type, but lifespan and `lifecycle.*` rows below are not yet first-class transport-event subevents in the generated contract matrices.
 
 | Subevent | Layer | Direction | Status | Current behavior | Gap |
 | --- | --- | --- | --- | --- | --- |
@@ -31,7 +31,3 @@ This matrix separates ASGI lifespan messages, internal runtime lifecycle subeven
 | `lifecycle.shutdown.context_exit` | runtime subevent | internal | partially implemented | lifespan context exits if configured | not named/traced |
 | `lifecycle.shutdown.complete` | runtime subevent | internal | partially implemented | maps to `lifespan.shutdown.complete` | not named/traced |
 | `lifecycle.shutdown.failed` | runtime subevent | internal | missing | shutdown exceptions are swallowed | needs failure semantics |
-| `app.on_event.startup.register` | public callback surface | API | implemented | `add_event_handler("startup", ...)` and `on_event("startup")` work | none |
-| `app.on_event.shutdown.register` | public callback surface | API | implemented | `add_event_handler("shutdown", ...)` and `on_event("shutdown")` work | none |
-| `app.on_event.unsupported.reject` | public callback surface | API | implemented | unsupported event names raise `ValueError` | none |
-| `app.on_lifecycle.*` | public callback surface | API | missing | no deeper public lifecycle hook API | only add if public subevent hooks are desired |
