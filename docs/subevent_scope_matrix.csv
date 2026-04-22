@@ -1,0 +1,43 @@
+family,subevent,direction,scope_types,transport_event_types,protocols_when_non_forbidden,rest,jsonrpc,http.stream,sse,websocket,webtransport
+request,request.open,receive,http,http.request,"http.rest, https.rest, http.jsonrpc, https.jsonrpc, http.stream, https.stream, http.sse, https.sse",R,R,R,R,F,F
+request,request.body_in,receive,http,http.request,"http.rest, https.rest, http.jsonrpc, https.jsonrpc, http.stream, https.stream, http.sse, https.sse",R,R,O,O,F,F
+request,request.chunk_in,receive,http,http.request,"http.stream, https.stream",F,F,D,F,F,F
+request,request.accept,receive,http,http.request,"http.rest, https.rest, http.jsonrpc, https.jsonrpc, http.stream, https.stream, http.sse, https.sse",O,O,O,O,F,F
+request,request.close,receive,http,http.request,"http.rest, https.rest, http.jsonrpc, https.jsonrpc, http.stream, https.stream, http.sse, https.sse",R,R,R,R,F,F
+request,request.disconnect,receive,http,http.disconnect,"http.rest, https.rest, http.jsonrpc, https.jsonrpc, http.stream, https.stream, http.sse, https.sse",O,O,O,O,F,F
+request,response.open,send,http,http.response.start,"http.rest, https.rest, http.jsonrpc, https.jsonrpc, http.stream, https.stream, http.sse, https.sse",R,R,R,O,F,F
+request,response.body_out,send,http,http.response.body,"http.rest, https.rest, http.jsonrpc, https.jsonrpc, http.stream, https.stream",R,R,O,F,F,F
+request,response.chunk_out,send,http,http.response.body,"http.stream, https.stream, http.sse, https.sse",F,F,D,D,F,F
+request,response.close,send,http,http.response.body,"http.rest, https.rest, http.jsonrpc, https.jsonrpc, http.stream, https.stream, http.sse, https.sse",O,O,O,O,F,F
+request,response.emit_complete,send,"http, websocket, webtransport",transport.emit.complete,"http.rest, https.rest, http.jsonrpc, https.jsonrpc, http.stream, https.stream, http.sse, https.sse",R,R,R,R,F,F
+session,session.open,receive,"websocket, webtransport","websocket.connect, webtransport.connect","http.sse, https.sse, ws, wss, webtransport",F,F,F,R,R,R
+session,session.accept,send,"websocket, webtransport","websocket.accept, webtransport.accept","http.sse, https.sse, ws, wss, webtransport",F,F,F,R,R,R
+session,session.ready,send,"websocket, webtransport","websocket.accept, webtransport.accept","http.sse, https.sse, ws, wss, webtransport",F,F,F,R,R,R
+session,session.heartbeat,send,"websocket, webtransport","websocket.send, webtransport.stream.send","http.sse, https.sse, ws, wss, webtransport",F,F,F,O,O,O
+session,session.sync,send,"websocket, webtransport","websocket.send, webtransport.stream.send","http.sse, https.sse, ws, wss, webtransport",F,F,F,O,O,O
+session,session.close,send,"websocket, webtransport","websocket.close, webtransport.close","http.sse, https.sse, ws, wss, webtransport",F,F,F,R,R,R
+session,session.disconnect,receive,"websocket, webtransport","websocket.disconnect, webtransport.disconnect","http.sse, https.sse, ws, wss, webtransport",F,F,F,O,O,O
+session,session.emit_complete,send,"http, websocket, webtransport",transport.emit.complete,"http.sse, https.sse, ws, wss, webtransport",F,F,F,O,O,O
+message,message.in,receive,"websocket, webtransport","websocket.receive, webtransport.stream.receive, webtransport.datagram.receive","ws, wss, webtransport",F,F,F,F,R,O
+message,message.decode,receive,"websocket, webtransport","websocket.receive, webtransport.stream.receive, webtransport.datagram.receive","http.jsonrpc, https.jsonrpc, ws, wss, webtransport",F,D,F,F,O,O
+message,message.handle,receive,"websocket, webtransport","websocket.receive, webtransport.stream.receive, webtransport.datagram.receive","ws, wss, webtransport",F,F,F,F,R,O
+message,message.out,send,"http, websocket, webtransport","http.response.body, websocket.send, webtransport.stream.send","http.sse, https.sse, ws, wss, webtransport",F,F,F,R,R,O
+message,message.ack,send,"websocket, webtransport","websocket.send, webtransport.stream.send, webtransport.datagram.send","ws, wss, webtransport",F,F,F,F,O,O
+message,message.nack,send,"websocket, webtransport","websocket.send, webtransport.stream.send, webtransport.datagram.send","ws, wss, webtransport",F,F,F,F,O,O
+message,message.replay,send,"http, websocket, webtransport","http.response.body, websocket.send, webtransport.stream.send","http.sse, https.sse, ws, wss, webtransport",F,F,F,O,O,O
+message,message.snapshot,send,"http, websocket, webtransport","http.response.body, websocket.send, webtransport.stream.send","http.sse, https.sse, ws, wss, webtransport",F,F,F,O,O,O
+message,message.emit_complete,send,"http, websocket, webtransport",transport.emit.complete,"http.sse, https.sse, ws, wss, webtransport",F,F,F,R,R,O
+stream,stream.open,send,"http, webtransport","http.response.start, webtransport.stream.send","http.rest, https.rest, http.jsonrpc, https.jsonrpc, http.stream, https.stream, http.sse, https.sse, webtransport",O,O,R,R,F,R
+stream,stream.chunk_in,receive,"http, webtransport","http.request, webtransport.stream.receive","http.rest, https.rest, http.jsonrpc, https.jsonrpc, http.stream, https.stream, webtransport",O,O,R,F,F,R
+stream,stream.chunk_out,send,"http, webtransport","http.response.body, webtransport.stream.send","http.rest, https.rest, http.jsonrpc, https.jsonrpc, http.stream, https.stream, http.sse, https.sse, webtransport",O,O,R,R,F,R
+stream,stream.flush,send,"http, webtransport","http.response.body, webtransport.stream.send","http.stream, https.stream, http.sse, https.sse, webtransport",F,F,O,O,F,O
+stream,stream.finalize,send,"http, webtransport","http.response.body, webtransport.stream.send","http.rest, https.rest, http.jsonrpc, https.jsonrpc, http.stream, https.stream, http.sse, https.sse, webtransport",O,O,R,O,F,R
+stream,stream.abort,receive/send,"http, webtransport","http.disconnect, webtransport.close","http.stream, https.stream, http.sse, https.sse, webtransport",F,F,O,O,F,O
+stream,stream.close,send,"http, webtransport","http.response.body, webtransport.close","http.rest, https.rest, http.jsonrpc, https.jsonrpc, http.stream, https.stream, http.sse, https.sse, webtransport",O,O,R,R,F,R
+stream,stream.emit_complete,send,"http, websocket, webtransport",transport.emit.complete,"http.rest, https.rest, http.jsonrpc, https.jsonrpc, http.stream, https.stream, http.sse, https.sse, webtransport",O,O,R,R,F,R
+datagram,datagram.in,receive,webtransport,webtransport.datagram.receive,webtransport,F,F,F,F,F,R
+datagram,datagram.handle,receive,webtransport,webtransport.datagram.receive,webtransport,F,F,F,F,F,R
+datagram,datagram.out,send,webtransport,webtransport.datagram.send,webtransport,F,F,F,F,F,R
+datagram,datagram.ack,send,webtransport,webtransport.datagram.send,webtransport,F,F,F,F,F,O
+datagram,datagram.close,send,webtransport,webtransport.close,webtransport,F,F,F,F,F,R
+datagram,datagram.emit_complete,send,"http, websocket, webtransport",transport.emit.complete,webtransport,F,F,F,F,F,R
