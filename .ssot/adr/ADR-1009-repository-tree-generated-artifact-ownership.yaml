@@ -1,0 +1,41 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1009"
+number: 1009
+slug: "repository-tree-generated-artifact-ownership"
+title: "Repository tree and generated artifact ownership"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "The repository already distinguishes canonical contract inputs from generated downstream outputs. The `contract/` tree contains the canonical ASGI contract vocabulary, schemas, compatibility metadata, legality matrices, checksums, and manifest. Generated Python, Rust, and TypeScript artifacts are derived from those inputs and are validated through generation and parity tests."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  The repository already distinguishes canonical contract inputs from generated downstream outputs. The `contract/` tree contains the canonical ASGI contract vocabulary, schemas, compatibility metadata, legality matrices, checksums, and manifest. Generated Python, Rust, and TypeScript artifacts are derived from those inputs and are validated through generation and parity tests.
+  
+  The `.ssot/` tree governs decisions, specifications, features, claims, evidence, boundaries, releases, generated SSOT exports, and SSOT reports. Documentation explains the contract and release process, but documentation is not the canonical contract source when it conflicts with `contract/` or `.ssot/`.
+  
+  ## Decision
+  
+  The repository shall preserve explicit ownership boundaries for its project tree.
+  
+  The `contract/` tree is the canonical source for contract vocabulary, schemas, matrices, compatibility metadata, manifests, and checksums.
+  
+  Generated language packages and generated docs are projections of canonical inputs. They may be committed for review, packaging, and downstream consumption, but they shall not be edited as the source of truth for contract semantics.
+  
+  The `.ssot/` tree is the canonical governance source for ADRs, SPECs, registry entities, claims, evidence, boundaries, releases, reports, and generated SSOT exports. `.ssot/registry.json` is maintained through SSOT tooling rather than ad hoc edits.
+  
+  Tests and workflows are verification and gate surfaces. They enforce conformance, parity, generation cleanliness, release preparation, and publication policy, but they do not replace the canonical contract or governance sources.
+  
+  ## Consequences
+  
+  Contract changes start in canonical contract files and are propagated through generation.
+  
+  Governance changes start in `.ssot/` ADR, SPEC, and registry artifacts and are validated through SSOT tooling.
+  
+  Generated projections can be regenerated and diffed as evidence without becoming competing sources of truth.

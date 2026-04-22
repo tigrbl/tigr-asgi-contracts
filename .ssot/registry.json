@@ -9527,6 +9527,175 @@
       ],
       "requires": [],
       "spec_ids": []
+    },
+    {
+      "id": "feat:target-lang-python",
+      "title": "Conformance target lang.python",
+      "description": "Explicit governed conformance target for generated Python package parity with canonical contract sources. Added under adr:1001.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T1",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [],
+      "claim_ids": [
+        "clm:subevents",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "test_ids": [
+        "tst:codegen-test-python-codegen",
+        "tst:parity-test-python-vs-contract",
+        "tst:parity-test-cross-language-roundtrip"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lang-rust",
+      "title": "Conformance target lang.rust",
+      "description": "Explicit governed conformance target for generated Rust package parity with canonical contract sources. Added under adr:1001.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T1",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [],
+      "claim_ids": [
+        "clm:subevents",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema",
+        "clm:checksums",
+        "clm:manifest"
+      ],
+      "test_ids": [
+        "tst:codegen-test-rust-codegen",
+        "tst:parity-test-rust-vs-contract",
+        "tst:parity-test-cross-language-roundtrip"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-lang-typescript",
+      "title": "Conformance target lang.typescript",
+      "description": "Explicit governed conformance target for generated TypeScript package parity with canonical contract sources. Added under adr:1001.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T1",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [],
+      "claim_ids": [
+        "clm:subevents",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema",
+        "clm:checksums",
+        "clm:manifest"
+      ],
+      "test_ids": [
+        "tst:codegen-test-ts-codegen",
+        "tst:parity-test-ts-vs-contract",
+        "tst:parity-test-cross-language-roundtrip"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-jsonschema-2020-12",
+      "title": "Conformance target jsonschema.2020-12",
+      "description": "Explicit governed conformance target for JSON Schema Draft 2020-12 contract schema validity. Added under adr:1001.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T1",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [],
+      "claim_ids": [
+        "clm:compatibility",
+        "clm:schemas-compatibility-schema",
+        "clm:schemas-completion-schema",
+        "clm:schemas-event-schema",
+        "clm:schemas-scope-schema",
+        "clm:schemas-sse-schema",
+        "clm:schemas-transport-schema",
+        "clm:schemas-websocket-schema",
+        "clm:schemas-webtransport-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas",
+        "tst:case-contract-test-jsonschemas-all-schemas-are-valid"
+      ],
+      "requires": []
+    },
+    {
+      "id": "feat:target-base64",
+      "title": "Conformance target base64",
+      "description": "Explicit governed conformance target for Base64-encoded contract fields such as scope query_string contentEncoding. Added under adr:1001.",
+      "implementation_status": "implemented",
+      "lifecycle": {
+        "stage": "active",
+        "replacement_feature_ids": [],
+        "note": null
+      },
+      "plan": {
+        "horizon": "current",
+        "slot": null,
+        "target_claim_tier": "T1",
+        "target_lifecycle_stage": "active"
+      },
+      "spec_ids": [],
+      "claim_ids": [
+        "clm:schemas-scope-schema"
+      ],
+      "test_ids": [
+        "tst:contract-test-jsonschemas",
+        "tst:case-contract-test-jsonschemas-all-schemas-are-valid"
+      ],
+      "requires": []
     }
   ],
   "tests": [
@@ -9556,7 +9725,8 @@
         "feat:schemas-sse-schema",
         "feat:schemas-transport-schema",
         "feat:schemas-websocket-schema",
-        "feat:schemas-webtransport-schema"
+        "feat:schemas-webtransport-schema",
+        "feat:target-lang-python"
       ],
       "claim_ids": [
         "clm:bindings",
@@ -9612,7 +9782,8 @@
         "feat:schemas-websocket-schema",
         "feat:schemas-webtransport-schema",
         "feat:checksums",
-        "feat:manifest"
+        "feat:manifest",
+        "feat:target-lang-rust"
       ],
       "claim_ids": [
         "clm:bindings",
@@ -9670,7 +9841,8 @@
         "feat:schemas-websocket-schema",
         "feat:schemas-webtransport-schema",
         "feat:checksums",
-        "feat:manifest"
+        "feat:manifest",
+        "feat:target-lang-typescript"
       ],
       "claim_ids": [
         "clm:bindings",
@@ -9784,7 +9956,9 @@
         "feat:schemas-sse-schema",
         "feat:schemas-transport-schema",
         "feat:schemas-websocket-schema",
-        "feat:schemas-webtransport-schema"
+        "feat:schemas-webtransport-schema",
+        "feat:target-jsonschema-2020-12",
+        "feat:target-base64"
       ],
       "claim_ids": [
         "clm:bindings",
@@ -10273,7 +10447,10 @@
         "feat:schemas-transport-schema",
         "feat:schemas-websocket-schema",
         "feat:schemas-webtransport-schema",
-        "feat:binding-family-rest-request"
+        "feat:binding-family-rest-request",
+        "feat:target-lang-python",
+        "feat:target-lang-rust",
+        "feat:target-lang-typescript"
       ],
       "claim_ids": [
         "clm:bindings",
@@ -10327,7 +10504,8 @@
         "feat:schemas-sse-schema",
         "feat:schemas-transport-schema",
         "feat:schemas-websocket-schema",
-        "feat:schemas-webtransport-schema"
+        "feat:schemas-webtransport-schema",
+        "feat:target-lang-python"
       ],
       "claim_ids": [
         "clm:bindings",
@@ -10381,7 +10559,8 @@
         "feat:schemas-sse-schema",
         "feat:schemas-transport-schema",
         "feat:schemas-websocket-schema",
-        "feat:schemas-webtransport-schema"
+        "feat:schemas-webtransport-schema",
+        "feat:target-lang-rust"
       ],
       "claim_ids": [
         "clm:bindings",
@@ -10435,7 +10614,8 @@
         "feat:schemas-sse-schema",
         "feat:schemas-transport-schema",
         "feat:schemas-websocket-schema",
-        "feat:schemas-webtransport-schema"
+        "feat:schemas-webtransport-schema",
+        "feat:target-lang-typescript"
       ],
       "claim_ids": [
         "clm:bindings",
@@ -10631,7 +10811,9 @@
         "feat:schemas-sse-schema",
         "feat:schemas-transport-schema",
         "feat:schemas-websocket-schema",
-        "feat:schemas-webtransport-schema"
+        "feat:schemas-webtransport-schema",
+        "feat:target-jsonschema-2020-12",
+        "feat:target-base64"
       ],
       "claim_ids": [
         "clm:schemas-compatibility-schema",
@@ -11104,7 +11286,8 @@
       "kind": "conformance",
       "description": "contract/compatibility.yaml is covered by repository tests and tracked evidence.",
       "feature_ids": [
-        "feat:compatibility"
+        "feat:compatibility",
+        "feat:target-jsonschema-2020-12"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -11605,7 +11788,10 @@
         "feat:binding-subevent-webtransport-session-heartbeat",
         "feat:binding-subevent-webtransport-session-sync",
         "feat:binding-subevent-webtransport-stream-abort",
-        "feat:binding-subevent-webtransport-stream-flush"
+        "feat:binding-subevent-webtransport-stream-flush",
+        "feat:target-lang-python",
+        "feat:target-lang-rust",
+        "feat:target-lang-typescript"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12046,7 +12232,11 @@
       "kind": "conformance",
       "description": "contract/schemas/compatibility.schema.json is covered by repository tests and tracked evidence.",
       "feature_ids": [
-        "feat:schemas-compatibility-schema"
+        "feat:schemas-compatibility-schema",
+        "feat:target-lang-python",
+        "feat:target-lang-rust",
+        "feat:target-lang-typescript",
+        "feat:target-jsonschema-2020-12"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12070,7 +12260,11 @@
       "kind": "conformance",
       "description": "contract/schemas/completion.schema.json is covered by repository tests and tracked evidence.",
       "feature_ids": [
-        "feat:schemas-completion-schema"
+        "feat:schemas-completion-schema",
+        "feat:target-lang-python",
+        "feat:target-lang-rust",
+        "feat:target-lang-typescript",
+        "feat:target-jsonschema-2020-12"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12094,7 +12288,11 @@
       "kind": "conformance",
       "description": "contract/schemas/event.schema.json is covered by repository tests and tracked evidence.",
       "feature_ids": [
-        "feat:schemas-event-schema"
+        "feat:schemas-event-schema",
+        "feat:target-lang-python",
+        "feat:target-lang-rust",
+        "feat:target-lang-typescript",
+        "feat:target-jsonschema-2020-12"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12118,7 +12316,12 @@
       "kind": "conformance",
       "description": "contract/schemas/scope.schema.json is covered by repository tests and tracked evidence.",
       "feature_ids": [
-        "feat:schemas-scope-schema"
+        "feat:schemas-scope-schema",
+        "feat:target-lang-python",
+        "feat:target-lang-rust",
+        "feat:target-lang-typescript",
+        "feat:target-jsonschema-2020-12",
+        "feat:target-base64"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12142,7 +12345,11 @@
       "kind": "conformance",
       "description": "contract/schemas/sse.schema.json is covered by repository tests and tracked evidence.",
       "feature_ids": [
-        "feat:schemas-sse-schema"
+        "feat:schemas-sse-schema",
+        "feat:target-lang-python",
+        "feat:target-lang-rust",
+        "feat:target-lang-typescript",
+        "feat:target-jsonschema-2020-12"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12166,7 +12373,11 @@
       "kind": "conformance",
       "description": "contract/schemas/transport.schema.json is covered by repository tests and tracked evidence.",
       "feature_ids": [
-        "feat:schemas-transport-schema"
+        "feat:schemas-transport-schema",
+        "feat:target-lang-python",
+        "feat:target-lang-rust",
+        "feat:target-lang-typescript",
+        "feat:target-jsonschema-2020-12"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12190,7 +12401,11 @@
       "kind": "conformance",
       "description": "contract/schemas/websocket.schema.json is covered by repository tests and tracked evidence.",
       "feature_ids": [
-        "feat:schemas-websocket-schema"
+        "feat:schemas-websocket-schema",
+        "feat:target-lang-python",
+        "feat:target-lang-rust",
+        "feat:target-lang-typescript",
+        "feat:target-jsonschema-2020-12"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12214,7 +12429,11 @@
       "kind": "conformance",
       "description": "contract/schemas/webtransport.schema.json is covered by repository tests and tracked evidence.",
       "feature_ids": [
-        "feat:schemas-webtransport-schema"
+        "feat:schemas-webtransport-schema",
+        "feat:target-lang-python",
+        "feat:target-lang-rust",
+        "feat:target-lang-typescript",
+        "feat:target-jsonschema-2020-12"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12238,7 +12457,9 @@
       "kind": "conformance",
       "description": "contract/checksums.txt is covered by repository tests and tracked evidence.",
       "feature_ids": [
-        "feat:checksums"
+        "feat:checksums",
+        "feat:target-lang-rust",
+        "feat:target-lang-typescript"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -12262,7 +12483,9 @@
       "kind": "conformance",
       "description": "contract/manifest.json is covered by repository tests and tracked evidence.",
       "feature_ids": [
-        "feat:manifest"
+        "feat:manifest",
+        "feat:target-lang-rust",
+        "feat:target-lang-typescript"
       ],
       "test_ids": [
         "tst:case-codegen-test-rust-codegen-rust-generated-files-exist",
@@ -13305,6 +13528,38 @@
       "immutable": false,
       "package_version": "0.2.10",
       "content_sha256": "1513255c70361749aeb74d7ad327784d0f7a5dc3f132b457df8f89af104e9bce",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": []
+    },
+    {
+      "id": "adr:1001",
+      "number": 1001,
+      "slug": "conformance-targets-explicit-governed-targets",
+      "title": "Conformance targets are explicit governed targets",
+      "path": ".ssot/adr/ADR-1001-conformance-targets-explicit-governed-targets.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "d0ce4e0ee24b4515e2b8af6927a45d22fe55a78624a1e8316ed3101f9891e134",
+      "status": "accepted",
+      "supersedes": [],
+      "superseded_by": [],
+      "status_notes": []
+    },
+    {
+      "id": "adr:1009",
+      "number": 1009,
+      "slug": "repository-tree-generated-artifact-ownership",
+      "title": "Repository tree and generated artifact ownership",
+      "path": ".ssot/adr/ADR-1009-repository-tree-generated-artifact-ownership.yaml",
+      "origin": "repo-local",
+      "managed": false,
+      "immutable": false,
+      "package_version": "0.2.10",
+      "content_sha256": "4cfc104451f64a2a076f96c1c8210cacb4a255cdb737fa2295f8ff1030e98204",
       "status": "accepted",
       "supersedes": [],
       "superseded_by": [],

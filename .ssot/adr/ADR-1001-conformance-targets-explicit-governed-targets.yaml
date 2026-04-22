@@ -1,0 +1,46 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1001"
+number: 1001
+slug: "conformance-targets-explicit-governed-targets"
+title: "Conformance targets are explicit governed targets"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "The repository already governs canonical contract artifacts, generated projections, parity tests, claims, evidence, boundaries, and releases. Those records prove that repository-owned artifacts are valid and deterministic, but they do not by themselves identify which external or internal conformance target is being claimed."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  The repository already governs canonical contract artifacts, generated projections, parity tests, claims, evidence, boundaries, and releases. Those records prove that repository-owned artifacts are valid and deterministic, but they do not by themselves identify which external or internal conformance target is being claimed.
+  
+  Bindings such as `rest`, `sse`, `websocket`, and `webtransport` imply protocol families, but an implied protocol label is not enough to establish a normative target. Likewise, a passing test proves the checked behavior, but it does not declare whether the behavior is intended to satisfy ASGI, an RFC, a WHATWG target, a W3C target, an IETF target, a packaging target, or a repo-defined parity target.
+  
+  ## Decision
+  
+  The repository shall treat conformance targets as explicit governed targets.
+  
+  A conformance target is a named authority or repo-defined profile against which a feature, claim, test, evidence item, boundary, release, or generated artifact can be evaluated. Examples include ASGI protocol targets, HTTP/WebSocket/SSE/WebTransport standards targets, JSON and JSON Schema targets, packaging targets, language parity targets, and repo-defined release gate targets.
+  
+  Conformance targets shall not be inferred solely from:
+  
+  - contract file names,
+  - binding names,
+  - event type names,
+  - generated package names,
+  - test file names,
+  - or claim kind alone.
+  
+  The concrete representation of conformance targets in the SSOT graph remains a separate modeling decision. Until that representation is finalized, features, claims, tests, ADRs, specs, profiles, and boundaries should name target identifiers consistently in prose and metadata where available.
+  
+  ## Consequences
+  
+  Conformance reviews can distinguish artifact validity from standards conformance.
+  
+  Future ADRs and SPECs can add precise target catalogs without changing the principle that targets must be explicit.
+  
+  Release and certification evidence can be evaluated against named targets rather than ambiguous protocol labels.
