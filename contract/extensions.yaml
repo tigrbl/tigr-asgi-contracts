@@ -1,0 +1,31 @@
+extensions:
+  asgi.tls:
+    scope_key: tls
+    fields:
+      version:
+        type: string
+        required: false
+      cipher:
+        type: string
+        required: false
+      verified:
+        type: boolean
+        required: false
+      peer_identity:
+        type: string
+        required: false
+      peer_cert:
+        type: object
+        required: false
+  asgi.pathsend:
+    event_type: http.response.pathsend
+    fields:
+      path:
+        type: string
+        required: true
+      stat_result:
+        type: object
+        required: false
+      headers:
+        type: array
+        required: false

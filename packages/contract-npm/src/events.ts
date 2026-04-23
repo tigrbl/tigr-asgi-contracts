@@ -3,6 +3,7 @@ export enum TransportEventType {
   HTTP_DISCONNECT = "http.disconnect",
   HTTP_RESPONSE_START = "http.response.start",
   HTTP_RESPONSE_BODY = "http.response.body",
+  HTTP_RESPONSE_PATHSEND = "http.response.pathsend",
   WEBSOCKET_CONNECT = "websocket.connect",
   WEBSOCKET_RECEIVE = "websocket.receive",
   WEBSOCKET_DISCONNECT = "websocket.disconnect",

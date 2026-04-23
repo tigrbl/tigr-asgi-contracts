@@ -1,0 +1,41 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1031"
+number: 1031
+slug: "full-in-bounds-future-contract-scope"
+title: "Full in-bounds future contract scope"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines the implementation and proof requirements for the expanded in-bounds future contract surface."
+supersedes: []
+superseded_by: []
+status_notes: []
+references:
+  - "adr:1031"
+body: |-
+  ## Scope
+
+  The expanded future contract scope includes contract-owned feature rows whose canonical surface families are event, automata, subevent, protocol, frame, schema, lifecycle, asgi.tls, asgi.pathsend, binding_family, binding_subevent, and binding.
+
+  ## Requirements
+
+  Protocols must be declared in a canonical protocol registry and every binding protocol must resolve to a binding.
+
+  Binding families and binding-subevent legality must be represented by complete legality matrices. Forbidden combinations are implemented as explicit contract facts, not as absent rows.
+
+  Lifecycle automata must define initial states, terminal states, and transitions for request, session, message, stream, and datagram families.
+
+  Frame and framing surfaces must identify whether the surface is a wire frame, contract framing surface, extension frame, or evidence-only surface.
+
+  ASGI TLS and ASGI pathsend must have schema-backed extension metadata and generated validator exposure.
+
+  JSON Schema, Python, TypeScript, Rust, manifest, checksum, README, and package outputs must be regenerated from the canonical contract artifacts.
+
+  ## Validation
+
+  Tests must prove registry scope membership, protocol mappings, automata sequences, schema validity, event payload validation, frame and extension metadata, generated language parity, and release proof coverage.
+
+  Claims and evidence must link to the boundary features and must remain scoped to contract conformance rather than downstream runtime execution.
+spec_kind: "normative"

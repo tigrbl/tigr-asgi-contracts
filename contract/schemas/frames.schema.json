@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tigr.dev/asgi-contract/schemas/frames.schema.json",
+  "title": "Frame registry",
+  "type": "object",
+  "required": ["frames"],
+  "properties": {
+    "frames": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["kind", "binding"],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["wire-frame", "contract-framing", "extension-frame", "evidence-only"]
+          },
+          "binding": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

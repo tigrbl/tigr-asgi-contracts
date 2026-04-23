@@ -1,0 +1,37 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1030"
+number: 1030
+slug: "contract-version-compatibility-authority"
+title: "Contract version compatibility authority"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification governs release-version authority and compatibility metadata alignment."
+supersedes: []
+superseded_by: []
+status_notes: []
+references:
+  - "adr:1024"
+body: |-
+  ## Scope
+  
+  This specification governs release-version authority and compatibility metadata alignment.
+  
+  ## Requirements
+  
+  The root VERSION file and contract/manifest.json define the authoritative contract release version.
+  
+  contract/compatibility.yaml must use the same contract_version as the authoritative release version.
+  
+  Generated package version constants, package manifests, README compatibility tables, and release metadata must not report a conflicting contract version.
+  
+  The compatibility document remains the place for serde_version, schema_draft, and minimum downstream runtime version metadata.
+  
+  ## Validation
+  
+  Version checks must fail when contract/compatibility.yaml contract_version diverges from VERSION or contract/manifest.json.
+  
+  Generated docs that project compatibility metadata must be regenerated after compatibility version changes.
+spec_kind: "governance"

@@ -131,6 +131,10 @@ def contract_data() -> dict[str, Any]:
         "binding_family": load_yaml("legality/binding_family.yaml")["binding_family"],
         "family_subevent": load_yaml("legality/family_subevent.yaml")["family_subevent"],
         "binding_subevent": load_yaml("legality/binding_subevent.yaml")["binding_subevent"],
+        "protocols": load_yaml("protocols.yaml")["protocols"],
+        "automata": load_yaml("automata.yaml")["automata"],
+        "frames": load_yaml("frames.yaml")["frames"],
+        "extensions": load_yaml("extensions.yaml")["extensions"],
         "manifest": load_json("manifest.json"),
         "schemas": {
             p.name: json.loads(p.read_text(encoding="utf-8"))

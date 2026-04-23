@@ -1,0 +1,37 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1024"
+number: 1024
+slug: "contract-version-authority-alignment"
+title: "Contract version authority alignment"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "The root VERSION file, contract manifest, generated package metadata, and generated runtime version constants currently report the release as 0.1.2. The compatibility metadata still reports contract_version 0.1.0."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  The root VERSION file, contract manifest, generated package metadata, and generated runtime version constants currently report the release as 0.1.2. The compatibility metadata still reports contract_version 0.1.0.
+  
+  This drift creates ambiguity for downstream consumers because they cannot determine whether compatibility metadata or package metadata is authoritative.
+  
+  ## Decision
+  
+  The root VERSION file and contract/manifest.json are the authoritative release version surfaces for this repository.
+  
+  contract/compatibility.yaml, generated README compatibility tables, generated package metadata, and generated version constants must align with the authoritative release version before release promotion.
+  
+  Compatibility metadata may still contain independent fields for serde version, schema draft, and minimum downstream runtime versions. It must not carry a stale contract_version.
+  
+  ## Consequences
+  
+  Version drift between compatibility metadata and the authoritative release version is a release-blocking issue.
+  
+  Release validation should include an explicit compatibility-version alignment check or extend the existing version check to cover contract/compatibility.yaml and generated docs that project it.
+  
+  Fixing the current drift is implementation work against the compatibility artifact, not a change to the SSOT registry schema.

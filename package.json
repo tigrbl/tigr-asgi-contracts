@@ -1,15 +1,15 @@
 {
   "name": "tigr-contract-workspace",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.3.0",
   "workspaces": [
     "packages/artifacts-npm",
     "packages/contract-npm"
   ],
   "scripts": {
-    "generate": "python tools/generate_all.py",
-    "validate": "python tools/validate_yaml.py && python tools/validate_jsonschema.py && python tools/build_manifest.py && python tools/build_checksums.py",
-    "check:versions": "python tools/check_versions.py",
-    "test": "pytest -q"
+    "generate": "uv run --frozen python tools/generate_all.py",
+    "validate": "uv run --frozen python tools/validate_yaml.py && uv run --frozen python tools/validate_jsonschema.py && uv run --frozen python tools/build_manifest.py && uv run --frozen python tools/build_checksums.py",
+    "check:versions": "uv run --frozen python tools/check_versions.py",
+    "test": "uv run --frozen pytest -q --basetemp .tmp/pytest"
   }
 }

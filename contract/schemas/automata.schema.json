@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tigr.dev/asgi-contract/schemas/automata.schema.json",
+  "title": "Lifecycle automata registry",
+  "type": "object",
+  "required": ["automata"],
+  "properties": {
+    "automata": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["initial", "terminal", "transitions"],
+        "properties": {
+          "initial": { "type": "string" },
+          "terminal": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "transitions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["from", "event", "to"],
+              "properties": {
+                "from": { "type": "string" },
+                "event": { "type": "string" },
+                "to": { "type": "string" }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

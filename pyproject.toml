@@ -1,6 +1,6 @@
 [project]
 name = "tigr-contract-workspace"
-version = "0.1.0"
+version = "0.3.0"
 description = "Workspace tooling for the tigr contract repository"
 requires-python = ">=3.10"
 dependencies = [

@@ -1,0 +1,39 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1028"
+number: 1028
+slug: "event-instance-payload-schemas"
+title: "Event instance payload schemas"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification governs event-instance payload schema surfaces for every current TransportEventType."
+supersedes: []
+superseded_by: []
+status_notes: []
+references:
+  - "adr:1023"
+body: |-
+  ## Scope
+  
+  This specification governs event-instance payload schema surfaces for every current TransportEventType.
+  
+  ## Requirements
+  
+  Each TransportEventType must have a discriminated payload schema or an explicit empty-payload schema.
+  
+  Event payload schemas must define required fields, forbidden fields, allowed nullable fields, and mutual exclusion constraints when the event semantics require them.
+  
+  Event payload schemas must prevent cross-family leakage, including stream identifiers on non-stream events and datagram identifiers on non-datagram events.
+  
+  Generated Python, TypeScript, and Rust bindings must expose event payload models without collapsing them back into an untyped dictionary-only contract.
+  
+  Existing event type features remain event-presence features. New event-payload features track the payload semantics separately.
+  
+  ## Validation
+  
+  Contract validation must prove that the root event schema dispatches to the correct event payload schema by event type.
+  
+  Codegen parity tests must prove that generated languages expose the same event payload surface and preserve schema-required fields.
+spec_kind: "normative"

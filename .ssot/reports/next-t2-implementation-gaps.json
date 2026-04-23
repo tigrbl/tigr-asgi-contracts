@@ -1,0 +1,1530 @@
+{
+    "boundary_id":  "bnd:next-t2",
+    "boundary_status":  "draft",
+    "frozen":  false,
+    "target_claim_tier":  "T2",
+    "feature_count":  218,
+    "implemented_count":  29,
+    "partial_count":  0,
+    "absent_count":  189,
+    "out_of_bounds_count":  0,
+    "missing_claim_count":  189,
+    "missing_test_count":  185,
+    "certification_blocked":  true,
+    "resume_from_step":  "scope-refinement-or-implementation-closure",
+    "generated_at":  "2026-04-23T06:21:40.6444642-05:00",
+    "feature_gaps":  [
+                         {
+                             "id":  "feat:target-interop-autobahn",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  1
+                         },
+                         {
+                             "id":  "feat:target-interop-wpt",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  1
+                         },
+                         {
+                             "id":  "feat:target-interop-jsonschema-test-suite",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  2
+                         },
+                         {
+                             "id":  "feat:target-interop-asgi-downstream",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  2
+                         },
+                         {
+                             "id":  "feat:evidence-source-runtime-tigrcorn",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:evidence-source-runtime-uvicorn",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:evidence-source-runtime-hypercorn",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:evidence-source-runtime-gunicorn",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:concern-alt-svc",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:concern-ech",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:concern-early-hints",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:concern-http-3-advertisement",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:concern-https-dns-record",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:concern-https-svcb",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:concern-proxy-forwarding",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:concern-svcb",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:concern-trailers",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-schemas-events-transport-emit-complete-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-http-datagram",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-http-response-trailers",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-http-version",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-lifespan-shutdown",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-lifespan-shutdown-complete",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-lifespan-shutdown-failed",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-lifespan-startup",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-lifespan-startup-complete",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-lifespan-startup-failed",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-websocket-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-webtransport-datagram",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-webtransport-stream",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-alt-svc-header-field",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-capsule-protocol-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-echconfig-svcb-parameter",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-datagram",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-2-continuation-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-2-data-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-2-goaway-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-2-headers-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-2-ping-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-2-push-promise-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-2-rst-stream-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-2-settings-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-2-window-update-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-2-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-3-cancel-push-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-3-data-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-3-datagram-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-3-goaway-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-3-headers-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-3-max-push-id-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-3-push-promise-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-3-settings-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-3-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-https-dns-record",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-json-rpc-batch-array",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-lsp-content-length-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-masque-connect-ip",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-masque-connect-udp",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-proxy-protocol-v1-line",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-proxy-protocol-v2-binary-header",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-quic-connection-close-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-quic-datagram-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-quic-new-connection-id-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-quic-path-challenge-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-quic-path-response-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-quic-reset-stream-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-quic-retire-connection-id-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-quic-stop-sending-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-quic-stream-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-sse-comment-heartbeat-field",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-svcb-dns-record",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-websocket-channel-envelope",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-app-channel",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-capsule",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-grpc-message-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-grpc",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http-response-trailers",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http2-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-http3-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-lifespan-shutdown",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-lifespan-shutdown-complete",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-lifespan-shutdown-failed",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-lifespan-startup",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-lifespan-startup-complete",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-lifespan-startup-failed",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-lsp",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-mtls-client-certificate-chain",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-multipart-boundary-frame",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-multipart-part-body-chunk",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-multipart-part-headers",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-null",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-proxy-forwarded-headers",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-quic-datagram",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:frame-quic-stream",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:lifecycle-drain-begin",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:lifecycle-drain-complete",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:lifecycle-drain-emit-complete",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:lifecycle-drain-failed",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:lifecycle-drain-inflight-cancel",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:lifecycle-drain-inflight-wait",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:lifecycle-drain-reject-new-work",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:lifecycle-drain-session-close",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:lifecycle-drain-stream-cancel",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:lifecycle-shutdown-failed",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:lifecycle-shutdown-receive",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:lifecycle-startup-receive",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:lifespan-shutdown-failed",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-asgi-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-client-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-ext-alt-svc-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-ext-discovery-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-ext-ech-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-ext-forwarded-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-ext-https-rr-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-ext-mtls-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-ext-proxy-protocol-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-ext-sse-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-ext-svcb-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-ext-tls-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-ext-websocket-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-ext-webtransport-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-extensions-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-family-capabilities-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-frames-capsule-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-frames-http2-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-frames-http3-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-frames-quic-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-framing-app-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-framing-bytes-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-framing-json-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-framing-jsonrpc-batch-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-framing-jsonrpc-error-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-framing-jsonrpc-notification-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-framing-jsonrpc-request-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-framing-jsonrpc-response-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-framing-jsonrpc-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-framing-multipart-part-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-framing-multipart-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-framing-raw-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-framing-sse-event-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-framing-sse-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-header-pair-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-headers-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-method-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-path-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-query-string-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-raw-path-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-root-path-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-scheme-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-scope-type-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-server-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:schemas-state-schema",
+                             "implementation_status":  "absent",
+                             "horizon":  "future",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:executable-event-instance-contract",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-http-request",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-http-disconnect",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-http-response-start",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-http-response-body",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-websocket-connect",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-websocket-receive",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-websocket-disconnect",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-websocket-accept",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-websocket-send",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-websocket-close",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-webtransport-connect",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-webtransport-accept",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-webtransport-stream-receive",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-webtransport-stream-send",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-webtransport-datagram-receive",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-webtransport-datagram-send",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-webtransport-disconnect",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-webtransport-close",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-lifespan-startup",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-lifespan-startup-complete",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-lifespan-startup-failed",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-lifespan-shutdown",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-lifespan-shutdown-complete",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-lifespan-shutdown-failed",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-transport-emit-complete",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-payload-field-invariants",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-instance-validator-api",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-scope-capability-gates",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-unit-id-identity-invariants",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-completion-ordering-rules",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:generated-event-validator-parity",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-lifecycle-automata-request",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-lifecycle-automata-session",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-lifecycle-automata-message",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-lifecycle-automata-stream",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         },
+                         {
+                             "id":  "feat:event-lifecycle-automata-datagram",
+                             "implementation_status":  "absent",
+                             "horizon":  "next",
+                             "target_claim_tier":  "T2",
+                             "claim_count":  0,
+                             "test_count":  0
+                         }
+                     ]
+}

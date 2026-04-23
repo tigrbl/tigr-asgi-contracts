@@ -1,23 +1,21 @@
 {
-  "passed": false,
+  "passed": true,
   "registry_path": ".ssot/registry.json",
-  "failures": [
-    "Registry schema_version must be 9"
-  ],
+  "failures": [],
   "warnings": [],
   "summary": {
     "counts": {
-      "features": 754,
+      "features": 805,
       "profiles": 0,
-      "tests": 22,
-      "claims": 23,
-      "evidence": 11,
-      "issues": 0,
+      "tests": 77,
+      "claims": 78,
+      "evidence": 66,
+      "issues": 6,
       "risks": 0,
-      "boundaries": 1,
-      "releases": 1,
-      "adrs": 37,
-      "specs": 42
+      "boundaries": 3,
+      "releases": 3,
+      "adrs": 40,
+      "specs": 46
     },
     "profile_status": {
       "passing": 0,

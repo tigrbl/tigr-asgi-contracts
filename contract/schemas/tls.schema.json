@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tigr.dev/asgi-contract/schemas/tls.schema.json",
+  "title": "ASGI TLS extension metadata",
+  "type": "object",
+  "properties": {
+    "version": { "type": "string" },
+    "cipher": { "type": "string" },
+    "verified": { "type": "boolean" },
+    "peer_identity": { "type": "string" },
+    "peer_cert": { "type": "object" }
+  },
+  "additionalProperties": false
+}

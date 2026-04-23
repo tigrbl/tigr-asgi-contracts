@@ -6,32 +6,32 @@
 
 | Ecosystem | Package | Version | Path | Surface files | Notes |
 | --- | --- | --- | --- | --- | --- |
-| python | `tigr-asgi-contract-artifacts` | `0.1.2` | `packages/artifacts-py` | 1 | Vendored file accessors |
-| npm | `@tigrbljs/tigr-asgi-contract-artifacts` | `0.1.2` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
-| rust | `tigr_asgi_contract_artifacts_rs` | `0.1.2` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
+| python | `tigr-asgi-contract-artifacts` | `0.3.0` | `packages/artifacts-py` | 1 | Vendored file accessors |
+| npm | `@tigrbljs/tigr-asgi-contract-artifacts` | `0.3.0` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
+| rust | `tigr_asgi_contract_artifacts_rs` | `0.3.0` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
 
 ## Contract Package Matrix
 
 | Ecosystem | Package | Version | Path | Surface files | Notes |
 | --- | --- | --- | --- | --- | --- |
-| python | `tigr-asgi-contract` | `0.1.2` | `packages/contract-py` | 16 | Enums, models, validators |
-| npm | `@tigrbljs/tigr-asgi-contract` | `0.1.2` | `packages/contract-npm` | 18 | TypeScript and TSX surfaces |
-| rust | `tigr_asgi_contract_rs` | `0.1.2` | `packages/contract-rs` | 15 | Serde-friendly contract surfaces |
+| python | `tigr-asgi-contract` | `0.3.0` | `packages/contract-py` | 18 | Enums, models, validators |
+| npm | `@tigrbljs/tigr-asgi-contract` | `0.3.0` | `packages/contract-npm` | 20 | TypeScript and TSX surfaces |
+| rust | `tigr_asgi_contract_rs` | `0.3.0` | `packages/contract-rs` | 17 | Serde-friendly contract surfaces |
 
 ## Release Matrix
 
 | Field | Value |
 | --- | --- |
 | Contract name | `tigr-asgi-contract` |
-| Contract version | `0.1.2` |
-| Artifact version | `0.1.2` |
+| Contract version | `0.3.0` |
+| Artifact version | `0.3.0` |
 | Serde version | `1` |
 | Schema draft | `2020-12` |
 | Bindings | 6 |
 | Families | 5 |
 | Subevents | 42 |
 | Scope types | 4 |
-| Event types | 25 |
+| Event types | 26 |
 
 ## Scope Type Matrix
 
@@ -58,7 +58,7 @@
 | Compatibility field | Value | Meaning | Source |
 | --- | --- | --- | --- |
 | `contract_name` | `tigr-asgi-contract` | Canonical contract identifier | `contract/compatibility.yaml` |
-| `contract_version` | `0.1.0` | Published contract version | `contract/compatibility.yaml` |
+| `contract_version` | `0.1.2` | Published contract version | `contract/compatibility.yaml` |
 | `serde_version` | `1` | Serialization surface version | `contract/compatibility.yaml` |
 | `schema_draft` | `2020-12` | JSON Schema draft level | `contract/compatibility.yaml` |
 
@@ -77,6 +77,7 @@
 | `http.disconnect` | `http` | `http.stream`, `jsonrpc`, `rest`, `sse` | `request.disconnect`, `stream.abort` | HTTP connection closed by peer or server |
 | `http.response.start` | `http` | `http.stream`, `jsonrpc`, `rest`, `sse` | `response.open`, `stream.open` | HTTP response metadata start |
 | `http.response.body` | `http` | `http.stream`, `jsonrpc`, `rest`, `sse` | `message.out`, `message.replay`, `message.snapshot`, `response.body_out`, `response.chunk_out`, `response.close`, `stream.chunk_out`, `stream.close`, `stream.finalize`, `stream.flush` | HTTP response body frame |
+| `http.response.pathsend` | `http` | `http.stream`, `jsonrpc`, `rest`, `sse` | - |  |
 | `websocket.connect` | `websocket` | `websocket` | `session.open` | WebSocket connection open event |
 | `websocket.receive` | `websocket` | `websocket` | `message.decode`, `message.handle`, `message.in` | Inbound WebSocket frame |
 | `websocket.disconnect` | `websocket` | `websocket` | `session.disconnect` | WebSocket disconnect signal |

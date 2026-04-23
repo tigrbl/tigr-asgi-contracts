@@ -12,6 +12,7 @@
         "http.disconnect",
         "http.response.start",
         "http.response.body",
+        "http.response.pathsend",
         "websocket.connect",
         "websocket.receive",
         "websocket.disconnect",

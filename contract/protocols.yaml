@@ -1,0 +1,61 @@
+protocols:
+  http.rest:
+    binding: rest
+    transport: http
+    secure: false
+    scope_type: http
+  https.rest:
+    binding: rest
+    transport: http
+    secure: true
+    scope_type: http
+  http.jsonrpc:
+    binding: jsonrpc
+    transport: http
+    secure: false
+    scope_type: http
+  https.jsonrpc:
+    binding: jsonrpc
+    transport: http
+    secure: true
+    scope_type: http
+  http.stream:
+    binding: http.stream
+    transport: http
+    secure: false
+    scope_type: http
+  https.stream:
+    binding: http.stream
+    transport: http
+    secure: true
+    scope_type: http
+  http.sse:
+    binding: sse
+    transport: http
+    secure: false
+    scope_type: http
+  https.sse:
+    binding: sse
+    transport: http
+    secure: true
+    scope_type: http
+  ws:
+    binding: websocket
+    transport: websocket
+    secure: false
+    scope_type: websocket
+  wss:
+    binding: websocket
+    transport: websocket
+    secure: true
+    scope_type: websocket
+  webtransport:
+    binding: webtransport
+    transport: webtransport
+    secure: true
+    scope_type: webtransport
+  asgi.pathsend:
+    binding: http.stream
+    transport: http
+    secure: false
+    scope_type: http

@@ -1,0 +1,153 @@
+automata:
+  request:
+    initial: idle
+    terminal:
+    - closed
+    - disconnected
+    transitions:
+    - from: idle
+      event: request.open
+      to: open
+    - from: open
+      event: request.body_in
+      to: open
+    - from: open
+      event: request.chunk_in
+      to: open
+    - from: open
+      event: request.accept
+      to: accepted
+    - from: accepted
+      event: response.open
+      to: responding
+    - from: responding
+      event: response.body_out
+      to: responding
+    - from: responding
+      event: response.chunk_out
+      to: responding
+    - from: responding
+      event: response.emit_complete
+      to: completing
+    - from: completing
+      event: response.close
+      to: closed
+    - from: open
+      event: request.disconnect
+      to: disconnected
+  session:
+    initial: idle
+    terminal:
+    - closed
+    - disconnected
+    transitions:
+    - from: idle
+      event: session.open
+      to: open
+    - from: open
+      event: session.accept
+      to: accepted
+    - from: accepted
+      event: session.ready
+      to: ready
+    - from: ready
+      event: session.heartbeat
+      to: ready
+    - from: ready
+      event: session.sync
+      to: ready
+    - from: ready
+      event: session.emit_complete
+      to: ready
+    - from: ready
+      event: session.close
+      to: closed
+    - from: ready
+      event: session.disconnect
+      to: disconnected
+  message:
+    initial: idle
+    terminal:
+    - complete
+    - rejected
+    transitions:
+    - from: idle
+      event: message.in
+      to: received
+    - from: received
+      event: message.decode
+      to: decoded
+    - from: decoded
+      event: message.handle
+      to: handled
+    - from: handled
+      event: message.out
+      to: emitted
+    - from: emitted
+      event: message.ack
+      to: complete
+    - from: emitted
+      event: message.nack
+      to: rejected
+    - from: complete
+      event: message.replay
+      to: emitted
+    - from: complete
+      event: message.snapshot
+      to: complete
+    - from: emitted
+      event: message.emit_complete
+      to: complete
+  stream:
+    initial: idle
+    terminal:
+    - closed
+    - aborted
+    transitions:
+    - from: idle
+      event: stream.open
+      to: open
+    - from: open
+      event: stream.chunk_in
+      to: open
+    - from: open
+      event: stream.chunk_out
+      to: open
+    - from: open
+      event: stream.flush
+      to: open
+    - from: open
+      event: stream.finalize
+      to: finalizing
+    - from: finalizing
+      event: stream.emit_complete
+      to: closed
+    - from: open
+      event: stream.close
+      to: closed
+    - from: open
+      event: stream.abort
+      to: aborted
+  datagram:
+    initial: idle
+    terminal:
+    - closed
+    transitions:
+    - from: idle
+      event: datagram.in
+      to: received
+    - from: received
+      event: datagram.handle
+      to: handled
+    - from: handled
+      event: datagram.out
+      to: emitted
+    - from: emitted
+      event: datagram.ack
+      to: acknowledged
+    - from: acknowledged
+      event: datagram.emit_complete
+      to: acknowledged
+    - from: acknowledged
+      event: datagram.close
+      to: closed

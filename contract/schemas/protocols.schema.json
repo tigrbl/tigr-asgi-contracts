@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tigr.dev/asgi-contract/schemas/protocols.schema.json",
+  "title": "Protocol registry",
+  "type": "object",
+  "required": ["protocols"],
+  "properties": {
+    "protocols": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["binding", "transport", "secure", "scope_type"],
+        "properties": {
+          "binding": { "type": "string" },
+          "transport": { "type": "string" },
+          "secure": { "type": "boolean" },
+          "scope_type": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

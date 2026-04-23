@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tigr.dev/asgi-contract/schemas/extensions.schema.json",
+  "title": "ASGI extension registry",
+  "type": "object",
+  "required": ["extensions"],
+  "properties": {
+    "extensions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "scope_key": { "type": "string" },
+          "event_type": { "type": "string" },
+          "fields": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "required": ["type", "required"],
+              "properties": {
+                "type": { "type": "string" },
+                "required": { "type": "boolean" }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": ["fields"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

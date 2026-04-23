@@ -1,8 +1,10 @@
 pub mod version;
 pub mod scope_types;
 pub mod bindings;
+pub mod protocols;
 pub mod exchanges;
 pub mod families;
+pub mod frames;
 pub mod subevents;
 pub mod capabilities;
 pub mod completion;

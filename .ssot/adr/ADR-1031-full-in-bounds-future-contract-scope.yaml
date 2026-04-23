@@ -1,0 +1,37 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1031"
+number: 1031
+slug: "full-in-bounds-future-contract-scope"
+title: "Full in-bounds future contract surfaces are contract-owned"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "Future rows for contract-owned events, automata, subevents, protocols, frames, schemas, ASGI TLS, ASGI pathsend, binding families, and bindings are in bounds when implementation is limited to contract artifacts, generated bindings, validators, tests, claims, and evidence."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+
+  The registry contains many tracked rows that were previously marked out of bounds to prevent accidental claims of downstream runtime behavior.
+
+  The repository nevertheless owns contract artifacts and generated outputs for event taxonomy, event payload validation, lifecycle automata, subevents, protocol metadata, frame metadata, JSON Schemas, ASGI extension metadata, binding families, and binding-subevent legality.
+
+  ## Decision
+
+  The named contract-owned future surfaces are in bounds for the next full contract release when implementation means repository-owned contract data, JSON Schemas, generated language bindings, validation helpers, fixtures, pytest coverage, claims, and evidence.
+
+  This decision brings events, event payloads, lifecycle automata, subevents, protocol names, protocol-to-binding mappings, frame and framing surfaces, schema surfaces, ASGI TLS extension fields, ASGI pathsend, binding definitions, binding families, and binding-subevent legality into the governed future boundary.
+
+  This decision does not bring downstream server runtime execution, network I/O, protocol parsing, scheduling, stream delivery, datagram delivery, TLS handshakes, file serving, or runtime conformance into this repository.
+
+  ## Consequences
+
+  Scope promotion must use deterministic feature surface keys instead of title-text matching.
+
+  Features may move from out_of_bounds to future only when they are implemented by concrete contract artifacts and passing tests.
+
+  Release claims must state contract conformance only and must not claim downstream runtime behavior.

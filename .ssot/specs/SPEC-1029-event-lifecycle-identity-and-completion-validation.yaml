@@ -1,0 +1,43 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1029"
+number: 1029
+slug: "event-lifecycle-identity-and-completion-validation"
+title: "Event lifecycle, identity, and completion validation"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification governs validator semantics for event lifecycle, scope capabilities, UnitIds identity rules, and completion ordering."
+supersedes: []
+superseded_by: []
+status_notes: []
+references:
+  - "adr:1023"
+body: |-
+  ## Scope
+  
+  This specification governs validator semantics for event lifecycle, scope capabilities, UnitIds identity rules, and completion ordering.
+  
+  ## Requirements
+  
+  The contract must define family lifecycle automata for request, session, message, stream, and datagram event families.
+  
+  Lifecycle automata must reject invalid orderings such as send-before-open, chunk-after-close, close-before-open, and non-terminal events after a terminal close or abort.
+  
+  Scope-aware validators must reject events that contradict declared scope capabilities, including WebTransport datagram events when datagrams are not supported and stream events when the relevant stream support is absent.
+  
+  UnitIds invariants must require stream identifiers for stream events, datagram identifiers for datagram events, session identifiers for session-scoped WebTransport events, and must forbid unrelated identifiers on incompatible event families.
+  
+  Completion rules must define what completion means for each family and how transport.emit.complete relates to finalization, flush, close, and terminal event states.
+  
+  Generated validators may be pure contract validators. They must not require this repository to own downstream runtime event emission behavior.
+  
+  ## Validation
+  
+  Tests must include valid and invalid event sequence examples for each family.
+  
+  Tests must include scope capability denial cases, UnitIds mismatch cases, and completion-ordering cases.
+  
+  Cross-language parity must prove the same validator decisions for the same event sequence fixtures.
+spec_kind: "normative"

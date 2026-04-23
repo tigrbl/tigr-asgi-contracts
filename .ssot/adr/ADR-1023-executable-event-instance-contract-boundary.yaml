@@ -1,0 +1,41 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1023"
+number: 1023
+slug: "executable-event-instance-contract-boundary"
+title: "Executable event-instance contract boundary"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "The current contract defines transport event types, subevents, families, scope metadata, capability flags, completion levels, legality matrices, and generated language bindings. Those surfaces are useful as taxonomy and legality metadata, but they do not yet define event-instance semantics."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  The current contract defines transport event types, subevents, families, scope metadata, capability flags, completion levels, legality matrices, and generated language bindings. Those surfaces are useful as taxonomy and legality metadata, but they do not yet define event-instance semantics.
+  
+  Event instances currently accept a generic payload object. The contract does not yet declare per-event payload schemas, required and forbidden fields, field mutual exclusions, scope-aware event gates, UnitIds integrity rules, family lifecycle automata, or completion ordering rules.
+  
+  ADR-1012 keeps downstream runtime emission behavior outside this repository. That boundary remains correct. The gap is contract-owned because schema shape, generated validator APIs, validation metadata, and conformance evidence are repository-owned contract surfaces.
+  
+  ## Decision
+  
+  This repository will govern an executable event-instance contract layer.
+  
+  The executable event-instance contract layer includes discriminated event payload schemas, generated event payload models, generated validator contracts, scope and capability validation metadata, UnitIds field invariants, family lifecycle automata, completion ordering rules, and evidence-ready validation outputs.
+  
+  The layer does not require this repository to implement server runtime behavior, connection handling, actual event emission, cleanup ordering, stream scheduling, datagram delivery, or downstream runtime state transitions.
+  
+  Downstream runtimes may use the generated validators to enforce event emission and replay behavior, but the existence of a contract validator does not claim downstream runtime conformance by itself.
+  
+  ## Consequences
+  
+  Existing event taxonomy rows remain valid and are not reclassified as runtime behavior.
+  
+  New feature rows must distinguish event presence from event-instance payload semantics.
+  
+  Claims and tests for this layer must prove contract schemas, generated bindings, validator behavior, and replay/conformance metadata rather than downstream runtime execution.

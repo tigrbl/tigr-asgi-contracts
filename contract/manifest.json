@@ -1,10 +1,14 @@
 {
   "name": "tigr-asgi-contract",
-  "contract_version": "0.1.2",
-  "artifact_version": "0.1.2",
+  "contract_version": "0.3.0",
+  "artifact_version": "0.3.0",
   "serde_version": 1,
   "schema_draft": "2020-12",
   "files": [
+    {
+      "path": "automata.yaml",
+      "sha256": "5fb86aa93259145216b2f4691b303cd9ea118616677ddf53a1bcc428fb43879b"
+    },
     {
       "path": "bindings.yaml",
       "sha256": "fa1438b1363b07560bdf0d2cc94e4c95d1b75df5c8bdacf5511a05e28de9ee9f"
@@ -15,7 +19,7 @@
     },
     {
       "path": "compatibility.yaml",
-      "sha256": "7f79f950b450539d5e9b2afa5f3cbbd90d50d038946a70334628028303cc0f2f"
+      "sha256": "d90c5c30ab2ce7a2e74c8f029462c8ab794fed22e87184da30ad8b4d1cb1c233"
     },
     {
       "path": "completion.yaml",
@@ -26,8 +30,16 @@
       "sha256": "6c7f8728836f23860629a8d062dea6219ac6fe31e67bed51f29feb10c3987ce9"
     },
     {
+      "path": "extensions.yaml",
+      "sha256": "7da670b743483af8e7e7aa1beca5e9ee2139e6e235043f2635e8dc55136842c4"
+    },
+    {
       "path": "families.yaml",
       "sha256": "75debe47a1e6fc3e7340be50b5f8c11f161c25b3821ab195a0b6cc166d0be6ba"
+    },
+    {
+      "path": "frames.yaml",
+      "sha256": "31bf50bec7ba938cbc401e14f67906c97cb5d33d1788d589b45567cbc6de3f53"
     },
     {
       "path": "ids.yaml",
@@ -46,6 +58,14 @@
       "sha256": "36fda0df963c4bd413bb102b361fc8bc68248ca0a9b16e88717d5bc503171dfe"
     },
     {
+      "path": "protocols.yaml",
+      "sha256": "b36b61b2e29a5755d001682694a6cc52ef395ff231cfa26b3039d4424252ce0e"
+    },
+    {
+      "path": "schemas/automata.schema.json",
+      "sha256": "651e4d3882823ccdc21cf2810be53688d5070d743e69cbd2065da404895f4d1d"
+    },
+    {
       "path": "schemas/compatibility.schema.json",
       "sha256": "309ba3093d3423098765bda8f322e31c4e56db4f9e73da6f0ba3ebed2aa15036"
     },
@@ -55,11 +75,27 @@
     },
     {
       "path": "schemas/event.schema.json",
-      "sha256": "2b1fc1fc7c79cef39de6b7913f88c68735525e41c591cc26d99caaf6d10a0412"
+      "sha256": "ac6b7a078104ebb6dbb676ccc48c2ff1153b31e150f5d76780ba366a23b0ef37"
+    },
+    {
+      "path": "schemas/extensions.schema.json",
+      "sha256": "132fed861e37225d6caa684fe876825d330c8a9e2d05c58ead3e7db8255f4be7"
+    },
+    {
+      "path": "schemas/frames.schema.json",
+      "sha256": "944448bebdff032e2a0fbc8a7fbdb8547f6b069424b4be77a90945615f7014cc"
     },
     {
       "path": "schemas/jsonrpc.schema.json",
       "sha256": "c885d927555d2712fae0833e6f60b8263995507347c6a9a06de6b2b798fedeb5"
+    },
+    {
+      "path": "schemas/pathsend.schema.json",
+      "sha256": "5ded01ee80d8696e58c7feb36d444edb489d4d8274210ecb45ee3d4f06ebb64f"
+    },
+    {
+      "path": "schemas/protocols.schema.json",
+      "sha256": "2cabd7b55baa4288080e10737e1dce0af479e006459f907d480e2550c9608e90"
     },
     {
       "path": "schemas/scope.schema.json",
@@ -68,6 +104,10 @@
     {
       "path": "schemas/sse.schema.json",
       "sha256": "42e060246611f1c0f02d03add30892d5d3b6b16313796e09785001af0f846de7"
+    },
+    {
+      "path": "schemas/tls.schema.json",
+      "sha256": "c66e49f6031a5b857f6b5a3e47080e4fb634bc41352f34a5de4d004124dc4d43"
     },
     {
       "path": "schemas/transport.schema.json",
@@ -88,6 +128,10 @@
     {
       "path": "subevents.yaml",
       "sha256": "b0abf1e13da97fc22a0eb0e64f7990e72abb883051183b92f73164df4c2c42a3"
+    },
+    {
+      "path": "surfaces.yaml",
+      "sha256": "ed9c01e2355e409ebc012503c36f4ef04adaff608ae2ff44011b5fc15d426c1a"
     }
   ]
 }

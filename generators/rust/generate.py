@@ -26,8 +26,10 @@ def main() -> None:
     d = contract_data()
     emit_enum("scope_types", "ScopeType", d["scope_types"])
     emit_enum("bindings", "Binding", list(d["bindings"].keys()))
+    emit_enum("protocols", "Protocol", list(d["protocols"].keys()))
     emit_enum("exchanges", "Exchange", d["exchanges"])
     emit_enum("families", "Family", d["families"])
+    emit_enum("frames", "Frame", list(d["frames"].keys()))
     emit_enum("completion", "EmitCompletionLevel", list(d["completion"]["levels"].keys()))
     # Subevent is string alias to preserve dots
     write(OUT / "subevents.rs", 'pub type Subevent = &' + "'static str;\n")
@@ -49,8 +51,20 @@ def main() -> None:
                 binding_supports_family_arms.append(f'        (Binding::{pascal(b)}, Family::{pascal(fam)}) => true,')
     write(OUT / "validators.rs", f'''use crate::bindings::Binding;\nuse crate::families::Family;\n\npub fn binding_supports_family(binding: Binding, family: Family) -> bool {{\n    match (binding, family) {{\n{chr(10).join(binding_supports_family_arms)}\n        _ => false,\n    }}\n}}\n''')
 
-    write(OUT / "registry.rs", "pub const REQUEST_SUBEVENTS: &[&str] = &[" + ", ".join(json.dumps(s) for s in d["subevents_by_family"]["request"]) + "];\n")
-    write(OUT / "lib.rs", '''pub mod version;\npub mod scope_types;\npub mod bindings;\npub mod exchanges;\npub mod families;\npub mod subevents;\npub mod capabilities;\npub mod completion;\npub mod compatibility;\npub mod ids;\npub mod models;\npub mod scope;\npub mod events;\npub mod validators;\npub mod registry;\n''')
+    protocol_rows = []
+    for protocol, metadata in d["protocols"].items():
+        protocol_rows.append(
+            f'    ("{protocol}", "{metadata["binding"]}", "{metadata["transport"]}", {str(metadata["secure"]).lower()}, "{metadata["scope_type"]}"),'
+        )
+    automata_rows = []
+    for family, automaton in d["automata"].items():
+        for transition in automaton["transitions"]:
+            automata_rows.append(
+                f'    ("{family}", "{transition["from"]}", "{transition["event"]}", "{transition["to"]}"),'
+            )
+    write(OUT / "registry.rs", "pub const REQUEST_SUBEVENTS: &[&str] = &[" + ", ".join(json.dumps(s) for s in d["subevents_by_family"]["request"]) + "];\n\n" + "pub const PROTOCOLS: &[(&str, &str, &str, bool, &str)] = &[\n" + "\n".join(protocol_rows) + "\n];\n\n" + "pub const AUTOMATA_TRANSITIONS: &[(&str, &str, &str, &str)] = &[\n" + "\n".join(automata_rows) + "\n];\n")
+    write(OUT / "lib.rs", '''pub mod version;\npub mod scope_types;\npub mod bindings;\npub mod protocols;\npub mod exchanges;\npub mod families;\npub mod frames;\npub mod subevents;\npub mod capabilities;\npub mod completion;\npub mod compatibility;\npub mod ids;\npub mod models;\npub mod scope;\npub mod events;\npub mod validators;\npub mod registry;\n''')
 
 if __name__ == "__main__":
     main()
+

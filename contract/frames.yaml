@@ -1,0 +1,103 @@
+frames:
+  app:
+    kind: contract-framing
+    binding: webtransport
+  asgi-tls-extension:
+    kind: extension-frame
+    binding: "*"
+  asgi-pathsend-extension:
+    kind: extension-frame
+    binding: http.stream
+  bytes:
+    kind: contract-framing
+    binding: http.stream
+  grpc:
+    kind: contract-framing
+    binding: http.stream
+  http-1-1-message:
+    kind: wire-frame
+    binding: rest
+  http-request-body-chunk:
+    kind: wire-frame
+    binding: http.stream
+  http-response-body-chunk:
+    kind: wire-frame
+    binding: http.stream
+  http-response-start-frame:
+    kind: wire-frame
+    binding: rest
+  json:
+    kind: contract-framing
+    binding: rest
+  jsonrpc:
+    kind: contract-framing
+    binding: jsonrpc
+  json-rpc-request-object:
+    kind: contract-framing
+    binding: jsonrpc
+  json-rpc-response-object:
+    kind: contract-framing
+    binding: jsonrpc
+  json-rpc-notification-object:
+    kind: contract-framing
+    binding: jsonrpc
+  json-rpc-error-object:
+    kind: contract-framing
+    binding: jsonrpc
+  raw:
+    kind: contract-framing
+    binding: websocket
+  sse:
+    kind: contract-framing
+    binding: sse
+  sse-data-field:
+    kind: contract-framing
+    binding: sse
+  sse-event-field:
+    kind: contract-framing
+    binding: sse
+  sse-id-field:
+    kind: contract-framing
+    binding: sse
+  sse-retry-field:
+    kind: contract-framing
+    binding: sse
+  websocket-frame:
+    kind: wire-frame
+    binding: websocket
+  websocket-accept-frame:
+    kind: wire-frame
+    binding: websocket
+  websocket-close-frame:
+    kind: wire-frame
+    binding: websocket
+  websocket-continuation-frame:
+    kind: wire-frame
+    binding: websocket
+  websocket-disconnect-frame:
+    kind: wire-frame
+    binding: websocket
+  websocket-ping-frame:
+    kind: wire-frame
+    binding: websocket
+  websocket-pong-frame:
+    kind: wire-frame
+    binding: websocket
+  websocket-receive-bytes:
+    kind: wire-frame
+    binding: websocket
+  websocket-receive-text:
+    kind: wire-frame
+    binding: websocket
+  websocket-send-bytes:
+    kind: wire-frame
+    binding: websocket
+  websocket-send-text:
+    kind: wire-frame
+    binding: websocket
+  webtransport-datagram-frame:
+    kind: wire-frame
+    binding: webtransport
+  webtransport-stream-frame:
+    kind: wire-frame
+    binding: webtransport

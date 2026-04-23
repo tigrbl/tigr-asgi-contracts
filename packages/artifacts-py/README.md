@@ -6,50 +6,61 @@ Canonical Python artifact package for the Tigr ASGI contract. This package ships
 
 | Ecosystem | Package | Version | Path | Surface files | Notes |
 | --- | --- | --- | --- | --- | --- |
-| python | **`tigr-asgi-contract-artifacts`** | `0.1.2` | `packages/artifacts-py` | 1 | Vendored file accessors |
-| npm | `@tigrbljs/tigr-asgi-contract-artifacts` | `0.1.2` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
-| rust | `tigr_asgi_contract_artifacts_rs` | `0.1.2` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
+| python | **`tigr-asgi-contract-artifacts`** | `0.3.0` | `packages/artifacts-py` | 1 | Vendored file accessors |
+| npm | `@tigrbljs/tigr-asgi-contract-artifacts` | `0.3.0` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
+| rust | `tigr_asgi_contract_artifacts_rs` | `0.3.0` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
 
 ## Artifact Inventory Matrix
 
 | Artifact path | Category | SHA-256 |
 | --- | --- | --- |
+| `automata.yaml` | registry | `5fb86aa93259` |
 | `bindings.yaml` | registry | `fa1438b1363b` |
 | `capabilities.yaml` | registry | `389e6a905497` |
-| `compatibility.yaml` | registry | `7f79f950b450` |
+| `compatibility.yaml` | registry | `d90c5c30ab2c` |
 | `completion.yaml` | registry | `036f6b37c6bc` |
 | `exchanges.yaml` | registry | `6c7f8728836f` |
+| `extensions.yaml` | registry | `7da670b74348` |
 | `families.yaml` | registry | `75debe47a1e6` |
+| `frames.yaml` | registry | `31bf50bec7ba` |
 | `ids.yaml` | registry | `aec52c6b3ef7` |
 | `legality/binding_family.yaml` | legality | `d73cf6ef3095` |
 | `legality/binding_subevent.yaml` | legality | `d6935ac0f993` |
 | `legality/family_subevent.yaml` | legality | `36fda0df963c` |
+| `protocols.yaml` | registry | `b36b61b2e29a` |
+| `schemas/automata.schema.json` | schema | `651e4d388282` |
 | `schemas/compatibility.schema.json` | schema | `309ba3093d34` |
 | `schemas/completion.schema.json` | schema | `26e6082df0cd` |
-| `schemas/event.schema.json` | schema | `2b1fc1fc7c79` |
+| `schemas/event.schema.json` | schema | `ac6b7a078104` |
+| `schemas/extensions.schema.json` | schema | `132fed861e37` |
+| `schemas/frames.schema.json` | schema | `944448bebdff` |
 | `schemas/jsonrpc.schema.json` | schema | `c885d927555d` |
+| `schemas/pathsend.schema.json` | schema | `5ded01ee80d8` |
+| `schemas/protocols.schema.json` | schema | `2cabd7b55baa` |
 | `schemas/scope.schema.json` | schema | `2698752580f8` |
 | `schemas/sse.schema.json` | schema | `42e060246611` |
+| `schemas/tls.schema.json` | schema | `c66e49f6031a` |
 | `schemas/transport.schema.json` | schema | `865875cec84c` |
 | `schemas/websocket.schema.json` | schema | `b4e38fad362c` |
 | `schemas/webtransport.schema.json` | schema | `e6f9300bfe82` |
 | `scope_types.yaml` | registry | `620b4d20180e` |
 | `subevents.yaml` | registry | `b0abf1e13da9` |
+| `surfaces.yaml` | registry | `6b499a6d6a91` |
 
 ## Release Matrix
 
 | Field | Value |
 | --- | --- |
 | Contract name | `tigr-asgi-contract` |
-| Contract version | `0.1.2` |
-| Artifact version | `0.1.2` |
+| Contract version | `0.3.0` |
+| Artifact version | `0.3.0` |
 | Serde version | `1` |
 | Schema draft | `2020-12` |
 | Bindings | 6 |
 | Families | 5 |
 | Subevents | 42 |
 | Scope types | 4 |
-| Event types | 25 |
+| Event types | 26 |
 
 ## Scope Type Matrix
 
@@ -76,7 +87,7 @@ Canonical Python artifact package for the Tigr ASGI contract. This package ships
 | Compatibility field | Value | Meaning | Source |
 | --- | --- | --- | --- |
 | `contract_name` | `tigr-asgi-contract` | Canonical contract identifier | `contract/compatibility.yaml` |
-| `contract_version` | `0.1.0` | Published contract version | `contract/compatibility.yaml` |
+| `contract_version` | `0.1.2` | Published contract version | `contract/compatibility.yaml` |
 | `serde_version` | `1` | Serialization surface version | `contract/compatibility.yaml` |
 | `schema_draft` | `2020-12` | JSON Schema draft level | `contract/compatibility.yaml` |
 
@@ -95,6 +106,7 @@ Canonical Python artifact package for the Tigr ASGI contract. This package ships
 | `http.disconnect` | `http` | `http.stream`, `jsonrpc`, `rest`, `sse` | `request.disconnect`, `stream.abort` | HTTP connection closed by peer or server |
 | `http.response.start` | `http` | `http.stream`, `jsonrpc`, `rest`, `sse` | `response.open`, `stream.open` | HTTP response metadata start |
 | `http.response.body` | `http` | `http.stream`, `jsonrpc`, `rest`, `sse` | `message.out`, `message.replay`, `message.snapshot`, `response.body_out`, `response.chunk_out`, `response.close`, `stream.chunk_out`, `stream.close`, `stream.finalize`, `stream.flush` | HTTP response body frame |
+| `http.response.pathsend` | `http` | `http.stream`, `jsonrpc`, `rest`, `sse` | - |  |
 | `websocket.connect` | `websocket` | `websocket` | `session.open` | WebSocket connection open event |
 | `websocket.receive` | `websocket` | `websocket` | `message.decode`, `message.handle`, `message.in` | Inbound WebSocket frame |
 | `websocket.disconnect` | `websocket` | `websocket` | `session.disconnect` | WebSocket disconnect signal |

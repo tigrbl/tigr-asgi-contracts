@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tigr.dev/asgi-contract/schemas/pathsend.schema.json",
+  "title": "ASGI pathsend event",
+  "type": "object",
+  "required": ["type", "path"],
+  "properties": {
+    "type": {
+      "const": "http.response.pathsend"
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stat_result": {
+      "type": "object"
+    },
+    "headers": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "prefixItems": [
+          { "type": "string" },
+          { "type": "string" }
+        ],
+        "minItems": 2,
+        "maxItems": 2
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -10,6 +10,8 @@ pub enum TransportEventType {
     HttpResponseStart,
     #[serde(rename = "http.response.body")]
     HttpResponseBody,
+    #[serde(rename = "http.response.pathsend")]
+    HttpResponsePathsend,
     #[serde(rename = "websocket.connect")]
     WebsocketConnect,
     #[serde(rename = "websocket.receive")]
