@@ -6,9 +6,9 @@ Canonical Rust artifact crate for the Tigr ASGI contract. This package ships the
 
 | Ecosystem | Package | Version | Path | Surface files | Notes |
 | --- | --- | --- | --- | --- | --- |
-| python | `tigr-asgi-contract-artifacts` | `0.3.0` | `packages/artifacts-py` | 1 | Vendored file accessors |
-| npm | `@tigrbljs/tigr-asgi-contract-artifacts` | `0.3.0` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
-| rust | **`tigr_asgi_contract_artifacts_rs`** | `0.3.0` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
+| python | `tigr-asgi-contract-artifacts` | `0.3.1-dev1` | `packages/artifacts-py` | 1 | Vendored file accessors |
+| npm | `@tigrbljs/tigr-asgi-contract-artifacts` | `0.3.1-dev1` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
+| rust | **`tigr_asgi_contract_artifacts_rs`** | `0.3.1-dev1` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
 
 ## Artifact Inventory Matrix
 
@@ -45,15 +45,15 @@ Canonical Rust artifact crate for the Tigr ASGI contract. This package ships the
 | `schemas/webtransport.schema.json` | schema | `e6f9300bfe82` |
 | `scope_types.yaml` | registry | `620b4d20180e` |
 | `subevents.yaml` | registry | `b0abf1e13da9` |
-| `surfaces.yaml` | registry | `6b499a6d6a91` |
+| `surfaces.yaml` | registry | `ed9c01e2355e` |
 
 ## Release Matrix
 
 | Field | Value |
 | --- | --- |
 | Contract name | `tigr-asgi-contract` |
-| Contract version | `0.3.0` |
-| Artifact version | `0.3.0` |
+| Contract version | `0.3.1-dev1` |
+| Artifact version | `0.3.1-dev1` |
 | Serde version | `1` |
 | Schema draft | `2020-12` |
 | Bindings | 6 |
