@@ -6,9 +6,9 @@ Generated TypeScript and TSX contract package for the Tigr ASGI contract. It is 
 
 | Ecosystem | Package | Version | Path | Surface files | Notes |
 | --- | --- | --- | --- | --- | --- |
-| python | `tigr-asgi-contract` | `0.3.1` | `packages/contract-py` | 18 | Enums, models, validators |
-| npm | **`@tigrbljs/tigr-asgi-contract`** | `0.3.1` | `packages/contract-npm` | 20 | TypeScript and TSX surfaces |
-| rust | `tigr_asgi_contract_rs` | `0.3.1` | `packages/contract-rs` | 17 | Serde-friendly contract surfaces |
+| python | `tigr-asgi-contract` | `0.3.2-dev1` | `packages/contract-py` | 18 | Enums, models, validators |
+| npm | **`@tigrbljs/tigr-asgi-contract`** | `0.3.2-dev1` | `packages/contract-npm` | 20 | TypeScript and TSX surfaces |
+| rust | `tigr_asgi_contract_rs` | `0.3.2-dev1` | `packages/contract-rs` | 17 | Serde-friendly contract surfaces |
 
 ## Generated Surface Matrix
 
@@ -40,8 +40,8 @@ Generated TypeScript and TSX contract package for the Tigr ASGI contract. It is 
 | Field | Value |
 | --- | --- |
 | Contract name | `tigr-asgi-contract` |
-| Contract version | `0.3.1` |
-| Artifact version | `0.3.1` |
+| Contract version | `0.3.2-dev1` |
+| Artifact version | `0.3.2-dev1` |
 | Serde version | `1` |
 | Schema draft | `2020-12` |
 | Bindings | 6 |
