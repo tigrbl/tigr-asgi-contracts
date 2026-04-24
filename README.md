@@ -6,25 +6,25 @@
 
 | Ecosystem | Package | Version | Path | Surface files | Notes |
 | --- | --- | --- | --- | --- | --- |
-| python | `tigr-asgi-contract-artifacts` | `0.3.1-dev1` | `packages/artifacts-py` | 1 | Vendored file accessors |
-| npm | `@tigrbljs/tigr-asgi-contract-artifacts` | `0.3.1-dev1` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
-| rust | `tigr_asgi_contract_artifacts_rs` | `0.3.1-dev1` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
+| python | `tigr-asgi-contract-artifacts` | `0.3.1` | `packages/artifacts-py` | 1 | Vendored file accessors |
+| npm | `@tigrbljs/tigr-asgi-contract-artifacts` | `0.3.1` | `packages/artifacts-npm` | 4 | Packaged artifact exports |
+| rust | `tigr_asgi_contract_artifacts_rs` | `0.3.1` | `packages/artifacts-rs` | 1 | Embedded artifact accessors |
 
 ## Contract Package Matrix
 
 | Ecosystem | Package | Version | Path | Surface files | Notes |
 | --- | --- | --- | --- | --- | --- |
-| python | `tigr-asgi-contract` | `0.3.1-dev1` | `packages/contract-py` | 18 | Enums, models, validators |
-| npm | `@tigrbljs/tigr-asgi-contract` | `0.3.1-dev1` | `packages/contract-npm` | 20 | TypeScript and TSX surfaces |
-| rust | `tigr_asgi_contract_rs` | `0.3.1-dev1` | `packages/contract-rs` | 17 | Serde-friendly contract surfaces |
+| python | `tigr-asgi-contract` | `0.3.1` | `packages/contract-py` | 18 | Enums, models, validators |
+| npm | `@tigrbljs/tigr-asgi-contract` | `0.3.1` | `packages/contract-npm` | 20 | TypeScript and TSX surfaces |
+| rust | `tigr_asgi_contract_rs` | `0.3.1` | `packages/contract-rs` | 17 | Serde-friendly contract surfaces |
 
 ## Release Matrix
 
 | Field | Value |
 | --- | --- |
 | Contract name | `tigr-asgi-contract` |
-| Contract version | `0.3.1-dev1` |
-| Artifact version | `0.3.1-dev1` |
+| Contract version | `0.3.1` |
+| Artifact version | `0.3.1` |
 | Serde version | `1` |
 | Schema draft | `2020-12` |
 | Bindings | 6 |
