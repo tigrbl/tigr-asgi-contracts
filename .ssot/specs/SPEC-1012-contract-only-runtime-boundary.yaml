@@ -32,3 +32,4 @@ body: |-
   
   Contract rows and tests must not claim downstream runtime behavior unless a future accepted ADR and SPEC expand this repository's scope.
 spec_kind: "normative"
+adr_ids: []

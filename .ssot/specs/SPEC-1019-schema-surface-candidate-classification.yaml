@@ -8,7 +8,7 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "This specification defines how normalized schema candidates are classified before SSOT feature promotion."
+summary: "This specification governs normalized feature candidates whose surface key is `schema:<schema_path>`."
 supersedes: []
 superseded_by: []
 status_notes: []
@@ -36,3 +36,4 @@ body: |-
   
   A promoted schema candidate must preserve its source schema path and must not collapse proposed extension paths into existing root schema features without an explicit supersession decision.
 spec_kind: "normative"
+adr_ids: []

@@ -30,3 +30,4 @@ body: |-
   
   Runtime evidence rows must identify the runtime source when evidence is runtime-derived. Adding another runtime to the named set requires a future accepted decision.
 spec_kind: "governance"
+adr_ids: []

@@ -32,3 +32,4 @@ body: |-
   
   Publish claims must link to workflow-backed evidence showing verification commands, promoted artifact provenance, registry target, and result.
 spec_kind: "operational"
+adr_ids: []

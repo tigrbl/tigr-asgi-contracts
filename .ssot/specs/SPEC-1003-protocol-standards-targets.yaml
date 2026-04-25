@@ -28,3 +28,4 @@ body: |-
   
   WebTransport target features cover W3C WebTransport API shape, WebTransport over HTTP/3, QUIC, and HTTP Datagrams/Capsule behavior.
 spec_kind: "normative"
+adr_ids: []

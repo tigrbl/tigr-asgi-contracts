@@ -30,3 +30,4 @@ body: |-
   
   Profile membership must be expressed through SSOT profile feature links or nested profile links. Boundaries and releases may reference these profiles after they exist.
 spec_kind: "normative"
+adr_ids: []

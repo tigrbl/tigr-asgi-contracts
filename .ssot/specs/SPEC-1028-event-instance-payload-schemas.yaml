@@ -37,3 +37,4 @@ body: |-
   
   Codegen parity tests must prove that generated languages expose the same event payload surface and preserve schema-required fields.
 spec_kind: "normative"
+adr_ids: []

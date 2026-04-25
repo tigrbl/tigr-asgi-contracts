@@ -8,7 +8,7 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "This specification defines how transport, security, discovery, and HTTP-adjacent concerns are classified before feature promotion."
+summary: "This specification governs normalized `concern:<concern>` candidates for transport, security, discovery, and HTTP-adjacent surfaces."
 supersedes: []
 superseded_by: []
 status_notes: []
@@ -33,3 +33,4 @@ body: |-
   
   Promotion must not merge distinct concerns into a generic transport-extension feature and must not create new ASGI scope types without another accepted decision.
 spec_kind: "normative"
+adr_ids: []

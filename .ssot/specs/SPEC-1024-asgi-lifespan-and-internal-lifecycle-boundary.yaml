@@ -8,7 +8,7 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "This specification separates ASGI-facing lifespan event surfaces from internal lifecycle classification rows."
+summary: "This specification governs ASGI lifespan event candidates and internal `lifecycle.*` classification candidates."
 supersedes: []
 superseded_by: []
 status_notes: []
@@ -35,3 +35,4 @@ body: |-
   
   Promotion must distinguish ASGI lifespan event candidates from internal lifecycle candidates and must not use internal lifecycle candidates to claim runtime lifecycle behavior.
 spec_kind: "normative"
+adr_ids: []

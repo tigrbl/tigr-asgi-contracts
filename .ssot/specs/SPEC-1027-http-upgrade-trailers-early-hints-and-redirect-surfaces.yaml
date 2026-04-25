@@ -8,7 +8,7 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "This specification classifies HTTP trailers, early hints, redirects, and upgrades as contract metadata surfaces while keeping runtime behavior downstream."
+summary: "This specification governs HTTP-adjacent candidates for trailers, early hints, redirects, and upgrades."
 supersedes: []
 superseded_by: []
 status_notes: []
@@ -34,3 +34,4 @@ body: |-
   
   Promoted HTTP-adjacent candidates must preserve the distinction between metadata/schema surfaces and runtime behavior.
 spec_kind: "normative"
+adr_ids: []

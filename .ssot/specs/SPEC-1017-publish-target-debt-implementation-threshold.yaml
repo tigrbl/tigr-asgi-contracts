@@ -32,3 +32,4 @@ body: |-
   
   Publish target implementation requires evidence that the registry publish path used promoted artifacts and strict verification.
 spec_kind: "operational"
+adr_ids: []

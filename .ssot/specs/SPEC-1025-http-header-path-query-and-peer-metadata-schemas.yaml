@@ -8,7 +8,7 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "This specification defines core ASGI HTTP metadata schema candidates for headers, path fields, query strings, peers, and scope metadata."
+summary: "This specification governs schema candidates for ASGI header, path, query, peer, and scope metadata surfaces."
 supersedes: []
 superseded_by: []
 status_notes: []
@@ -34,3 +34,4 @@ body: |-
   
   Promoted metadata schemas must preserve ASGI field distinctions and must not collapse ordered byte-pair headers into normalized string maps.
 spec_kind: "normative"
+adr_ids: []

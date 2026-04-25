@@ -35,3 +35,4 @@ body: |-
   
   Generated docs that project compatibility metadata must be regenerated after compatibility version changes.
 spec_kind: "governance"
+adr_ids: []

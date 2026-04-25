@@ -8,7 +8,7 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "This specification defines proxy forwarding and peer provenance metadata surfaces without governing runtime trust or rewrite behavior."
+summary: "This specification governs proxy forwarding and peer trust metadata candidates."
 supersedes: []
 superseded_by: []
 status_notes: []
@@ -32,3 +32,4 @@ body: |-
   
   Promoted proxy metadata candidates must not overwrite canonical ASGI peer fields or imply trusted-proxy runtime behavior.
 spec_kind: "normative"
+adr_ids: []

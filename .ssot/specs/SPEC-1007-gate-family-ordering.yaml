@@ -26,3 +26,4 @@ body: |-
   
   Each gate family may have independent claims, tests, and evidence.
 spec_kind: "governance"
+adr_ids: []

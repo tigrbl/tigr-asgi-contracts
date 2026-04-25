@@ -41,3 +41,4 @@ body: |-
   
   Cross-language parity must prove the same validator decisions for the same event sequence fixtures.
 spec_kind: "normative"
+adr_ids: []

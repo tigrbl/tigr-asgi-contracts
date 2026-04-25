@@ -30,3 +30,4 @@ body: |-
   
   External evidence rows must identify the suite, target, version or commit where available, artifact location, and linked feature or claim.
 spec_kind: "governance"
+adr_ids: []

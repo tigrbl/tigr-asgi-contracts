@@ -34,3 +34,4 @@ body: |-
   
   JSON, canonical JSON, duplicate-key, and JSON-RPC claims must link to schema, generated code, fixture, evidence, or package tests that match this contract-only scope.
 spec_kind: "normative"
+adr_ids: []

@@ -24,3 +24,4 @@ body: |-
   
   TSX and UI parity are out of current scope unless introduced later as explicit target features.
 spec_kind: "normative"
+adr_ids: []

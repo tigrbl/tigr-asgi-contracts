@@ -32,3 +32,4 @@ body: |-
   
   Leaf rows should not be created solely for untestable prose. They must support concrete tests, evidence, or package checks before promotion.
 spec_kind: "normative"
+adr_ids: []

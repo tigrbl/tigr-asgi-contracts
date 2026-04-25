@@ -32,3 +32,4 @@ body: |-
   
   Node ecosystem parity evidence must target generated TypeScript/npm contract artifacts, not TSX UI helpers.
 spec_kind: "normative"
+adr_ids: []

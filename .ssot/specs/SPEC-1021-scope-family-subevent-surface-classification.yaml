@@ -8,7 +8,7 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "This specification defines how scope, family, and subevent matrix candidates preserve legality facts before feature promotion."
+summary: "This specification governs normalized feature candidates whose surface key is `scope:<scope_type>|family:<family>|subevent:<subevent>`."
 supersedes: []
 superseded_by: []
 status_notes: []
@@ -36,3 +36,4 @@ body: |-
   
   A promoted scope/family/subevent candidate must retain its legality columns and must not discard `O` or `D` facts when deriving implementation status or planning horizon.
 spec_kind: "normative"
+adr_ids: []

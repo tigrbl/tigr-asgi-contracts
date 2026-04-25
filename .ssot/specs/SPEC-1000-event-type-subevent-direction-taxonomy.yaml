@@ -38,3 +38,4 @@ body: |-
   
   Taxonomy changes must be reflected in SSOT rows, generated matrices, or generated contract outputs before they can be claimed as implemented.
 spec_kind: "normative"
+adr_ids: []

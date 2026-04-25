@@ -26,3 +26,4 @@ body: |-
   
   Protocol targets may depend on the ASGI3 profile or the relevant ASGI facet targets.
 spec_kind: "normative"
+adr_ids: []

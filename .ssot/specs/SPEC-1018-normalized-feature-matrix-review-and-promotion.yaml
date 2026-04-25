@@ -8,7 +8,7 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "This specification defines the review and promotion contract for normalized feature matrix candidates."
+summary: "This specification governs review and promotion from `reports/normalized_master_feature_matrix.xlsx`."
 supersedes: []
 superseded_by: []
 status_notes: []
@@ -40,3 +40,4 @@ body: |-
   
   A promotion pass must name the candidate rows it promotes. Bulk promotion of all workbook candidates is forbidden unless a later decision explicitly authorizes it.
 spec_kind: "normative"
+adr_ids: []

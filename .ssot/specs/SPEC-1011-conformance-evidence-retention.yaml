@@ -30,3 +30,4 @@ body: |-
   
   Promotion and release review must be able to compare retained SHA-256 hashes rather than relying on mutable workspace state.
 spec_kind: "governance"
+adr_ids: []

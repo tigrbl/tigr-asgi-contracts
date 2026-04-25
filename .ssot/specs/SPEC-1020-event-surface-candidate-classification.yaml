@@ -8,7 +8,7 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "This specification defines how concrete event type and event schema candidates are classified before SSOT feature promotion."
+summary: "This specification governs normalized feature candidates whose surface key is `event:<transport_event_type>` or `event:<schema_path>`."
 supersedes: []
 superseded_by: []
 status_notes: []
@@ -37,3 +37,4 @@ body: |-
   
   A promoted event candidate must preserve its concrete event type or event schema path and must not infer subevent semantics from event type alone.
 spec_kind: "normative"
+adr_ids: []

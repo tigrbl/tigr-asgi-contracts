@@ -32,3 +32,4 @@ body: |-
   
   Contract changes start in canonical contract files and are propagated through generation. SSOT governance changes start in SSOT documents or entities through SSOT tooling.
 spec_kind: "normative"
+adr_ids: []

@@ -8,7 +8,7 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "This specification defines how named frame and framing surfaces are classified without implying runtime protocol handling."
+summary: "This specification governs normalized `frame:<frame_or_framing_name>` candidates."
 supersedes: []
 superseded_by: []
 status_notes: []
@@ -36,3 +36,4 @@ body: |-
   
   A promoted frame candidate must identify whether it is a wire frame, contract framing surface, or evidence-only candidate.
 spec_kind: "normative"
+adr_ids: []

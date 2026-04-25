@@ -26,3 +26,4 @@ body: |-
   
   Future first-class target entities must preserve or migrate existing feature rows.
 spec_kind: "normative"
+adr_ids: []
