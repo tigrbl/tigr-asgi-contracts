@@ -14,7 +14,7 @@ Canonical Python artifact package for the Tigr ASGI contract. This package ships
 
 | Artifact path | Category | SHA-256 |
 | --- | --- | --- |
-| `automata.yaml` | registry | `5fb86aa93259` |
+| `automata.yaml` | registry | `5b3c1b757abb` |
 | `bindings.yaml` | registry | `fa1438b1363b` |
 | `capabilities.yaml` | registry | `389e6a905497` |
 | `compatibility.yaml` | registry | `d90c5c30ab2c` |
@@ -25,8 +25,8 @@ Canonical Python artifact package for the Tigr ASGI contract. This package ships
 | `frames.yaml` | registry | `31bf50bec7ba` |
 | `ids.yaml` | registry | `aec52c6b3ef7` |
 | `legality/binding_family.yaml` | legality | `d73cf6ef3095` |
-| `legality/binding_subevent.yaml` | legality | `d6935ac0f993` |
-| `legality/family_subevent.yaml` | legality | `36fda0df963c` |
+| `legality/binding_subevent.yaml` | legality | `a1948bc9ca03` |
+| `legality/family_subevent.yaml` | legality | `5f58c275423e` |
 | `protocols.yaml` | registry | `b36b61b2e29a` |
 | `schemas/automata.schema.json` | schema | `651e4d388282` |
 | `schemas/compatibility.schema.json` | schema | `309ba3093d34` |
@@ -44,7 +44,7 @@ Canonical Python artifact package for the Tigr ASGI contract. This package ships
 | `schemas/websocket.schema.json` | schema | `b4e38fad362c` |
 | `schemas/webtransport.schema.json` | schema | `e6f9300bfe82` |
 | `scope_types.yaml` | registry | `620b4d20180e` |
-| `subevents.yaml` | registry | `b0abf1e13da9` |
+| `subevents.yaml` | registry | `cb69af786d46` |
 | `surfaces.yaml` | registry | `ed9c01e2355e` |
 
 ## Release Matrix
@@ -58,7 +58,7 @@ Canonical Python artifact package for the Tigr ASGI contract. This package ships
 | Schema draft | `2020-12` |
 | Bindings | 6 |
 | Families | 5 |
-| Subevents | 42 |
+| Subevents | 41 |
 | Scope types | 4 |
 | Event types | 26 |
 
@@ -120,7 +120,7 @@ Canonical Python artifact package for the Tigr ASGI contract. This package ships
 | `webtransport.datagram.receive` | `webtransport` | `webtransport` | `datagram.handle`, `datagram.in`, `message.decode`, `message.handle`, `message.in` | Inbound WebTransport datagram |
 | `webtransport.datagram.send` | `webtransport` | `webtransport` | `datagram.ack`, `datagram.out`, `message.ack`, `message.nack` | Outbound WebTransport datagram |
 | `webtransport.disconnect` | `webtransport` | `webtransport` | `session.disconnect` | WebTransport disconnect signal |
-| `webtransport.close` | `webtransport` | `webtransport` | `datagram.close`, `session.close`, `stream.abort`, `stream.close` | WebTransport close event |
+| `webtransport.close` | `webtransport` | `webtransport` | `session.close`, `stream.abort`, `stream.close` | WebTransport close event |
 | `lifespan.startup` | `http, websocket, webtransport` | - | - |  |
 | `lifespan.startup.complete` | `http, websocket, webtransport` | - | - |  |
 | `lifespan.startup.failed` | `http, websocket, webtransport` | - | - |  |
@@ -137,7 +137,7 @@ Canonical Python artifact package for the Tigr ASGI contract. This package ships
 | `session` | 8 | `sse`, `websocket`, `webtransport` | - | `session.open`, `session.accept`, `session.ready`, `session.heartbeat`, `session.sync`, `session.close`, `session.disconnect`, `session.emit_complete` |
 | `message` | 9 | `sse`, `websocket` | `webtransport` | `message.in`, `message.decode`, `message.handle`, `message.out`, `message.ack`, `message.nack`, `message.replay`, `message.snapshot`, `message.emit_complete` |
 | `stream` | 8 | `http.stream`, `sse`, `webtransport` | `rest`, `jsonrpc` | `stream.open`, `stream.chunk_in`, `stream.chunk_out`, `stream.flush`, `stream.finalize`, `stream.abort`, `stream.close`, `stream.emit_complete` |
-| `datagram` | 6 | `webtransport` | - | `datagram.in`, `datagram.handle`, `datagram.out`, `datagram.ack`, `datagram.close`, `datagram.emit_complete` |
+| `datagram` | 5 | `webtransport` | - | `datagram.in`, `datagram.handle`, `datagram.out`, `datagram.ack`, `datagram.emit_complete` |
 
 ## Subevent Matrix
 
@@ -183,7 +183,6 @@ Canonical Python artifact package for the Tigr ASGI contract. This package ships
 | `datagram.handle` | `datagram` | `R` required | `webtransport` | - | - | `webtransport.datagram.receive` |
 | `datagram.out` | `datagram` | `R` required | `webtransport` | - | - | `webtransport.datagram.send` |
 | `datagram.ack` | `datagram` | `R` required | - | `webtransport` | - | `webtransport.datagram.send` |
-| `datagram.close` | `datagram` | `R` required | `webtransport` | - | - | `webtransport.close` |
 | `datagram.emit_complete` | `datagram` | `R` required | `webtransport` | - | - | `transport.emit.complete` |
 
 ## Binding Subevent Matrix
@@ -232,7 +231,6 @@ Every row is a concrete `binding x subevent` record sourced from the legality re
 | `rest` | `http.rest`, `https.rest` | `unary` | `http` | `transport`, `family_capabilities` | `http.request`, `http.disconnect`, `http.response.start`, `http.response.body`, `transport.emit.complete` | `request` | `stream` | `datagram.handle` | `datagram` | `R` required | `F` forbidden | `webtransport.datagram.receive` |
 | `rest` | `http.rest`, `https.rest` | `unary` | `http` | `transport`, `family_capabilities` | `http.request`, `http.disconnect`, `http.response.start`, `http.response.body`, `transport.emit.complete` | `request` | `stream` | `datagram.out` | `datagram` | `R` required | `F` forbidden | `webtransport.datagram.send` |
 | `rest` | `http.rest`, `https.rest` | `unary` | `http` | `transport`, `family_capabilities` | `http.request`, `http.disconnect`, `http.response.start`, `http.response.body`, `transport.emit.complete` | `request` | `stream` | `datagram.ack` | `datagram` | `R` required | `F` forbidden | `webtransport.datagram.send` |
-| `rest` | `http.rest`, `https.rest` | `unary` | `http` | `transport`, `family_capabilities` | `http.request`, `http.disconnect`, `http.response.start`, `http.response.body`, `transport.emit.complete` | `request` | `stream` | `datagram.close` | `datagram` | `R` required | `F` forbidden | `webtransport.close` |
 | `rest` | `http.rest`, `https.rest` | `unary` | `http` | `transport`, `family_capabilities` | `http.request`, `http.disconnect`, `http.response.start`, `http.response.body`, `transport.emit.complete` | `request` | `stream` | `datagram.emit_complete` | `datagram` | `R` required | `F` forbidden | `transport.emit.complete` |
 | `jsonrpc` | `http.jsonrpc`, `https.jsonrpc` | `unary` | `http` | `transport`, `family_capabilities` | `http.request`, `http.disconnect`, `http.response.start`, `http.response.body`, `transport.emit.complete` | `request` | `stream` | `request.open` | `request` | `R` required | `R` required | `http.request` |
 | `jsonrpc` | `http.jsonrpc`, `https.jsonrpc` | `unary` | `http` | `transport`, `family_capabilities` | `http.request`, `http.disconnect`, `http.response.start`, `http.response.body`, `transport.emit.complete` | `request` | `stream` | `request.body_in` | `request` | `R` required | `R` required | `http.request` |
@@ -274,7 +272,6 @@ Every row is a concrete `binding x subevent` record sourced from the legality re
 | `jsonrpc` | `http.jsonrpc`, `https.jsonrpc` | `unary` | `http` | `transport`, `family_capabilities` | `http.request`, `http.disconnect`, `http.response.start`, `http.response.body`, `transport.emit.complete` | `request` | `stream` | `datagram.handle` | `datagram` | `R` required | `F` forbidden | `webtransport.datagram.receive` |
 | `jsonrpc` | `http.jsonrpc`, `https.jsonrpc` | `unary` | `http` | `transport`, `family_capabilities` | `http.request`, `http.disconnect`, `http.response.start`, `http.response.body`, `transport.emit.complete` | `request` | `stream` | `datagram.out` | `datagram` | `R` required | `F` forbidden | `webtransport.datagram.send` |
 | `jsonrpc` | `http.jsonrpc`, `https.jsonrpc` | `unary` | `http` | `transport`, `family_capabilities` | `http.request`, `http.disconnect`, `http.response.start`, `http.response.body`, `transport.emit.complete` | `request` | `stream` | `datagram.ack` | `datagram` | `R` required | `F` forbidden | `webtransport.datagram.send` |
-| `jsonrpc` | `http.jsonrpc`, `https.jsonrpc` | `unary` | `http` | `transport`, `family_capabilities` | `http.request`, `http.disconnect`, `http.response.start`, `http.response.body`, `transport.emit.complete` | `request` | `stream` | `datagram.close` | `datagram` | `R` required | `F` forbidden | `webtransport.close` |
 | `jsonrpc` | `http.jsonrpc`, `https.jsonrpc` | `unary` | `http` | `transport`, `family_capabilities` | `http.request`, `http.disconnect`, `http.response.start`, `http.response.body`, `transport.emit.complete` | `request` | `stream` | `datagram.emit_complete` | `datagram` | `R` required | `F` forbidden | `transport.emit.complete` |
 | `http.stream` | `http.stream`, `https.stream` | `server_stream` | `http` | `transport`, `family_capabilities` | `http.request`, `http.disconnect`, `http.response.start`, `http.response.body`, `transport.emit.complete` | `request`, `stream` | - | `request.open` | `request` | `R` required | `R` required | `http.request` |
 | `http.stream` | `http.stream`, `https.stream` | `server_stream` | `http` | `transport`, `family_capabilities` | `http.request`, `http.disconnect`, `http.response.start`, `http.response.body`, `transport.emit.complete` | `request`, `stream` | - | `request.body_in` | `request` | `R` required | `O` optional | `http.request` |
@@ -316,7 +313,6 @@ Every row is a concrete `binding x subevent` record sourced from the legality re
 | `http.stream` | `http.stream`, `https.stream` | `server_stream` | `http` | `transport`, `family_capabilities` | `http.request`, `http.disconnect`, `http.response.start`, `http.response.body`, `transport.emit.complete` | `request`, `stream` | - | `datagram.handle` | `datagram` | `R` required | `F` forbidden | `webtransport.datagram.receive` |
 | `http.stream` | `http.stream`, `https.stream` | `server_stream` | `http` | `transport`, `family_capabilities` | `http.request`, `http.disconnect`, `http.response.start`, `http.response.body`, `transport.emit.complete` | `request`, `stream` | - | `datagram.out` | `datagram` | `R` required | `F` forbidden | `webtransport.datagram.send` |
 | `http.stream` | `http.stream`, `https.stream` | `server_stream` | `http` | `transport`, `family_capabilities` | `http.request`, `http.disconnect`, `http.response.start`, `http.response.body`, `transport.emit.complete` | `request`, `stream` | - | `datagram.ack` | `datagram` | `R` required | `F` forbidden | `webtransport.datagram.send` |
-| `http.stream` | `http.stream`, `https.stream` | `server_stream` | `http` | `transport`, `family_capabilities` | `http.request`, `http.disconnect`, `http.response.start`, `http.response.body`, `transport.emit.complete` | `request`, `stream` | - | `datagram.close` | `datagram` | `R` required | `F` forbidden | `webtransport.close` |
 | `http.stream` | `http.stream`, `https.stream` | `server_stream` | `http` | `transport`, `family_capabilities` | `http.request`, `http.disconnect`, `http.response.start`, `http.response.body`, `transport.emit.complete` | `request`, `stream` | - | `datagram.emit_complete` | `datagram` | `R` required | `F` forbidden | `transport.emit.complete` |
 | `sse` | `http.sse`, `https.sse` | `server_stream` | `http` | `transport`, `family_capabilities`, `sse` | `http.disconnect`, `http.request`, `http.response.body`, `http.response.start`, `transport.emit.complete` | `request`, `session`, `message`, `stream` | - | `request.open` | `request` | `R` required | `R` required | `http.request` |
 | `sse` | `http.sse`, `https.sse` | `server_stream` | `http` | `transport`, `family_capabilities`, `sse` | `http.disconnect`, `http.request`, `http.response.body`, `http.response.start`, `transport.emit.complete` | `request`, `session`, `message`, `stream` | - | `request.body_in` | `request` | `R` required | `O` optional | `http.request` |
@@ -358,7 +354,6 @@ Every row is a concrete `binding x subevent` record sourced from the legality re
 | `sse` | `http.sse`, `https.sse` | `server_stream` | `http` | `transport`, `family_capabilities`, `sse` | `http.disconnect`, `http.request`, `http.response.body`, `http.response.start`, `transport.emit.complete` | `request`, `session`, `message`, `stream` | - | `datagram.handle` | `datagram` | `R` required | `F` forbidden | `webtransport.datagram.receive` |
 | `sse` | `http.sse`, `https.sse` | `server_stream` | `http` | `transport`, `family_capabilities`, `sse` | `http.disconnect`, `http.request`, `http.response.body`, `http.response.start`, `transport.emit.complete` | `request`, `session`, `message`, `stream` | - | `datagram.out` | `datagram` | `R` required | `F` forbidden | `webtransport.datagram.send` |
 | `sse` | `http.sse`, `https.sse` | `server_stream` | `http` | `transport`, `family_capabilities`, `sse` | `http.disconnect`, `http.request`, `http.response.body`, `http.response.start`, `transport.emit.complete` | `request`, `session`, `message`, `stream` | - | `datagram.ack` | `datagram` | `R` required | `F` forbidden | `webtransport.datagram.send` |
-| `sse` | `http.sse`, `https.sse` | `server_stream` | `http` | `transport`, `family_capabilities`, `sse` | `http.disconnect`, `http.request`, `http.response.body`, `http.response.start`, `transport.emit.complete` | `request`, `session`, `message`, `stream` | - | `datagram.close` | `datagram` | `R` required | `F` forbidden | `webtransport.close` |
 | `sse` | `http.sse`, `https.sse` | `server_stream` | `http` | `transport`, `family_capabilities`, `sse` | `http.disconnect`, `http.request`, `http.response.body`, `http.response.start`, `transport.emit.complete` | `request`, `session`, `message`, `stream` | - | `datagram.emit_complete` | `datagram` | `R` required | `F` forbidden | `transport.emit.complete` |
 | `websocket` | `ws`, `wss` | `duplex` | `websocket` | `transport`, `family_capabilities`, `websocket` | `websocket.connect`, `websocket.receive`, `websocket.disconnect`, `websocket.accept`, `websocket.send`, `websocket.close`, `transport.emit.complete` | `session`, `message` | - | `request.open` | `request` | `R` required | `F` forbidden | `http.request` |
 | `websocket` | `ws`, `wss` | `duplex` | `websocket` | `transport`, `family_capabilities`, `websocket` | `websocket.connect`, `websocket.receive`, `websocket.disconnect`, `websocket.accept`, `websocket.send`, `websocket.close`, `transport.emit.complete` | `session`, `message` | - | `request.body_in` | `request` | `R` required | `F` forbidden | `http.request` |
@@ -400,7 +395,6 @@ Every row is a concrete `binding x subevent` record sourced from the legality re
 | `websocket` | `ws`, `wss` | `duplex` | `websocket` | `transport`, `family_capabilities`, `websocket` | `websocket.connect`, `websocket.receive`, `websocket.disconnect`, `websocket.accept`, `websocket.send`, `websocket.close`, `transport.emit.complete` | `session`, `message` | - | `datagram.handle` | `datagram` | `R` required | `F` forbidden | `webtransport.datagram.receive` |
 | `websocket` | `ws`, `wss` | `duplex` | `websocket` | `transport`, `family_capabilities`, `websocket` | `websocket.connect`, `websocket.receive`, `websocket.disconnect`, `websocket.accept`, `websocket.send`, `websocket.close`, `transport.emit.complete` | `session`, `message` | - | `datagram.out` | `datagram` | `R` required | `F` forbidden | `webtransport.datagram.send` |
 | `websocket` | `ws`, `wss` | `duplex` | `websocket` | `transport`, `family_capabilities`, `websocket` | `websocket.connect`, `websocket.receive`, `websocket.disconnect`, `websocket.accept`, `websocket.send`, `websocket.close`, `transport.emit.complete` | `session`, `message` | - | `datagram.ack` | `datagram` | `R` required | `F` forbidden | `webtransport.datagram.send` |
-| `websocket` | `ws`, `wss` | `duplex` | `websocket` | `transport`, `family_capabilities`, `websocket` | `websocket.connect`, `websocket.receive`, `websocket.disconnect`, `websocket.accept`, `websocket.send`, `websocket.close`, `transport.emit.complete` | `session`, `message` | - | `datagram.close` | `datagram` | `R` required | `F` forbidden | `webtransport.close` |
 | `websocket` | `ws`, `wss` | `duplex` | `websocket` | `transport`, `family_capabilities`, `websocket` | `websocket.connect`, `websocket.receive`, `websocket.disconnect`, `websocket.accept`, `websocket.send`, `websocket.close`, `transport.emit.complete` | `session`, `message` | - | `datagram.emit_complete` | `datagram` | `R` required | `F` forbidden | `transport.emit.complete` |
 | `webtransport` | `webtransport` | `duplex` | `webtransport` | `transport`, `family_capabilities`, `webtransport` | `webtransport.connect`, `webtransport.accept`, `webtransport.stream.receive`, `webtransport.stream.send`, `webtransport.datagram.receive`, `webtransport.datagram.send`, `webtransport.disconnect`, `webtransport.close`, `transport.emit.complete` | `session`, `stream`, `datagram` | `message` | `request.open` | `request` | `R` required | `F` forbidden | `http.request` |
 | `webtransport` | `webtransport` | `duplex` | `webtransport` | `transport`, `family_capabilities`, `webtransport` | `webtransport.connect`, `webtransport.accept`, `webtransport.stream.receive`, `webtransport.stream.send`, `webtransport.datagram.receive`, `webtransport.datagram.send`, `webtransport.disconnect`, `webtransport.close`, `transport.emit.complete` | `session`, `stream`, `datagram` | `message` | `request.body_in` | `request` | `R` required | `F` forbidden | `http.request` |
@@ -442,5 +436,4 @@ Every row is a concrete `binding x subevent` record sourced from the legality re
 | `webtransport` | `webtransport` | `duplex` | `webtransport` | `transport`, `family_capabilities`, `webtransport` | `webtransport.connect`, `webtransport.accept`, `webtransport.stream.receive`, `webtransport.stream.send`, `webtransport.datagram.receive`, `webtransport.datagram.send`, `webtransport.disconnect`, `webtransport.close`, `transport.emit.complete` | `session`, `stream`, `datagram` | `message` | `datagram.handle` | `datagram` | `R` required | `R` required | `webtransport.datagram.receive` |
 | `webtransport` | `webtransport` | `duplex` | `webtransport` | `transport`, `family_capabilities`, `webtransport` | `webtransport.connect`, `webtransport.accept`, `webtransport.stream.receive`, `webtransport.stream.send`, `webtransport.datagram.receive`, `webtransport.datagram.send`, `webtransport.disconnect`, `webtransport.close`, `transport.emit.complete` | `session`, `stream`, `datagram` | `message` | `datagram.out` | `datagram` | `R` required | `R` required | `webtransport.datagram.send` |
 | `webtransport` | `webtransport` | `duplex` | `webtransport` | `transport`, `family_capabilities`, `webtransport` | `webtransport.connect`, `webtransport.accept`, `webtransport.stream.receive`, `webtransport.stream.send`, `webtransport.datagram.receive`, `webtransport.datagram.send`, `webtransport.disconnect`, `webtransport.close`, `transport.emit.complete` | `session`, `stream`, `datagram` | `message` | `datagram.ack` | `datagram` | `R` required | `O` optional | `webtransport.datagram.send` |
-| `webtransport` | `webtransport` | `duplex` | `webtransport` | `transport`, `family_capabilities`, `webtransport` | `webtransport.connect`, `webtransport.accept`, `webtransport.stream.receive`, `webtransport.stream.send`, `webtransport.datagram.receive`, `webtransport.datagram.send`, `webtransport.disconnect`, `webtransport.close`, `transport.emit.complete` | `session`, `stream`, `datagram` | `message` | `datagram.close` | `datagram` | `R` required | `R` required | `webtransport.close` |
 | `webtransport` | `webtransport` | `duplex` | `webtransport` | `transport`, `family_capabilities`, `webtransport` | `webtransport.connect`, `webtransport.accept`, `webtransport.stream.receive`, `webtransport.stream.send`, `webtransport.datagram.receive`, `webtransport.datagram.send`, `webtransport.disconnect`, `webtransport.close`, `transport.emit.complete` | `session`, `stream`, `datagram` | `message` | `datagram.emit_complete` | `datagram` | `R` required | `R` required | `transport.emit.complete` |

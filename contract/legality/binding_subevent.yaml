@@ -40,7 +40,6 @@ binding_subevent:
     datagram.handle: F
     datagram.out: F
     datagram.ack: F
-    datagram.close: F
     datagram.emit_complete: F
   jsonrpc:
     request.open: R
@@ -83,7 +82,6 @@ binding_subevent:
     datagram.handle: F
     datagram.out: F
     datagram.ack: F
-    datagram.close: F
     datagram.emit_complete: F
   http.stream:
     request.open: R
@@ -126,7 +124,6 @@ binding_subevent:
     datagram.handle: F
     datagram.out: F
     datagram.ack: F
-    datagram.close: F
     datagram.emit_complete: F
   sse:
     request.open: R
@@ -169,7 +166,6 @@ binding_subevent:
     datagram.handle: F
     datagram.out: F
     datagram.ack: F
-    datagram.close: F
     datagram.emit_complete: F
   websocket:
     request.open: F
@@ -212,7 +208,6 @@ binding_subevent:
     datagram.handle: F
     datagram.out: F
     datagram.ack: F
-    datagram.close: F
     datagram.emit_complete: F
   webtransport:
     request.open: F
@@ -255,5 +250,4 @@ binding_subevent:
     datagram.handle: R
     datagram.out: R
     datagram.ack: O
-    datagram.close: R
     datagram.emit_complete: R

@@ -39,5 +39,4 @@ datagram,datagram.in,receive,webtransport,webtransport.datagram.receive,webtrans
 datagram,datagram.handle,receive,webtransport,webtransport.datagram.receive,webtransport,F,F,F,F,F,R
 datagram,datagram.out,send,webtransport,webtransport.datagram.send,webtransport,F,F,F,F,F,R
 datagram,datagram.ack,send,webtransport,webtransport.datagram.send,webtransport,F,F,F,F,F,O
-datagram,datagram.close,send,webtransport,webtransport.close,webtransport,F,F,F,F,F,R
 datagram,datagram.emit_complete,send,"http, websocket, webtransport",transport.emit.complete,webtransport,F,F,F,F,F,R

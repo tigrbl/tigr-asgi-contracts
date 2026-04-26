@@ -93,7 +93,6 @@ export const FAMILY_SUBEVENT_MATRIX = {
     "datagram.handle": "R",
     "datagram.out": "R",
     "datagram.ack": "R",
-    "datagram.close": "R",
     "datagram.emit_complete": "R"
   }
 } as const;
@@ -140,7 +139,6 @@ export const BINDING_SUBEVENT_MATRIX = {
     "datagram.handle": "F",
     "datagram.out": "F",
     "datagram.ack": "F",
-    "datagram.close": "F",
     "datagram.emit_complete": "F"
   },
   "jsonrpc": {
@@ -184,7 +182,6 @@ export const BINDING_SUBEVENT_MATRIX = {
     "datagram.handle": "F",
     "datagram.out": "F",
     "datagram.ack": "F",
-    "datagram.close": "F",
     "datagram.emit_complete": "F"
   },
   "http.stream": {
@@ -228,7 +225,6 @@ export const BINDING_SUBEVENT_MATRIX = {
     "datagram.handle": "F",
     "datagram.out": "F",
     "datagram.ack": "F",
-    "datagram.close": "F",
     "datagram.emit_complete": "F"
   },
   "sse": {
@@ -272,7 +268,6 @@ export const BINDING_SUBEVENT_MATRIX = {
     "datagram.handle": "F",
     "datagram.out": "F",
     "datagram.ack": "F",
-    "datagram.close": "F",
     "datagram.emit_complete": "F"
   },
   "websocket": {
@@ -316,7 +311,6 @@ export const BINDING_SUBEVENT_MATRIX = {
     "datagram.handle": "F",
     "datagram.out": "F",
     "datagram.ack": "F",
-    "datagram.close": "F",
     "datagram.emit_complete": "F"
   },
   "webtransport": {
@@ -360,7 +354,6 @@ export const BINDING_SUBEVENT_MATRIX = {
     "datagram.handle": "R",
     "datagram.out": "R",
     "datagram.ack": "O",
-    "datagram.close": "R",
     "datagram.emit_complete": "R"
   }
 } as const;
@@ -655,7 +648,7 @@ export const AUTOMATA = {
   "datagram": {
     "initial": "idle",
     "terminal": [
-      "closed"
+      "acknowledged"
     ],
     "transitions": [
       {
@@ -682,11 +675,6 @@ export const AUTOMATA = {
         "from": "acknowledged",
         "event": "datagram.emit_complete",
         "to": "acknowledged"
-      },
-      {
-        "from": "acknowledged",
-        "event": "datagram.close",
-        "to": "closed"
       }
     ]
   }

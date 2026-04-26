@@ -131,7 +131,7 @@ automata:
   datagram:
     initial: idle
     terminal:
-    - closed
+    - acknowledged
     transitions:
     - from: idle
       event: datagram.in
@@ -148,6 +148,3 @@ automata:
     - from: acknowledged
       event: datagram.emit_complete
       to: acknowledged
-    - from: acknowledged
-      event: datagram.close
-      to: closed

@@ -105,7 +105,6 @@ SUBEVENT_EVENT_MAP = {
     "datagram.handle": ["webtransport.datagram.receive"],
     "datagram.out": ["webtransport.datagram.send"],
     "datagram.ack": ["webtransport.datagram.send"],
-    "datagram.close": ["webtransport.close"],
     "datagram.emit_complete": ["transport.emit.complete"],
 }
 

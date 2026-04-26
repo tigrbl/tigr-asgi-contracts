@@ -93,7 +93,6 @@ FAMILY_SUBEVENT_MATRIX = {
     "datagram.handle": "R",
     "datagram.out": "R",
     "datagram.ack": "R",
-    "datagram.close": "R",
     "datagram.emit_complete": "R"
   }
 }
@@ -140,7 +139,6 @@ BINDING_SUBEVENT_MATRIX = {
     "datagram.handle": "F",
     "datagram.out": "F",
     "datagram.ack": "F",
-    "datagram.close": "F",
     "datagram.emit_complete": "F"
   },
   "jsonrpc": {
@@ -184,7 +182,6 @@ BINDING_SUBEVENT_MATRIX = {
     "datagram.handle": "F",
     "datagram.out": "F",
     "datagram.ack": "F",
-    "datagram.close": "F",
     "datagram.emit_complete": "F"
   },
   "http.stream": {
@@ -228,7 +225,6 @@ BINDING_SUBEVENT_MATRIX = {
     "datagram.handle": "F",
     "datagram.out": "F",
     "datagram.ack": "F",
-    "datagram.close": "F",
     "datagram.emit_complete": "F"
   },
   "sse": {
@@ -272,7 +268,6 @@ BINDING_SUBEVENT_MATRIX = {
     "datagram.handle": "F",
     "datagram.out": "F",
     "datagram.ack": "F",
-    "datagram.close": "F",
     "datagram.emit_complete": "F"
   },
   "websocket": {
@@ -316,7 +311,6 @@ BINDING_SUBEVENT_MATRIX = {
     "datagram.handle": "F",
     "datagram.out": "F",
     "datagram.ack": "F",
-    "datagram.close": "F",
     "datagram.emit_complete": "F"
   },
   "webtransport": {
@@ -360,7 +354,6 @@ BINDING_SUBEVENT_MATRIX = {
     "datagram.handle": "R",
     "datagram.out": "R",
     "datagram.ack": "O",
-    "datagram.close": "R",
     "datagram.emit_complete": "R"
   }
 }
@@ -415,7 +408,7 @@ PROTOCOLS = {'asgi.pathsend': {'binding': 'http.stream',
          'transport': 'websocket'}}
 
 AUTOMATA = {'datagram': {'initial': 'idle',
-              'terminal': ['closed'],
+              'terminal': ['acknowledged'],
               'transitions': [{'event': 'datagram.in',
                                'from': 'idle',
                                'to': 'received'},
@@ -430,10 +423,7 @@ AUTOMATA = {'datagram': {'initial': 'idle',
                                'to': 'acknowledged'},
                               {'event': 'datagram.emit_complete',
                                'from': 'acknowledged',
-                               'to': 'acknowledged'},
-                              {'event': 'datagram.close',
-                               'from': 'acknowledged',
-                               'to': 'closed'}]},
+                               'to': 'acknowledged'}]},
  'message': {'initial': 'idle',
              'terminal': ['complete', 'rejected'],
              'transitions': [{'event': 'message.in',

@@ -44,5 +44,4 @@ Legend: R required, O optional, D derived/dependent, F forbidden.
 | datagram | datagram.handle | receive | webtransport.datagram.receive | F | F | F | F | F | R |
 | datagram | datagram.out | send | webtransport.datagram.send | F | F | F | F | F | R |
 | datagram | datagram.ack | send | webtransport.datagram.send | F | F | F | F | F | O |
-| datagram | datagram.close | send | webtransport.close | F | F | F | F | F | R |
 | datagram | datagram.emit_complete | send | transport.emit.complete | F | F | F | F | F | R |

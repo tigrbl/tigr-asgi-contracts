@@ -44,5 +44,4 @@ subevents:
   - datagram.handle
   - datagram.out
   - datagram.ack
-  - datagram.close
   - datagram.emit_complete

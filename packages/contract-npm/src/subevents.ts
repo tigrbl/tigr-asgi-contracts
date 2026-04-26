@@ -39,6 +39,5 @@ export enum Subevent {
   DATAGRAM_HANDLE = "datagram.handle",
   DATAGRAM_OUT = "datagram.out",
   DATAGRAM_ACK = "datagram.ack",
-  DATAGRAM_CLOSE = "datagram.close",
   DATAGRAM_EMIT_COMPLETE = "datagram.emit_complete",
 }

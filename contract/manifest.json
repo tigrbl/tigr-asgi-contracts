@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "automata.yaml",
-      "sha256": "5fb86aa93259145216b2f4691b303cd9ea118616677ddf53a1bcc428fb43879b"
+      "sha256": "5b3c1b757abb99583add8f2839b064dc3ea55af53c85d03a270f105ec7f3235f"
     },
     {
       "path": "bindings.yaml",
@@ -51,11 +51,11 @@
     },
     {
       "path": "legality/binding_subevent.yaml",
-      "sha256": "d6935ac0f9937e638a6c2d34d8f1d606ab8d480b8250dd004998fe9418312ecc"
+      "sha256": "a1948bc9ca03937307edb0cd1775c409ca9fcbb15d85b4bc45cafff175a4b0b0"
     },
     {
       "path": "legality/family_subevent.yaml",
-      "sha256": "36fda0df963c4bd413bb102b361fc8bc68248ca0a9b16e88717d5bc503171dfe"
+      "sha256": "5f58c275423e572305661195da4de1b836d27d72eb263dd9d4bb5c4b491a5f44"
     },
     {
       "path": "protocols.yaml",
@@ -127,11 +127,11 @@
     },
     {
       "path": "subevents.yaml",
-      "sha256": "b0abf1e13da97fc22a0eb0e64f7990e72abb883051183b92f73164df4c2c42a3"
+      "sha256": "cb69af786d462aee0896a6375b69df163bca6c5e72131014bb23f9b4683a0334"
     },
     {
       "path": "surfaces.yaml",
-      "sha256": "ed9c01e2355e409ebc012503c36f4ef04adaff608ae2ff44011b5fc15d426c1a"
+      "sha256": "b98bef4810fed7d6d11cf282219aef84f8e4a0ec8cc73e70f247de862c4f76e9"
     }
   ]
 }

@@ -39,4 +39,5 @@ body: |-
   
   Claims and evidence must link to the boundary features and must remain scoped to contract conformance rather than downstream runtime execution.
 spec_kind: "normative"
-adr_ids: []
+adr_ids:
+  - "adr:1031"

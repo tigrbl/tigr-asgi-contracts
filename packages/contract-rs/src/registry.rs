@@ -56,5 +56,4 @@ pub const AUTOMATA_TRANSITIONS: &[(&str, &str, &str, &str)] = &[
     ("datagram", "handled", "datagram.out", "emitted"),
     ("datagram", "emitted", "datagram.ack", "acknowledged"),
     ("datagram", "acknowledged", "datagram.emit_complete", "acknowledged"),
-    ("datagram", "acknowledged", "datagram.close", "closed"),
 ];

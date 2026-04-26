@@ -44,7 +44,6 @@ Legend: R required, O optional, D derived/dependent, F forbidden. Each row has e
 | http | datagram | datagram.handle |  |  | no | no |  |  | F | F | F | F | F | F |
 | http | datagram | datagram.out |  |  | no | no |  |  | F | F | F | F | F | F |
 | http | datagram | datagram.ack |  |  | no | no |  |  | F | F | F | F | F | F |
-| http | datagram | datagram.close |  |  | no | no |  |  | F | F | F | F | F | F |
 | http | datagram | datagram.emit_complete | transport.emit.complete | send | no | yes |  |  | F | F | F | F | F | F |
 | websocket | request | request.open |  |  | no | no |  |  | F | F | F | F | F | F |
 | websocket | request | request.body_in |  |  | no | no |  |  | F | F | F | F | F | F |
@@ -86,7 +85,6 @@ Legend: R required, O optional, D derived/dependent, F forbidden. Each row has e
 | websocket | datagram | datagram.handle |  |  | no | no |  |  | F | F | F | F | F | F |
 | websocket | datagram | datagram.out |  |  | no | no |  |  | F | F | F | F | F | F |
 | websocket | datagram | datagram.ack |  |  | no | no |  |  | F | F | F | F | F | F |
-| websocket | datagram | datagram.close |  |  | no | no |  |  | F | F | F | F | F | F |
 | websocket | datagram | datagram.emit_complete | transport.emit.complete | send | no | yes |  |  | F | F | F | F | F | F |
 | webtransport | request | request.open |  |  | no | no |  |  | F | F | F | F | F | F |
 | webtransport | request | request.body_in |  |  | no | no |  |  | F | F | F | F | F | F |
@@ -133,7 +131,6 @@ Legend: R required, O optional, D derived/dependent, F forbidden. Each row has e
 | webtransport | datagram | datagram.handle | webtransport.datagram.receive | receive | yes | yes | webtransport | webtransport | F | F | F | F | F | R |
 | webtransport | datagram | datagram.out | webtransport.datagram.send | send | yes | yes | webtransport | webtransport | F | F | F | F | F | R |
 | webtransport | datagram | datagram.ack | webtransport.datagram.send | send | yes | yes | webtransport | webtransport | F | F | F | F | F | O |
-| webtransport | datagram | datagram.close | webtransport.close | send | yes | yes | webtransport | webtransport | F | F | F | F | F | R |
 | webtransport | datagram | datagram.emit_complete | transport.emit.complete | send | yes | yes | webtransport | webtransport | F | F | F | F | F | R |
 | lifespan | request | request.open |  |  | no | no |  |  | F | F | F | F | F | F |
 | lifespan | request | request.body_in |  |  | no | no |  |  | F | F | F | F | F | F |
@@ -175,5 +172,4 @@ Legend: R required, O optional, D derived/dependent, F forbidden. Each row has e
 | lifespan | datagram | datagram.handle |  |  | no | no |  |  | F | F | F | F | F | F |
 | lifespan | datagram | datagram.out |  |  | no | no |  |  | F | F | F | F | F | F |
 | lifespan | datagram | datagram.ack |  |  | no | no |  |  | F | F | F | F | F | F |
-| lifespan | datagram | datagram.close |  |  | no | no |  |  | F | F | F | F | F | F |
 | lifespan | datagram | datagram.emit_complete |  |  | no | no |  |  | F | F | F | F | F | F |

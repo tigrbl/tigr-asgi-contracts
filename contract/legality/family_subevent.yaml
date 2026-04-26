@@ -44,5 +44,4 @@ family_subevent:
     datagram.handle: R
     datagram.out: R
     datagram.ack: R
-    datagram.close: R
     datagram.emit_complete: R
