@@ -1,0 +1,39 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1035"
+number: 1035
+slug: "webtransport-stream-datagram-semantics"
+title: "WebTransport stream and datagram semantics"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification governs WebTransport stream and datagram lifecycle subevents."
+supersedes: []
+superseded_by: []
+status_notes: []
+references:
+  - "adr:1032"
+body: |-
+  ## Scope
+
+  This specification governs WebTransport stream and datagram subevents and their generated protocol mappings.
+
+  ## Requirements
+
+  WebTransport stream close, reset, and stop-sending are per-stream outcomes and must not map to the session-level `webtransport.close` event.
+
+  `stream.reset` maps to a per-stream reset surface.
+
+  `stream.stop_sending` maps to a per-stream stop-sending surface.
+
+  `stream.close` maps to per-stream close or FIN semantics and not to session close.
+
+  WebTransport datagrams do not expose remote delivery acknowledgement at the application API. The datagram lifecycle terminates through local `datagram.emit_complete` or `datagram.emit_failed`.
+
+  ## Validation
+
+  Tests must reject `datagram.ack`, reject `stream.abort`, prove stream reset/stop-sending/close mappings are per-stream, and prove datagram completion/failure paths do not imply delivery acknowledgement.
+spec_kind: "normative"
+adr_ids:
+  - "adr:1032"

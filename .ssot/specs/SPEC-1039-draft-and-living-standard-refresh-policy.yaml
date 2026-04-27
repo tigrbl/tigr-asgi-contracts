@@ -1,0 +1,59 @@
+schema_version: "0.2.0"
+kind: "spec"
+id: "spc:1039"
+number: 1039
+slug: "draft-and-living-standard-refresh-policy"
+title: "Draft and living standard refresh policy"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification governs conformance targets whose authoritative text can change without a stable RFC number or fixed specification version."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification governs conformance targets whose authoritative text can change without a stable RFC number or fixed specification version.
+  
+  It applies to IETF Internet-Drafts, WHATWG living standards, W3C Working Drafts, editor drafts, and any external target marked draft, draft-conditional, living, or volatile in SPEC-1036.
+  
+  ## Required Target Metadata
+  
+  A draft or living target row must include:
+  
+  - `authority_class`: one of `ietf-draft`, `whatwg-living`, `w3c-working-draft`, `editor-draft`, or `external-volatile`.
+  - `target_url`: the canonical latest URL.
+  - `pinned_url`: the dated, versioned, or revision-specific URL used for validation when available.
+  - `pinned_revision`: the draft revision, dated TR version, commit, or last-reviewed publication label.
+  - `last_reviewed_on`: the date the target was reviewed against the contract.
+  - `review_due_on`: the next required review date.
+  - `expires_on`: required for IETF Internet-Drafts when the draft declares an expiry date.
+  - `successor_target_id`: required when a target is replaced, superseded, or published as a different target.
+  
+  ## Review Cadence
+  
+  IETF Internet-Draft targets must be reviewed before their declared expiry date and whenever a newer draft revision is adopted for contract use.
+  
+  WHATWG living standard targets must be reviewed at least once per release boundary that claims browser-facing conformance, or within 180 days of the previous review, whichever comes first.
+  
+  W3C Working Draft targets must be reviewed when a new dated TR is selected for validation, when the document changes maturity level, or within 180 days of the previous review.
+  
+  Stable RFC targets do not require periodic review unless errata, obsoleting RFCs, or repository scope changes affect the target row.
+  
+  ## Lifecycle Rules
+  
+  Expired IETF draft targets must move to deprecated or obsolete planning state unless a successor target row is selected.
+  
+  A draft target published as an RFC must not be silently overwritten. Create or update a stable RFC target row, link the draft target as replaced, and migrate feature/claim/test/evidence links deliberately.
+  
+  Living-standard target updates must record whether the observed change is editorial, behavior-affecting, or contract-breaking.
+  
+  ## Validation
+  
+  Validation must fail for any current or implemented feature that depends on a draft or living target without required review metadata.
+spec_kind: "governance"
+adr_ids:
+  - "adr:1034"

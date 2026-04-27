@@ -5,3 +5,4 @@ fields:
   stream_in: inbound stream chunks available
   stream_out: outbound stream chunks available
   datagram: datagram transport available
+  lifespan: ASGI lifespan startup and shutdown events available

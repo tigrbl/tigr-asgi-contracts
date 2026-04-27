@@ -5,33 +5,39 @@ binding_family:
     message: F
     stream: O
     datagram: F
+    lifespan: F
   jsonrpc:
     request: R
     session: F
     message: F
     stream: O
     datagram: F
+    lifespan: F
   http.stream:
     request: R
     session: F
     message: F
     stream: R
     datagram: F
+    lifespan: F
   sse:
     request: R
     session: R
     message: R
     stream: R
     datagram: F
+    lifespan: F
   websocket:
     request: F
     session: R
     message: R
     stream: F
     datagram: F
+    lifespan: F
   webtransport:
     request: F
     session: R
     message: O
     stream: R
     datagram: R
+    lifespan: F

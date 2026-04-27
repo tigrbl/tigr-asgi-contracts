@@ -15,9 +15,15 @@ automata:
       event: request.chunk_in
       to: open
     - from: open
-      event: request.accept
-      to: accepted
-    - from: accepted
+      event: request.close
+      to: body_closed
+    - from: open
+      event: request.dispatch
+      to: dispatched
+    - from: body_closed
+      event: request.dispatch
+      to: dispatched
+    - from: dispatched
       event: response.open
       to: responding
     - from: responding
@@ -30,9 +36,12 @@ automata:
       event: response.emit_complete
       to: completing
     - from: completing
-      event: response.close
+      event: response.finalize
       to: closed
     - from: open
+      event: request.disconnect
+      to: disconnected
+    - from: body_closed
       event: request.disconnect
       to: disconnected
   session:
@@ -40,6 +49,7 @@ automata:
     terminal:
     - closed
     - disconnected
+    - rejected
     transitions:
     - from: idle
       event: session.open
@@ -47,9 +57,18 @@ automata:
     - from: open
       event: session.accept
       to: accepted
+    - from: open
+      event: session.reject
+      to: rejected
+    - from: open
+      event: session.disconnect
+      to: disconnected
     - from: accepted
       event: session.ready
       to: ready
+    - from: accepted
+      event: session.disconnect
+      to: disconnected
     - from: ready
       event: session.heartbeat
       to: ready
@@ -69,7 +88,7 @@ automata:
     initial: idle
     terminal:
     - complete
-    - rejected
+    - failed
     transitions:
     - from: idle
       event: message.in
@@ -77,32 +96,36 @@ automata:
     - from: received
       event: message.decode
       to: decoded
+    - from: received
+      event: message.decode_failed
+      to: failed
     - from: decoded
       event: message.handle
       to: handled
+    - from: decoded
+      event: message.handle_failed
+      to: failed
     - from: handled
       event: message.out
       to: emitted
     - from: emitted
-      event: message.ack
+      event: message.emit_complete
       to: complete
     - from: emitted
-      event: message.nack
-      to: rejected
+      event: message.emit_failed
+      to: failed
     - from: complete
       event: message.replay
       to: emitted
     - from: complete
       event: message.snapshot
       to: complete
-    - from: emitted
-      event: message.emit_complete
-      to: complete
   stream:
     initial: idle
     terminal:
     - closed
-    - aborted
+    - reset
+    - stopped
     transitions:
     - from: idle
       event: stream.open
@@ -126,12 +149,22 @@ automata:
       event: stream.close
       to: closed
     - from: open
-      event: stream.abort
-      to: aborted
+      event: stream.reset
+      to: reset
+    - from: open
+      event: stream.stop_sending
+      to: stopped
+    - from: finalizing
+      event: stream.reset
+      to: reset
+    - from: finalizing
+      event: stream.stop_sending
+      to: stopped
   datagram:
     initial: idle
     terminal:
-    - acknowledged
+    - complete
+    - failed
     transitions:
     - from: idle
       event: datagram.in
@@ -143,8 +176,37 @@ automata:
       event: datagram.out
       to: emitted
     - from: emitted
-      event: datagram.ack
-      to: acknowledged
-    - from: acknowledged
       event: datagram.emit_complete
-      to: acknowledged
+      to: complete
+    - from: emitted
+      event: datagram.emit_failed
+      to: failed
+  lifespan:
+    initial: idle
+    terminal:
+    - startup_complete
+    - startup_failed
+    - shutdown_complete
+    - shutdown_failed
+    transitions:
+    - from: idle
+      event: lifespan.startup
+      to: starting
+    - from: starting
+      event: lifespan.startup_complete
+      to: startup_complete
+    - from: starting
+      event: lifespan.startup_failed
+      to: startup_failed
+    - from: startup_complete
+      event: lifespan.shutdown
+      to: shutting_down
+    - from: idle
+      event: lifespan.shutdown
+      to: shutting_down
+    - from: shutting_down
+      event: lifespan.shutdown_complete
+      to: shutdown_complete
+    - from: shutting_down
+      event: lifespan.shutdown_failed
+      to: shutdown_failed

@@ -1,0 +1,40 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1033"
+number: 1033
+slug: "http-request-response-and-asgi-lifespan-semantics"
+title: "HTTP request, response, and ASGI lifespan semantics"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification governs HTTP request/response subevents and ASGI lifespan subevents."
+supersedes: []
+superseded_by: []
+status_notes: []
+references:
+  - "adr:1022"
+  - "adr:1032"
+body: |-
+  ## Scope
+
+  This specification governs the request family, response-prefixed request-family subevents, and ASGI lifespan family subevents.
+
+  ## Requirements
+
+  `request.dispatch` is the contract-derived application dispatch point after a request opens and after optional body completion; it is not an HTTP wire accept event.
+
+  `request.close` is inbound request-body completion and must be reachable in the request automaton before dispatch.
+
+  `response.finalize` is response-body finalization and must not imply connection close.
+
+  `lifespan.startup`, `lifespan.startup_complete`, `lifespan.startup_failed`, `lifespan.shutdown`, `lifespan.shutdown_complete`, and `lifespan.shutdown_failed` correspond to ASGI lifespan startup and shutdown receive/send events.
+
+  Internal `lifecycle.*` and drain rows remain separate from ASGI lifespan events.
+
+  ## Validation
+
+  Tests must cover HTTP request close before dispatch, response finalization, and ASGI lifespan startup/shutdown success and failure paths.
+spec_kind: "normative"
+adr_ids:
+  - "adr:1032"

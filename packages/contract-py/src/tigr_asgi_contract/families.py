@@ -7,3 +7,4 @@ class Family(StrEnum):
     MESSAGE = 'message'
     STREAM = 'stream'
     DATAGRAM = 'datagram'
+    LIFESPAN = 'lifespan'

@@ -4,3 +4,4 @@ families:
 - message
 - stream
 - datagram
+- lifespan

@@ -17,11 +17,12 @@ def test_generated_automata_accept_valid_sequences() -> None:
         "request",
         [
             "request.open",
-            "request.accept",
+            "request.close",
+            "request.dispatch",
             "response.open",
             "response.body_out",
             "response.emit_complete",
-            "response.close",
+            "response.finalize",
         ],
     )
     assert validate_automata_sequence(
@@ -33,6 +34,29 @@ def test_generated_automata_accept_valid_sequences() -> None:
 def test_generated_automata_reject_invalid_sequences() -> None:
     assert not validate_automata_sequence("request", ["response.body_out"])
     assert not validate_automata_sequence("stream", ["stream.chunk_out", "stream.close"])
+
+
+def test_generated_automata_accept_standard_lifecycle_outcomes() -> None:
+    assert validate_automata_sequence("session", ["session.open", "session.reject"])
+    assert validate_automata_sequence("session", ["session.open", "session.disconnect"])
+    assert validate_automata_sequence(
+        "message",
+        ["message.in", "message.decode_failed"],
+    )
+    assert validate_automata_sequence(
+        "message",
+        ["message.in", "message.decode", "message.handle_failed"],
+    )
+    assert validate_automata_sequence(
+        "message",
+        ["message.in", "message.decode", "message.handle", "message.out", "message.emit_failed"],
+    )
+    assert validate_automata_sequence("stream", ["stream.open", "stream.reset"])
+    assert validate_automata_sequence("stream", ["stream.open", "stream.stop_sending"])
+    assert validate_automata_sequence("datagram", ["datagram.in", "datagram.handle", "datagram.out", "datagram.emit_failed"])
+    assert validate_automata_sequence("lifespan", ["lifespan.startup", "lifespan.startup_complete"])
+    assert validate_automata_sequence("lifespan", ["lifespan.startup", "lifespan.startup_failed"])
+    assert validate_automata_sequence("lifespan", ["lifespan.shutdown", "lifespan.shutdown_complete"])
 
 
 def test_generated_event_payload_validator() -> None:

@@ -21,6 +21,52 @@ ADR_ID = "adr:1031"
 SURFACE_TEST_PATH = "tests/contract/test_full_contract_future.py"
 SURFACE_EVIDENCE_PATH = ".ssot/reports/pytest-0.3.0.xml"
 
+ADDITIONAL_DOCUMENTS = {
+    "adrs": [
+        {
+            "id": "adr:1032",
+            "number": 1032,
+            "slug": "protocol-observable-lifecycle-semantics",
+            "title": "Canonical lifecycle semantics must be protocol-observable or explicitly derived",
+            "path": ".ssot/adr/ADR-1032-protocol-observable-lifecycle-semantics.yaml",
+        },
+    ],
+    "specs": [
+        {
+            "id": "spc:1032",
+            "number": 1032,
+            "slug": "protocol-observable-subevent-semantics",
+            "title": "Protocol observable subevent semantics",
+            "path": ".ssot/specs/SPEC-1032-protocol-observable-subevent-semantics.yaml",
+            "adr_ids": ["adr:1032"],
+        },
+        {
+            "id": "spc:1033",
+            "number": 1033,
+            "slug": "http-request-response-and-asgi-lifespan-semantics",
+            "title": "HTTP request, response, and ASGI lifespan semantics",
+            "path": ".ssot/specs/SPEC-1033-http-request-response-and-asgi-lifespan-semantics.yaml",
+            "adr_ids": ["adr:1032"],
+        },
+        {
+            "id": "spc:1034",
+            "number": 1034,
+            "slug": "websocket-session-message-semantics",
+            "title": "WebSocket session and message semantics",
+            "path": ".ssot/specs/SPEC-1034-websocket-session-message-semantics.yaml",
+            "adr_ids": ["adr:1032"],
+        },
+        {
+            "id": "spc:1035",
+            "number": 1035,
+            "slug": "webtransport-stream-datagram-semantics",
+            "title": "WebTransport stream and datagram semantics",
+            "path": ".ssot/specs/SPEC-1035-webtransport-stream-datagram-semantics.yaml",
+            "adr_ids": ["adr:1032"],
+        },
+    ],
+}
+
 
 PATHSEND_FEATURES = [
     {
@@ -104,7 +150,10 @@ def read_json(path: Path) -> dict[str, Any]:
 
 
 def write_json(path: Path, data: dict[str, Any]) -> None:
-    path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(data, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False),
+        encoding="utf-8",
+    )
 
 
 def content_sha256(path: Path) -> str:
@@ -146,6 +195,10 @@ def feature_family(feature_id: str) -> str:
 
 
 def is_contract_future_candidate(feature: dict[str, Any]) -> bool:
+    if feature.get("lifecycle", {}).get("stage") in {"obsolete", "removed"}:
+        return False
+    if feature.get("implementation_status") != "implemented":
+        return False
     body = feature["id"].removeprefix("feat:")
     if feature.get("plan", {}).get("horizon") != "out_of_bounds":
         return True
@@ -239,8 +292,55 @@ def sync_documents(registry: dict[str, Any]) -> None:
             "superseded_by": [],
             "status_notes": [],
             "kind": "normative",
+            "adr_ids": [ADR_ID],
         },
     )
+    for document in ADDITIONAL_DOCUMENTS["adrs"]:
+        path = ROOT / document["path"]
+        upsert(
+            registry["adrs"],
+            document["id"],
+            {
+                "id": document["id"],
+                "number": document["number"],
+                "slug": document["slug"],
+                "title": document["title"],
+                "path": document["path"],
+                "origin": "repo-local",
+                "managed": False,
+                "immutable": False,
+                "package_version": "0.2.13",
+                "content_sha256": content_sha256(path),
+                "status": "accepted",
+                "supersedes": [],
+                "superseded_by": [],
+                "status_notes": [],
+            },
+        )
+    for document in ADDITIONAL_DOCUMENTS["specs"]:
+        path = ROOT / document["path"]
+        upsert(
+            registry["specs"],
+            document["id"],
+            {
+                "id": document["id"],
+                "number": document["number"],
+                "slug": document["slug"],
+                "title": document["title"],
+                "path": document["path"],
+                "origin": "repo-local",
+                "managed": False,
+                "immutable": False,
+                "package_version": "0.2.13",
+                "content_sha256": content_sha256(path),
+                "status": "accepted",
+                "supersedes": [],
+                "superseded_by": [],
+                "status_notes": [],
+                "kind": "normative",
+                "adr_ids": document["adr_ids"],
+            },
+        )
 
 
 def write_surface_catalog(features: list[dict[str, Any]]) -> None:
@@ -273,6 +373,52 @@ def write_surface_catalog(features: list[dict[str, Any]]) -> None:
         yaml.safe_dump(document, sort_keys=False, allow_unicode=False),
         encoding="utf-8",
     )
+
+
+def merge_id(rows_by_id: dict[str, dict[str, Any]], row_id: str, field: str, value: str) -> None:
+    row = rows_by_id.get(row_id)
+    if row is None:
+        return
+    row[field] = sorted_unique(list(row.get(field, [])) + [value])
+
+
+def sync_bidirectional_links(registry: dict[str, Any]) -> None:
+    features_by_id = {row["id"]: row for row in registry["features"]}
+    claims_by_id = {row["id"]: row for row in registry["claims"]}
+    tests_by_id = {row["id"]: row for row in registry["tests"]}
+    evidence_by_id = {row["id"]: row for row in registry["evidence"]}
+
+    for feature in registry["features"]:
+        feature_id = feature["id"]
+        for claim_id in feature.get("claim_ids", []):
+            merge_id(claims_by_id, claim_id, "feature_ids", feature_id)
+        for test_id in feature.get("test_ids", []):
+            merge_id(tests_by_id, test_id, "feature_ids", feature_id)
+
+    for claim in registry["claims"]:
+        claim_id = claim["id"]
+        for feature_id in claim.get("feature_ids", []):
+            merge_id(features_by_id, feature_id, "claim_ids", claim_id)
+        for test_id in claim.get("test_ids", []):
+            merge_id(tests_by_id, test_id, "claim_ids", claim_id)
+        for evidence_id in claim.get("evidence_ids", []):
+            merge_id(evidence_by_id, evidence_id, "claim_ids", claim_id)
+
+    for test in registry["tests"]:
+        test_id = test["id"]
+        for feature_id in test.get("feature_ids", []):
+            merge_id(features_by_id, feature_id, "test_ids", test_id)
+        for claim_id in test.get("claim_ids", []):
+            merge_id(claims_by_id, claim_id, "test_ids", test_id)
+        for evidence_id in test.get("evidence_ids", []):
+            merge_id(evidence_by_id, evidence_id, "test_ids", test_id)
+
+    for evidence in registry["evidence"]:
+        evidence_id = evidence["id"]
+        for claim_id in evidence.get("claim_ids", []):
+            merge_id(claims_by_id, claim_id, "evidence_ids", evidence_id)
+        for test_id in evidence.get("test_ids", []):
+            merge_id(tests_by_id, test_id, "evidence_ids", evidence_id)
 
 
 def main() -> int:
@@ -396,6 +542,8 @@ def main() -> int:
             "evidence_ids": sorted_unique(release_evidence_ids),
         },
     )
+
+    sync_bidirectional_links(registry)
 
     write_json(REGISTRY_PATH, registry)
     print(

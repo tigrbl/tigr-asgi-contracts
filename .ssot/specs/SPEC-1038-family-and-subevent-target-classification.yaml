@@ -1,0 +1,61 @@
+schema_version: "0.2.0"
+kind: "spec"
+id: "spc:1038"
+number: 1038
+slug: "family-and-subevent-target-classification"
+title: "Family and subevent target classification"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification classifies runtime families and canonical subevents against the row-level targets defined by SPEC-1036 and the protocol-observable rule in ADR-1032."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification classifies runtime families and canonical subevents against the row-level targets defined by SPEC-1036 and the protocol-observable rule in ADR-1032.
+  
+  A subevent is either protocol-observable, runtime-observable, payload-observable, or contract-derived/internal. Only protocol-observable and runtime-observable subevents may claim direct external target conformance.
+  
+  ## Family Classification
+  
+  | Family | Subevent surface | Target rows | Classification |
+  | --- | --- | --- | --- |
+  | request | request.open, request.body_in, request.chunk_in, request.close, request.disconnect | RFC-9110, ASGI-HTTP-WEBSOCKET | HTTP/ASGI observable |
+  | request | request.dispatch | ASGI-MAIN | contract-derived runtime dispatch; not HTTP wire accept |
+  | request | response.open, response.body_out, response.chunk_out, response.finalize, response.emit_complete | RFC-9110, ASGI-HTTP-WEBSOCKET | HTTP/ASGI observable response emission; finalize is final body emission, not connection close |
+  | session | session.open, session.accept, session.reject, session.ready, session.close, session.disconnect | RFC-6455, ASGI-HTTP-WEBSOCKET, IETF-WEBTRANS-HTTP3-15, W3C-WEBTRANSPORT-20260311 | Handshake/session observable where supported by binding |
+  | session | session.heartbeat | RFC-6455 | WebSocket ping/pong observable where binding is WebSocket; derived otherwise |
+  | session | session.sync, session.emit_complete | ASGI-MAIN | runtime/contract observable, not a public wire primitive unless binding-specific evidence exists |
+  | message | message.in, message.out | RFC-6455, WHATWG-WEBSOCKETS, WHATWG-HTML-SSE, ASGI-HTTP-WEBSOCKET | Message/event observable by binding |
+  | message | message.decode, message.decode_failed | RFC-8259, JSON-RPC-2.0, WHATWG-ENCODING | Payload-observable when payload format is configured |
+  | message | message.handle, message.handle_failed | ASGI-MAIN | application/runtime handling; not a wire-level ACK/NACK |
+  | message | message.replay, message.snapshot | WHATWG-HTML-SSE | SSE replay/snapshot only when backed by SSE Last-Event-ID or application-defined replay; otherwise contract-derived |
+  | message | message.emit_complete, message.emit_failed | ASGI-MAIN | local emission result; not remote delivery acknowledgement |
+  | stream | stream.open, stream.chunk_in, stream.chunk_out, stream.flush, stream.finalize, stream.close | RFC-9110, ASGI-HTTP-WEBSOCKET, WHATWG-STREAMS, RFC-9000, IETF-WEBTRANS-OVERVIEW-12, IETF-WEBTRANS-HTTP3-15, W3C-WEBTRANSPORT-20260311 | Stream observable by binding; close is per-stream FIN/finalization, not session close |
+  | stream | stream.reset | RFC-9000, IETF-WEBTRANS-OVERVIEW-12, IETF-WEBTRANS-HTTP3-15 | Per-stream reset outcome |
+  | stream | stream.stop_sending | RFC-9000, IETF-WEBTRANS-OVERVIEW-12, IETF-WEBTRANS-HTTP3-15 | Per-stream stop-sending outcome |
+  | stream | stream.emit_complete | ASGI-MAIN | Local emission result unless a binding-specific target exposes stronger semantics |
+  | datagram | datagram.in, datagram.out | RFC-9221, RFC-9297, IETF-WEBTRANS-OVERVIEW-12, IETF-WEBTRANS-HTTP3-15, W3C-WEBTRANSPORT-20260311 | Datagram observable without reliability guarantee |
+  | datagram | datagram.handle | ASGI-MAIN | Runtime/application handling |
+  | datagram | datagram.emit_complete, datagram.emit_failed | RFC-9221, RFC-9297, ASGI-MAIN | Local emit result only; no remote delivery ACK |
+  | lifespan | lifespan.startup, lifespan.startup_complete, lifespan.startup_failed, lifespan.shutdown, lifespan.shutdown_complete, lifespan.shutdown_failed | ASGI-LIFESPAN | ASGI runtime lifecycle observable |
+  
+  ## Requirements
+  
+  Canonical subevents that do not have a protocol or runtime target row must be explicitly classified as contract-derived/internal before they can remain in the canonical list.
+  
+  Subevents must not use names that imply stronger public behavior than their target rows expose. In particular, datagrams must not expose ACK semantics, HTTP request dispatch must not be named accept, and response finalization must not imply transport connection close.
+  
+  Per-stream WebTransport outcomes must not map to session-level WebTransport close events.
+  
+  ## Validation
+  
+  Validation must prove that every canonical subevent is covered by an automata path or by an explicit no-automata classification, and that each target-linked subevent uses a target row from SPEC-1036.
+spec_kind: "normative"
+adr_ids:
+  - "adr:1032"
+  - "adr:1033"

@@ -119,6 +119,9 @@
         },
         "datagram": {
           "type": "boolean"
+        },
+        "lifespan": {
+          "type": "boolean"
         }
       },
       "additionalProperties": false

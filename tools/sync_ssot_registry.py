@@ -17,6 +17,7 @@ Notes:
 from __future__ import annotations
 
 import ast
+import hashlib
 import json
 import os
 import subprocess
@@ -26,6 +27,7 @@ from importlib.util import module_from_spec, spec_from_file_location
 from pathlib import Path
 
 import build_normalized_feature_matrix as normalized_matrix
+import yaml
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -39,7 +41,7 @@ VERSION_PATH = ROOT / "VERSION"
 CODE_TO_STATUS = {
     "R": "implemented",
     "D": "implemented",
-    "O": "partial",
+    "O": "implemented",
     "F": "absent",
 }
 
@@ -70,6 +72,67 @@ PROXY_METADATA_TERMS = {
     "x-real-ip",
     "proxy",
     "peer",
+}
+
+STANDARD_SUBEVENT_SPEC_ID = "spc:1032"
+HTTP_LIFESPAN_SPEC_ID = "spc:1033"
+WEBSOCKET_MESSAGE_SPEC_ID = "spc:1034"
+WEBTRANSPORT_STREAM_DATAGRAM_SPEC_ID = "spc:1035"
+
+OBSOLETE_SUBEVENT_REPLACEMENTS = {
+    "request-accept": ["request-dispatch"],
+    "response-close": ["response-finalize"],
+    "message-ack": ["message-emit-complete"],
+    "message-nack": ["message-emit-failed"],
+    "stream-abort": ["stream-reset", "stream-stop-sending"],
+    "datagram-ack": ["datagram-emit-complete"],
+    "datagram-close": ["datagram-emit-complete"],
+}
+
+STANDARDS_DOCUMENTS = {
+    "adrs": [
+        {
+            "id": "adr:1032",
+            "number": 1032,
+            "slug": "protocol-observable-lifecycle-semantics",
+            "title": "Canonical lifecycle semantics must be protocol-observable or explicitly derived",
+            "path": ".ssot/adr/ADR-1032-protocol-observable-lifecycle-semantics.yaml",
+        },
+    ],
+    "specs": [
+        {
+            "id": "spc:1032",
+            "number": 1032,
+            "slug": "protocol-observable-subevent-semantics",
+            "title": "Protocol observable subevent semantics",
+            "path": ".ssot/specs/SPEC-1032-protocol-observable-subevent-semantics.yaml",
+            "adr_ids": ["adr:1032"],
+        },
+        {
+            "id": "spc:1033",
+            "number": 1033,
+            "slug": "http-request-response-and-asgi-lifespan-semantics",
+            "title": "HTTP request, response, and ASGI lifespan semantics",
+            "path": ".ssot/specs/SPEC-1033-http-request-response-and-asgi-lifespan-semantics.yaml",
+            "adr_ids": ["adr:1032"],
+        },
+        {
+            "id": "spc:1034",
+            "number": 1034,
+            "slug": "websocket-session-message-semantics",
+            "title": "WebSocket session and message semantics",
+            "path": ".ssot/specs/SPEC-1034-websocket-session-message-semantics.yaml",
+            "adr_ids": ["adr:1032"],
+        },
+        {
+            "id": "spc:1035",
+            "number": 1035,
+            "slug": "webtransport-stream-datagram-semantics",
+            "title": "WebTransport stream and datagram semantics",
+            "path": ".ssot/specs/SPEC-1035-webtransport-stream-datagram-semantics.yaml",
+            "adr_ids": ["adr:1032"],
+        },
+    ],
 }
 
 
@@ -137,6 +200,10 @@ def contract_rel_posix(path: Path) -> str:
     return path.relative_to(CONTRACT_ROOT).as_posix()
 
 
+def content_sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+
+
 def load_contract_registry():
     spec = spec_from_file_location("tigr_registry", CONTRACT_REGISTRY_PATH)
     if spec is None or spec.loader is None:
@@ -146,9 +213,18 @@ def load_contract_registry():
     return module
 
 
+def load_contract_yaml(name: str) -> dict:
+    return yaml.safe_load((CONTRACT_ROOT / name).read_text(encoding="utf-8"))
+
+
 def ssot_env() -> dict[str, str]:
     env = os.environ.copy()
-    if LOCAL_SSOT_SITE.exists():
+    local_api = LOCAL_SSOT_SITE / "ssot_registry" / "api" / "__init__.py"
+    local_is_compatible = (
+        local_api.exists()
+        and "sync_automated_statuses" in local_api.read_text(encoding="utf-8")
+    )
+    if local_is_compatible:
         current = env.get("PYTHONPATH")
         env["PYTHONPATH"] = str(LOCAL_SSOT_SITE) if not current else f"{LOCAL_SSOT_SITE}{os.pathsep}{current}"
     return env
@@ -170,6 +246,55 @@ def run_ssot(*args: str) -> None:
 
 def load_registry() -> dict:
     return json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
+
+
+def upsert_document_rows(registry: dict) -> None:
+    adr_lookup = {row["id"]: row for row in registry.setdefault("adrs", [])}
+    spec_lookup = {row["id"]: row for row in registry.setdefault("specs", [])}
+    for document in STANDARDS_DOCUMENTS["adrs"]:
+        row = {
+            "id": document["id"],
+            "number": document["number"],
+            "slug": document["slug"],
+            "title": document["title"],
+            "path": document["path"],
+            "origin": "repo-local",
+            "managed": False,
+            "immutable": False,
+            "package_version": "0.2.13",
+            "content_sha256": content_sha256(ROOT / document["path"]),
+            "status": "accepted",
+            "supersedes": [],
+            "superseded_by": [],
+            "status_notes": [],
+        }
+        if document["id"] in adr_lookup:
+            adr_lookup[document["id"]].update(row)
+        else:
+            registry["adrs"].append(row)
+    for document in STANDARDS_DOCUMENTS["specs"]:
+        row = {
+            "id": document["id"],
+            "number": document["number"],
+            "slug": document["slug"],
+            "title": document["title"],
+            "path": document["path"],
+            "origin": "repo-local",
+            "managed": False,
+            "immutable": False,
+            "package_version": "0.2.13",
+            "content_sha256": content_sha256(ROOT / document["path"]),
+            "status": "accepted",
+            "supersedes": [],
+            "superseded_by": [],
+            "status_notes": [],
+            "kind": "normative",
+            "adr_ids": document["adr_ids"],
+        }
+        if document["id"] in spec_lookup:
+            spec_lookup[document["id"]].update(row)
+        else:
+            registry["specs"].append(row)
 
 
 def ensure_registry() -> None:
@@ -269,7 +394,11 @@ def normalized_candidate_spec_ids(row: dict[str, str]) -> set[str]:
             spec_ids.add("spc:1027")
         return spec_ids
     if kind == "scope":
-        return {"spc:1000", "spc:1012", "spc:1021"}
+        spec_ids = {"spc:1000", "spc:1012", "spc:1021"}
+        subevent = row.get("subevent", "")
+        if subevent:
+            spec_ids.update(subevent_spec_ids(subevent))
+        return spec_ids
     if kind == "frame":
         return {"spc:1004", "spc:1023"}
     if kind == "concern":
@@ -308,6 +437,71 @@ def normalized_candidate_provenance(row: dict[str, str]) -> dict[str, str]:
         "dedupe_confidence": row.get("dedupe_confidence", ""),
         "review_status": "promoted",
     }
+
+
+def subevent_spec_ids(subevent: str) -> set[str]:
+    spec_ids = {STANDARD_SUBEVENT_SPEC_ID}
+    if subevent.startswith(("request.", "response.", "lifespan.")):
+        spec_ids.add(HTTP_LIFESPAN_SPEC_ID)
+    if subevent.startswith(("session.", "message.")):
+        spec_ids.add(WEBSOCKET_MESSAGE_SPEC_ID)
+    if subevent.startswith(("stream.", "datagram.")):
+        spec_ids.add(WEBTRANSPORT_STREAM_DATAGRAM_SPEC_ID)
+    return spec_ids
+
+
+def replacement_feature_ids(feature_id: str) -> list[str]:
+    replacements: list[str] = []
+    for obsolete, replacement_tokens in OBSOLETE_SUBEVENT_REPLACEMENTS.items():
+        if obsolete not in feature_id:
+            continue
+        replacements.extend(feature_id.replace(obsolete, token) for token in replacement_tokens)
+    return sorted(set(replacements))
+
+
+def obsolete_feature_spec_ids(feature_id: str) -> set[str]:
+    spec_ids = {STANDARD_SUBEVENT_SPEC_ID}
+    if any(token in feature_id for token in ("request-accept", "response-close")):
+        spec_ids.add(HTTP_LIFESPAN_SPEC_ID)
+    if any(token in feature_id for token in ("message-ack", "message-nack")):
+        spec_ids.add(WEBSOCKET_MESSAGE_SPEC_ID)
+    if any(token in feature_id for token in ("stream-abort", "datagram-ack", "datagram-close")):
+        spec_ids.add(WEBTRANSPORT_STREAM_DATAGRAM_SPEC_ID)
+    return spec_ids
+
+
+def scope_subevent_feature_specs(contract_registry) -> dict[str, FeatureSpec]:
+    bindings = load_contract_yaml("bindings.yaml")["bindings"]
+    subevent_family = {
+        subevent: family
+        for family, subevents in contract_registry.FAMILY_SUBEVENT_MATRIX.items()
+        for subevent in subevents
+    }
+    status_rank = {"partial": 1, "implemented": 2}
+    specs: dict[str, FeatureSpec] = {}
+    for binding, subevents in sorted(contract_registry.BINDING_SUBEVENT_MATRIX.items()):
+        scope_type = bindings[binding]["scope_type"]
+        for subevent, code in sorted(subevents.items()):
+            status = CODE_TO_STATUS[code]
+            if status == "absent":
+                continue
+            family = subevent_family[subevent]
+            feat_id = f"feat:scope-scope-{norm(scope_type)}-{norm(family)}-{norm(subevent)}"
+            spec_ids = {"spc:1000", "spc:1012", "spc:1021"} | subevent_spec_ids(subevent)
+            current = specs.get(feat_id)
+            if current and status_rank.get(current.implementation_status, 0) >= status_rank.get(status, 0):
+                current.spec_ids.update(spec_ids)
+                continue
+            specs[feat_id] = FeatureSpec(
+                entity_id=feat_id,
+                title=f"Scope subevent {scope_type} x {family} x {subevent}",
+                description=f"ASGI scope-level subevent surface for {scope_type} / {family} / {subevent}.",
+                implementation_status=status,
+                plan_horizon="current",
+                spec_ids=spec_ids,
+                overwrite_links=False,
+            )
+    return specs
 
 
 def build_normalized_candidate_feature_specs() -> dict[str, FeatureSpec]:
@@ -382,6 +576,7 @@ def build_specs() -> tuple[dict[str, FeatureSpec], dict[str, ClaimSpec], dict[st
                 title=f"Binding family {binding} x {family}",
                 description=f"From BINDING_FAMILY_MATRIX: code {code} ({CODE_LABEL[code]}).",
                 implementation_status=CODE_TO_STATUS[code],
+                plan_horizon="current" if CODE_TO_STATUS[code] == "implemented" else "out_of_bounds",
                 claim_ids=claim_ids,
             )
 
@@ -397,7 +592,9 @@ def build_specs() -> tuple[dict[str, FeatureSpec], dict[str, ClaimSpec], dict[st
                 title=f"Family subevent {family} x {subevent}",
                 description=f"From FAMILY_SUBEVENT_MATRIX: code {code} ({CODE_LABEL[code]}).",
                 implementation_status=CODE_TO_STATUS[code],
+                plan_horizon="current" if CODE_TO_STATUS[code] == "implemented" else "out_of_bounds",
                 claim_ids=claim_ids,
+                spec_ids=subevent_spec_ids(subevent),
             )
 
     for binding, subevents in sorted(contract_registry.BINDING_SUBEVENT_MATRIX.items()):
@@ -412,7 +609,9 @@ def build_specs() -> tuple[dict[str, FeatureSpec], dict[str, ClaimSpec], dict[st
                 title=f"Binding subevent {binding} x {subevent}",
                 description=f"From BINDING_SUBEVENT_MATRIX: code {code} ({CODE_LABEL[code]}).",
                 implementation_status=CODE_TO_STATUS[code],
+                plan_horizon="current" if CODE_TO_STATUS[code] == "implemented" else "out_of_bounds",
                 claim_ids=claim_ids,
+                spec_ids=subevent_spec_ids(subevent),
             )
 
     claims["clm:bindings"].feature_ids.update(implemented_binding_family_ids | implemented_binding_subevent_ids)
@@ -421,6 +620,7 @@ def build_specs() -> tuple[dict[str, FeatureSpec], dict[str, ClaimSpec], dict[st
     claims["clm:legality-binding-family"].feature_ids.update(implemented_binding_family_ids)
     claims["clm:legality-family-subevent"].feature_ids.update(implemented_family_subevent_ids)
     claims["clm:legality-binding-subevent"].feature_ids.update(implemented_binding_subevent_ids)
+    features.update(scope_subevent_feature_specs(contract_registry))
 
     all_artifact_feature_ids = {artifact_feature_id(path) for path in artifact_paths}
     all_artifact_claim_ids = {artifact_claim_id(path) for path in artifact_paths}
@@ -667,6 +867,15 @@ def upsert_feature_rows(registry: dict, specs: dict[str, FeatureSpec]) -> tuple[
                 "target_lifecycle_stage": "active",
             },
         )
+        desired_plan = {
+            "horizon": spec.plan_horizon,
+            "slot": row["plan"].get("slot"),
+            "target_claim_tier": spec.target_claim_tier,
+            "target_lifecycle_stage": row["plan"].get("target_lifecycle_stage", "active"),
+        }
+        if row["plan"] != desired_plan:
+            row["plan"] = desired_plan
+            changed = True
         if spec.matrix_provenance:
             plan = row["plan"]
             desired_plan = {
@@ -705,6 +914,31 @@ def upsert_feature_rows(registry: dict, specs: dict[str, FeatureSpec]) -> tuple[
             created_or_updated += 1
 
     return created_or_updated, links_added
+
+
+def retire_obsolete_subevent_features(registry: dict) -> int:
+    retired = 0
+    for row in registry.setdefault("features", []):
+        replacements = replacement_feature_ids(row.get("id", ""))
+        if not replacements:
+            continue
+        row["implementation_status"] = "absent"
+        row.setdefault("lifecycle", {"stage": "active", "replacement_feature_ids": [], "note": None})
+        row["lifecycle"]["stage"] = "obsolete"
+        row["lifecycle"]["replacement_feature_ids"] = replacements
+        row["lifecycle"]["note"] = "Superseded by protocol-observable lifecycle semantics."
+        row.setdefault("plan", {})
+        row["plan"]["horizon"] = "out_of_bounds"
+        row["plan"]["target_lifecycle_stage"] = "obsolete"
+        row.setdefault("spec_ids", [])
+        row["spec_ids"], _ = merge_sorted_unique(
+            row.get("spec_ids"),
+            obsolete_feature_spec_ids(row.get("id", "")),
+        )
+        row["claim_ids"] = []
+        row["test_ids"] = []
+        retired += 1
+    return retired
 
 
 def upsert_claim_rows(registry: dict, specs: dict[str, ClaimSpec]) -> tuple[int, int]:
@@ -857,17 +1091,22 @@ def upsert_evidence_rows(registry: dict, specs: dict[str, EvidenceSpec]) -> tupl
 
 
 def save_registry(registry: dict) -> None:
-    REGISTRY_PATH.write_text(json.dumps(registry, indent=2) + "\n", encoding="utf-8")
+    REGISTRY_PATH.write_text(
+        json.dumps(registry, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False),
+        encoding="utf-8",
+    )
 
 
 def main() -> None:
     ensure_registry()
     features, claims, tests, evidence = build_specs()
     registry = load_registry()
+    upsert_document_rows(registry)
     feature_changes, feature_links = upsert_feature_rows(registry, features)
     claim_changes, claim_links = upsert_claim_rows(registry, claims)
     test_changes, test_links = upsert_test_rows(registry, tests)
     evidence_changes, evidence_links = upsert_evidence_rows(registry, evidence)
+    obsolete_feature_changes = retire_obsolete_subevent_features(registry)
 
     save_registry(registry)
 
@@ -893,6 +1132,7 @@ def main() -> None:
                     "claims": claim_changes,
                     "tests": test_changes,
                     "evidence": evidence_changes,
+                    "obsolete_features": obsolete_feature_changes,
                 },
                 "links_added": feature_links + claim_links + test_links + evidence_links,
                 "final_counts": {

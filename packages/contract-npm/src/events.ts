@@ -14,6 +14,9 @@ export enum TransportEventType {
   WEBTRANSPORT_ACCEPT = "webtransport.accept",
   WEBTRANSPORT_STREAM_RECEIVE = "webtransport.stream.receive",
   WEBTRANSPORT_STREAM_SEND = "webtransport.stream.send",
+  WEBTRANSPORT_STREAM_CLOSE = "webtransport.stream.close",
+  WEBTRANSPORT_STREAM_RESET = "webtransport.stream.reset",
+  WEBTRANSPORT_STREAM_STOP_SENDING = "webtransport.stream.stop_sending",
   WEBTRANSPORT_DATAGRAM_RECEIVE = "webtransport.datagram.receive",
   WEBTRANSPORT_DATAGRAM_SEND = "webtransport.datagram.send",
   WEBTRANSPORT_DISCONNECT = "webtransport.disconnect",
@@ -25,6 +28,7 @@ export enum TransportEventType {
   LIFESPAN_SHUTDOWN_COMPLETE = "lifespan.shutdown.complete",
   LIFESPAN_SHUTDOWN_FAILED = "lifespan.shutdown.failed",
   TRANSPORT_EMIT_COMPLETE = "transport.emit.complete",
+  TRANSPORT_EMIT_FAILED = "transport.emit.failed",
 }
 export interface ContractEvent {
   type: TransportEventType;

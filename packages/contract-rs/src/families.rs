@@ -12,4 +12,6 @@ pub enum Family {
     Stream,
     #[serde(rename = "datagram")]
     Datagram,
+    #[serde(rename = "lifespan")]
+    Lifespan,
 }

@@ -1,0 +1,39 @@
+schema_version: "0.2.0"
+kind: "adr"
+id: "adr:1033"
+number: 1033
+slug: "conformance-targets-row-level-governed-authorities"
+title: "Conformance targets are row-level governed authorities"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "ADR-1001 makes conformance targets explicit. ADR-1003 establishes protocol standards targets. ADR-1010 defines the current SSOT representation for targets as feature rows. The lifecycle cleanup in ADR-1032 exposed a remaining governance gap: a broad standards-family target is not precise enough to prove that a binding, family, subevent, or frame conforms to a specific external authority."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  ADR-1001 makes conformance targets explicit. ADR-1003 establishes protocol standards targets. ADR-1010 defines the current SSOT representation for targets as feature rows. The lifecycle cleanup in ADR-1032 exposed a remaining governance gap: a broad standards-family target is not precise enough to prove that a binding, family, subevent, or frame conforms to a specific external authority.
+  
+  The contract needs one row per authority so that RFCs, IETF drafts, WHATWG living standards, W3C drafts, ASGI specifications, JSON-RPC, and gRPC targets can be reviewed, linked, and evidenced independently.
+  
+  ## Decision
+  
+  Each external conformance authority must be represented as a row-level governed target before a feature, binding, family, subevent, schema, or generated artifact can claim conformance to it.
+  
+  A governed conformance target row must identify the authority, stable citation, authority class, status, version or snapshot date when applicable, applicable contract surfaces, and evidence expectations.
+  
+  Protocol mappings must link to specific target rows rather than only to broad protocol families such as HTTP, WebSocket, or WebTransport.
+  
+  Derived or internal contract phases must not link to external protocol target rows unless the external authority exposes the behavior being modeled.
+  
+  ## Consequences
+  
+  The standards target inventory becomes reviewable at authority-row granularity.
+  
+  Features that claim conformance must link through the applicable SPECs and target rows instead of relying on prose-only standards references.
+  
+  Broad target documents may remain as overview material, but concrete conformance claims require row-level authority coverage.

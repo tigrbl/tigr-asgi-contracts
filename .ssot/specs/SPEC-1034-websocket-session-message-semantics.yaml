@@ -1,0 +1,37 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1034"
+number: 1034
+slug: "websocket-session-message-semantics"
+title: "WebSocket session and message semantics"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification governs WebSocket session and message lifecycle subevents."
+supersedes: []
+superseded_by: []
+status_notes: []
+references:
+  - "adr:1032"
+body: |-
+  ## Scope
+
+  This specification governs WebSocket session and message subevents and their generated mappings.
+
+  ## Requirements
+
+  Session lifecycle must allow pre-ready rejection and pre-ready disconnect paths.
+
+  Message lifecycle must distinguish decode failure, handler failure, local emission completion, and local emission failure.
+
+  Message lifecycle must not use `message.ack` or `message.nack` to imply protocol-level or peer-level acknowledgement.
+
+  Replay and snapshot remain derived message surfaces and do not imply native WebSocket replay support.
+
+  ## Validation
+
+  Tests must cover session reject/disconnect paths and message decode, handle, emit-complete, and emit-failed paths.
+spec_kind: "normative"
+adr_ids:
+  - "adr:1032"

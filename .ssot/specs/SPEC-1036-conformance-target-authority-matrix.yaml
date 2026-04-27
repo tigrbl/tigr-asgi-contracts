@@ -1,0 +1,77 @@
+schema_version: "0.2.0"
+kind: "spec"
+id: "spc:1036"
+number: 1036
+slug: "conformance-target-authority-matrix"
+title: "Conformance target authority matrix"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines the row-level conformance target authority matrix for the contract. Each row is a separately governed external authority target that may be linked by feature rows, binding mappings, family/subevent mappings, claims, tests, and evidence."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines the row-level conformance target authority matrix for the contract. Each row is a separately governed external authority target that may be linked by feature rows, binding mappings, family/subevent mappings, claims, tests, and evidence.
+  
+  Target rows must not be inferred from broad protocol labels. A feature that claims conformance must identify the specific authority row or rows that govern the behavior.
+  
+  ## Authority Matrix
+  
+  | Target ID | Authority | Status class | Applies to |
+  | --- | --- | --- | --- |
+  | RFC-3986 | IETF RFC | stable | URI syntax for HTTP, HTTPS, WS, WSS, and request-target metadata |
+  | WHATWG-URL | WHATWG | living | Browser URL parsing, serialization, and URL API behavior |
+  | WHATWG-FETCH | WHATWG | living | Browser request/response processing and fetch-backed streams |
+  | WHATWG-ENCODING | WHATWG | living | Text encoding boundaries, including SSE UTF-8 and WebSocket text |
+  | RFC-9110 | IETF RFC | stable | HTTP semantics for request, response, REST, JSON-RPC over HTTP, streaming HTTP, SSE, and pathsend responses |
+  | RFC-9112 | IETF RFC | stable | HTTP/1.1 wire message framing |
+  | RFC-9113 | IETF RFC | stable | HTTP/2 streams and framing |
+  | RFC-9114 | IETF RFC | stable | HTTP/3 streams and framing |
+  | RFC-8446 | IETF RFC | stable | TLS 1.3 security layer for HTTPS, WSS, WebTransport, and ASGI TLS metadata |
+  | RFC-5280 | IETF RFC | stable | X.509 certificate profile for TLS certificate material |
+  | RFC-6125 | IETF RFC | stable | Service identity verification for TLS peer identity |
+  | RFC-4514 | IETF RFC | stable | Distinguished-name string representation in TLS certificate metadata |
+  | RFC-8259 | IETF RFC | stable | JSON payload and JSON framing surfaces |
+  | RFC-8785 | IETF RFC | stable-informational | Canonical JSON when deterministic JSON serialization is required |
+  | JSON-RPC-2.0 | JSON-RPC | stable-external | JSON-RPC request, response, notification, and error object semantics |
+  | WHATWG-HTML-SSE | WHATWG | living | EventSource and text/event-stream parsing behavior |
+  | RFC-6455 | IETF RFC | stable | WebSocket handshake, frames, close, ping, pong, text, bytes, and message semantics |
+  | RFC-8441 | IETF RFC | stable | WebSocket bootstrapping over HTTP/2 |
+  | RFC-9220 | IETF RFC | stable | WebSocket bootstrapping over HTTP/3 |
+  | WHATWG-WEBSOCKETS | WHATWG | living | Browser WebSocket API lifecycle and events |
+  | WHATWG-STREAMS | WHATWG | living | Browser ReadableStream and WritableStream behavior |
+  | RFC-9000 | IETF RFC | stable | QUIC connection and stream primitives, including reset and stop-sending semantics |
+  | RFC-9221 | IETF RFC | stable | QUIC unreliable DATAGRAM extension |
+  | RFC-9297 | IETF RFC | stable | HTTP Datagrams and Capsule Protocol |
+  | IETF-WEBTRANS-OVERVIEW-12 | IETF Internet-Draft | draft | WebTransport abstract protocol framework, sessions, streams, and datagrams |
+  | IETF-WEBTRANS-HTTP3-15 | IETF Internet-Draft | draft | WebTransport over HTTP/3 mapping |
+  | IETF-WEBTRANS-HTTP2-14 | IETF Internet-Draft | draft-conditional | Conditional or future WebTransport over HTTP/2 mapping |
+  | W3C-WEBTRANSPORT-20260311 | W3C | working-draft | Browser WebTransport WebIDL/API behavior |
+  | ASGI-MAIN | ASGI | stable-external | ASGI callable, scope, receive, and send envelope |
+  | ASGI-HTTP-WEBSOCKET | ASGI | stable-external | ASGI HTTP and WebSocket message formats |
+  | ASGI-LIFESPAN | ASGI | stable-external | ASGI startup and shutdown lifecycle messages |
+  | ASGI-TLS-EXTENSION | ASGI | stable-external | ASGI TLS connection-scope metadata |
+  | ASGI-EXTENSIONS | ASGI | stable-external | ASGI common extension events, including pathsend |
+  | GRPC-HTTP2 | gRPC project | stable-external | gRPC over HTTP/2 request, response, trailers, and length-prefixed messages |
+  | RFC-4648 | IETF RFC | stable | Base-N encodings, including base64 metadata encoding |
+  
+  ## Requirements
+  
+  Each target row must be represented as a target feature or future first-class target entity before any implementation, binding, family, subevent, schema, claim, or test uses it as a conformance basis.
+  
+  Target rows with status class `draft`, `draft-conditional`, or `living` must include review metadata as specified by SPEC-1039.
+  
+  Target rows do not prove implementation by themselves. Implementation and verification require claims, tests, and evidence as specified by SPEC-1040.
+  
+  ## Validation
+  
+  Validation must fail if a conformance claim cites a broad protocol family without a row-level target, or if a draft/living target lacks the required review metadata.
+spec_kind: "normative"
+adr_ids:
+  - "adr:1033"
+  - "adr:1034"

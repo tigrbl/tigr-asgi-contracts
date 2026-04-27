@@ -1,0 +1,41 @@
+schema_version: "0.2.0"
+kind: "adr"
+id: "adr:1034"
+number: 1034
+slug: "draft-and-living-standards-pinned-review-targets"
+title: "Draft and living standards require pinned review targets"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "The contract now cites a mixture of stable RFCs, external protocol specifications, WHATWG living standards, W3C working drafts, and active IETF Internet-Drafts. These authorities do not have the same stability profile."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  The contract now cites a mixture of stable RFCs, external protocol specifications, WHATWG living standards, W3C working drafts, and active IETF Internet-Drafts. These authorities do not have the same stability profile.
+  
+  Stable RFCs can be referenced by RFC number. Living standards can change without a new document number. Internet-Drafts expire and can be replaced before publication as RFCs.
+  
+  ## Decision
+  
+  Conformance targets that are drafts or living standards must be pinned to a reviewable version, revision, or retrieval date in the SSOT target row.
+  
+  Internet-Draft target rows must include the draft name and revision. They must be marked draft or volatile and must not be treated as permanent RFC targets until publication.
+  
+  WHATWG living standard target rows must include the living-standard URL and the last-reviewed date or snapshot reference used for validation.
+  
+  W3C Working Draft target rows must include the dated TR URL when available, plus the latest published version URL for monitoring.
+  
+  Expired, replaced, or superseded draft targets must trigger review before any feature remains classified as current conformance.
+  
+  ## Consequences
+  
+  Conformance claims remain auditable when standards move.
+  
+  Generated documentation can distinguish stable RFC targets from draft or living targets.
+  
+  Future standards updates become explicit governance work instead of silent semantic drift.

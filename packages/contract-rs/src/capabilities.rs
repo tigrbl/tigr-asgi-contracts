@@ -8,4 +8,5 @@ pub struct FamilyCapabilities {
     pub stream_in: bool,
     pub stream_out: bool,
     pub datagram: bool,
+    pub lifespan: bool,
 }

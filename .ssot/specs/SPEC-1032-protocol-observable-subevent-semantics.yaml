@@ -1,0 +1,38 @@
+schema_version: "0.1.0"
+kind: "spec"
+id: "spc:1032"
+number: 1032
+slug: "protocol-observable-subevent-semantics"
+title: "Protocol observable subevent semantics"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines the rule that canonical subevents must be protocol-observable or explicitly contract-derived/internal."
+supersedes: []
+superseded_by: []
+status_notes: []
+references:
+  - "adr:1000"
+  - "adr:1032"
+body: |-
+  ## Scope
+
+  This specification governs canonical subevent naming, lifecycle automata labels, binding-subevent legality, and generated documentation for protocol lifecycle semantics.
+
+  ## Requirements
+
+  Canonical subevents must not imply remote delivery, protocol acceptance, stream reset, or connection close semantics that are not exposed by the public protocol or application API surface being modeled.
+
+  Subevents that represent local contract phases must be named for local behavior and documented as derived/internal by their legality and generated mappings.
+
+  `transport.emit.complete` and `transport.emit.failed` are local emission outcomes. They do not prove network delivery or peer receipt.
+
+  Removed subevents must be absent from canonical contract artifacts and generated packages, while corresponding SSOT feature rows must remain traceable as deprecated or obsolete rows with replacements.
+
+  ## Validation
+
+  Tests must prove that removed phantom semantics are absent, all canonical subevents are covered by automata transitions, and generated mappings do not map stream lifecycle to session close unless the subevent is a session close.
+spec_kind: "normative"
+adr_ids:
+  - "adr:1032"

@@ -1,0 +1,66 @@
+schema_version: "0.2.0"
+kind: "spec"
+id: "spc:1040"
+number: 1040
+slug: "conformance-evidence-requirements-per-target"
+title: "Conformance evidence requirements per target"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines the minimum claim, test, and evidence requirements for row-level conformance targets."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines the minimum claim, test, and evidence requirements for row-level conformance targets.
+  
+  It applies to target rows defined by SPEC-1036, binding mappings defined by SPEC-1037, and family/subevent mappings defined by SPEC-1038.
+  
+  ## Evidence Classes
+  
+  | Evidence class | Purpose | Example surfaces |
+  | --- | --- | --- |
+  | target-inventory | Proves the target row exists and has required metadata | SPEC-1036 target rows, feature rows, target URLs, review metadata |
+  | contract-mapping | Proves the target applies to a binding, family, subevent, frame, or schema | binding maps, subevent maps, legality matrices, schema references |
+  | automata-legality | Proves lifecycle transitions are valid and reachable | automata tests, legality matrix tests, unreachable-subevent checks |
+  | generated-parity | Proves generated packages expose the same target-linked contract | Python, TypeScript, Rust registries and README projections |
+  | negative-phantom | Proves nonstandard semantics are absent | no datagram ACK, no HTTP request accept, no WebTransport stream close mapped to session close |
+  | external-runtime | Proves a downstream runtime actually emits or accepts behavior | downstream ASGI server/runtime tests, interop traces, protocol captures |
+  
+  ## Requirements
+  
+  A target row may be present with target-inventory evidence only. This means the contract knows the external authority exists; it does not prove implementation.
+  
+  A contract feature may be marked implemented only when target-inventory, contract-mapping, and generated-parity evidence are present for the relevant generated surfaces.
+  
+  A lifecycle or subevent feature may be marked implemented only when automata-legality evidence is also present, or when the SPEC explicitly classifies the surface as no-automata.
+  
+  A feature that retires misleading protocol semantics must include negative-phantom evidence proving the old semantics are absent from canonical artifacts and generated surfaces.
+  
+  A runtime conformance claim requires external-runtime evidence. Contract-owned target rows and generated package parity are not enough to claim that a downstream server, client, or framework performs the behavior on the wire.
+  
+  Draft and living targets require review metadata evidence as defined by SPEC-1039 before they can support current or implemented feature rows.
+  
+  ## Claim Tier Guidance
+  
+  T1 evidence may prove target inventory only.
+  
+  T2 evidence may prove contract mapping and generated parity.
+  
+  T3 evidence may prove automata behavior and negative phantom semantics.
+  
+  T4 evidence may prove downstream runtime behavior against public protocols.
+  
+  The registry must not raise a target-backed feature above the evidence class actually present.
+  
+  ## Validation
+  
+  Validation must detect missing target metadata, missing SPEC linkage, missing claim/test/evidence links, and mismatched implementation status for target-backed features.
+spec_kind: "governance"
+adr_ids:
+  - "adr:1033"
+  - "adr:1034"

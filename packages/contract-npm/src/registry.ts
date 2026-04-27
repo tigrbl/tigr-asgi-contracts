@@ -4,42 +4,48 @@ export const BINDING_FAMILY_MATRIX = {
     "session": "F",
     "message": "F",
     "stream": "O",
-    "datagram": "F"
+    "datagram": "F",
+    "lifespan": "F"
   },
   "jsonrpc": {
     "request": "R",
     "session": "F",
     "message": "F",
     "stream": "O",
-    "datagram": "F"
+    "datagram": "F",
+    "lifespan": "F"
   },
   "http.stream": {
     "request": "R",
     "session": "F",
     "message": "F",
     "stream": "R",
-    "datagram": "F"
+    "datagram": "F",
+    "lifespan": "F"
   },
   "sse": {
     "request": "R",
     "session": "R",
     "message": "R",
     "stream": "R",
-    "datagram": "F"
+    "datagram": "F",
+    "lifespan": "F"
   },
   "websocket": {
     "request": "F",
     "session": "R",
     "message": "R",
     "stream": "F",
-    "datagram": "F"
+    "datagram": "F",
+    "lifespan": "F"
   },
   "webtransport": {
     "request": "F",
     "session": "R",
     "message": "O",
     "stream": "R",
-    "datagram": "R"
+    "datagram": "R",
+    "lifespan": "F"
   }
 } as const;
 
@@ -48,18 +54,19 @@ export const FAMILY_SUBEVENT_MATRIX = {
     "request.open": "R",
     "request.body_in": "R",
     "request.chunk_in": "R",
-    "request.accept": "R",
+    "request.dispatch": "R",
     "request.close": "R",
     "request.disconnect": "R",
     "response.open": "R",
     "response.body_out": "R",
     "response.chunk_out": "R",
-    "response.close": "R",
+    "response.finalize": "R",
     "response.emit_complete": "R"
   },
   "session": {
     "session.open": "R",
     "session.accept": "R",
+    "session.reject": "R",
     "session.ready": "R",
     "session.heartbeat": "R",
     "session.sync": "R",
@@ -70,13 +77,14 @@ export const FAMILY_SUBEVENT_MATRIX = {
   "message": {
     "message.in": "R",
     "message.decode": "R",
+    "message.decode_failed": "R",
     "message.handle": "R",
+    "message.handle_failed": "R",
     "message.out": "R",
-    "message.ack": "R",
-    "message.nack": "R",
     "message.replay": "R",
     "message.snapshot": "R",
-    "message.emit_complete": "R"
+    "message.emit_complete": "R",
+    "message.emit_failed": "R"
   },
   "stream": {
     "stream.open": "R",
@@ -84,7 +92,8 @@ export const FAMILY_SUBEVENT_MATRIX = {
     "stream.chunk_out": "R",
     "stream.flush": "R",
     "stream.finalize": "R",
-    "stream.abort": "R",
+    "stream.reset": "R",
+    "stream.stop_sending": "R",
     "stream.close": "R",
     "stream.emit_complete": "R"
   },
@@ -92,8 +101,16 @@ export const FAMILY_SUBEVENT_MATRIX = {
     "datagram.in": "R",
     "datagram.handle": "R",
     "datagram.out": "R",
-    "datagram.ack": "R",
-    "datagram.emit_complete": "R"
+    "datagram.emit_complete": "R",
+    "datagram.emit_failed": "R"
+  },
+  "lifespan": {
+    "lifespan.startup": "R",
+    "lifespan.startup_complete": "R",
+    "lifespan.startup_failed": "R",
+    "lifespan.shutdown": "R",
+    "lifespan.shutdown_complete": "R",
+    "lifespan.shutdown_failed": "R"
   }
 } as const;
 
@@ -102,16 +119,17 @@ export const BINDING_SUBEVENT_MATRIX = {
     "request.open": "R",
     "request.body_in": "R",
     "request.chunk_in": "F",
-    "request.accept": "O",
+    "request.dispatch": "D",
     "request.close": "R",
     "request.disconnect": "O",
     "response.open": "R",
     "response.body_out": "R",
     "response.chunk_out": "F",
-    "response.close": "O",
+    "response.finalize": "O",
     "response.emit_complete": "R",
     "session.open": "F",
     "session.accept": "F",
+    "session.reject": "F",
     "session.ready": "F",
     "session.heartbeat": "F",
     "session.sync": "F",
@@ -120,41 +138,50 @@ export const BINDING_SUBEVENT_MATRIX = {
     "session.emit_complete": "F",
     "message.in": "F",
     "message.decode": "F",
+    "message.decode_failed": "F",
     "message.handle": "F",
+    "message.handle_failed": "F",
     "message.out": "F",
-    "message.ack": "F",
-    "message.nack": "F",
     "message.replay": "F",
     "message.snapshot": "F",
     "message.emit_complete": "F",
+    "message.emit_failed": "F",
     "stream.open": "O",
     "stream.chunk_in": "O",
     "stream.chunk_out": "O",
     "stream.flush": "F",
     "stream.finalize": "O",
-    "stream.abort": "F",
+    "stream.reset": "F",
+    "stream.stop_sending": "F",
     "stream.close": "O",
     "stream.emit_complete": "O",
     "datagram.in": "F",
     "datagram.handle": "F",
     "datagram.out": "F",
-    "datagram.ack": "F",
-    "datagram.emit_complete": "F"
+    "datagram.emit_complete": "F",
+    "datagram.emit_failed": "F",
+    "lifespan.startup": "F",
+    "lifespan.startup_complete": "F",
+    "lifespan.startup_failed": "F",
+    "lifespan.shutdown": "F",
+    "lifespan.shutdown_complete": "F",
+    "lifespan.shutdown_failed": "F"
   },
   "jsonrpc": {
     "request.open": "R",
     "request.body_in": "R",
     "request.chunk_in": "F",
-    "request.accept": "O",
+    "request.dispatch": "D",
     "request.close": "R",
     "request.disconnect": "O",
     "response.open": "R",
     "response.body_out": "R",
     "response.chunk_out": "F",
-    "response.close": "O",
+    "response.finalize": "O",
     "response.emit_complete": "R",
     "session.open": "F",
     "session.accept": "F",
+    "session.reject": "F",
     "session.ready": "F",
     "session.heartbeat": "F",
     "session.sync": "F",
@@ -163,41 +190,50 @@ export const BINDING_SUBEVENT_MATRIX = {
     "session.emit_complete": "F",
     "message.in": "F",
     "message.decode": "D",
+    "message.decode_failed": "D",
     "message.handle": "F",
+    "message.handle_failed": "F",
     "message.out": "F",
-    "message.ack": "F",
-    "message.nack": "F",
     "message.replay": "F",
     "message.snapshot": "F",
     "message.emit_complete": "F",
+    "message.emit_failed": "F",
     "stream.open": "O",
     "stream.chunk_in": "O",
     "stream.chunk_out": "O",
     "stream.flush": "F",
     "stream.finalize": "O",
-    "stream.abort": "F",
+    "stream.reset": "F",
+    "stream.stop_sending": "F",
     "stream.close": "O",
     "stream.emit_complete": "O",
     "datagram.in": "F",
     "datagram.handle": "F",
     "datagram.out": "F",
-    "datagram.ack": "F",
-    "datagram.emit_complete": "F"
+    "datagram.emit_complete": "F",
+    "datagram.emit_failed": "F",
+    "lifespan.startup": "F",
+    "lifespan.startup_complete": "F",
+    "lifespan.startup_failed": "F",
+    "lifespan.shutdown": "F",
+    "lifespan.shutdown_complete": "F",
+    "lifespan.shutdown_failed": "F"
   },
   "http.stream": {
     "request.open": "R",
     "request.body_in": "O",
     "request.chunk_in": "D",
-    "request.accept": "O",
+    "request.dispatch": "D",
     "request.close": "R",
     "request.disconnect": "O",
     "response.open": "R",
     "response.body_out": "O",
     "response.chunk_out": "D",
-    "response.close": "O",
+    "response.finalize": "O",
     "response.emit_complete": "R",
     "session.open": "F",
     "session.accept": "F",
+    "session.reject": "F",
     "session.ready": "F",
     "session.heartbeat": "F",
     "session.sync": "F",
@@ -206,41 +242,50 @@ export const BINDING_SUBEVENT_MATRIX = {
     "session.emit_complete": "F",
     "message.in": "F",
     "message.decode": "F",
+    "message.decode_failed": "F",
     "message.handle": "F",
+    "message.handle_failed": "F",
     "message.out": "F",
-    "message.ack": "F",
-    "message.nack": "F",
     "message.replay": "F",
     "message.snapshot": "F",
     "message.emit_complete": "F",
+    "message.emit_failed": "F",
     "stream.open": "R",
     "stream.chunk_in": "R",
     "stream.chunk_out": "R",
     "stream.flush": "O",
     "stream.finalize": "R",
-    "stream.abort": "O",
+    "stream.reset": "O",
+    "stream.stop_sending": "F",
     "stream.close": "R",
     "stream.emit_complete": "R",
     "datagram.in": "F",
     "datagram.handle": "F",
     "datagram.out": "F",
-    "datagram.ack": "F",
-    "datagram.emit_complete": "F"
+    "datagram.emit_complete": "F",
+    "datagram.emit_failed": "F",
+    "lifespan.startup": "F",
+    "lifespan.startup_complete": "F",
+    "lifespan.startup_failed": "F",
+    "lifespan.shutdown": "F",
+    "lifespan.shutdown_complete": "F",
+    "lifespan.shutdown_failed": "F"
   },
   "sse": {
     "request.open": "R",
     "request.body_in": "O",
     "request.chunk_in": "F",
-    "request.accept": "O",
+    "request.dispatch": "D",
     "request.close": "R",
     "request.disconnect": "O",
     "response.open": "O",
     "response.body_out": "F",
     "response.chunk_out": "D",
-    "response.close": "O",
+    "response.finalize": "O",
     "response.emit_complete": "R",
     "session.open": "R",
     "session.accept": "R",
+    "session.reject": "F",
     "session.ready": "R",
     "session.heartbeat": "O",
     "session.sync": "O",
@@ -249,41 +294,50 @@ export const BINDING_SUBEVENT_MATRIX = {
     "session.emit_complete": "O",
     "message.in": "F",
     "message.decode": "F",
+    "message.decode_failed": "F",
     "message.handle": "F",
+    "message.handle_failed": "F",
     "message.out": "R",
-    "message.ack": "F",
-    "message.nack": "F",
     "message.replay": "O",
     "message.snapshot": "O",
     "message.emit_complete": "R",
+    "message.emit_failed": "O",
     "stream.open": "R",
     "stream.chunk_in": "F",
     "stream.chunk_out": "R",
     "stream.flush": "O",
     "stream.finalize": "O",
-    "stream.abort": "O",
+    "stream.reset": "O",
+    "stream.stop_sending": "F",
     "stream.close": "R",
     "stream.emit_complete": "R",
     "datagram.in": "F",
     "datagram.handle": "F",
     "datagram.out": "F",
-    "datagram.ack": "F",
-    "datagram.emit_complete": "F"
+    "datagram.emit_complete": "F",
+    "datagram.emit_failed": "F",
+    "lifespan.startup": "F",
+    "lifespan.startup_complete": "F",
+    "lifespan.startup_failed": "F",
+    "lifespan.shutdown": "F",
+    "lifespan.shutdown_complete": "F",
+    "lifespan.shutdown_failed": "F"
   },
   "websocket": {
     "request.open": "F",
     "request.body_in": "F",
     "request.chunk_in": "F",
-    "request.accept": "F",
+    "request.dispatch": "F",
     "request.close": "F",
     "request.disconnect": "F",
     "response.open": "F",
     "response.body_out": "F",
     "response.chunk_out": "F",
-    "response.close": "F",
+    "response.finalize": "F",
     "response.emit_complete": "F",
     "session.open": "R",
     "session.accept": "R",
+    "session.reject": "O",
     "session.ready": "R",
     "session.heartbeat": "O",
     "session.sync": "O",
@@ -292,41 +346,50 @@ export const BINDING_SUBEVENT_MATRIX = {
     "session.emit_complete": "O",
     "message.in": "R",
     "message.decode": "O",
+    "message.decode_failed": "O",
     "message.handle": "R",
+    "message.handle_failed": "O",
     "message.out": "R",
-    "message.ack": "O",
-    "message.nack": "O",
     "message.replay": "O",
     "message.snapshot": "O",
     "message.emit_complete": "R",
+    "message.emit_failed": "O",
     "stream.open": "F",
     "stream.chunk_in": "F",
     "stream.chunk_out": "F",
     "stream.flush": "F",
     "stream.finalize": "F",
-    "stream.abort": "F",
+    "stream.reset": "F",
+    "stream.stop_sending": "F",
     "stream.close": "F",
     "stream.emit_complete": "F",
     "datagram.in": "F",
     "datagram.handle": "F",
     "datagram.out": "F",
-    "datagram.ack": "F",
-    "datagram.emit_complete": "F"
+    "datagram.emit_complete": "F",
+    "datagram.emit_failed": "F",
+    "lifespan.startup": "F",
+    "lifespan.startup_complete": "F",
+    "lifespan.startup_failed": "F",
+    "lifespan.shutdown": "F",
+    "lifespan.shutdown_complete": "F",
+    "lifespan.shutdown_failed": "F"
   },
   "webtransport": {
     "request.open": "F",
     "request.body_in": "F",
     "request.chunk_in": "F",
-    "request.accept": "F",
+    "request.dispatch": "F",
     "request.close": "F",
     "request.disconnect": "F",
     "response.open": "F",
     "response.body_out": "F",
     "response.chunk_out": "F",
-    "response.close": "F",
+    "response.finalize": "F",
     "response.emit_complete": "F",
     "session.open": "R",
     "session.accept": "R",
+    "session.reject": "O",
     "session.ready": "R",
     "session.heartbeat": "O",
     "session.sync": "O",
@@ -335,26 +398,34 @@ export const BINDING_SUBEVENT_MATRIX = {
     "session.emit_complete": "O",
     "message.in": "O",
     "message.decode": "O",
+    "message.decode_failed": "O",
     "message.handle": "O",
+    "message.handle_failed": "O",
     "message.out": "O",
-    "message.ack": "O",
-    "message.nack": "O",
     "message.replay": "O",
     "message.snapshot": "O",
     "message.emit_complete": "O",
+    "message.emit_failed": "O",
     "stream.open": "R",
     "stream.chunk_in": "R",
     "stream.chunk_out": "R",
     "stream.flush": "O",
     "stream.finalize": "R",
-    "stream.abort": "O",
+    "stream.reset": "O",
+    "stream.stop_sending": "O",
     "stream.close": "R",
     "stream.emit_complete": "R",
     "datagram.in": "R",
     "datagram.handle": "R",
     "datagram.out": "R",
-    "datagram.ack": "O",
-    "datagram.emit_complete": "R"
+    "datagram.emit_complete": "R",
+    "datagram.emit_failed": "O",
+    "lifespan.startup": "F",
+    "lifespan.startup_complete": "F",
+    "lifespan.startup_failed": "F",
+    "lifespan.shutdown": "F",
+    "lifespan.shutdown_complete": "F",
+    "lifespan.shutdown_failed": "F"
   }
 } as const;
 
@@ -458,11 +529,21 @@ export const AUTOMATA = {
       },
       {
         "from": "open",
-        "event": "request.accept",
-        "to": "accepted"
+        "event": "request.close",
+        "to": "body_closed"
       },
       {
-        "from": "accepted",
+        "from": "open",
+        "event": "request.dispatch",
+        "to": "dispatched"
+      },
+      {
+        "from": "body_closed",
+        "event": "request.dispatch",
+        "to": "dispatched"
+      },
+      {
+        "from": "dispatched",
         "event": "response.open",
         "to": "responding"
       },
@@ -483,11 +564,16 @@ export const AUTOMATA = {
       },
       {
         "from": "completing",
-        "event": "response.close",
+        "event": "response.finalize",
         "to": "closed"
       },
       {
         "from": "open",
+        "event": "request.disconnect",
+        "to": "disconnected"
+      },
+      {
+        "from": "body_closed",
         "event": "request.disconnect",
         "to": "disconnected"
       }
@@ -497,7 +583,8 @@ export const AUTOMATA = {
     "initial": "idle",
     "terminal": [
       "closed",
-      "disconnected"
+      "disconnected",
+      "rejected"
     ],
     "transitions": [
       {
@@ -511,9 +598,24 @@ export const AUTOMATA = {
         "to": "accepted"
       },
       {
+        "from": "open",
+        "event": "session.reject",
+        "to": "rejected"
+      },
+      {
+        "from": "open",
+        "event": "session.disconnect",
+        "to": "disconnected"
+      },
+      {
         "from": "accepted",
         "event": "session.ready",
         "to": "ready"
+      },
+      {
+        "from": "accepted",
+        "event": "session.disconnect",
+        "to": "disconnected"
       },
       {
         "from": "ready",
@@ -546,7 +648,7 @@ export const AUTOMATA = {
     "initial": "idle",
     "terminal": [
       "complete",
-      "rejected"
+      "failed"
     ],
     "transitions": [
       {
@@ -560,9 +662,19 @@ export const AUTOMATA = {
         "to": "decoded"
       },
       {
+        "from": "received",
+        "event": "message.decode_failed",
+        "to": "failed"
+      },
+      {
         "from": "decoded",
         "event": "message.handle",
         "to": "handled"
+      },
+      {
+        "from": "decoded",
+        "event": "message.handle_failed",
+        "to": "failed"
       },
       {
         "from": "handled",
@@ -571,13 +683,13 @@ export const AUTOMATA = {
       },
       {
         "from": "emitted",
-        "event": "message.ack",
+        "event": "message.emit_complete",
         "to": "complete"
       },
       {
         "from": "emitted",
-        "event": "message.nack",
-        "to": "rejected"
+        "event": "message.emit_failed",
+        "to": "failed"
       },
       {
         "from": "complete",
@@ -588,11 +700,6 @@ export const AUTOMATA = {
         "from": "complete",
         "event": "message.snapshot",
         "to": "complete"
-      },
-      {
-        "from": "emitted",
-        "event": "message.emit_complete",
-        "to": "complete"
       }
     ]
   },
@@ -600,7 +707,8 @@ export const AUTOMATA = {
     "initial": "idle",
     "terminal": [
       "closed",
-      "aborted"
+      "reset",
+      "stopped"
     ],
     "transitions": [
       {
@@ -640,15 +748,31 @@ export const AUTOMATA = {
       },
       {
         "from": "open",
-        "event": "stream.abort",
-        "to": "aborted"
+        "event": "stream.reset",
+        "to": "reset"
+      },
+      {
+        "from": "open",
+        "event": "stream.stop_sending",
+        "to": "stopped"
+      },
+      {
+        "from": "finalizing",
+        "event": "stream.reset",
+        "to": "reset"
+      },
+      {
+        "from": "finalizing",
+        "event": "stream.stop_sending",
+        "to": "stopped"
       }
     ]
   },
   "datagram": {
     "initial": "idle",
     "terminal": [
-      "acknowledged"
+      "complete",
+      "failed"
     ],
     "transitions": [
       {
@@ -668,13 +792,59 @@ export const AUTOMATA = {
       },
       {
         "from": "emitted",
-        "event": "datagram.ack",
-        "to": "acknowledged"
+        "event": "datagram.emit_complete",
+        "to": "complete"
       },
       {
-        "from": "acknowledged",
-        "event": "datagram.emit_complete",
-        "to": "acknowledged"
+        "from": "emitted",
+        "event": "datagram.emit_failed",
+        "to": "failed"
+      }
+    ]
+  },
+  "lifespan": {
+    "initial": "idle",
+    "terminal": [
+      "startup_complete",
+      "startup_failed",
+      "shutdown_complete",
+      "shutdown_failed"
+    ],
+    "transitions": [
+      {
+        "from": "idle",
+        "event": "lifespan.startup",
+        "to": "starting"
+      },
+      {
+        "from": "starting",
+        "event": "lifespan.startup_complete",
+        "to": "startup_complete"
+      },
+      {
+        "from": "starting",
+        "event": "lifespan.startup_failed",
+        "to": "startup_failed"
+      },
+      {
+        "from": "startup_complete",
+        "event": "lifespan.shutdown",
+        "to": "shutting_down"
+      },
+      {
+        "from": "idle",
+        "event": "lifespan.shutdown",
+        "to": "shutting_down"
+      },
+      {
+        "from": "shutting_down",
+        "event": "lifespan.shutdown_complete",
+        "to": "shutdown_complete"
+      },
+      {
+        "from": "shutting_down",
+        "event": "lifespan.shutdown_failed",
+        "to": "shutdown_failed"
       }
     ]
   }

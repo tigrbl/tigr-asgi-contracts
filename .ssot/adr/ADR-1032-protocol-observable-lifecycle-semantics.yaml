@@ -1,0 +1,44 @@
+schema_version: "0.1.0"
+kind: "adr"
+id: "adr:1032"
+number: 1032
+slug: "protocol-observable-lifecycle-semantics"
+title: "Canonical lifecycle semantics must be protocol-observable or explicitly derived"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "Canonical event and subevent names must not imply public protocol semantics that the relevant standard or application API does not expose."
+supersedes: []
+superseded_by: []
+status_notes: []
+references:
+  - "adr:1000"
+  - "adr:1022"
+  - "adr:1031"
+body: |-
+  ## Context
+
+  ADR-1000 separates event type, binding, protocol, family, subevent, and direction taxonomy. ADR-1022 separates ASGI lifespan events from internal lifecycle classifications. ADR-1031 brings future contract-owned surfaces into the governed boundary.
+
+  The existing lifecycle vocabulary included names that implied public protocol behavior which is not observable at the application contract surface, including datagram delivery acknowledgements and WebTransport stream termination modeled as session close.
+
+  ## Decision
+
+  A canonical event or subevent may be retained only when it is observable through a public standard or application contract surface, or when the row is explicitly documented as a contract-derived/internal phase.
+
+  Canonical subevents must not imply remote delivery acknowledgement, transport handshake acceptance, connection close, or stream reset behavior unless the corresponding public standard exposes that behavior at the modeled layer.
+
+  `request.dispatch` is a derived runtime dispatch phase, not an HTTP wire accept event.
+
+  `response.finalize` is HTTP response-body finalization, not connection close.
+
+  WebTransport stream reset, stop-sending, and close are per-stream outcomes and must not map to `webtransport.close`, which remains a session close event.
+
+  WebTransport datagrams have no application-visible delivery acknowledgement; datagram lifecycle completion is local emission completion or emission failure.
+
+  ## Consequences
+
+  Nonstandard or misleading subevent rows must be retired from canonical contract artifacts and retained only as deprecated or obsolete SSOT feature rows with replacement links.
+
+  New lifecycle rows require SPEC and feature linkage that states whether the surface is protocol-observable or contract-derived/internal.

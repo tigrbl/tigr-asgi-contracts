@@ -3,17 +3,18 @@ subevents:
   - request.open
   - request.body_in
   - request.chunk_in
-  - request.accept
+  - request.dispatch
   - request.close
   - request.disconnect
   - response.open
   - response.body_out
   - response.chunk_out
-  - response.close
+  - response.finalize
   - response.emit_complete
   session:
   - session.open
   - session.accept
+  - session.reject
   - session.ready
   - session.heartbeat
   - session.sync
@@ -23,25 +24,34 @@ subevents:
   message:
   - message.in
   - message.decode
+  - message.decode_failed
   - message.handle
+  - message.handle_failed
   - message.out
-  - message.ack
-  - message.nack
   - message.replay
   - message.snapshot
   - message.emit_complete
+  - message.emit_failed
   stream:
   - stream.open
   - stream.chunk_in
   - stream.chunk_out
   - stream.flush
   - stream.finalize
-  - stream.abort
+  - stream.reset
+  - stream.stop_sending
   - stream.close
   - stream.emit_complete
   datagram:
   - datagram.in
   - datagram.handle
   - datagram.out
-  - datagram.ack
   - datagram.emit_complete
+  - datagram.emit_failed
+  lifespan:
+  - lifespan.startup
+  - lifespan.startup_complete
+  - lifespan.startup_failed
+  - lifespan.shutdown
+  - lifespan.shutdown_complete
+  - lifespan.shutdown_failed

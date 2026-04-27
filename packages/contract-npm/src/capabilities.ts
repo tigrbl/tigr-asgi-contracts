@@ -5,4 +5,5 @@ export interface FamilyCapabilities {
   stream_in?: boolean;
   stream_out?: boolean;
   datagram?: boolean;
+  lifespan?: boolean;
 }

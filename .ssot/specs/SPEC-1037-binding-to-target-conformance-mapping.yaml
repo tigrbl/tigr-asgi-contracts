@@ -1,0 +1,50 @@
+schema_version: "0.2.0"
+kind: "spec"
+id: "spc:1037"
+number: 1037
+slug: "binding-to-target-conformance-mapping"
+title: "Binding to target conformance mapping"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification maps contract bindings and extension surfaces to the row-level conformance targets defined by SPEC-1036."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification maps contract bindings and extension surfaces to the row-level conformance targets defined by SPEC-1036.
+  
+  The mapping is normative for feature `spec_ids`, claim scope, generated documentation, and conformance evidence planning.
+  
+  ## Binding Mapping
+  
+  | Binding or extension | Required target rows | Conditional or payload target rows |
+  | --- | --- | --- |
+  | rest | RFC-9110, RFC-3986, ASGI-HTTP-WEBSOCKET | RFC-9112, RFC-9113, RFC-9114 by negotiated HTTP version; WHATWG-URL and WHATWG-FETCH for browser-facing behavior; RFC-8259 for JSON payloads; RFC-8446 for HTTPS |
+  | jsonrpc | JSON-RPC-2.0, RFC-8259, RFC-9110, ASGI-HTTP-WEBSOCKET | RFC-9112, RFC-9113, RFC-9114 by negotiated HTTP version; RFC-8446 for HTTPS |
+  | http.stream | RFC-9110, ASGI-HTTP-WEBSOCKET | RFC-9112, RFC-9113, RFC-9114 by negotiated HTTP version; WHATWG-STREAMS and WHATWG-FETCH for browser-facing streams; RFC-8259 for JSON stream payloads |
+  | sse | WHATWG-HTML-SSE, RFC-9110, ASGI-HTTP-WEBSOCKET, WHATWG-ENCODING | RFC-9112, RFC-9113, RFC-9114 by negotiated HTTP version; WHATWG-FETCH for EventSource processing; RFC-8259 for JSON data conventions only |
+  | websocket | RFC-6455, ASGI-HTTP-WEBSOCKET | RFC-8441 for HTTP/2 bootstrap; RFC-9220 for HTTP/3 bootstrap; WHATWG-WEBSOCKETS for browser API behavior; RFC-8259 and JSON-RPC-2.0 for JSON/JSON-RPC payload framing; RFC-8446 for WSS |
+  | webtransport | IETF-WEBTRANS-HTTP3-15, IETF-WEBTRANS-OVERVIEW-12, W3C-WEBTRANSPORT-20260311, RFC-9000, RFC-9114, RFC-9221, RFC-9297, RFC-8446 | IETF-WEBTRANS-HTTP2-14 only for conditional HTTP/2 WebTransport support; WHATWG-STREAMS for browser stream APIs; RFC-8259 and JSON-RPC-2.0 for application payload conventions |
+  | asgi.pathsend | ASGI-EXTENSIONS, RFC-9110, ASGI-HTTP-WEBSOCKET | RFC-9112, RFC-9113, RFC-9114 by negotiated HTTP version |
+  | asgi.tls | ASGI-TLS-EXTENSION, RFC-8446 | RFC-5280, RFC-6125, RFC-4514 when certificate and identity metadata are modeled |
+  | grpc frame | GRPC-HTTP2, RFC-9113 | RFC-4648 for binary metadata encoding; RFC-8446 when carried over TLS |
+  
+  ## Requirements
+  
+  A binding feature must link to this SPEC and to SPEC-1036 when its conformance claim depends on an external authority target.
+  
+  Conditional targets must not be treated as required implementation unless the binding profile or feature row explicitly includes the corresponding transport, payload, or extension surface.
+  
+  Payload targets do not imply native transport semantics. For example, JSON-RPC over WebSocket remains application framing over WebSocket, not native stream multiplexing.
+  
+  ## Validation
+  
+  Tests and registry checks must reject binding conformance rows that cite only broad protocol names without target IDs from SPEC-1036.
+spec_kind: "normative"
+adr_ids:
+  - "adr:1033"

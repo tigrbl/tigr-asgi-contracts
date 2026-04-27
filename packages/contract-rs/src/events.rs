@@ -32,6 +32,12 @@ pub enum TransportEventType {
     WebtransportStreamReceive,
     #[serde(rename = "webtransport.stream.send")]
     WebtransportStreamSend,
+    #[serde(rename = "webtransport.stream.close")]
+    WebtransportStreamClose,
+    #[serde(rename = "webtransport.stream.reset")]
+    WebtransportStreamReset,
+    #[serde(rename = "webtransport.stream.stop_sending")]
+    WebtransportStreamStopSending,
     #[serde(rename = "webtransport.datagram.receive")]
     WebtransportDatagramReceive,
     #[serde(rename = "webtransport.datagram.send")]
@@ -54,6 +60,8 @@ pub enum TransportEventType {
     LifespanShutdownFailed,
     #[serde(rename = "transport.emit.complete")]
     TransportEmitComplete,
+    #[serde(rename = "transport.emit.failed")]
+    TransportEmitFailed,
 }
 
 impl Default for TransportEventType {

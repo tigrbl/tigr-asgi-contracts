@@ -7,7 +7,7 @@
   "files": [
     {
       "path": "automata.yaml",
-      "sha256": "5b3c1b757abb99583add8f2839b064dc3ea55af53c85d03a270f105ec7f3235f"
+      "sha256": "1efccd18b44fd8b9b8ad0926c3b527658fdbfd9328468901e97a05a96e94f507"
     },
     {
       "path": "bindings.yaml",
@@ -15,7 +15,7 @@
     },
     {
       "path": "capabilities.yaml",
-      "sha256": "389e6a905497667d5c6278aecc36300fad56f4d5a705025ea1fee31ab70c3e17"
+      "sha256": "8ca0167eccbc97b13e3e245ab4cb52ee2f5c712dc9a617a3371bf37c503a736f"
     },
     {
       "path": "compatibility.yaml",
@@ -35,7 +35,7 @@
     },
     {
       "path": "families.yaml",
-      "sha256": "75debe47a1e6fc3e7340be50b5f8c11f161c25b3821ab195a0b6cc166d0be6ba"
+      "sha256": "e8a62db0c0ff8096241a9037f9c3891f3db8fd5826cf11675836c2606fbf9345"
     },
     {
       "path": "frames.yaml",
@@ -47,15 +47,15 @@
     },
     {
       "path": "legality/binding_family.yaml",
-      "sha256": "d73cf6ef3095b434cf54c8c423f2d0c0e761696085b55ff7e0ef3e2bfa7e9798"
+      "sha256": "369e444f9a2511ebe0cdc4a108046b9aa25b62718614119eccc8362134af80fb"
     },
     {
       "path": "legality/binding_subevent.yaml",
-      "sha256": "a1948bc9ca03937307edb0cd1775c409ca9fcbb15d85b4bc45cafff175a4b0b0"
+      "sha256": "4b9ff4c9a8efa5d5743daf930c58421d97cd7338a5ac38757eb5ec9cb2e6660e"
     },
     {
       "path": "legality/family_subevent.yaml",
-      "sha256": "5f58c275423e572305661195da4de1b836d27d72eb263dd9d4bb5c4b491a5f44"
+      "sha256": "4aa82e7da8bdac18b6b67a9f09039fc76d24bb1eabab7f8c18cd44a266220bae"
     },
     {
       "path": "protocols.yaml",
@@ -75,7 +75,7 @@
     },
     {
       "path": "schemas/event.schema.json",
-      "sha256": "ac6b7a078104ebb6dbb676ccc48c2ff1153b31e150f5d76780ba366a23b0ef37"
+      "sha256": "2c4b0d6a71b8568477b4f687979c9e49bc6a3845803e70183a2c4a7e0d448314"
     },
     {
       "path": "schemas/extensions.schema.json",
@@ -111,7 +111,7 @@
     },
     {
       "path": "schemas/transport.schema.json",
-      "sha256": "865875cec84c6bb014eb5797cb8bfedb6d165f9a3d028f7223f6eec8d874da84"
+      "sha256": "cf3569a7187bf901a45939f3616c5256a2e68bfacc3f9cb0c8855124184f0712"
     },
     {
       "path": "schemas/websocket.schema.json",
@@ -127,11 +127,11 @@
     },
     {
       "path": "subevents.yaml",
-      "sha256": "cb69af786d462aee0896a6375b69df163bca6c5e72131014bb23f9b4683a0334"
+      "sha256": "3f5432b79a57dc65831f5eee496c8d6f0ab98f90f4f0a899697c481a8584785a"
     },
     {
       "path": "surfaces.yaml",
-      "sha256": "b98bef4810fed7d6d11cf282219aef84f8e4a0ec8cc73e70f247de862c4f76e9"
+      "sha256": "f352067f34b6794f5110061fd4a54d888b31b3a73e82a6c1f632799af50cb3d6"
     }
   ]
 }

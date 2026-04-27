@@ -3,16 +3,17 @@ binding_subevent:
     request.open: R
     request.body_in: R
     request.chunk_in: F
-    request.accept: O
+    request.dispatch: D
     request.close: R
     request.disconnect: O
     response.open: R
     response.body_out: R
     response.chunk_out: F
-    response.close: O
+    response.finalize: O
     response.emit_complete: R
     session.open: F
     session.accept: F
+    session.reject: F
     session.ready: F
     session.heartbeat: F
     session.sync: F
@@ -21,40 +22,49 @@ binding_subevent:
     session.emit_complete: F
     message.in: F
     message.decode: F
+    message.decode_failed: F
     message.handle: F
+    message.handle_failed: F
     message.out: F
-    message.ack: F
-    message.nack: F
     message.replay: F
     message.snapshot: F
     message.emit_complete: F
+    message.emit_failed: F
     stream.open: O
     stream.chunk_in: O
     stream.chunk_out: O
     stream.flush: F
     stream.finalize: O
-    stream.abort: F
+    stream.reset: F
+    stream.stop_sending: F
     stream.close: O
     stream.emit_complete: O
     datagram.in: F
     datagram.handle: F
     datagram.out: F
-    datagram.ack: F
     datagram.emit_complete: F
+    datagram.emit_failed: F
+    lifespan.startup: F
+    lifespan.startup_complete: F
+    lifespan.startup_failed: F
+    lifespan.shutdown: F
+    lifespan.shutdown_complete: F
+    lifespan.shutdown_failed: F
   jsonrpc:
     request.open: R
     request.body_in: R
     request.chunk_in: F
-    request.accept: O
+    request.dispatch: D
     request.close: R
     request.disconnect: O
     response.open: R
     response.body_out: R
     response.chunk_out: F
-    response.close: O
+    response.finalize: O
     response.emit_complete: R
     session.open: F
     session.accept: F
+    session.reject: F
     session.ready: F
     session.heartbeat: F
     session.sync: F
@@ -63,40 +73,49 @@ binding_subevent:
     session.emit_complete: F
     message.in: F
     message.decode: D
+    message.decode_failed: D
     message.handle: F
+    message.handle_failed: F
     message.out: F
-    message.ack: F
-    message.nack: F
     message.replay: F
     message.snapshot: F
     message.emit_complete: F
+    message.emit_failed: F
     stream.open: O
     stream.chunk_in: O
     stream.chunk_out: O
     stream.flush: F
     stream.finalize: O
-    stream.abort: F
+    stream.reset: F
+    stream.stop_sending: F
     stream.close: O
     stream.emit_complete: O
     datagram.in: F
     datagram.handle: F
     datagram.out: F
-    datagram.ack: F
     datagram.emit_complete: F
+    datagram.emit_failed: F
+    lifespan.startup: F
+    lifespan.startup_complete: F
+    lifespan.startup_failed: F
+    lifespan.shutdown: F
+    lifespan.shutdown_complete: F
+    lifespan.shutdown_failed: F
   http.stream:
     request.open: R
     request.body_in: O
     request.chunk_in: D
-    request.accept: O
+    request.dispatch: D
     request.close: R
     request.disconnect: O
     response.open: R
     response.body_out: O
     response.chunk_out: D
-    response.close: O
+    response.finalize: O
     response.emit_complete: R
     session.open: F
     session.accept: F
+    session.reject: F
     session.ready: F
     session.heartbeat: F
     session.sync: F
@@ -105,40 +124,49 @@ binding_subevent:
     session.emit_complete: F
     message.in: F
     message.decode: F
+    message.decode_failed: F
     message.handle: F
+    message.handle_failed: F
     message.out: F
-    message.ack: F
-    message.nack: F
     message.replay: F
     message.snapshot: F
     message.emit_complete: F
+    message.emit_failed: F
     stream.open: R
     stream.chunk_in: R
     stream.chunk_out: R
     stream.flush: O
     stream.finalize: R
-    stream.abort: O
+    stream.reset: O
+    stream.stop_sending: F
     stream.close: R
     stream.emit_complete: R
     datagram.in: F
     datagram.handle: F
     datagram.out: F
-    datagram.ack: F
     datagram.emit_complete: F
+    datagram.emit_failed: F
+    lifespan.startup: F
+    lifespan.startup_complete: F
+    lifespan.startup_failed: F
+    lifespan.shutdown: F
+    lifespan.shutdown_complete: F
+    lifespan.shutdown_failed: F
   sse:
     request.open: R
     request.body_in: O
     request.chunk_in: F
-    request.accept: O
+    request.dispatch: D
     request.close: R
     request.disconnect: O
     response.open: O
     response.body_out: F
     response.chunk_out: D
-    response.close: O
+    response.finalize: O
     response.emit_complete: R
     session.open: R
     session.accept: R
+    session.reject: F
     session.ready: R
     session.heartbeat: O
     session.sync: O
@@ -147,40 +175,49 @@ binding_subevent:
     session.emit_complete: O
     message.in: F
     message.decode: F
+    message.decode_failed: F
     message.handle: F
+    message.handle_failed: F
     message.out: R
-    message.ack: F
-    message.nack: F
     message.replay: O
     message.snapshot: O
     message.emit_complete: R
+    message.emit_failed: O
     stream.open: R
     stream.chunk_in: F
     stream.chunk_out: R
     stream.flush: O
     stream.finalize: O
-    stream.abort: O
+    stream.reset: O
+    stream.stop_sending: F
     stream.close: R
     stream.emit_complete: R
     datagram.in: F
     datagram.handle: F
     datagram.out: F
-    datagram.ack: F
     datagram.emit_complete: F
+    datagram.emit_failed: F
+    lifespan.startup: F
+    lifespan.startup_complete: F
+    lifespan.startup_failed: F
+    lifespan.shutdown: F
+    lifespan.shutdown_complete: F
+    lifespan.shutdown_failed: F
   websocket:
     request.open: F
     request.body_in: F
     request.chunk_in: F
-    request.accept: F
+    request.dispatch: F
     request.close: F
     request.disconnect: F
     response.open: F
     response.body_out: F
     response.chunk_out: F
-    response.close: F
+    response.finalize: F
     response.emit_complete: F
     session.open: R
     session.accept: R
+    session.reject: O
     session.ready: R
     session.heartbeat: O
     session.sync: O
@@ -189,40 +226,49 @@ binding_subevent:
     session.emit_complete: O
     message.in: R
     message.decode: O
+    message.decode_failed: O
     message.handle: R
+    message.handle_failed: O
     message.out: R
-    message.ack: O
-    message.nack: O
     message.replay: O
     message.snapshot: O
     message.emit_complete: R
+    message.emit_failed: O
     stream.open: F
     stream.chunk_in: F
     stream.chunk_out: F
     stream.flush: F
     stream.finalize: F
-    stream.abort: F
+    stream.reset: F
+    stream.stop_sending: F
     stream.close: F
     stream.emit_complete: F
     datagram.in: F
     datagram.handle: F
     datagram.out: F
-    datagram.ack: F
     datagram.emit_complete: F
+    datagram.emit_failed: F
+    lifespan.startup: F
+    lifespan.startup_complete: F
+    lifespan.startup_failed: F
+    lifespan.shutdown: F
+    lifespan.shutdown_complete: F
+    lifespan.shutdown_failed: F
   webtransport:
     request.open: F
     request.body_in: F
     request.chunk_in: F
-    request.accept: F
+    request.dispatch: F
     request.close: F
     request.disconnect: F
     response.open: F
     response.body_out: F
     response.chunk_out: F
-    response.close: F
+    response.finalize: F
     response.emit_complete: F
     session.open: R
     session.accept: R
+    session.reject: O
     session.ready: R
     session.heartbeat: O
     session.sync: O
@@ -231,23 +277,31 @@ binding_subevent:
     session.emit_complete: O
     message.in: O
     message.decode: O
+    message.decode_failed: O
     message.handle: O
+    message.handle_failed: O
     message.out: O
-    message.ack: O
-    message.nack: O
     message.replay: O
     message.snapshot: O
     message.emit_complete: O
+    message.emit_failed: O
     stream.open: R
     stream.chunk_in: R
     stream.chunk_out: R
     stream.flush: O
     stream.finalize: R
-    stream.abort: O
+    stream.reset: O
+    stream.stop_sending: O
     stream.close: R
     stream.emit_complete: R
     datagram.in: R
     datagram.handle: R
     datagram.out: R
-    datagram.ack: O
     datagram.emit_complete: R
+    datagram.emit_failed: O
+    lifespan.startup: F
+    lifespan.startup_complete: F
+    lifespan.startup_failed: F
+    lifespan.shutdown: F
+    lifespan.shutdown_complete: F
+    lifespan.shutdown_failed: F

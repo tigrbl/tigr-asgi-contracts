@@ -4,4 +4,5 @@ export enum Family {
   MESSAGE = "message",
   STREAM = "stream",
   DATAGRAM = "datagram",
+  LIFESPAN = "lifespan",
 }

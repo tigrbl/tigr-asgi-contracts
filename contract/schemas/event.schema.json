@@ -23,6 +23,9 @@
         "webtransport.accept",
         "webtransport.stream.receive",
         "webtransport.stream.send",
+        "webtransport.stream.close",
+        "webtransport.stream.reset",
+        "webtransport.stream.stop_sending",
         "webtransport.datagram.receive",
         "webtransport.datagram.send",
         "webtransport.disconnect",
@@ -33,7 +36,8 @@
         "lifespan.shutdown",
         "lifespan.shutdown.complete",
         "lifespan.shutdown.failed",
-        "transport.emit.complete"
+        "transport.emit.complete",
+        "transport.emit.failed"
       ]
     },
     "message": {

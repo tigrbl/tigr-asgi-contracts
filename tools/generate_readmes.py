@@ -31,6 +31,7 @@ SCOPE_EVENT_MAP = {
         "http.response.start",
         "http.response.body",
         "transport.emit.complete",
+        "transport.emit.failed",
     ],
     "websocket": [
         "websocket.connect",
@@ -40,19 +41,31 @@ SCOPE_EVENT_MAP = {
         "websocket.send",
         "websocket.close",
         "transport.emit.complete",
+        "transport.emit.failed",
     ],
     "webtransport": [
         "webtransport.connect",
         "webtransport.accept",
         "webtransport.stream.receive",
         "webtransport.stream.send",
+        "webtransport.stream.close",
+        "webtransport.stream.reset",
+        "webtransport.stream.stop_sending",
         "webtransport.datagram.receive",
         "webtransport.datagram.send",
         "webtransport.disconnect",
         "webtransport.close",
         "transport.emit.complete",
+        "transport.emit.failed",
     ],
-    "lifespan": [],
+    "lifespan": [
+        "lifespan.startup",
+        "lifespan.startup.complete",
+        "lifespan.startup.failed",
+        "lifespan.shutdown",
+        "lifespan.shutdown.complete",
+        "lifespan.shutdown.failed",
+    ],
 }
 
 SCOPE_EXT_FIELDS = {
@@ -68,16 +81,17 @@ SUBEVENT_EVENT_MAP = {
     "request.open": ["http.request"],
     "request.body_in": ["http.request"],
     "request.chunk_in": ["http.request"],
-    "request.accept": ["http.request"],
+    "request.dispatch": [],
     "request.close": ["http.request"],
     "request.disconnect": ["http.disconnect"],
     "response.open": ["http.response.start"],
     "response.body_out": ["http.response.body"],
     "response.chunk_out": ["http.response.body"],
-    "response.close": ["http.response.body"],
+    "response.finalize": ["http.response.body"],
     "response.emit_complete": ["transport.emit.complete"],
     "session.open": ["websocket.connect", "webtransport.connect"],
     "session.accept": ["websocket.accept", "webtransport.accept"],
+    "session.reject": ["websocket.close", "webtransport.close"],
     "session.ready": ["websocket.accept", "webtransport.accept"],
     "session.heartbeat": ["websocket.send", "webtransport.stream.send"],
     "session.sync": ["websocket.send", "webtransport.stream.send"],
@@ -86,26 +100,34 @@ SUBEVENT_EVENT_MAP = {
     "session.emit_complete": ["transport.emit.complete"],
     "message.in": ["websocket.receive", "webtransport.stream.receive", "webtransport.datagram.receive"],
     "message.decode": ["websocket.receive", "webtransport.stream.receive", "webtransport.datagram.receive"],
+    "message.decode_failed": ["websocket.receive", "webtransport.stream.receive", "webtransport.datagram.receive"],
     "message.handle": ["websocket.receive", "webtransport.stream.receive", "webtransport.datagram.receive"],
+    "message.handle_failed": ["websocket.receive", "webtransport.stream.receive", "webtransport.datagram.receive"],
     "message.out": ["websocket.send", "webtransport.stream.send", "http.response.body"],
-    "message.ack": ["websocket.send", "webtransport.stream.send", "webtransport.datagram.send"],
-    "message.nack": ["websocket.send", "webtransport.stream.send", "webtransport.datagram.send"],
     "message.replay": ["websocket.send", "webtransport.stream.send", "http.response.body"],
     "message.snapshot": ["websocket.send", "webtransport.stream.send", "http.response.body"],
     "message.emit_complete": ["transport.emit.complete"],
+    "message.emit_failed": ["transport.emit.failed"],
     "stream.open": ["webtransport.stream.send", "http.response.start"],
     "stream.chunk_in": ["webtransport.stream.receive", "http.request"],
     "stream.chunk_out": ["webtransport.stream.send", "http.response.body"],
     "stream.flush": ["webtransport.stream.send", "http.response.body"],
     "stream.finalize": ["webtransport.stream.send", "http.response.body"],
-    "stream.abort": ["webtransport.close", "http.disconnect"],
-    "stream.close": ["webtransport.close", "http.response.body"],
+    "stream.reset": ["webtransport.stream.reset", "http.disconnect"],
+    "stream.stop_sending": ["webtransport.stream.stop_sending"],
+    "stream.close": ["webtransport.stream.close", "http.response.body"],
     "stream.emit_complete": ["transport.emit.complete"],
     "datagram.in": ["webtransport.datagram.receive"],
     "datagram.handle": ["webtransport.datagram.receive"],
     "datagram.out": ["webtransport.datagram.send"],
-    "datagram.ack": ["webtransport.datagram.send"],
     "datagram.emit_complete": ["transport.emit.complete"],
+    "datagram.emit_failed": ["transport.emit.failed"],
+    "lifespan.startup": ["lifespan.startup"],
+    "lifespan.startup_complete": ["lifespan.startup.complete"],
+    "lifespan.startup_failed": ["lifespan.startup.failed"],
+    "lifespan.shutdown": ["lifespan.shutdown"],
+    "lifespan.shutdown_complete": ["lifespan.shutdown.complete"],
+    "lifespan.shutdown_failed": ["lifespan.shutdown.failed"],
 }
 
 EVENT_NOTES = {
@@ -123,11 +145,21 @@ EVENT_NOTES = {
     "webtransport.accept": "WebTransport accept event",
     "webtransport.stream.receive": "Inbound WebTransport stream frame",
     "webtransport.stream.send": "Outbound WebTransport stream frame",
+    "webtransport.stream.close": "Per-stream WebTransport close or FIN",
+    "webtransport.stream.reset": "Per-stream WebTransport reset",
+    "webtransport.stream.stop_sending": "Per-stream WebTransport stop-sending signal",
     "webtransport.datagram.receive": "Inbound WebTransport datagram",
     "webtransport.datagram.send": "Outbound WebTransport datagram",
     "webtransport.disconnect": "WebTransport disconnect signal",
-    "webtransport.close": "WebTransport close event",
+    "webtransport.close": "WebTransport session close event",
+    "lifespan.startup": "ASGI lifespan startup receive event",
+    "lifespan.startup.complete": "ASGI lifespan startup completion send event",
+    "lifespan.startup.failed": "ASGI lifespan startup failure send event",
+    "lifespan.shutdown": "ASGI lifespan shutdown receive event",
+    "lifespan.shutdown.complete": "ASGI lifespan shutdown completion send event",
+    "lifespan.shutdown.failed": "ASGI lifespan shutdown failure send event",
     "transport.emit.complete": "Completion emission event",
+    "transport.emit.failed": "Failed emission event",
 }
 
 
@@ -260,6 +292,7 @@ def capability_rows(data: dict) -> list[list[str]]:
         "stream_in": ["stream"],
         "stream_out": ["stream"],
         "datagram": ["datagram"],
+        "lifespan": ["lifespan"],
     }
     rows = []
     for field, meaning in data["capabilities"].items():
@@ -352,6 +385,8 @@ def event_rows(data: dict) -> list[list[str]]:
             scope_type = "websocket"
         elif event.startswith("webtransport."):
             scope_type = "webtransport"
+        elif event.startswith("lifespan."):
+            scope_type = "lifespan"
         else:
             scope_type = "http, websocket, webtransport"
 

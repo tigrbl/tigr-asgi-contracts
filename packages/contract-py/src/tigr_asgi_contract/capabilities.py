@@ -8,3 +8,4 @@ class FamilyCapabilities(BaseModel):
     stream_in: bool = False
     stream_out: bool = False
     datagram: bool = False
+    lifespan: bool = False
