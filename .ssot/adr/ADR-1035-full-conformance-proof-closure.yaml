@@ -1,0 +1,37 @@
+schema_version: "0.2.0"
+kind: "adr"
+id: "adr:1035"
+number: 1035
+slug: "full-conformance-proof-closure"
+title: "Full conformance claims require in-bounds implemented proof closure"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "The repository now tracks current, explicit, future, and out-of-bounds feature surfaces in one registry. A fully featured claim must not blur implemented contract-owned surfaces with deliberately tracked out-of-bounds runtime or downstream behavior."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Context
+  
+  The repository now tracks current, explicit, future, and out-of-bounds feature surfaces in one registry. A fully featured claim must not blur implemented contract-owned surfaces with deliberately tracked out-of-bounds runtime or downstream behavior.
+  
+  The release process must be honest: a publication can claim full conformance only for surfaces that are in bounds, implemented, covered by tests, supported by evidence, tied to certified claims, frozen in a boundary, and published through the SSOT release gates.
+  
+  ## Decision
+  
+  Fully featured, fully implemented, fully functional, fully compliant, and fully conformant means all in-bounds repository-owned contract surfaces are implemented by canonical contract artifacts, generated language outputs, validators, tests, evidence, certified claims, frozen boundaries, and published releases.
+  
+  Out-of-bounds rows remain tracked non-goals unless a later ADR and SPEC explicitly promote them into an in-bounds boundary. Partial or absent out-of-bounds rows do not block an honest full-conformance claim when their out-of-bounds rationale and lifecycle disposition are explicit.
+  
+  ## Consequences
+  
+  Release language must distinguish contract conformance from downstream runtime execution.
+  
+  Every in-bounds feature must converge to implemented before full-conformance release closure.
+  
+  Every remaining partial or absent feature must be out_of_bounds or obsolete, with replacement links where applicable.
+  
+  The closure gate is ssot validation, status convergence, passing tests, certification, promotion, publication, and final validation.

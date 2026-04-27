@@ -1,0 +1,44 @@
+schema_version: "0.2.0"
+kind: "spec"
+id: "spc:1041"
+number: 1041
+slug: "full-conformance-closure-standard"
+title: "Full conformance closure standard"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines the repository-local full-conformance closure standard for tigr-asgi-contracts."
+supersedes: []
+superseded_by: []
+status_notes: []
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines the repository-local full-conformance closure standard for tigr-asgi-contracts.
+  
+  The standard applies to canonical contract data, JSON Schemas, generated Python, TypeScript, and Rust package outputs, validators, surface matrices, target rows, claims, evidence, tests, boundaries, release snapshots, and publication state.
+  
+  It does not require this repository to implement downstream ASGI server networking, TLS handshakes, HTTP protocol parsing, WebSocket connection management, QUIC/WebTransport transport delivery, scheduling, application routing, or runtime I/O.
+  
+  ## Requirements
+  
+  All current, explicit, and future in-bounds feature rows MUST have implementation_status implemented before a full-conformance release is certified.
+  
+  Every in-bounds feature row MUST link to at least one accepted SPEC, and release-scoped features MUST be covered by tests, claims, and evidence sufficient for the target claim tier.
+  
+  Every release claiming full conformance MUST be tied to a frozen boundary, MUST certify cleanly, MUST promote cleanly, MUST publish cleanly, and MUST emit release and publication snapshots.
+  
+  Every partial or absent row remaining after closure MUST be plan.horizon out_of_bounds or lifecycle.stage obsolete. Obsolete rows MUST identify replacement features when replacement semantics exist.
+  
+  Generated artifacts MUST be regenerated from canonical contract sources and verified through the repository test suite.
+  
+  ## Validation
+  
+  Closure validation consists of registry sync-statuses dry-run, registry sync-statuses, ssot validate --write-report, npm test, release certify, release promote, release publish, post-publication sync-statuses, and final ssot validate --write-report.
+  
+  Any failed validation, certification, promotion, or publication gate stops the workflow until the failed gate is remediated.
+spec_kind: "governance"
+adr_ids:
+  - "adr:1035"
