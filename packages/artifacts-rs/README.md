@@ -122,7 +122,7 @@ Canonical Rust artifact crate for the Tigr ASGI contract. This package ships the
 | `schemas/webtransport.schema.json` | schema | `e6f9300bfe82` |
 | `scope_types.yaml` | registry | `620b4d20180e` |
 | `subevents.yaml` | registry | `3f5432b79a57` |
-| `surfaces.yaml` | registry | `f352067f34b6` |
+| `surfaces.yaml` | registry | `7bae2973aad0` |
 
 ## Release Matrix
 

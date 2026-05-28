@@ -10,6 +10,8 @@ import {
 import type { EventClassification } from "./models";
 
 type ScopeLike = { type?: string; ext?: Record<string, any> };
+export const LEGALITY_CODES = ["R", "O", "D", "F"] as const;
+export const LEGALITY_ALLOWED_CODES = ["R", "O", "D"] as const;
 
 function bindingFromScope(scope: ScopeLike): string | undefined {
   return scope.ext?.transport?.binding;
@@ -20,15 +22,87 @@ function hasCapability(scope: ScopeLike, gate: string): boolean {
 }
 
 export function bindingSupportsFamily(binding: keyof typeof BINDING_FAMILY_MATRIX, family: string): boolean {
-  return (BINDING_FAMILY_MATRIX as any)[binding][family] !== "F";
+  return (LEGALITY_ALLOWED_CODES as readonly string[]).includes(bindingFamilyLegality(binding, family));
 }
 
 export function familySupportsSubevent(family: keyof typeof FAMILY_SUBEVENT_MATRIX, subevent: string): boolean {
-  return ((FAMILY_SUBEVENT_MATRIX as any)[family] ?? {})[subevent] !== "F";
+  return (LEGALITY_ALLOWED_CODES as readonly string[]).includes(familySubeventLegality(family, subevent));
 }
 
 export function bindingSupportsSubevent(binding: keyof typeof BINDING_SUBEVENT_MATRIX, subevent: string): boolean {
-  return ((BINDING_SUBEVENT_MATRIX as any)[binding] ?? {})[subevent] !== "F";
+  return (LEGALITY_ALLOWED_CODES as readonly string[]).includes(bindingSubeventLegality(binding, subevent));
+}
+
+export function bindingFamilyLegality(binding: string, family: string): string {
+  return ((BINDING_FAMILY_MATRIX as any)[binding] ?? {})[family] ?? "F";
+}
+
+export function familySubeventLegality(family: string, subevent: string): string {
+  return ((FAMILY_SUBEVENT_MATRIX as any)[family] ?? {})[subevent] ?? "F";
+}
+
+export function bindingSubeventLegality(binding: string, subevent: string): string {
+  return ((BINDING_SUBEVENT_MATRIX as any)[binding] ?? {})[subevent] ?? "F";
+}
+
+export function validateBindingFamily(binding: string, family: string): boolean {
+  return (LEGALITY_ALLOWED_CODES as readonly string[]).includes(bindingFamilyLegality(binding, family));
+}
+
+export function validateFamilySubevent(family: string, subevent: string): boolean {
+  return (LEGALITY_ALLOWED_CODES as readonly string[]).includes(familySubeventLegality(family, subevent));
+}
+
+export function validateBindingSubevent(binding: string, subevent: string): boolean {
+  return (LEGALITY_ALLOWED_CODES as readonly string[]).includes(bindingSubeventLegality(binding, subevent));
+}
+
+export function legalityMatrixErrors(): string[] {
+  const errors: string[] = [];
+  const bindings = new Set(Object.keys(BINDING_FAMILY_MATRIX));
+  const families = new Set(Object.keys(FAMILY_SUBEVENT_MATRIX));
+  const subevents = new Set<string>();
+  for (const values of Object.values(FAMILY_SUBEVENT_MATRIX as Record<string, Record<string, string>>)) {
+    for (const subevent of Object.keys(values)) subevents.add(subevent);
+  }
+
+  for (const [binding, familyMap] of Object.entries(BINDING_FAMILY_MATRIX as Record<string, Record<string, string>>)) {
+    for (const family of families) {
+      if (!(family in familyMap)) errors.push(`binding_family_missing:${binding}:${family}`);
+    }
+    for (const [family, code] of Object.entries(familyMap)) {
+      if (!families.has(family)) errors.push(`binding_family_unknown:${binding}:${family}`);
+      if (!(LEGALITY_CODES as readonly string[]).includes(code)) {
+        errors.push(`binding_family_bad_code:${binding}:${family}:${code}`);
+      }
+    }
+  }
+
+  for (const [family, subeventMap] of Object.entries(FAMILY_SUBEVENT_MATRIX as Record<string, Record<string, string>>)) {
+    for (const [subevent, code] of Object.entries(subeventMap)) {
+      if (!(LEGALITY_CODES as readonly string[]).includes(code)) {
+        errors.push(`family_subevent_bad_code:${family}:${subevent}:${code}`);
+      }
+    }
+  }
+
+  for (const [binding, subeventMap] of Object.entries(BINDING_SUBEVENT_MATRIX as Record<string, Record<string, string>>)) {
+    if (!bindings.has(binding)) errors.push(`binding_subevent_unknown_binding:${binding}`);
+    for (const subevent of subevents) {
+      if (!(subevent in subeventMap)) errors.push(`binding_subevent_missing:${binding}:${subevent}`);
+    }
+    for (const [subevent, code] of Object.entries(subeventMap)) {
+      if (!subevents.has(subevent)) errors.push(`binding_subevent_unknown:${binding}:${subevent}`);
+      if (!(LEGALITY_CODES as readonly string[]).includes(code)) {
+        errors.push(`binding_subevent_bad_code:${binding}:${subevent}:${code}`);
+      }
+    }
+  }
+  return errors;
+}
+
+export function validateLegalityMatrices(): boolean {
+  return legalityMatrixErrors().length === 0;
 }
 
 export function protocolBinding(protocol: keyof typeof PROTOCOLS): string {

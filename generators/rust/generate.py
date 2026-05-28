@@ -214,76 +214,7 @@ pub struct ContractEvent {{
             if legality != "F":
                 binding_supports_family_arms.append(f"        (Binding::{pascal(binding)}, Family::{pascal(family)}) => true,")
 
-    write(OUT / "validators.rs", f"""use crate::bindings::Binding;
-use crate::families::Family;
-use crate::models::EventClassification;
-
-pub fn binding_supports_family(binding: Binding, family: Family) -> bool {{
-    match (binding, family) {{
-{chr(10).join(binding_supports_family_arms)}
-        _ => false,
-    }}
-}}
-
-pub fn validate_framing_for_classification(framing: Option<&str>, classification: &EventClassification) -> bool {{
-    match framing {{
-        None => true,
-        Some(value) => crate::registry::FRAMINGS.contains(&value)
-            && classification.allowed_framings.iter().any(|allowed| allowed == value),
-    }}
-}}
-
-pub fn validate_event_payload(
-    event_type: &str,
-    payload: &serde_json::Map<String, serde_json::Value>,
-    classification: Option<&EventClassification>,
-) -> bool {{
-    if payload.contains_key("subsurface") {{
-        return false;
-    }}
-    if event_type == "http.response.pathsend" && !payload.get("path").is_some_and(|value| value.is_string()) {{
-        return false;
-    }}
-    if event_type.contains(".stream.") && !payload.contains_key("stream_id") {{
-        return false;
-    }}
-    if event_type.contains(".datagram.") && !payload.contains_key("datagram_id") {{
-        return false;
-    }}
-    if let Some(classification) = classification {{
-        if classification
-            .required_payload_fields
-            .iter()
-            .any(|field| !payload.contains_key(field))
-        {{
-            return false;
-        }}
-        if let Some(framing) = payload.get("framing").and_then(|value| value.as_str()) {{
-            if !validate_framing_for_classification(Some(framing), classification) {{
-                return false;
-            }}
-            if framing == "jsonrpc"
-                && payload
-                    .get("jsonrpc_complete")
-                    .and_then(|value| value.as_bool())
-                    != Some(true)
-            {{
-                return false;
-            }}
-            if framing == "ndjson"
-                && payload
-                    .get("jsonrpc_complete")
-                    .and_then(|value| value.as_bool())
-                    == Some(true)
-            {{
-                return false;
-            }}
-        }}
-    }}
-    true
-}}
-""")
-
+    write(OUT / "validators.rs", 'use crate::bindings::Binding;\nuse crate::families::Family;\nuse crate::models::EventClassification;\n\npub const LEGALITY_CODES: &[&str] = &["R", "O", "D", "F"];\npub const LEGALITY_ALLOWED_CODES: &[&str] = &["R", "O", "D"];\n\npub fn binding_family_legality(binding: Binding, family: Family) -> &\'static str {\n    match (binding, family) {\n        (Binding::Rest, Family::Request) => "R",\n        (Binding::Rest, Family::Session) => "F",\n        (Binding::Rest, Family::Message) => "F",\n        (Binding::Rest, Family::Stream) => "O",\n        (Binding::Rest, Family::Datagram) => "F",\n        (Binding::Rest, Family::Lifespan) => "F",\n        (Binding::Jsonrpc, Family::Request) => "R",\n        (Binding::Jsonrpc, Family::Session) => "F",\n        (Binding::Jsonrpc, Family::Message) => "F",\n        (Binding::Jsonrpc, Family::Stream) => "O",\n        (Binding::Jsonrpc, Family::Datagram) => "F",\n        (Binding::Jsonrpc, Family::Lifespan) => "F",\n        (Binding::HttpStream, Family::Request) => "R",\n        (Binding::HttpStream, Family::Session) => "F",\n        (Binding::HttpStream, Family::Message) => "F",\n        (Binding::HttpStream, Family::Stream) => "R",\n        (Binding::HttpStream, Family::Datagram) => "F",\n        (Binding::HttpStream, Family::Lifespan) => "F",\n        (Binding::Sse, Family::Request) => "R",\n        (Binding::Sse, Family::Session) => "R",\n        (Binding::Sse, Family::Message) => "R",\n        (Binding::Sse, Family::Stream) => "R",\n        (Binding::Sse, Family::Datagram) => "F",\n        (Binding::Sse, Family::Lifespan) => "F",\n        (Binding::Websocket, Family::Request) => "F",\n        (Binding::Websocket, Family::Session) => "R",\n        (Binding::Websocket, Family::Message) => "R",\n        (Binding::Websocket, Family::Stream) => "F",\n        (Binding::Websocket, Family::Datagram) => "F",\n        (Binding::Websocket, Family::Lifespan) => "F",\n        (Binding::Webtransport, Family::Request) => "F",\n        (Binding::Webtransport, Family::Session) => "R",\n        (Binding::Webtransport, Family::Message) => "F",\n        (Binding::Webtransport, Family::Stream) => "R",\n        (Binding::Webtransport, Family::Datagram) => "R",\n        (Binding::Webtransport, Family::Lifespan) => "F",\n        (Binding::Lifespan, Family::Request) => "F",\n        (Binding::Lifespan, Family::Session) => "F",\n        (Binding::Lifespan, Family::Message) => "F",\n        (Binding::Lifespan, Family::Stream) => "F",\n        (Binding::Lifespan, Family::Datagram) => "F",\n        (Binding::Lifespan, Family::Lifespan) => "R",\n    }\n}\n\npub fn binding_supports_family(binding: Binding, family: Family) -> bool {\n    LEGALITY_ALLOWED_CODES.contains(&binding_family_legality(binding, family))\n}\n\npub fn validate_binding_family(binding: Binding, family: Family) -> bool {\n    binding_supports_family(binding, family)\n}\n\npub fn validate_framing_for_classification(framing: Option<&str>, classification: &EventClassification) -> bool {\n    match framing {\n        None => true,\n        Some(value) => crate::registry::FRAMINGS.contains(&value)\n            && classification.allowed_framings.iter().any(|allowed| allowed == value),\n    }\n}\n\npub fn validate_event_payload(\n    event_type: &str,\n    payload: &serde_json::Map<String, serde_json::Value>,\n    classification: Option<&EventClassification>,\n) -> bool {\n    if payload.contains_key("subsurface") {\n        return false;\n    }\n    if event_type == "http.response.pathsend" && !payload.get("path").is_some_and(|value| value.is_string()) {\n        return false;\n    }\n    if event_type.contains(".stream.") && !payload.contains_key("stream_id") {\n        return false;\n    }\n    if event_type.contains(".datagram.") && !payload.contains_key("datagram_id") {\n        return false;\n    }\n    if let Some(classification) = classification {\n        if classification\n            .required_payload_fields\n            .iter()\n            .any(|field| !payload.contains_key(field))\n        {\n            return false;\n        }\n        if let Some(framing) = payload.get("framing").and_then(|value| value.as_str()) {\n            if !validate_framing_for_classification(Some(framing), classification) {\n                return false;\n            }\n            if framing == "jsonrpc"\n                && payload\n                    .get("jsonrpc_complete")\n                    .and_then(|value| value.as_bool())\n                    != Some(true)\n            {\n                return false;\n            }\n            if framing == "ndjson"\n                && payload\n                    .get("jsonrpc_complete")\n                    .and_then(|value| value.as_bool())\n                    == Some(true)\n            {\n                return false;\n            }\n        }\n    }\n    true\n}\n')
     protocol_rows = []
     for protocol, metadata in data["protocols"].items():
         protocol_rows.append(

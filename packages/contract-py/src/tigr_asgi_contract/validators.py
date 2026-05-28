@@ -3,6 +3,9 @@ from typing import Any
 from .registry import AUTOMATA, BINDING_FAMILY_MATRIX, FAMILY_SUBEVENT_MATRIX, BINDING_SUBEVENT_MATRIX, PROTOCOLS, EVENT_CLASSIFICATIONS, FRAMINGS
 from .models import EventClassification
 
+LEGALITY_CODES = frozenset({"R", "O", "D", "F"})
+LEGALITY_ALLOWED_CODES = frozenset({"R", "O", "D"})
+
 
 def _scope_value(scope: Any, key: str, default: Any = None) -> Any:
     if isinstance(scope, dict):
@@ -33,23 +36,97 @@ def _has_capability(scope: Any, gate: str) -> bool:
 
 
 def binding_supports_family(binding: str, family: str) -> bool:
-    return BINDING_FAMILY_MATRIX[binding][family] != "F"
+    return binding_family_legality(binding, family) in LEGALITY_ALLOWED_CODES
 
 
 def family_supports_subevent(family: str, subevent: str) -> bool:
-    return FAMILY_SUBEVENT_MATRIX[family].get(subevent) != "F"
+    return family_subevent_legality(family, subevent) in LEGALITY_ALLOWED_CODES
 
 
 def binding_supports_subevent(binding: str, subevent: str) -> bool:
-    return BINDING_SUBEVENT_MATRIX[binding].get(subevent) != "F"
+    return binding_subevent_legality(binding, subevent) in LEGALITY_ALLOWED_CODES
 
 
 def binding_family_legality(binding: str, family: str) -> str:
-    return BINDING_FAMILY_MATRIX[binding][family]
+    return BINDING_FAMILY_MATRIX.get(binding, {}).get(family, "F")
+
+
+def family_subevent_legality(family: str, subevent: str) -> str:
+    return FAMILY_SUBEVENT_MATRIX.get(family, {}).get(subevent, "F")
 
 
 def binding_subevent_legality(binding: str, subevent: str) -> str:
-    return BINDING_SUBEVENT_MATRIX[binding][subevent]
+    return BINDING_SUBEVENT_MATRIX.get(binding, {}).get(subevent, "F")
+
+
+def is_required_legality(code: str) -> bool:
+    return code == "R"
+
+
+def is_optional_legality(code: str) -> bool:
+    return code == "O"
+
+
+def is_derived_legality(code: str) -> bool:
+    return code == "D"
+
+
+def is_forbidden_legality(code: str) -> bool:
+    return code == "F"
+
+
+def validate_binding_family(binding: str, family: str) -> bool:
+    return binding_supports_family(binding, family)
+
+
+def validate_family_subevent(family: str, subevent: str) -> bool:
+    return family_supports_subevent(family, subevent)
+
+
+def validate_binding_subevent(binding: str, subevent: str) -> bool:
+    return binding_supports_subevent(binding, subevent)
+
+
+def legality_matrix_errors() -> list[str]:
+    errors: list[str] = []
+    bindings = set(BINDING_FAMILY_MATRIX)
+    families = set(FAMILY_SUBEVENT_MATRIX)
+    subevents = {subevent for values in FAMILY_SUBEVENT_MATRIX.values() for subevent in values}
+
+    for binding, family_map in BINDING_FAMILY_MATRIX.items():
+        missing = families - set(family_map)
+        extra = set(family_map) - families
+        errors.extend(f"binding_family_missing:{binding}:{family}" for family in sorted(missing))
+        errors.extend(f"binding_family_unknown:{binding}:{family}" for family in sorted(extra))
+        errors.extend(
+            f"binding_family_bad_code:{binding}:{family}:{code}"
+            for family, code in sorted(family_map.items())
+            if code not in LEGALITY_CODES
+        )
+
+    for family, subevent_map in FAMILY_SUBEVENT_MATRIX.items():
+        errors.extend(
+            f"family_subevent_bad_code:{family}:{subevent}:{code}"
+            for subevent, code in sorted(subevent_map.items())
+            if code not in LEGALITY_CODES
+        )
+    for binding, subevent_map in BINDING_SUBEVENT_MATRIX.items():
+        if binding not in bindings:
+            errors.append(f"binding_subevent_unknown_binding:{binding}")
+        missing = subevents - set(subevent_map)
+        extra = set(subevent_map) - subevents
+        errors.extend(f"binding_subevent_missing:{binding}:{subevent}" for subevent in sorted(missing))
+        errors.extend(f"binding_subevent_unknown:{binding}:{subevent}" for subevent in sorted(extra))
+        errors.extend(
+            f"binding_subevent_bad_code:{binding}:{subevent}:{code}"
+            for subevent, code in sorted(subevent_map.items())
+            if code not in LEGALITY_CODES
+        )
+    return errors
+
+
+def validate_legality_matrices() -> bool:
+    return not legality_matrix_errors()
 
 
 def protocol_binding(protocol: str) -> str:
