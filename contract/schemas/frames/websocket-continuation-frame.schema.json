@@ -1,0 +1,83 @@
+{
+  "$id": "https://tigr.dev/asgi-contract/schemas/frames/websocket-continuation-frame.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "not": {
+    "required": [
+      "subsurface"
+    ]
+  },
+  "properties": {
+    "body": {},
+    "bytes": {},
+    "code": {
+      "type": "integer"
+    },
+    "datagram_id": {
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "minLength": 1,
+          "type": "string"
+        }
+      ]
+    },
+    "frame": {
+      "const": "websocket-continuation-frame"
+    },
+    "headers": {
+      "type": "array"
+    },
+    "more": {
+      "type": "boolean"
+    },
+    "opcode": {
+      "type": "string"
+    },
+    "path": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "payload": {},
+    "reason": {
+      "type": "string"
+    },
+    "status": {
+      "maximum": 999,
+      "minimum": 100,
+      "type": "integer"
+    },
+    "stream_direction": {
+      "enum": [
+        "bidi",
+        "client_to_server",
+        "server_to_client"
+      ]
+    },
+    "stream_id": {
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "minLength": 1,
+          "type": "string"
+        }
+      ]
+    },
+    "text": {
+      "type": "string"
+    },
+    "tls": {
+      "type": "object"
+    },
+    "value": {}
+  },
+  "required": [
+    "frame"
+  ],
+  "title": "websocket-continuation-frame frame payload",
+  "type": "object"
+}

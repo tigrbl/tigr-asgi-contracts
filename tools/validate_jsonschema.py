@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SCHEMAS = ROOT / "contract" / "schemas"
 
 def main() -> None:
-    for path in sorted(SCHEMAS.glob("*.json")):
+    for path in sorted(SCHEMAS.rglob("*.json")):
         data = json.loads(path.read_text(encoding="utf-8"))
         validator_for(data).check_schema(data)
         print(f"OK {path.relative_to(ROOT)}")

@@ -6,7 +6,7 @@ Generated Python contract package for the Tigr ASGI contract. It is generated fr
 
 | Ecosystem | Package | Version | Path | Surface files | Notes |
 | --- | --- | --- | --- | --- | --- |
-| python | **`tigr-asgi-contract`** | `0.3.2` | `packages/contract-py` | 21 | Enums, models, validators |
+| python | **`tigr-asgi-contract`** | `0.3.2` | `packages/contract-py` | 22 | Enums, models, validators |
 | npm | `@tigrbljs/tigr-asgi-contract` | `0.3.2` | `packages/contract-npm` | 23 | TypeScript and TSX surfaces |
 | rust | `tigr_asgi_contract_rs` | `0.3.2` | `packages/contract-rs` | 20 | Serde-friendly contract surfaces |
 
@@ -30,6 +30,7 @@ Generated Python contract package for the Tigr ASGI contract. It is generated fr
 | `models` | `tigr_asgi_contract/models.py` |
 | `protocols` | `tigr_asgi_contract/protocols.py` |
 | `registry` | `tigr_asgi_contract/registry.py` |
+| `schema_registry` | `tigr_asgi_contract/schema_registry.py` |
 | `scope` | `tigr_asgi_contract/scope.py` |
 | `scope_types` | `tigr_asgi_contract/scope_types.py` |
 | `subevents` | `tigr_asgi_contract/subevents.py` |

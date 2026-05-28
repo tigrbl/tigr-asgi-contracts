@@ -6,7 +6,7 @@ Generated Rust contract crate for the Tigr ASGI contract. It is generated from t
 
 | Ecosystem | Package | Version | Path | Surface files | Notes |
 | --- | --- | --- | --- | --- | --- |
-| python | `tigr-asgi-contract` | `0.3.2` | `packages/contract-py` | 21 | Enums, models, validators |
+| python | `tigr-asgi-contract` | `0.3.2` | `packages/contract-py` | 22 | Enums, models, validators |
 | npm | `@tigrbljs/tigr-asgi-contract` | `0.3.2` | `packages/contract-npm` | 23 | TypeScript and TSX surfaces |
 | rust | **`tigr_asgi_contract_rs`** | `0.3.2` | `packages/contract-rs` | 20 | Serde-friendly contract surfaces |
 

@@ -1,0 +1,99 @@
+{
+  "$id": "https://tigr.dev/asgi-contract/schemas/events/http.response.body.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "not": {
+    "required": [
+      "subsurface"
+    ]
+  },
+  "properties": {
+    "body": {},
+    "bytes": {},
+    "code": {
+      "type": "integer"
+    },
+    "datagram_id": {
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "minLength": 1,
+          "type": "string"
+        }
+      ]
+    },
+    "framing": {
+      "enum": [
+        "json",
+        "jsonrpc",
+        "ndjson",
+        "sse",
+        "text",
+        "bytes",
+        "binary"
+      ]
+    },
+    "headers": {
+      "type": "array"
+    },
+    "jsonrpc_complete": {
+      "type": "boolean"
+    },
+    "message": {
+      "type": "string"
+    },
+    "more": {
+      "type": "boolean"
+    },
+    "more_body": {
+      "type": "boolean"
+    },
+    "path": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "session_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "status": {
+      "maximum": 999,
+      "minimum": 100,
+      "type": "integer"
+    },
+    "stream_direction": {
+      "enum": [
+        "bidi",
+        "client_to_server",
+        "server_to_client"
+      ]
+    },
+    "stream_id": {
+      "oneOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "minLength": 1,
+          "type": "string"
+        }
+      ]
+    },
+    "text": {
+      "type": "string"
+    },
+    "type": {
+      "const": "http.response.body"
+    }
+  },
+  "required": [
+    "type"
+  ],
+  "title": "http.response.body event payload",
+  "type": "object"
+}
