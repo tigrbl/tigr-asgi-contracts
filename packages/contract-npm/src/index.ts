@@ -1,4 +1,7 @@
 export * from "./scope_types";
+export * from "./channels";
+export * from "./directions";
+export * from "./framing";
 export * from "./bindings";
 export * from "./protocols";
 export * from "./exchanges";

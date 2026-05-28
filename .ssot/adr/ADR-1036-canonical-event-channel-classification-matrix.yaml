@@ -1,0 +1,59 @@
+schema_version: "0.2.0"
+kind: "adr"
+id: "adr:1036"
+number: 1036
+slug: "canonical-event-channel-classification-matrix"
+title: "Canonical event channel classification matrix"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "Classify canonical ASGI event names with explicit channel and transport metadata instead of creating a parallel event-name system."
+supersedes: []
+superseded_by: []
+status_notes:
+  -
+    at: "2026-05-27T17:23:38Z"
+    note: "Accepted as the governing event classification model for scope/receive/send bridge work."
+    status: "accepted"
+  -
+    status: "accepted"
+    note: "Updated to include optional app-level framing row metadata."
+    at: "2026-05-27T17:57:59Z"
+references: []
+body: |-
+  Classify canonical ASGI event names with explicit channel and transport metadata instead of creating a parallel event-name system.
+  
+  ## Context
+  
+  The contract already distinguishes ASGI scope, receive, and send surfaces, but the earlier taxonomy discussions exposed a risk of introducing a second event-name system for transport lanes. That would conflict with the ASGI trifecta because ASGI event identity is already carried by canonical event names such as `http.request`, `http.response.body`, `websocket.receive`, and `webtransport.stream.receive`.
+  
+  ## Decision
+  
+  The contract shall use canonical ASGI and contract event names as event identity. It shall not introduce a required `subsurface` or parallel event-name field to restate the same event.
+  
+  Event classification shall be represented as metadata derived from:
+  
+  - `event`: the canonical event type name;
+  - `channel`: `receive` or `send`, matching the ASGI callable side;
+  - `scope_type`: the broad ASGI scope type;
+  - `binding`: the selected binding or transport projection;
+  - `family`: the carrier/runtime family such as `request`, `session`, `message`, `stream`, `datagram`, or `lifespan`;
+  - `exchange`: the interaction pattern such as `unary`, `client_stream`, `server_stream`, or `duplex`;
+  - `direction`: the peer-flow direction, such as `client_to_server`, `server_to_client`, `server_to_app`, or `app_to_server`.
+  
+  App-level `framing` may be present as optional row metadata. Framing describes payload interpretation on the selected carrier and is not part of event identity.
+  
+  Where one event name can represent multiple lanes, classifiers must use scope metadata and event payload discriminators such as binding, stream direction, stream id, datagram id, continuation flags, selected subprotocol, selected framing, ALPN, TLS metadata, or WebTransport capability metadata.
+  
+  Scope types remain limited to `http`, `websocket`, `webtransport`, and `lifespan`. Transport and security facts such as TLS, mTLS, ALPN, H2, H3, QUIC, and WebTransport capabilities remain scope metadata or scope extensions, not new scope types.
+  
+  ## Consequences
+  
+  Generated schemas and registries can validate event instances without inventing duplicate event names.
+  
+  Tigrcorn can project transport facts into scope metadata and canonical ASGI event dictionaries.
+  
+  Tigrbl can consume the contract classification matrix and map it into KernelPlan or runtime aliases without requiring custom event names at the bridge boundary.
+  
+  Framing-aware validators can reject illegal payload interpretations without changing canonical event names or scope types.

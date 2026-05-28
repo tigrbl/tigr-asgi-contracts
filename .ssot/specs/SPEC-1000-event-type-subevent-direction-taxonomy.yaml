@@ -1,4 +1,4 @@
-schema_version: "0.1.0"
+schema_version: "0.2.0"
 kind: "spec"
 id: "spc:1000"
 number: 1000
@@ -8,34 +8,48 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "This specification defines the contract taxonomy terms used by the repository: `type`, `subevent`, `binding`, `protocols`, `family`, and `direction`."
+summary: "This specification defines the contract taxonomy terms used by the repository: `type`, `subevent`, `channel`, `binding`, `protocols`, `family`, `exchange`, and `direction`."
 supersedes: []
 superseded_by: []
-status_notes: []
+status_notes:
+  -
+    status: "accepted"
+    note: "Updated taxonomy with ASGI channel and bridge classification attributes."
+    at: "2026-05-27T17:39:48Z"
 references: []
 body: |-
   ## Scope
   
-  This specification defines the contract taxonomy terms used by the repository: `type`, `subevent`, `binding`, `protocols`, `family`, and `direction`.
+  This specification defines the contract taxonomy terms used by the repository: `type`, `subevent`, `channel`, `binding`, `protocols`, `family`, `exchange`, and `direction`.
   
   ## Requirements
   
-  `type` names the ASGI/base event type or contract event type.
+  `type` names the canonical ASGI/base event type or contract event type.
   
   `subevent` names the semantic action represented by a contract row or generated matrix cell.
+  
+  `channel` names the ASGI callable side and is limited to `receive` or `send` for transport events. `channel` is not peer-flow direction.
   
   `binding` names the contract binding profile, such as REST, JSON-RPC, HTTP stream, SSE, WebSocket, or WebTransport.
   
   `protocols` names wire protocol identifiers and external protocol targets.
   
-  `family` names the semantic event family used by legality and capability matrices.
+  `family` names the carrier/runtime family used by legality and capability matrices, including `request`, `session`, `message`, `stream`, `datagram`, and `lifespan`.
   
-  `direction` is a derived classification from event and transport semantics. It is not a primary contract key.
+  `exchange` names the interaction pattern represented by a row, including `unary`, `client_stream`, `server_stream`, and `duplex`.
+  
+  `direction` is semantic peer-flow metadata such as `client_to_server`, `server_to_client`, `server_to_app`, or `app_to_server`. It is not a primary event identity key and must not be confused with ASGI `channel`.
   
   Internal lifecycle subevents are current taxonomy rows when documented by this repository, but their presence does not define runtime execution behavior.
+  
+  The contract must not introduce a required `subsurface` or parallel event-name field. When one event type can represent multiple semantic lanes, the contract uses `scope`, `channel`, binding metadata, and payload discriminators.
   
   ## Validation
   
   Taxonomy changes must be reflected in SSOT rows, generated matrices, or generated contract outputs before they can be claimed as implemented.
+  
+  Validation must prove that any row with `channel` also has legal `direction`, `family`, and `exchange` metadata for the selected `type`, `scope`, and `binding`.
 spec_kind: "normative"
-adr_ids: []
+adr_ids:
+  - "adr:1000"
+  - "adr:1036"

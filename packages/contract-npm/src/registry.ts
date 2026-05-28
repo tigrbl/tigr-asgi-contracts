@@ -42,10 +42,18 @@ export const BINDING_FAMILY_MATRIX = {
   "webtransport": {
     "request": "F",
     "session": "R",
-    "message": "O",
+    "message": "F",
     "stream": "R",
     "datagram": "R",
     "lifespan": "F"
+  },
+  "lifespan": {
+    "request": "F",
+    "session": "F",
+    "message": "F",
+    "stream": "F",
+    "datagram": "F",
+    "lifespan": "R"
   }
 } as const;
 
@@ -396,16 +404,16 @@ export const BINDING_SUBEVENT_MATRIX = {
     "session.close": "R",
     "session.disconnect": "O",
     "session.emit_complete": "O",
-    "message.in": "O",
-    "message.decode": "O",
-    "message.decode_failed": "O",
-    "message.handle": "O",
-    "message.handle_failed": "O",
-    "message.out": "O",
-    "message.replay": "O",
-    "message.snapshot": "O",
-    "message.emit_complete": "O",
-    "message.emit_failed": "O",
+    "message.in": "F",
+    "message.decode": "F",
+    "message.decode_failed": "F",
+    "message.handle": "F",
+    "message.handle_failed": "F",
+    "message.out": "F",
+    "message.replay": "F",
+    "message.snapshot": "F",
+    "message.emit_complete": "F",
+    "message.emit_failed": "F",
     "stream.open": "R",
     "stream.chunk_in": "R",
     "stream.chunk_out": "R",
@@ -426,6 +434,58 @@ export const BINDING_SUBEVENT_MATRIX = {
     "lifespan.shutdown": "F",
     "lifespan.shutdown_complete": "F",
     "lifespan.shutdown_failed": "F"
+  },
+  "lifespan": {
+    "request.open": "F",
+    "request.body_in": "F",
+    "request.chunk_in": "F",
+    "request.dispatch": "F",
+    "request.close": "F",
+    "request.disconnect": "F",
+    "response.open": "F",
+    "response.body_out": "F",
+    "response.chunk_out": "F",
+    "response.finalize": "F",
+    "response.emit_complete": "F",
+    "session.open": "F",
+    "session.accept": "F",
+    "session.reject": "F",
+    "session.ready": "F",
+    "session.heartbeat": "F",
+    "session.sync": "F",
+    "session.close": "F",
+    "session.disconnect": "F",
+    "session.emit_complete": "F",
+    "message.in": "F",
+    "message.decode": "F",
+    "message.decode_failed": "F",
+    "message.handle": "F",
+    "message.handle_failed": "F",
+    "message.out": "F",
+    "message.replay": "F",
+    "message.snapshot": "F",
+    "message.emit_complete": "F",
+    "message.emit_failed": "F",
+    "stream.open": "F",
+    "stream.chunk_in": "F",
+    "stream.chunk_out": "F",
+    "stream.flush": "F",
+    "stream.finalize": "F",
+    "stream.reset": "F",
+    "stream.stop_sending": "F",
+    "stream.close": "F",
+    "stream.emit_complete": "F",
+    "datagram.in": "F",
+    "datagram.handle": "F",
+    "datagram.out": "F",
+    "datagram.emit_complete": "F",
+    "datagram.emit_failed": "F",
+    "lifespan.startup": "R",
+    "lifespan.startup_complete": "R",
+    "lifespan.startup_failed": "O",
+    "lifespan.shutdown": "R",
+    "lifespan.shutdown_complete": "R",
+    "lifespan.shutdown_failed": "O"
   }
 } as const;
 
@@ -501,6 +561,12 @@ export const PROTOCOLS = {
     "transport": "http",
     "secure": false,
     "scope_type": "http"
+  },
+  "lifespan": {
+    "binding": "lifespan",
+    "transport": "lifespan",
+    "secure": false,
+    "scope_type": "lifespan"
   }
 } as const;
 
@@ -857,7 +923,7 @@ export const FRAMES = {
   },
   "asgi-tls-extension": {
     "kind": "extension-frame",
-    "binding": "*"
+    "binding": "\"*\""
   },
   "asgi-pathsend-extension": {
     "kind": "extension-frame",
@@ -1033,3 +1099,578 @@ export const EXTENSIONS = {
     }
   }
 } as const;
+
+export const CHANNELS = [
+  "receive",
+  "send"
+] as const;
+
+export const DIRECTIONS = [
+  "client_to_server",
+  "server_to_client",
+  "app_to_server",
+  "server_to_app",
+  "system"
+] as const;
+
+export const FRAMINGS = [
+  "json",
+  "jsonrpc",
+  "ndjson",
+  "sse",
+  "text",
+  "bytes",
+  "binary"
+] as const;
+
+export const EVENT_CLASSIFICATIONS = [
+  {
+    "event": "http.request",
+    "channel": "receive",
+    "scope_type": "http",
+    "binding": "rest",
+    "family": "request",
+    "exchange": "unary",
+    "direction": "client_to_server",
+    "allowed_framings": [
+      "json",
+      "text",
+      "bytes",
+      "binary"
+    ],
+    "required_payload_fields": []
+  },
+  {
+    "event": "http.request",
+    "channel": "receive",
+    "scope_type": "http",
+    "binding": "jsonrpc",
+    "family": "request",
+    "exchange": "unary",
+    "direction": "client_to_server",
+    "allowed_framings": [
+      "jsonrpc"
+    ],
+    "required_payload_fields": []
+  },
+  {
+    "event": "http.request",
+    "channel": "receive",
+    "scope_type": "http",
+    "binding": "http.stream",
+    "family": "stream",
+    "exchange": "client_stream",
+    "direction": "client_to_server",
+    "allowed_framings": [
+      "json",
+      "ndjson",
+      "text",
+      "bytes",
+      "binary"
+    ],
+    "required_payload_fields": []
+  },
+  {
+    "event": "http.disconnect",
+    "channel": "receive",
+    "scope_type": "http",
+    "binding": "rest",
+    "family": "request",
+    "exchange": "unary",
+    "direction": "client_to_server",
+    "allowed_framings": [],
+    "required_payload_fields": []
+  },
+  {
+    "event": "http.response.start",
+    "channel": "send",
+    "scope_type": "http",
+    "binding": "rest",
+    "family": "request",
+    "exchange": "unary",
+    "direction": "server_to_client",
+    "allowed_framings": [],
+    "required_payload_fields": []
+  },
+  {
+    "event": "http.response.start",
+    "channel": "send",
+    "scope_type": "http",
+    "binding": "jsonrpc",
+    "family": "request",
+    "exchange": "unary",
+    "direction": "server_to_client",
+    "allowed_framings": [],
+    "required_payload_fields": []
+  },
+  {
+    "event": "http.response.body",
+    "channel": "send",
+    "scope_type": "http",
+    "binding": "rest",
+    "family": "request",
+    "exchange": "unary",
+    "direction": "server_to_client",
+    "allowed_framings": [
+      "json",
+      "text",
+      "bytes",
+      "binary"
+    ],
+    "required_payload_fields": []
+  },
+  {
+    "event": "http.response.body",
+    "channel": "send",
+    "scope_type": "http",
+    "binding": "jsonrpc",
+    "family": "request",
+    "exchange": "unary",
+    "direction": "server_to_client",
+    "allowed_framings": [
+      "jsonrpc"
+    ],
+    "required_payload_fields": []
+  },
+  {
+    "event": "http.response.body",
+    "channel": "send",
+    "scope_type": "http",
+    "binding": "http.stream",
+    "family": "stream",
+    "exchange": "server_stream",
+    "direction": "server_to_client",
+    "allowed_framings": [
+      "json",
+      "ndjson",
+      "text",
+      "bytes",
+      "binary"
+    ],
+    "required_payload_fields": []
+  },
+  {
+    "event": "http.response.body",
+    "channel": "send",
+    "scope_type": "http",
+    "binding": "sse",
+    "family": "stream",
+    "exchange": "server_stream",
+    "direction": "server_to_client",
+    "allowed_framings": [
+      "sse"
+    ],
+    "required_payload_fields": []
+  },
+  {
+    "event": "http.response.pathsend",
+    "channel": "send",
+    "scope_type": "http",
+    "binding": "http.stream",
+    "family": "request",
+    "exchange": "unary",
+    "direction": "server_to_client",
+    "allowed_framings": [],
+    "required_payload_fields": [
+      "path"
+    ]
+  },
+  {
+    "event": "websocket.connect",
+    "channel": "receive",
+    "scope_type": "websocket",
+    "binding": "websocket",
+    "family": "session",
+    "exchange": "unary",
+    "direction": "client_to_server",
+    "allowed_framings": [],
+    "required_payload_fields": []
+  },
+  {
+    "event": "websocket.receive",
+    "channel": "receive",
+    "scope_type": "websocket",
+    "binding": "websocket",
+    "family": "message",
+    "exchange": "duplex",
+    "direction": "client_to_server",
+    "allowed_framings": [
+      "json",
+      "jsonrpc",
+      "ndjson",
+      "text",
+      "bytes",
+      "binary"
+    ],
+    "required_payload_fields": []
+  },
+  {
+    "event": "websocket.disconnect",
+    "channel": "receive",
+    "scope_type": "websocket",
+    "binding": "websocket",
+    "family": "session",
+    "exchange": "unary",
+    "direction": "client_to_server",
+    "allowed_framings": [],
+    "required_payload_fields": []
+  },
+  {
+    "event": "websocket.accept",
+    "channel": "send",
+    "scope_type": "websocket",
+    "binding": "websocket",
+    "family": "session",
+    "exchange": "unary",
+    "direction": "server_to_client",
+    "allowed_framings": [],
+    "required_payload_fields": []
+  },
+  {
+    "event": "websocket.send",
+    "channel": "send",
+    "scope_type": "websocket",
+    "binding": "websocket",
+    "family": "message",
+    "exchange": "duplex",
+    "direction": "server_to_client",
+    "allowed_framings": [
+      "json",
+      "jsonrpc",
+      "ndjson",
+      "text",
+      "bytes",
+      "binary"
+    ],
+    "required_payload_fields": []
+  },
+  {
+    "event": "websocket.close",
+    "channel": "send",
+    "scope_type": "websocket",
+    "binding": "websocket",
+    "family": "session",
+    "exchange": "unary",
+    "direction": "server_to_client",
+    "allowed_framings": [],
+    "required_payload_fields": []
+  },
+  {
+    "event": "webtransport.connect",
+    "channel": "receive",
+    "scope_type": "webtransport",
+    "binding": "webtransport",
+    "family": "session",
+    "exchange": "unary",
+    "direction": "client_to_server",
+    "allowed_framings": [],
+    "required_payload_fields": []
+  },
+  {
+    "event": "webtransport.accept",
+    "channel": "send",
+    "scope_type": "webtransport",
+    "binding": "webtransport",
+    "family": "session",
+    "exchange": "unary",
+    "direction": "server_to_client",
+    "allowed_framings": [],
+    "required_payload_fields": []
+  },
+  {
+    "event": "webtransport.stream.receive",
+    "channel": "receive",
+    "scope_type": "webtransport",
+    "binding": "webtransport",
+    "family": "stream",
+    "exchange": "duplex",
+    "direction": "client_to_server",
+    "allowed_framings": [
+      "json",
+      "jsonrpc",
+      "ndjson",
+      "text",
+      "bytes",
+      "binary"
+    ],
+    "required_payload_fields": [
+      "stream_id",
+      "stream_direction"
+    ],
+    "capability_gates": [
+      "supports_bidi_streams"
+    ],
+    "stream_direction": "bidi"
+  },
+  {
+    "event": "webtransport.stream.receive",
+    "channel": "receive",
+    "scope_type": "webtransport",
+    "binding": "webtransport",
+    "family": "stream",
+    "exchange": "client_stream",
+    "direction": "client_to_server",
+    "allowed_framings": [
+      "json",
+      "jsonrpc",
+      "ndjson",
+      "text",
+      "bytes",
+      "binary"
+    ],
+    "required_payload_fields": [
+      "stream_id",
+      "stream_direction"
+    ],
+    "capability_gates": [
+      "supports_uni_streams"
+    ],
+    "stream_direction": "client_to_server"
+  },
+  {
+    "event": "webtransport.stream.send",
+    "channel": "send",
+    "scope_type": "webtransport",
+    "binding": "webtransport",
+    "family": "stream",
+    "exchange": "duplex",
+    "direction": "server_to_client",
+    "allowed_framings": [
+      "json",
+      "jsonrpc",
+      "ndjson",
+      "text",
+      "bytes",
+      "binary"
+    ],
+    "required_payload_fields": [
+      "stream_id",
+      "stream_direction"
+    ],
+    "capability_gates": [
+      "supports_bidi_streams"
+    ],
+    "stream_direction": "bidi"
+  },
+  {
+    "event": "webtransport.stream.send",
+    "channel": "send",
+    "scope_type": "webtransport",
+    "binding": "webtransport",
+    "family": "stream",
+    "exchange": "server_stream",
+    "direction": "server_to_client",
+    "allowed_framings": [
+      "json",
+      "ndjson",
+      "text",
+      "bytes",
+      "binary"
+    ],
+    "required_payload_fields": [
+      "stream_id",
+      "stream_direction"
+    ],
+    "capability_gates": [
+      "supports_uni_streams"
+    ],
+    "stream_direction": "server_to_client"
+  },
+  {
+    "event": "webtransport.stream.close",
+    "channel": "send",
+    "scope_type": "webtransport",
+    "binding": "webtransport",
+    "family": "stream",
+    "exchange": "duplex",
+    "direction": "server_to_client",
+    "allowed_framings": [],
+    "required_payload_fields": [
+      "stream_id"
+    ]
+  },
+  {
+    "event": "webtransport.stream.reset",
+    "channel": "send",
+    "scope_type": "webtransport",
+    "binding": "webtransport",
+    "family": "stream",
+    "exchange": "duplex",
+    "direction": "server_to_client",
+    "allowed_framings": [],
+    "required_payload_fields": [
+      "stream_id"
+    ]
+  },
+  {
+    "event": "webtransport.stream.stop_sending",
+    "channel": "send",
+    "scope_type": "webtransport",
+    "binding": "webtransport",
+    "family": "stream",
+    "exchange": "duplex",
+    "direction": "server_to_client",
+    "allowed_framings": [],
+    "required_payload_fields": [
+      "stream_id"
+    ]
+  },
+  {
+    "event": "webtransport.datagram.receive",
+    "channel": "receive",
+    "scope_type": "webtransport",
+    "binding": "webtransport",
+    "family": "datagram",
+    "exchange": "duplex",
+    "direction": "client_to_server",
+    "allowed_framings": [
+      "json",
+      "text",
+      "bytes",
+      "binary"
+    ],
+    "required_payload_fields": [
+      "datagram_id"
+    ],
+    "capability_gates": [
+      "supports_datagrams"
+    ]
+  },
+  {
+    "event": "webtransport.datagram.send",
+    "channel": "send",
+    "scope_type": "webtransport",
+    "binding": "webtransport",
+    "family": "datagram",
+    "exchange": "duplex",
+    "direction": "server_to_client",
+    "allowed_framings": [
+      "json",
+      "text",
+      "bytes",
+      "binary"
+    ],
+    "required_payload_fields": [
+      "datagram_id"
+    ],
+    "capability_gates": [
+      "supports_datagrams"
+    ]
+  },
+  {
+    "event": "webtransport.disconnect",
+    "channel": "receive",
+    "scope_type": "webtransport",
+    "binding": "webtransport",
+    "family": "session",
+    "exchange": "unary",
+    "direction": "client_to_server",
+    "allowed_framings": [],
+    "required_payload_fields": []
+  },
+  {
+    "event": "webtransport.close",
+    "channel": "send",
+    "scope_type": "webtransport",
+    "binding": "webtransport",
+    "family": "session",
+    "exchange": "unary",
+    "direction": "server_to_client",
+    "allowed_framings": [],
+    "required_payload_fields": []
+  },
+  {
+    "event": "lifespan.startup",
+    "channel": "receive",
+    "scope_type": "lifespan",
+    "binding": "lifespan",
+    "family": "lifespan",
+    "exchange": "unary",
+    "direction": "system",
+    "allowed_framings": [],
+    "required_payload_fields": []
+  },
+  {
+    "event": "lifespan.shutdown",
+    "channel": "receive",
+    "scope_type": "lifespan",
+    "binding": "lifespan",
+    "family": "lifespan",
+    "exchange": "unary",
+    "direction": "system",
+    "allowed_framings": [],
+    "required_payload_fields": []
+  },
+  {
+    "event": "lifespan.startup.complete",
+    "channel": "send",
+    "scope_type": "lifespan",
+    "binding": "lifespan",
+    "family": "lifespan",
+    "exchange": "unary",
+    "direction": "system",
+    "allowed_framings": [],
+    "required_payload_fields": []
+  },
+  {
+    "event": "lifespan.startup.failed",
+    "channel": "send",
+    "scope_type": "lifespan",
+    "binding": "lifespan",
+    "family": "lifespan",
+    "exchange": "unary",
+    "direction": "system",
+    "allowed_framings": [],
+    "required_payload_fields": [
+      "message"
+    ]
+  },
+  {
+    "event": "lifespan.shutdown.complete",
+    "channel": "send",
+    "scope_type": "lifespan",
+    "binding": "lifespan",
+    "family": "lifespan",
+    "exchange": "unary",
+    "direction": "system",
+    "allowed_framings": [],
+    "required_payload_fields": []
+  },
+  {
+    "event": "lifespan.shutdown.failed",
+    "channel": "send",
+    "scope_type": "lifespan",
+    "binding": "lifespan",
+    "family": "lifespan",
+    "exchange": "unary",
+    "direction": "system",
+    "allowed_framings": [],
+    "required_payload_fields": [
+      "message"
+    ]
+  },
+  {
+    "event": "transport.emit.complete",
+    "channel": "send",
+    "scope_type": "webtransport",
+    "binding": "webtransport",
+    "family": "datagram",
+    "exchange": "duplex",
+    "direction": "server_to_client",
+    "allowed_framings": [],
+    "required_payload_fields": []
+  },
+  {
+    "event": "transport.emit.failed",
+    "channel": "send",
+    "scope_type": "webtransport",
+    "binding": "webtransport",
+    "family": "datagram",
+    "exchange": "duplex",
+    "direction": "server_to_client",
+    "allowed_framings": [],
+    "required_payload_fields": [
+      "message"
+    ]
+  }
+] as const;

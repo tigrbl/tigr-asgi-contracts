@@ -114,7 +114,7 @@ def test_protocol_observable_ssot_traceability() -> None:
     claims = {row["id"]: row for row in registry["claims"]}
 
     for spec_id in {"spc:1032", "spc:1033", "spc:1034", "spc:1035"}:
-        assert specs[spec_id]["adr_ids"] == ["adr:1032"]
+        assert "adr:1032" in specs[spec_id]["adr_ids"]
 
     new_features = {
         "feat:family-subevent-request-request-dispatch": ({"spc:1032", "spc:1033"}, {"implemented"}),

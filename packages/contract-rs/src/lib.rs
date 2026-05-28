@@ -1,5 +1,8 @@
 pub mod version;
 pub mod scope_types;
+pub mod channels;
+pub mod directions;
+pub mod framing;
 pub mod bindings;
 pub mod protocols;
 pub mod exchanges;

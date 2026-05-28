@@ -14,4 +14,6 @@ pub enum Binding {
     Websocket,
     #[serde(rename = "webtransport")]
     Webtransport,
+    #[serde(rename = "lifespan")]
+    Lifespan,
 }

@@ -11,11 +11,15 @@
     },
     {
       "path": "bindings.yaml",
-      "sha256": "fa1438b1363b07560bdf0d2cc94e4c95d1b75df5c8bdacf5511a05e28de9ee9f"
+      "sha256": "0a08946ef6961c9c09cf4290410aa755dbcdfd1bfa67fa34a82fb7a17333adc4"
     },
     {
       "path": "capabilities.yaml",
       "sha256": "8ca0167eccbc97b13e3e245ab4cb52ee2f5c712dc9a617a3371bf37c503a736f"
+    },
+    {
+      "path": "channels.yaml",
+      "sha256": "66a6a3b36551946a47ddb4556f7d36d1f432eb2768ae5d9f9b17cf0607832b66"
     },
     {
       "path": "compatibility.yaml",
@@ -26,8 +30,16 @@
       "sha256": "036f6b37c6bc9881705bd59b7cce18a43b8a0cc4095e68bc16e4088ca628f1ce"
     },
     {
+      "path": "directions.yaml",
+      "sha256": "5b3e8f536f8058e43f5aa36febcf0c97deadd28b77ec87b57ad2c7df0fbaf6bc"
+    },
+    {
+      "path": "event_classification.yaml",
+      "sha256": "4d3e87cd2ce5d2a757cbd8bb9eb3ed6f72795d59ef6c1493eb7075e524d73151"
+    },
+    {
       "path": "exchanges.yaml",
-      "sha256": "6c7f8728836f23860629a8d062dea6219ac6fe31e67bed51f29feb10c3987ce9"
+      "sha256": "efc32610dfb14f05d2eb576cb09738a9d6a691ba18ce4ad66dff2940d6030726"
     },
     {
       "path": "extensions.yaml",
@@ -42,16 +54,20 @@
       "sha256": "31bf50bec7ba938cbc401e14f67906c97cb5d33d1788d589b45567cbc6de3f53"
     },
     {
+      "path": "framing.yaml",
+      "sha256": "d7e90674cfa940326551fd270bdcc839aeb584cf64511d9e32b840a28850978b"
+    },
+    {
       "path": "ids.yaml",
       "sha256": "aec52c6b3ef7c057635ec66435ef7980801d9d48e58c5c23a6ac3f60c2773813"
     },
     {
       "path": "legality/binding_family.yaml",
-      "sha256": "369e444f9a2511ebe0cdc4a108046b9aa25b62718614119eccc8362134af80fb"
+      "sha256": "eaf47e7fefc2ae46a041f61c86307aa65411089352f3f420fb0bbe788d2164a9"
     },
     {
       "path": "legality/binding_subevent.yaml",
-      "sha256": "4b9ff4c9a8efa5d5743daf930c58421d97cd7338a5ac38757eb5ec9cb2e6660e"
+      "sha256": "1126c019c67d31262ebbad25753b632d94ab6ae746f22512cd364005bb4448ba"
     },
     {
       "path": "legality/family_subevent.yaml",
@@ -59,7 +75,7 @@
     },
     {
       "path": "protocols.yaml",
-      "sha256": "b36b61b2e29a5755d001682694a6cc52ef395ff231cfa26b3039d4424252ce0e"
+      "sha256": "c56512c06918184bfe6fde86569e7693ecfcd4a7796f4bc2948b10accaba3e90"
     },
     {
       "path": "schemas/automata.schema.json",
@@ -111,7 +127,7 @@
     },
     {
       "path": "schemas/transport.schema.json",
-      "sha256": "cf3569a7187bf901a45939f3616c5256a2e68bfacc3f9cb0c8855124184f0712"
+      "sha256": "d54b83b136f194927960f5543532a19688f0661d7bab524dc8531e6befa86a4d"
     },
     {
       "path": "schemas/websocket.schema.json",

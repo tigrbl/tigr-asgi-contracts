@@ -1,0 +1,6 @@
+directions:
+- client_to_server
+- server_to_client
+- app_to_server
+- server_to_app
+- system

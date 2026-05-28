@@ -1,4 +1,5 @@
 exchanges:
 - unary
+- client_stream
 - server_stream
 - duplex

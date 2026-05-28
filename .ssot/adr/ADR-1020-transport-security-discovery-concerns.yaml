@@ -1,4 +1,4 @@
-schema_version: "0.1.0"
+schema_version: "0.2.0"
 kind: "adr"
 id: "adr:1020"
 number: 1020
@@ -8,10 +8,14 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "Transport, security, discovery, and HTTP-adjacent concerns remain separate governed concerns unless a later decision elevates a concern into an owned contract schema or runtime-scope surface."
+summary: "ADR-1012 sets a contract-only runtime boundary. The normalized feature matrix surfaces transport, security, discovery, and HTTP-adjacent concerns that can be confused with ASGI scope types or runtime behavior."
 supersedes: []
 superseded_by: []
-status_notes: []
+status_notes:
+  -
+    status: "accepted"
+    note: "Updated to keep transport-security facts as metadata and classifiers."
+    at: "2026-05-27T17:24:56Z"
 references: []
 body: |-
   ## Context
@@ -33,3 +37,7 @@ body: |-
   The registry can track transport-adjacent work without expanding ASGI scope types accidentally.
   
   Future ADRs can promote a specific concern to a schema or runtime-scope contract when the ownership boundary is clear.
+  
+  ## Classification update
+  
+  TLS, mTLS, ALPN, H2, H3, QUIC, WebTransport capability flags, and related transport-security facts remain scope metadata or governed extensions. They are not ASGI scope types and do not create new event identity names. Event classification may reference these facts as discriminators when selecting binding, family, exchange, direction, or legal framing.

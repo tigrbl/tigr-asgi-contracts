@@ -47,3 +47,18 @@ export interface DerivedEvent {
   subevent: string;
   repeated?: boolean;
 }
+
+export interface EventClassification {
+  event: string;
+  channel: string;
+  scope_type: string;
+  binding: string;
+  family: string;
+  exchange: string;
+  direction: string;
+  allowed_framings: string[];
+  required_scope_fields: string[];
+  required_payload_fields: string[];
+  capability_gates: string[];
+  stream_direction?: string | null;
+}

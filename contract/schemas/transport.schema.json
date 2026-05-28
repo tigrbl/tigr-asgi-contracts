@@ -53,7 +53,8 @@
             "http.stream",
             "sse",
             "websocket",
-            "webtransport"
+            "webtransport",
+            "lifespan"
           ]
         },
         "network": {
@@ -87,12 +88,13 @@
             "null"
           ],
           "enum": [
-            "raw",
             "json",
             "jsonrpc",
-            "bytes",
+            "ndjson",
             "sse",
-            "app",
+            "text",
+            "bytes",
+            "binary",
             null
           ]
         }

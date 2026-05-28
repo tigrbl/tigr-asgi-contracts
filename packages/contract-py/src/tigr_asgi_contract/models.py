@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from .capabilities import FamilyCapabilities
 
 
@@ -48,3 +48,18 @@ class DerivedEvent(BaseModel):
     family: str
     subevent: str
     repeated: bool = False
+
+
+class EventClassification(BaseModel):
+    event: str
+    channel: str
+    scope_type: str
+    binding: str
+    family: str
+    exchange: str
+    direction: str
+    allowed_framings: list[str] = Field(default_factory=list)
+    required_scope_fields: list[str] = Field(default_factory=list)
+    required_payload_fields: list[str] = Field(default_factory=list)
+    capability_gates: list[str] = Field(default_factory=list)
+    stream_direction: str | None = None

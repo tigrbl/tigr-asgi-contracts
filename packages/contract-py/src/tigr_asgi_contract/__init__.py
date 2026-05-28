@@ -1,5 +1,8 @@
 from .version import CONTRACT_VERSION, CONTRACT_SERDE_VERSION
 from .scope_types import ScopeType
+from .channels import Channel
+from .directions import Direction
+from .framing import Framing
 from .bindings import Binding
 from .protocols import Protocol
 from .exchanges import Exchange
@@ -10,16 +13,17 @@ from .completion import EmitCompletionLevel
 from .capabilities import FamilyCapabilities
 from .compatibility import Compatibility
 from .ids import UnitIds
-from .models import TlsMetadata, TransportMetadata, WebSocketScopeExt, SseScopeExt, WebTransportScopeExt, ScopeExt, DerivedEvent
+from .models import TlsMetadata, TransportMetadata, WebSocketScopeExt, SseScopeExt, WebTransportScopeExt, ScopeExt, DerivedEvent, EventClassification
 from .scope import ContractScope
 from .events import TransportEventType, ContractEvent
-from .validators import binding_supports_family, family_supports_subevent, binding_supports_subevent, binding_family_legality, binding_subevent_legality, protocol_binding, validate_automata_sequence, validate_event_payload
+from .validators import binding_supports_family, family_supports_subevent, binding_supports_subevent, binding_family_legality, binding_subevent_legality, protocol_binding, event_classification_candidates, classify_event, validate_event_classification, validate_framing_for_classification, validate_automata_sequence, validate_event_payload
 
 __all__ = [
-    "CONTRACT_VERSION", "CONTRACT_SERDE_VERSION", "ScopeType", "Binding", "Protocol", "Exchange", "Family", "Subevent", "Frame",
+    "CONTRACT_VERSION", "CONTRACT_SERDE_VERSION", "ScopeType", "Channel", "Direction", "Framing", "Binding", "Protocol", "Exchange", "Family", "Subevent", "Frame",
     "EmitCompletionLevel", "FamilyCapabilities", "Compatibility", "UnitIds", "TlsMetadata", "TransportMetadata",
-    "WebSocketScopeExt", "SseScopeExt", "WebTransportScopeExt", "ScopeExt", "DerivedEvent", "ContractScope",
+    "WebSocketScopeExt", "SseScopeExt", "WebTransportScopeExt", "ScopeExt", "DerivedEvent", "EventClassification", "ContractScope",
     "TransportEventType", "ContractEvent", "binding_supports_family", "family_supports_subevent",
     "binding_supports_subevent", "binding_family_legality", "binding_subevent_legality", "protocol_binding",
+    "event_classification_candidates", "classify_event", "validate_event_classification", "validate_framing_for_classification",
     "validate_automata_sequence", "validate_event_payload",
 ]

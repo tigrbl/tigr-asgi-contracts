@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use crate::capabilities::FamilyCapabilities;
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct TlsMetadata {
@@ -54,4 +54,24 @@ pub struct DerivedEvent {
     pub family: String,
     pub subevent: String,
     pub repeated: bool,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct EventClassification {
+    pub event: String,
+    pub channel: String,
+    pub scope_type: String,
+    pub binding: String,
+    pub family: String,
+    pub exchange: String,
+    pub direction: String,
+    #[serde(default)]
+    pub allowed_framings: Vec<String>,
+    #[serde(default)]
+    pub required_scope_fields: Vec<String>,
+    #[serde(default)]
+    pub required_payload_fields: Vec<String>,
+    #[serde(default)]
+    pub capability_gates: Vec<String>,
+    pub stream_direction: Option<String>,
 }

@@ -5,4 +5,5 @@ export enum Binding {
   SSE = "sse",
   WEBSOCKET = "websocket",
   WEBTRANSPORT = "webtransport",
+  LIFESPAN = "lifespan",
 }

@@ -1,4 +1,4 @@
-schema_version: "0.1.0"
+schema_version: "0.2.0"
 kind: "spec"
 id: "spc:1021"
 number: 1021
@@ -8,17 +8,19 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "This specification governs normalized feature candidates whose surface key is `scope:<scope_type>|family:<family>|subevent:<subevent>`."
+summary: "This specification governs normalized feature candidates and classification rows whose canonical shape is `event + channel + scope_type + binding + family + exchange + direction`."
 supersedes: []
 superseded_by: []
-status_notes: []
-references:
-  - "adr:1000"
-  - "adr:1019"
+status_notes:
+  -
+    status: "accepted"
+    note: "Updated classification row shape and no-subsurface rule."
+    at: "2026-05-27T17:39:59Z"
+references: []
 body: |-
   ## Scope
   
-  This specification governs normalized feature candidates whose surface key is `scope:<scope_type>|family:<family>|subevent:<subevent>`.
+  This specification governs normalized feature candidates and classification rows whose canonical shape is `event + channel + scope_type + binding + family + exchange + direction`.
   
   ## Requirements
   
@@ -30,10 +32,18 @@ body: |-
   
   Valid matrix rows may become feature candidates. Invalid cartesian permutations remain rejection or provenance rows under SPEC-1018.
   
-  Scope, family, subevent, binding, protocol, and direction remain separate taxonomy axes.
+  Event, channel, scope type, binding, family, exchange, and direction remain separate taxonomy attributes.
+  
+  Canonical event identity remains the ASGI or contract event name. The classification matrix must not require a duplicate `subsurface` event name to distinguish lanes.
+  
+  Where one event name can represent multiple lanes, row selection uses scope metadata and payload discriminators such as stream direction, stream id, datagram id, selected subprotocol, ALPN, TLS metadata, or WebTransport capability metadata.
   
   ## Validation
   
-  A promoted scope/family/subevent candidate must retain its legality columns and must not discard `O` or `D` facts when deriving implementation status or planning horizon.
+  A promoted classification candidate must retain its legality columns and must not discard `O` or `D` facts when deriving implementation status or planning horizon.
+  
+  Matrix generation must fail closed when `channel`, `family`, `exchange`, or `direction` cannot be derived from the canonical event, scope metadata, binding, and required payload discriminators.
 spec_kind: "normative"
-adr_ids: []
+adr_ids:
+  - "adr:1000"
+  - "adr:1036"

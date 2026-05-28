@@ -1,4 +1,4 @@
-schema_version: "0.1.0"
+schema_version: "0.2.0"
 kind: "adr"
 id: "adr:1002"
 number: 1002
@@ -11,7 +11,11 @@ tags: []
 summary: "The contract needs to declare ASGI3 conformance without collapsing the three core ASGI surfaces into one ambiguous row. ASGI applications are governed through `scope`, `receive`, and `send`, while protocol families such as HTTP, WebSocket, Lifespan, and TLS extension add more specific expectations."
 supersedes: []
 superseded_by: []
-status_notes: []
+status_notes:
+  -
+    status: "accepted"
+    note: "Updated to keep scope receive and send as separate ASGI3 facets."
+    at: "2026-05-27T17:24:46Z"
 references: []
 body: |-
   ## Context
@@ -29,3 +33,7 @@ body: |-
   ASGI target features can be bundled into one profile while retaining facet-level test and evidence links.
   
   Protocol-specific targets can require the ASGI3 facet targets without duplicating the core callable contract.
+  
+  ## Classification update
+  
+  The ASGI3 trifecta remains the governing shape: `scope` carries envelope metadata, `receive` yields inbound event dictionaries, and `send` accepts outbound event dictionaries. Event classification is a derived contract layer over those facets, not a fourth ASGI surface.

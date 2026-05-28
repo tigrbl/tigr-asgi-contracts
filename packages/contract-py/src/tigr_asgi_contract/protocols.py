@@ -14,3 +14,4 @@ class Protocol(StrEnum):
     WSS = 'wss'
     WEBTRANSPORT = 'webtransport'
     ASGI_PATHSEND = 'asgi.pathsend'
+    LIFESPAN = 'lifespan'

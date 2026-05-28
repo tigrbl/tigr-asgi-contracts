@@ -1,0 +1,8 @@
+framings:
+- json
+- jsonrpc
+- ndjson
+- sse
+- text
+- bytes
+- binary

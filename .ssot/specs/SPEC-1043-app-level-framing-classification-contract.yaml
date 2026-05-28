@@ -1,0 +1,54 @@
+schema_version: "0.2.0"
+kind: "spec"
+id: "spc:1043"
+number: 1043
+slug: "app-level-framing-classification-contract"
+title: "App-level framing classification contract"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines app-level framing classification for tigr-asgi-contract event rows and downstream bridge consumers."
+supersedes: []
+superseded_by: []
+status_notes:
+  -
+    status: "accepted"
+    note: "Accepted as the contract framing metadata specification."
+    at: "2026-05-27T18:10:32Z"
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines app-level framing classification for tigr-asgi-contract event rows and downstream bridge consumers.
+  
+  ## Requirements
+  
+  App-level framing is payload interpretation metadata. It describes how a payload is encoded, delimited, or semantically interpreted on the selected carrier.
+  
+  Framing is separate from canonical event identity, ASGI channel, scope type, binding, family, exchange, and semantic direction.
+  
+  Supported framing vocabulary includes `json`, `jsonrpc`, `ndjson`, `sse`, `text`, `bytes`, and `binary` where a binding or lane explicitly allows that value.
+  
+  `jsonrpc` requires complete JSON-RPC message semantics and must not be inferred from `json`, `ndjson`, or a generic stream carrier.
+  
+  `ndjson` means newline-delimited JSON records and must not imply JSON-RPC semantics. A newline-delimited JSON-RPC framing requires a distinct governed token.
+  
+  `sse` is specific to SSE event stream payload interpretation and must not be used as generic stream framing.
+  
+  `bytes` describes raw byte payloads. `binary` describes binary payloads with a declared binary media or framing contract.
+  
+  WebTransport outer transport identity is not app-level framing. App-level framing, when present, is lane-local inside a WebTransport stream or datagram.
+  
+  Secure variants must declare framing locally in generated matrices. TLS, mTLS, ALPN, QUIC, and HTTP version facts remain scope metadata or extensions.
+  
+  ## Validation
+  
+  Contract validation must reject framing values that are illegal for the selected event, channel, scope type, binding, family, exchange, direction, and payload discriminators.
+  
+  Contract validation must prove that framing metadata is never required as a replacement for canonical event name or ASGI channel.
+spec_kind: "normative"
+adr_ids:
+  - "adr:1037"
+  - "adr:1036"
+  - "adr:1023"

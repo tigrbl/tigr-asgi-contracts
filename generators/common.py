@@ -18,6 +18,11 @@ def _indent_of(line: str) -> int:
 
 
 def _parse_scalar(value: str) -> Any:
+    if value.startswith("[") and value.endswith("]"):
+        inner = value[1:-1].strip()
+        if not inner:
+            return []
+        return [_parse_scalar(item.strip()) for item in inner.split(",")]
     if value == "true":
         return True
     if value == "false":
@@ -37,7 +42,17 @@ def _parse_yaml_block(lines: list[str], index: int, indent: int) -> tuple[Any, i
                 break
             item = line.lstrip(" ")[2:].strip()
             index += 1
-            if item:
+            if item and ":" in item:
+                key, sep, remainder = item.partition(":")
+                current: dict[str, Any] = {key.strip(): _parse_scalar(remainder.strip()) if remainder.strip() else {}}
+                if index < len(lines) and _indent_of(lines[index]) > indent:
+                    nested, index = _parse_yaml_block(lines, index, _indent_of(lines[index]))
+                    if isinstance(nested, dict):
+                        current.update(nested)
+                    else:
+                        current[key.strip()] = nested
+                items.append(current)
+            elif item:
                 items.append(_parse_scalar(item))
             elif index < len(lines) and _indent_of(lines[index]) > indent:
                 value, index = _parse_yaml_block(lines, index, _indent_of(lines[index]))
@@ -119,6 +134,10 @@ def contract_data() -> dict[str, Any]:
     return {
         "version": (ROOT / "VERSION").read_text(encoding="utf-8").strip(),
         "scope_types": load_yaml("scope_types.yaml")["scope_types"],
+        "channels": load_yaml("channels.yaml")["channels"],
+        "directions": load_yaml("directions.yaml")["directions"],
+        "framings": load_yaml("framing.yaml")["framings"],
+        "event_classifications": load_yaml("event_classification.yaml")["event_classifications"],
         "bindings": load_yaml("bindings.yaml")["bindings"],
         "exchanges": load_yaml("exchanges.yaml")["exchanges"],
         "families": load_yaml("families.yaml")["families"],

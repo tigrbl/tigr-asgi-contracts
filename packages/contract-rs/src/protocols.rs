@@ -26,4 +26,6 @@ pub enum Protocol {
     Webtransport,
     #[serde(rename = "asgi.pathsend")]
     AsgiPathsend,
+    #[serde(rename = "lifespan")]
+    Lifespan,
 }

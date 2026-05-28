@@ -275,16 +275,16 @@ binding_subevent:
     session.close: R
     session.disconnect: O
     session.emit_complete: O
-    message.in: O
-    message.decode: O
-    message.decode_failed: O
-    message.handle: O
-    message.handle_failed: O
-    message.out: O
-    message.replay: O
-    message.snapshot: O
-    message.emit_complete: O
-    message.emit_failed: O
+    message.in: F
+    message.decode: F
+    message.decode_failed: F
+    message.handle: F
+    message.handle_failed: F
+    message.out: F
+    message.replay: F
+    message.snapshot: F
+    message.emit_complete: F
+    message.emit_failed: F
     stream.open: R
     stream.chunk_in: R
     stream.chunk_out: R
@@ -305,3 +305,54 @@ binding_subevent:
     lifespan.shutdown: F
     lifespan.shutdown_complete: F
     lifespan.shutdown_failed: F
+  lifespan:
+    request.open: F
+    request.body_in: F
+    request.chunk_in: F
+    request.dispatch: F
+    request.close: F
+    request.disconnect: F
+    response.open: F
+    response.body_out: F
+    response.chunk_out: F
+    response.finalize: F
+    response.emit_complete: F
+    session.open: F
+    session.accept: F
+    session.reject: F
+    session.ready: F
+    session.heartbeat: F
+    session.sync: F
+    session.close: F
+    session.disconnect: F
+    session.emit_complete: F
+    message.in: F
+    message.decode: F
+    message.decode_failed: F
+    message.handle: F
+    message.handle_failed: F
+    message.out: F
+    message.replay: F
+    message.snapshot: F
+    message.emit_complete: F
+    message.emit_failed: F
+    stream.open: F
+    stream.chunk_in: F
+    stream.chunk_out: F
+    stream.flush: F
+    stream.finalize: F
+    stream.reset: F
+    stream.stop_sending: F
+    stream.close: F
+    stream.emit_complete: F
+    datagram.in: F
+    datagram.handle: F
+    datagram.out: F
+    datagram.emit_complete: F
+    datagram.emit_failed: F
+    lifespan.startup: R
+    lifespan.startup_complete: R
+    lifespan.startup_failed: O
+    lifespan.shutdown: R
+    lifespan.shutdown_complete: R
+    lifespan.shutdown_failed: O

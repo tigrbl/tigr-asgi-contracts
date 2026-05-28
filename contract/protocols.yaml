@@ -59,3 +59,8 @@ protocols:
     transport: http
     secure: false
     scope_type: http
+  lifespan:
+    binding: lifespan
+    transport: lifespan
+    secure: false
+    scope_type: lifespan

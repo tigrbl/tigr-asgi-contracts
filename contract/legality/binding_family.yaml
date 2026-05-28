@@ -37,7 +37,14 @@ binding_family:
   webtransport:
     request: F
     session: R
-    message: O
+    message: F
     stream: R
     datagram: R
     lifespan: F
+  lifespan:
+    request: F
+    session: F
+    message: F
+    stream: F
+    datagram: F
+    lifespan: R

@@ -1,4 +1,4 @@
-schema_version: "0.1.0"
+schema_version: "0.2.0"
 kind: "adr"
 id: "adr:1000"
 number: 1000
@@ -11,7 +11,11 @@ tags: []
 summary: "The contract distinguishes concrete ASGI/transport event type names from semantic contract subevents."
 supersedes: []
 superseded_by: []
-status_notes: []
+status_notes:
+  -
+    status: "accepted"
+    note: "Updated to distinguish ASGI channel from peer-flow direction."
+    at: "2026-05-27T17:24:36Z"
 references: []
 body: |-
   ## Context
@@ -54,3 +58,9 @@ body: |-
   Schema and generator changes should preserve the distinction between the wire event type enum and the semantic subevent taxonomy.
   
   Feature, test, and evidence rows should cite the semantic subevent when validating behavior and cite the concrete event type when validating wire compatibility.
+  
+  ## Classification update
+  
+  The event taxonomy now explicitly distinguishes `channel` from peer-flow direction. `channel` is the ASGI callable side and is limited to `receive` or `send` for transport events. Direction remains semantic flow metadata, such as `client_to_server`, `server_to_client`, `server_to_app`, or `app_to_server`.
+  
+  The contract must not introduce a required `subsurface` or parallel event-name field. Multiple semantic classifications may map to the same canonical event type through scope metadata and payload discriminators.

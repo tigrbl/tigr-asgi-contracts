@@ -4,6 +4,8 @@ use serde::{Deserialize, Serialize};
 pub enum Exchange {
     #[serde(rename = "unary")]
     Unary,
+    #[serde(rename = "client_stream")]
+    ClientStream,
     #[serde(rename = "server_stream")]
     ServerStream,
     #[serde(rename = "duplex")]

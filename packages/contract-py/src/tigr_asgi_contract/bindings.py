@@ -8,3 +8,4 @@ class Binding(StrEnum):
     SSE = 'sse'
     WEBSOCKET = 'websocket'
     WEBTRANSPORT = 'webtransport'
+    LIFESPAN = 'lifespan'

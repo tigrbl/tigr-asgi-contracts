@@ -9,7 +9,9 @@ bindings:
       request: required
     framing:
     - json
+    - text
     - bytes
+    - binary
   jsonrpc:
     scope_type: http
     exchange: unary
@@ -31,7 +33,10 @@ bindings:
       stream: required
     framing:
     - bytes
+    - binary
     - json
+    - ndjson
+    - text
   sse:
     scope_type: http
     exchange: server_stream
@@ -56,9 +61,12 @@ bindings:
       session: required
       message: required
     framing:
-    - raw
     - json
     - jsonrpc
+    - ndjson
+    - text
+    - bytes
+    - binary
   webtransport:
     scope_type: webtransport
     exchange: duplex
@@ -68,9 +76,18 @@ bindings:
       session: required
       stream: required
       datagram: required
-      message: optional
     framing:
-    - raw
     - json
     - jsonrpc
-    - app
+    - ndjson
+    - text
+    - bytes
+    - binary
+  lifespan:
+    scope_type: lifespan
+    exchange: unary
+    protocols:
+    - lifespan
+    families:
+      lifespan: required
+    framing: []

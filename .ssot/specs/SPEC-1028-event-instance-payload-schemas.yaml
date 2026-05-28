@@ -1,4 +1,4 @@
-schema_version: "0.1.0"
+schema_version: "0.2.0"
 kind: "spec"
 id: "spc:1028"
 number: 1028
@@ -8,16 +8,23 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "This specification governs event-instance payload schema surfaces for every current TransportEventType."
+summary: "This specification governs event-instance payload schema surfaces for every current TransportEventType and contract event type."
 supersedes: []
 superseded_by: []
-status_notes: []
-references:
-  - "adr:1023"
+status_notes:
+  -
+    at: "2026-05-27T17:40:07Z"
+    note: "Updated payload discriminator validation for classified event instances."
+    status: "accepted"
+  -
+    status: "accepted"
+    note: "Updated payload schemas with framing-specific validation requirements."
+    at: "2026-05-27T18:10:56Z"
+references: []
 body: |-
   ## Scope
   
-  This specification governs event-instance payload schema surfaces for every current TransportEventType.
+  This specification governs event-instance payload schema surfaces for every current TransportEventType and contract event type.
   
   ## Requirements
   
@@ -27,14 +34,31 @@ body: |-
   
   Event payload schemas must prevent cross-family leakage, including stream identifiers on non-stream events and datagram identifiers on non-datagram events.
   
+  Payload schemas own classification discriminators when one canonical event can represent multiple lanes. Required discriminators include WebTransport stream direction and stream id for stream events, datagram metadata for datagram events, WebSocket selected subprotocol and framing where relevant, and HTTP streaming continuation or completion flags where relevant.
+  
+  Payload schemas must validate framing-specific requirements for `json`, `jsonrpc`, `ndjson`, `sse`, `text`, `bytes`, and `binary` whenever a selected binding or lane declares those framings.
+  
+  `jsonrpc` payload schemas must require complete JSON-RPC message semantics and must not be selected by `json` or `ndjson` alone.
+  
+  `ndjson` payload schemas must validate line-delimited JSON record boundaries and must not imply JSON-RPC semantics.
+  
+  `sse` payload schemas must remain exclusive to SSE binding rows.
+  
   Generated Python, TypeScript, and Rust bindings must expose event payload models without collapsing them back into an untyped dictionary-only contract.
   
   Existing event type features remain event-presence features. New event-payload features track the payload semantics separately.
+  
+  Payload validation must not require a `subsurface` event-name field. Discrimination is based on canonical event type plus scope, channel, binding, framing, and payload metadata.
   
   ## Validation
   
   Contract validation must prove that the root event schema dispatches to the correct event payload schema by event type.
   
   Codegen parity tests must prove that generated languages expose the same event payload surface and preserve schema-required fields.
+  
+  Negative tests must reject missing stream direction on WebTransport stream events, datagram metadata on non-datagram events, and framing metadata that is illegal for the selected binding.
 spec_kind: "normative"
-adr_ids: []
+adr_ids:
+  - "adr:1023"
+  - "adr:1036"
+  - "adr:1037"

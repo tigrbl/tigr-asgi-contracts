@@ -1,59 +1,370 @@
 from __future__ import annotations
+
 from pathlib import Path
 import json
 import sys
-from pathlib import Path
+
 ROOT0 = Path(__file__).resolve().parents[1]
 if str(ROOT0) not in sys.path:
     sys.path.insert(0, str(ROOT0))
+
 from common import contract_data, member_name
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "packages" / "contract-npm"
 
+
 def write(path: Path, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(content, encoding="utf-8")
 
+
 def emit_enum(path: Path, enum_name: str, values: list[str]) -> None:
     lines = [f"export enum {enum_name} {{"]
-    for v in values:
-        lines.append(f"  {member_name(v)} = {json.dumps(v)},")
+    for value in values:
+        lines.append(f"  {member_name(value)} = {json.dumps(value)},")
     lines.append("}")
     lines.append("")
     write(path, "\n".join(lines))
 
-def main() -> None:
-    d = contract_data()
-    src = OUT / "src"
-    emit_enum(src / "scope_types.ts", "ScopeType", d["scope_types"])
-    emit_enum(src / "bindings.ts", "Binding", list(d["bindings"].keys()))
-    emit_enum(src / "protocols.ts", "Protocol", list(d["protocols"].keys()))
-    emit_enum(src / "exchanges.ts", "Exchange", d["exchanges"])
-    emit_enum(src / "families.ts", "Family", d["families"])
-    emit_enum(src / "subevents.ts", "Subevent", d["all_subevents"])
-    emit_enum(src / "frames.ts", "Frame", list(d["frames"].keys()))
-    emit_enum(src / "completion.ts", "EmitCompletionLevel", list(d["completion"]["levels"].keys()))
 
-    write(src / "capabilities.ts", '''export interface FamilyCapabilities {\n  request?: boolean;\n  session?: boolean;\n  message?: boolean;\n  stream_in?: boolean;\n  stream_out?: boolean;\n  datagram?: boolean;\n  lifespan?: boolean;\n}\n''')
-    write(src / "compatibility.ts", '''export interface Compatibility {\n  contract_name: string;\n  contract_version: string;\n  serde_version: number;\n  schema_draft: string;\n  min_tigrcorn_version?: string | null;\n  min_tigrbl_version?: string | null;\n}\n''')
-    write(src / "ids.ts", '''export interface UnitIds {\n  unit_id?: string | null;\n  parent_unit_id?: string | null;\n  session_id?: string | null;\n  stream_id?: number | null;\n  datagram_id?: number | null;\n  emit_id?: string | null;\n}\n''')
-    write(src / "models.ts", '''import type { FamilyCapabilities } from "./capabilities";\n\nexport interface TlsMetadata {\n  version?: string | null;\n  cipher?: string | null;\n  verified: boolean;\n  peer_identity?: string | null;\n  peer_cert?: Record<string, unknown> | null;\n}\n\nexport interface TransportMetadata {\n  binding: string;\n  network: string;\n  secure: boolean;\n  alpn?: string | null;\n  tls?: TlsMetadata | null;\n  framing?: string | null;\n}\n\nexport interface WebSocketScopeExt {\n  subprotocol?: string | null;\n}\n\nexport interface SseScopeExt {\n  retry_ms?: number | null;\n  last_event_id?: string | null;\n}\n\nexport interface WebTransportScopeExt {\n  session_id?: string | null;\n  supports_datagrams?: boolean;\n  supports_bidi_streams?: boolean;\n  supports_uni_streams?: boolean;\n  max_datagram_size?: number | null;\n}\n\nexport interface ScopeExt {\n  transport: TransportMetadata;\n  family_capabilities: FamilyCapabilities;\n  websocket?: WebSocketScopeExt | null;\n  sse?: SseScopeExt | null;\n  webtransport?: WebTransportScopeExt | null;\n}\n\nexport interface DerivedEvent {\n  family: string;\n  subevent: string;\n  repeated?: boolean;\n}\n''')
-    write(src / "scope.ts", '''import type { ScopeExt } from "./models";\n\nexport interface ContractScope {\n  type: string;\n  asgi: Record<string, unknown>;\n  scheme: string;\n  http_version?: string | null;\n  method?: string | null;\n  path: string;\n  query_string?: string;\n  headers: [string, string][];\n  client?: [string, number] | null;\n  server?: [string, number] | null;\n  ext: ScopeExt;\n}\n''')
-    event_values = d["schemas"]["event.schema.json"]["properties"]["type"]["enum"]
+def main() -> None:
+    data = contract_data()
+    src = OUT / "src"
+
+    emit_enum(src / "scope_types.ts", "ScopeType", data["scope_types"])
+    emit_enum(src / "channels.ts", "Channel", data["channels"])
+    emit_enum(src / "directions.ts", "Direction", data["directions"])
+    emit_enum(src / "framing.ts", "Framing", data["framings"])
+    emit_enum(src / "bindings.ts", "Binding", list(data["bindings"].keys()))
+    emit_enum(src / "protocols.ts", "Protocol", list(data["protocols"].keys()))
+    emit_enum(src / "exchanges.ts", "Exchange", data["exchanges"])
+    emit_enum(src / "families.ts", "Family", data["families"])
+    emit_enum(src / "subevents.ts", "Subevent", data["all_subevents"])
+    emit_enum(src / "frames.ts", "Frame", list(data["frames"].keys()))
+    emit_enum(src / "completion.ts", "EmitCompletionLevel", list(data["completion"]["levels"].keys()))
+
+    write(src / "capabilities.ts", """export interface FamilyCapabilities {
+  request?: boolean;
+  session?: boolean;
+  message?: boolean;
+  stream_in?: boolean;
+  stream_out?: boolean;
+  datagram?: boolean;
+  lifespan?: boolean;
+}
+""")
+    write(src / "compatibility.ts", """export interface Compatibility {
+  contract_name: string;
+  contract_version: string;
+  serde_version: number;
+  schema_draft: string;
+  min_tigrcorn_version?: string | null;
+  min_tigrbl_version?: string | null;
+}
+""")
+    write(src / "ids.ts", """export interface UnitIds {
+  unit_id?: string | null;
+  parent_unit_id?: string | null;
+  session_id?: string | null;
+  stream_id?: number | null;
+  datagram_id?: number | null;
+  emit_id?: string | null;
+}
+""")
+    write(src / "models.ts", """import type { FamilyCapabilities } from "./capabilities";
+
+export interface TlsMetadata {
+  version?: string | null;
+  cipher?: string | null;
+  verified: boolean;
+  peer_identity?: string | null;
+  peer_cert?: Record<string, unknown> | null;
+}
+
+export interface TransportMetadata {
+  binding: string;
+  network: string;
+  secure: boolean;
+  alpn?: string | null;
+  tls?: TlsMetadata | null;
+  framing?: string | null;
+}
+
+export interface WebSocketScopeExt {
+  subprotocol?: string | null;
+}
+
+export interface SseScopeExt {
+  retry_ms?: number | null;
+  last_event_id?: string | null;
+}
+
+export interface WebTransportScopeExt {
+  session_id?: string | null;
+  supports_datagrams?: boolean;
+  supports_bidi_streams?: boolean;
+  supports_uni_streams?: boolean;
+  max_datagram_size?: number | null;
+}
+
+export interface ScopeExt {
+  transport: TransportMetadata;
+  family_capabilities: FamilyCapabilities;
+  websocket?: WebSocketScopeExt | null;
+  sse?: SseScopeExt | null;
+  webtransport?: WebTransportScopeExt | null;
+}
+
+export interface DerivedEvent {
+  family: string;
+  subevent: string;
+  repeated?: boolean;
+}
+
+export interface EventClassification {
+  event: string;
+  channel: string;
+  scope_type: string;
+  binding: string;
+  family: string;
+  exchange: string;
+  direction: string;
+  allowed_framings: string[];
+  required_scope_fields: string[];
+  required_payload_fields: string[];
+  capability_gates: string[];
+  stream_direction?: string | null;
+}
+""")
+    write(src / "scope.ts", """import type { ScopeExt } from "./models";
+
+export interface ContractScope {
+  type: string;
+  asgi: Record<string, unknown>;
+  scheme: string;
+  http_version?: string | null;
+  method?: string | null;
+  path: string;
+  query_string?: string;
+  headers: [string, string][];
+  client?: [string, number] | null;
+  server?: [string, number] | null;
+  ext: ScopeExt;
+}
+""")
+    event_values = data["schemas"]["event.schema.json"]["properties"]["type"]["enum"]
     emit_enum(src / "events.ts", "TransportEventType", event_values)
-    with open(src / "events.ts", "a", encoding="utf-8") as f:
-        f.write('export interface ContractEvent {\n  type: TransportEventType;\n  message?: string | null;\n  payload?: Record<string, unknown>;\n}\n')
-    write(src / "registry.ts", "export const BINDING_FAMILY_MATRIX = " + json.dumps(d["binding_family"], indent=2) + " as const;\n\n" + "export const FAMILY_SUBEVENT_MATRIX = " + json.dumps(d["family_subevent"], indent=2) + " as const;\n\n" + "export const BINDING_SUBEVENT_MATRIX = " + json.dumps(d["binding_subevent"], indent=2) + " as const;\n\n" + "export const PROTOCOLS = " + json.dumps(d["protocols"], indent=2) + " as const;\n\n" + "export const AUTOMATA = " + json.dumps(d["automata"], indent=2) + " as const;\n\n" + "export const FRAMES = " + json.dumps(d["frames"], indent=2) + " as const;\n\n" + "export const EXTENSIONS = " + json.dumps(d["extensions"], indent=2) + " as const;\n")
-    write(src / "validators.ts", '''import { AUTOMATA, BINDING_FAMILY_MATRIX, FAMILY_SUBEVENT_MATRIX, BINDING_SUBEVENT_MATRIX, PROTOCOLS } from "./registry";\n\nexport function bindingSupportsFamily(binding: keyof typeof BINDING_FAMILY_MATRIX, family: string): boolean {\n  return (BINDING_FAMILY_MATRIX as any)[binding][family] !== "F";\n}\n\nexport function familySupportsSubevent(family: keyof typeof FAMILY_SUBEVENT_MATRIX, subevent: string): boolean {\n  return ((FAMILY_SUBEVENT_MATRIX as any)[family] ?? {})[subevent] !== "F";\n}\n\nexport function bindingSupportsSubevent(binding: keyof typeof BINDING_SUBEVENT_MATRIX, subevent: string): boolean {\n  return ((BINDING_SUBEVENT_MATRIX as any)[binding] ?? {})[subevent] !== "F";\n}\n\nexport function protocolBinding(protocol: keyof typeof PROTOCOLS): string {\n  return (PROTOCOLS as any)[protocol].binding;\n}\n\nexport function validateAutomataSequence(family: keyof typeof AUTOMATA, subevents: string[]): boolean {\n  const automaton = (AUTOMATA as any)[family];\n  let state = automaton.initial;\n  const transitions = new Map<string, string>();\n  for (const row of automaton.transitions) {\n    transitions.set(`${row.from}\\u0000${row.event}`, row.to);\n  }\n  for (const subevent of subevents) {\n    const next = transitions.get(`${state}\\u0000${subevent}`);\n    if (!next) return false;\n    state = next;\n  }\n  return automaton.terminal.includes(state) || subevents.length > 0;\n}\n\nexport function validateEventPayload(eventType: string, payload: Record<string, unknown>): boolean {\n  if (eventType === "http.response.pathsend") {\n    return typeof payload.path === "string" && payload.path.length > 0;\n  }\n  if (eventType.includes(".stream.")) return "stream_id" in payload;\n  if (eventType.includes(".datagram.") || eventType.endsWith(".datagram")) return "datagram_id" in payload;\n  return typeof payload === "object" && payload !== null;\n}\n''')
-    write(src / "index.ts", '''export * from "./scope_types";\nexport * from "./bindings";\nexport * from "./protocols";\nexport * from "./exchanges";\nexport * from "./families";\nexport * from "./subevents";\nexport * from "./frames";\nexport * from "./completion";\nexport * from "./capabilities";\nexport * from "./compatibility";\nexport * from "./ids";\nexport * from "./models";\nexport * from "./scope";\nexport * from "./events";\nexport * from "./registry";\nexport * from "./validators";\n''')
-    write(OUT / "tsx" / "ScopeView.tsx", '''import React from "react";\nimport type { ContractScope } from "../src/scope";\n\nexport interface ScopeViewProps {\n  scope: ContractScope;\n}\n\nexport const ScopeView: React.FC<ScopeViewProps> = ({ scope }) => {\n  return <pre>{JSON.stringify(scope, null, 2)}</pre>;\n};\n''')
-    write(OUT / "tsx" / "BindingBadge.tsx", '''import React from "react";\nimport type { Binding } from "../src/bindings";\n\nexport interface BindingBadgeProps {\n  binding: Binding;\n}\n\nexport const BindingBadge: React.FC<BindingBadgeProps> = ({ binding }) => <span>{binding}</span>;\n''')
-    write(OUT / "tsx" / "FamilyBadge.tsx", '''import React from "react";\nimport type { Family } from "../src/families";\n\nexport interface FamilyBadgeProps {\n  family: Family;\n}\n\nexport const FamilyBadge: React.FC<FamilyBadgeProps> = ({ family }) => <span>{family}</span>;\n''')
-    write(OUT / "tsx" / "SubeventBadge.tsx", '''import React from "react";\nimport type { Subevent } from "../src/subevents";\n\nexport interface SubeventBadgeProps {\n  subevent: Subevent;\n}\n\nexport const SubeventBadge: React.FC<SubeventBadgeProps> = ({ subevent }) => <span>{subevent}</span>;\n''')
+    with open(src / "events.ts", "a", encoding="utf-8") as handle:
+        handle.write("""export interface ContractEvent {
+  type: TransportEventType;
+  message?: string | null;
+  payload?: Record<string, unknown>;
+}
+""")
+
+    registry_parts = [
+        ("BINDING_FAMILY_MATRIX", data["binding_family"]),
+        ("FAMILY_SUBEVENT_MATRIX", data["family_subevent"]),
+        ("BINDING_SUBEVENT_MATRIX", data["binding_subevent"]),
+        ("PROTOCOLS", data["protocols"]),
+        ("AUTOMATA", data["automata"]),
+        ("FRAMES", data["frames"]),
+        ("EXTENSIONS", data["extensions"]),
+        ("CHANNELS", data["channels"]),
+        ("DIRECTIONS", data["directions"]),
+        ("FRAMINGS", data["framings"]),
+        ("EVENT_CLASSIFICATIONS", data["event_classifications"]),
+    ]
+    write(
+        src / "registry.ts",
+        "\n\n".join(
+            f"export const {name} = {json.dumps(value, indent=2)} as const;"
+            for name, value in registry_parts
+        )
+        + "\n",
+    )
+    write(src / "validators.ts", """import {
+  AUTOMATA,
+  BINDING_FAMILY_MATRIX,
+  FAMILY_SUBEVENT_MATRIX,
+  BINDING_SUBEVENT_MATRIX,
+  PROTOCOLS,
+  EVENT_CLASSIFICATIONS,
+  FRAMINGS,
+} from "./registry";
+import type { EventClassification } from "./models";
+
+type ScopeLike = { type?: string; ext?: Record<string, any> };
+
+function bindingFromScope(scope: ScopeLike): string | undefined {
+  return scope.ext?.transport?.binding;
+}
+
+function hasCapability(scope: ScopeLike, gate: string): boolean {
+  return Boolean(scope.ext?.webtransport?.[gate]);
+}
+
+export function bindingSupportsFamily(binding: keyof typeof BINDING_FAMILY_MATRIX, family: string): boolean {
+  return (BINDING_FAMILY_MATRIX as any)[binding][family] !== "F";
+}
+
+export function familySupportsSubevent(family: keyof typeof FAMILY_SUBEVENT_MATRIX, subevent: string): boolean {
+  return ((FAMILY_SUBEVENT_MATRIX as any)[family] ?? {})[subevent] !== "F";
+}
+
+export function bindingSupportsSubevent(binding: keyof typeof BINDING_SUBEVENT_MATRIX, subevent: string): boolean {
+  return ((BINDING_SUBEVENT_MATRIX as any)[binding] ?? {})[subevent] !== "F";
+}
+
+export function protocolBinding(protocol: keyof typeof PROTOCOLS): string {
+  return (PROTOCOLS as any)[protocol].binding;
+}
+
+export function eventClassificationCandidates(
+  scope: ScopeLike,
+  channel: string,
+  eventType: string,
+  payload: Record<string, unknown> = {},
+): EventClassification[] {
+  const binding = bindingFromScope(scope);
+  return (EVENT_CLASSIFICATIONS as readonly any[])
+    .filter((row) => row.event === eventType && row.channel === channel)
+    .filter((row) => row.scope_type === scope.type)
+    .filter((row) => binding === undefined || row.binding === binding)
+    .filter((row) => !row.stream_direction || payload.stream_direction === row.stream_direction)
+    .filter((row) => (row.capability_gates ?? []).every((gate: string) => hasCapability(scope, gate)))
+    .map((row) => ({
+      allowed_framings: [],
+      required_scope_fields: [],
+      required_payload_fields: [],
+      capability_gates: [],
+      ...row,
+    }));
+}
+
+export function classifyEvent(
+  scope: ScopeLike,
+  channel: string,
+  eventType: string,
+  payload: Record<string, unknown> = {},
+): EventClassification {
+  const rows = eventClassificationCandidates(scope, channel, eventType, payload);
+  if (rows.length === 0) throw new Error(`No event classification for ${channel}:${eventType}`);
+  return rows[0];
+}
+
+export function validateEventClassification(
+  scope: ScopeLike,
+  channel: string,
+  eventType: string,
+  payload: Record<string, unknown> = {},
+): boolean {
+  return eventClassificationCandidates(scope, channel, eventType, payload).length > 0;
+}
+
+export function validateFramingForClassification(
+  framing: string | null | undefined,
+  classification: EventClassification,
+): boolean {
+  if (framing == null) return true;
+  if (!(FRAMINGS as readonly string[]).includes(framing)) return false;
+  return classification.allowed_framings.includes(framing);
+}
+
+export function validateEventPayload(
+  eventType: string,
+  payload: Record<string, unknown>,
+  classification?: EventClassification,
+): boolean {
+  if (payload == null || typeof payload !== "object" || "subsurface" in payload) return false;
+  if (eventType === "http.response.pathsend" && typeof payload.path !== "string") return false;
+  if (eventType.includes(".stream.") && !("stream_id" in payload)) return false;
+  if (eventType.includes(".datagram.") && !("datagram_id" in payload)) return false;
+  if (classification) {
+    if (classification.required_payload_fields.some((field) => !(field in payload))) return false;
+    const framing = payload.framing;
+    if (typeof framing === "string" && !validateFramingForClassification(framing, classification)) return false;
+    if (framing === "jsonrpc" && payload.jsonrpc_complete !== true) return false;
+    if (framing === "ndjson" && payload.jsonrpc_complete === true) return false;
+  }
+  return true;
+}
+
+export function validateAutomataSequence(family: keyof typeof AUTOMATA, subevents: string[]): boolean {
+  const automaton = (AUTOMATA as any)[family];
+  let state = automaton.initial;
+  const transitions = new Map<string, string>();
+  for (const row of automaton.transitions) {
+    transitions.set(`${row.from}\\u0000${row.event}`, row.to);
+  }
+  for (const subevent of subevents) {
+    const next = transitions.get(`${state}\\u0000${subevent}`);
+    if (!next) return false;
+    state = next;
+  }
+  return automaton.terminal.includes(state) || subevents.length > 0;
+}
+""")
+    write(src / "index.ts", """export * from "./scope_types";
+export * from "./channels";
+export * from "./directions";
+export * from "./framing";
+export * from "./bindings";
+export * from "./protocols";
+export * from "./exchanges";
+export * from "./families";
+export * from "./subevents";
+export * from "./frames";
+export * from "./completion";
+export * from "./capabilities";
+export * from "./compatibility";
+export * from "./ids";
+export * from "./models";
+export * from "./scope";
+export * from "./events";
+export * from "./registry";
+export * from "./validators";
+""")
+    write(OUT / "tsx" / "ScopeView.tsx", """import React from "react";
+import type { ContractScope } from "../src/scope";
+
+export interface ScopeViewProps {
+  scope: ContractScope;
+}
+
+export const ScopeView: React.FC<ScopeViewProps> = ({ scope }) => {
+  return <pre>{JSON.stringify(scope, null, 2)}</pre>;
+};
+""")
+    write(OUT / "tsx" / "BindingBadge.tsx", """import React from "react";
+import type { Binding } from "../src/bindings";
+
+export interface BindingBadgeProps {
+  binding: Binding;
+}
+
+export const BindingBadge: React.FC<BindingBadgeProps> = ({ binding }) => <span>{binding}</span>;
+""")
+    write(OUT / "tsx" / "FamilyBadge.tsx", """import React from "react";
+import type { Family } from "../src/families";
+
+export interface FamilyBadgeProps {
+  family: Family;
+}
+
+export const FamilyBadge: React.FC<FamilyBadgeProps> = ({ family }) => <span>{family}</span>;
+""")
+    write(OUT / "tsx" / "SubeventBadge.tsx", """import React from "react";
+import type { Subevent } from "../src/subevents";
+
+export interface SubeventBadgeProps {
+  subevent: Subevent;
+}
+
+export const SubeventBadge: React.FC<SubeventBadgeProps> = ({ subevent }) => <span>{subevent}</span>;
+""")
+
 
 if __name__ == "__main__":
     main()
-
-
-

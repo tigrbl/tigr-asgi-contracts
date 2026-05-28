@@ -1,0 +1,67 @@
+schema_version: "0.2.0"
+kind: "spec"
+id: "spc:1042"
+number: 1042
+slug: "canonical-event-channel-classification-matrix"
+title: "Canonical event channel classification matrix"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "This specification defines the canonical event channel classification matrix used by tigr-asgi-contract and downstream bridges."
+supersedes: []
+superseded_by: []
+status_notes:
+  -
+    at: "2026-05-27T17:40:25Z"
+    note: "Accepted as the contract-owned classification matrix for scope receive send bridge work."
+    status: "accepted"
+  -
+    status: "accepted"
+    note: "Updated matrix with optional framing row metadata and discriminator rules."
+    at: "2026-05-27T18:10:42Z"
+references: []
+body: |-
+  ## Scope
+  
+  This specification defines the canonical event channel classification matrix used by tigr-asgi-contract and downstream bridges.
+  
+  ## Requirements
+  
+  The canonical matrix row shape is `event + channel + scope_type + binding + family + exchange + direction`.
+  
+  `event` is the canonical ASGI or contract event name.
+  
+  `channel` is the ASGI callable side and is limited to `receive` or `send` for transport events.
+  
+  `scope_type` is limited to the governed scope envelope types `http`, `websocket`, `webtransport`, and `lifespan`.
+  
+  `binding` identifies the binding projection, such as REST, JSON-RPC, HTTP stream, SSE, WebSocket, WSS, WebTransport, or secure WebTransport.
+  
+  `family` identifies the carrier/runtime family: `request`, `session`, `message`, `stream`, `datagram`, or `lifespan`.
+  
+  `exchange` identifies the interaction pattern: `unary`, `client_stream`, `server_stream`, or `duplex`.
+  
+  `direction` identifies semantic peer flow and is distinct from `channel`.
+  
+  Rows may declare `framing`, `allowed_framings`, `required_framing_fields`, `required_scope_fields`, `required_payload_fields`, and `capability_gates`.
+  
+  Framing fields are optional subordinate row metadata. They describe app-level payload interpretation for the selected carrier and are not part of event identity.
+  
+  The matrix must not require a `subsurface` or duplicate event-name field. Disambiguation uses scope metadata and event payload discriminators.
+  
+  ## Validation
+  
+  Matrix validation must reject rows whose scope type is not one of the governed ASGI envelope types.
+  
+  Matrix validation must reject rows where channel, family, exchange, or direction are missing or illegal for the selected event, scope type, binding, and required payload discriminators.
+  
+  Matrix validation must reject framing values that are not listed in the row's local `allowed_framings`.
+  
+  Downstream bridge tests may consume this matrix as classification truth, but this SPEC does not claim runtime implementation support in downstream projects.
+spec_kind: "normative"
+adr_ids:
+  - "adr:1036"
+  - "adr:1037"
+  - "adr:1000"
+  - "adr:1023"

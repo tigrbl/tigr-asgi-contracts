@@ -1,4 +1,4 @@
-schema_version: "0.1.0"
+schema_version: "0.2.0"
 kind: "spec"
 id: "spc:1035"
 number: 1035
@@ -8,32 +8,61 @@ status: "accepted"
 origin: "repo-local"
 decision_date: null
 tags: []
-summary: "This specification governs WebTransport stream and datagram lifecycle subevents."
+summary: "This specification governs WebTransport session, stream, and datagram semantics and their generated protocol mappings."
 supersedes: []
 superseded_by: []
-status_notes: []
-references:
-  - "adr:1032"
+status_notes:
+  -
+    at: "2026-05-27T17:40:16Z"
+    note: "Updated WebTransport lane semantics for bidi unidi and datagram classification."
+    status: "accepted"
+  -
+    status: "accepted"
+    note: "Updated WebTransport semantics with lane-local framing rules."
+    at: "2026-05-27T18:11:10Z"
+references: []
 body: |-
   ## Scope
-
-  This specification governs WebTransport stream and datagram subevents and their generated protocol mappings.
-
+  
+  This specification governs WebTransport session, stream, and datagram semantics and their generated protocol mappings.
+  
   ## Requirements
-
+  
+  WebTransport is classified as one session with native lanes for session lifecycle, bidirectional streams, client-to-server unidirectional streams, server-to-client unidirectional streams, and datagrams.
+  
   WebTransport stream close, reset, and stop-sending are per-stream outcomes and must not map to the session-level `webtransport.close` event.
-
+  
   `stream.reset` maps to a per-stream reset surface.
-
+  
   `stream.stop_sending` maps to a per-stream stop-sending surface.
-
+  
   `stream.close` maps to per-stream close or FIN semantics and not to session close.
-
+  
+  Bidirectional streams classify as `family=stream` and `exchange=duplex`.
+  
+  Client-to-server unidirectional streams classify as `family=stream` and `exchange=client_stream`.
+  
+  Server-to-client unidirectional streams classify as `family=stream` and `exchange=server_stream`.
+  
+  WebTransport datagrams classify as `family=datagram` and `exchange=duplex` when both peers may send datagrams under the session.
+  
+  Message-shaped application payloads are inner application framing inside stream or datagram lanes. `message` is not a peer native WebTransport transport lane.
+  
+  WebTransport stream lanes may carry record-oriented framings only when the selected framing declares boundary rules.
+  
+  WebTransport datagram lanes exclude `jsonrpc` and `ndjson` by default because datagrams do not provide stream continuity or reliable record sequencing.
+  
   WebTransport datagrams do not expose remote delivery acknowledgement at the application API. The datagram lifecycle terminates through local `datagram.emit_complete` or `datagram.emit_failed`.
-
+  
   ## Validation
-
+  
   Tests must reject `datagram.ack`, reject `stream.abort`, prove stream reset/stop-sending/close mappings are per-stream, and prove datagram completion/failure paths do not imply delivery acknowledgement.
+  
+  Classification tests must prove that bidi stream, unidi client stream, unidi server stream, and datagram rows derive distinct `exchange` values without introducing a duplicate event-name field.
+  
+  Framing tests must prove that stream-lane framing requires boundary metadata and datagram-lane framing rejects `jsonrpc` and `ndjson` unless a future ADR/SPEC changes the rule.
 spec_kind: "normative"
 adr_ids:
   - "adr:1032"
+  - "adr:1036"
+  - "adr:1037"

@@ -1,0 +1,58 @@
+schema_version: "0.2.0"
+kind: "adr"
+id: "adr:1037"
+number: 1037
+slug: "app-level-framing-classification-policy"
+title: "App-level framing classification policy"
+status: "accepted"
+origin: "repo-local"
+decision_date: null
+tags: []
+summary: "Govern app-level framing as payload interpretation metadata, not as event identity or transport family."
+supersedes: []
+superseded_by: []
+status_notes:
+  -
+    status: "accepted"
+    note: "Accepted as contract policy for app-level framing metadata."
+    at: "2026-05-27T17:57:48Z"
+references: []
+body: |-
+  Govern app-level framing as payload interpretation metadata, not as event identity or transport family.
+  
+  ## Context
+  
+  The canonical event classification matrix now separates event identity from ASGI channel and classification attributes. The next ambiguity is app-level framing: `json`, `jsonrpc`, `ndjson`, `sse`, `text`, `bytes`, and `binary` can describe payload interpretation, but they must not redefine scope type, event name, family, exchange, or peer-flow direction.
+  
+  Downstream bridges need an explicit contract rule so secure variants, WebSocket subprotocols, WebTransport lanes, and stream/datagram carriers can preserve app-level framing metadata without inventing a second event-name system.
+  
+  ## Decision
+  
+  App-level framing is a subordinate classification attribute on event/scope/binding rows. It describes how the payload is encoded, delimited, or semantically interpreted on the selected carrier.
+  
+  The contract shall keep framing separate from:
+  
+  - `scope_type`;
+  - canonical event name;
+  - ASGI `channel`;
+  - `family`;
+  - `exchange`;
+  - semantic `direction`.
+  
+  Each binding or lane row that supports app payloads must declare its allowed framing set locally. Secure variants do not inherit framing by shorthand in generated matrices; they repeat their framing declaration while TLS, mTLS, ALPN, QUIC, and HTTP version facts remain scope metadata or extensions.
+  
+  `jsonrpc` means complete JSON-RPC message semantics and must not be implied by `json`, `ndjson`, or a generic stream carrier.
+  
+  `ndjson` means newline-delimited JSON records and must not imply JSON-RPC semantics. A newline-delimited JSON-RPC form requires a distinct governed framing token.
+  
+  `sse` is specific to the SSE binding and is not a generic stream framing.
+  
+  For WebTransport, the outer WebTransport transport identity is not app-level framing. App-level framing, when present, belongs inside a selected stream or datagram lane.
+  
+  ## Consequences
+  
+  Event schemas can validate framing discriminators without changing canonical event identity.
+  
+  Tigrcorn can preserve selected framing and subprotocol facts as metadata without owning application payload interpretation.
+  
+  Tigrbl can consume framing as binding/lane metadata and map it to runtime codecs or fail-closed behavior without redefining the contract event taxonomy.
