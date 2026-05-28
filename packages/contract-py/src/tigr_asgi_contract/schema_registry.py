@@ -47,6 +47,24 @@ FRAME_SCHEMA_IDS = frozenset(FRAME_PAYLOAD_SCHEMA_PATHS)
 
 _FRAMINGS = frozenset({"json", "jsonrpc", "ndjson", "sse", "text", "bytes", "binary"})
 _STREAM_DIRECTIONS = frozenset({"bidi", "client_to_server", "server_to_client"})
+_EVENTS_REQUIRING_JSONRPC_COMPLETION = frozenset(
+    {
+        "http.request",
+        "http.response.body",
+        "websocket.receive",
+        "websocket.send",
+        "webtransport.stream.receive",
+        "webtransport.stream.send",
+    }
+)
+_EVENT_FRAMING_ALLOWLISTS = {
+    "websocket.receive": frozenset({"text", "bytes", "binary", "json", "jsonrpc", "ndjson"}),
+    "websocket.send": frozenset({"text", "bytes", "binary", "json", "jsonrpc", "ndjson"}),
+    "webtransport.stream.receive": frozenset({"bytes", "binary", "text", "json", "jsonrpc", "ndjson"}),
+    "webtransport.stream.send": frozenset({"bytes", "binary", "text", "json", "jsonrpc", "ndjson"}),
+    "webtransport.datagram.receive": frozenset({"bytes", "binary", "text", "json"}),
+    "webtransport.datagram.send": frozenset({"bytes", "binary", "text", "json"}),
+}
 
 
 def event_payload_schema_path(event_type: str) -> str:
@@ -79,53 +97,113 @@ def _has_unit_id(value: Any) -> bool:
     return isinstance(value, int) or _is_present_string(value)
 
 
-def validate_event_payload_schema(event_type: str, event: dict[str, Any]) -> bool:
+def event_payload_schema_errors(event_type: str, event: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
     if event_type not in EVENT_PAYLOAD_SCHEMA_PATHS:
-        return False
-    if not isinstance(event, dict) or event.get("type") != event_type:
-        return False
+        errors.append("unknown_event_type")
+        return errors
+    if not isinstance(event, dict):
+        errors.append("payload_not_object")
+        return errors
+    actual_type = event.get("type")
+    if actual_type != event_type:
+        errors.append("event_type_mismatch")
     if "subsurface" in event:
-        return False
+        errors.append("subsurface_not_allowed")
+    if event_type.startswith("webtransport.message") or actual_type == "webtransport.message":
+        errors.append("webtransport_message_not_native")
     framing = event.get("framing")
     if framing is not None and framing not in _FRAMINGS:
-        return False
+        errors.append("unknown_framing")
+    allowed_framings = _EVENT_FRAMING_ALLOWLISTS.get(event_type)
+    if framing is not None and allowed_framings is not None and framing not in allowed_framings:
+        errors.append("framing_not_allowed_for_event")
+    if framing == "jsonrpc" and event_type in _EVENTS_REQUIRING_JSONRPC_COMPLETION and not event.get("jsonrpc_complete", False):
+        errors.append("jsonrpc_requires_complete_document")
+    if framing == "ndjson" and event.get("jsonrpc_complete", False):
+        errors.append("ndjson_must_not_assert_jsonrpc_complete")
     if event_type == "http.response.start" and not isinstance(event.get("status"), int):
-        return False
+        errors.append("status_required")
     if event_type == "http.response.pathsend" and not _is_present_string(event.get("path")):
-        return False
+        errors.append("path_required")
     if event_type.endswith(".failed") or event_type == "transport.emit.failed":
         if not _is_present_string(event.get("message")):
-            return False
+            errors.append("message_required")
     if ".stream." in event_type:
         if not _has_unit_id(event.get("stream_id")):
-            return False
+            errors.append("stream_id_required")
         if event_type in {"webtransport.stream.receive", "webtransport.stream.send"}:
             if event.get("stream_direction") not in _STREAM_DIRECTIONS:
-                return False
-    if ".datagram." in event_type and not _has_unit_id(event.get("datagram_id")):
-        return False
-    return True
+                errors.append("stream_direction_required")
+        if "datagram_id" in event:
+            errors.append("datagram_field_not_allowed_on_stream_event")
+    elif "stream_id" in event or "stream_direction" in event:
+        errors.append("stream_field_not_allowed_on_non_stream_event")
+    if ".datagram." in event_type:
+        if not _has_unit_id(event.get("datagram_id")):
+            errors.append("datagram_id_required")
+        if "stream_id" in event or "stream_direction" in event:
+            errors.append("stream_field_not_allowed_on_datagram_event")
+    elif "datagram_id" in event:
+        errors.append("datagram_field_not_allowed_on_non_datagram_event")
+    return errors
+
+
+def validate_event_payload_schema(event_type: str, event: dict[str, Any]) -> bool:
+    return not event_payload_schema_errors(event_type, event)
+
+
+def validate_event_payload_schema_strict(event_type: str, event: dict[str, Any]) -> bool:
+    return validate_event_payload_schema(event_type, event)
+
+
+def frame_payload_schema_errors(frame: str, payload: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    if frame not in FRAME_PAYLOAD_SCHEMA_PATHS:
+        errors.append("unknown_frame")
+        return errors
+    if not isinstance(payload, dict):
+        errors.append("payload_not_object")
+        return errors
+    if payload.get("frame") != frame:
+        errors.append("frame_mismatch")
+    if "subsurface" in payload:
+        errors.append("subsurface_not_allowed")
+    if frame == "http-response-start-frame" and not isinstance(payload.get("status"), int):
+        errors.append("status_required")
+    if frame == "asgi-pathsend-extension" and not _is_present_string(payload.get("path")):
+        errors.append("path_required")
+    if frame in {"websocket-receive-text", "websocket-send-text"}:
+        if not _is_present_string(payload.get("text")):
+            errors.append("text_required")
+    if frame in {"websocket-receive-bytes", "websocket-send-bytes"}:
+        if "bytes" not in payload:
+            errors.append("bytes_required")
+    if frame == "webtransport-stream-frame":
+        if not _has_unit_id(payload.get("stream_id")):
+            errors.append("stream_id_required")
+        if payload.get("stream_direction") not in _STREAM_DIRECTIONS:
+            errors.append("stream_direction_required")
+        if "datagram_id" in payload:
+            errors.append("datagram_field_not_allowed_on_stream_frame")
+    elif "stream_id" in payload or "stream_direction" in payload:
+        errors.append("stream_field_not_allowed_on_non_stream_frame")
+    if frame == "webtransport-datagram-frame":
+        if not _has_unit_id(payload.get("datagram_id")):
+            errors.append("datagram_id_required")
+        if "stream_id" in payload or "stream_direction" in payload:
+            errors.append("stream_field_not_allowed_on_datagram_frame")
+    elif "datagram_id" in payload:
+        errors.append("datagram_field_not_allowed_on_non_datagram_frame")
+    if frame.startswith("sse-") and frame.endswith("-field"):
+        if "value" not in payload:
+            errors.append("value_required")
+    return errors
 
 
 def validate_frame_payload_schema(frame: str, payload: dict[str, Any]) -> bool:
-    if frame not in FRAME_PAYLOAD_SCHEMA_PATHS:
-        return False
-    if not isinstance(payload, dict) or payload.get("frame") != frame:
-        return False
-    if "subsurface" in payload:
-        return False
-    if frame == "http-response-start-frame" and not isinstance(payload.get("status"), int):
-        return False
-    if frame == "asgi-pathsend-extension" and not _is_present_string(payload.get("path")):
-        return False
-    if frame in {"websocket-receive-text", "websocket-send-text"}:
-        return _is_present_string(payload.get("text"))
-    if frame in {"websocket-receive-bytes", "websocket-send-bytes"}:
-        return "bytes" in payload
-    if frame == "webtransport-stream-frame":
-        return _has_unit_id(payload.get("stream_id")) and payload.get("stream_direction") in _STREAM_DIRECTIONS
-    if frame == "webtransport-datagram-frame":
-        return _has_unit_id(payload.get("datagram_id"))
-    if frame.startswith("sse-") and frame.endswith("-field"):
-        return "value" in payload
-    return True
+    return not frame_payload_schema_errors(frame, payload)
+
+
+def validate_frame_payload_schema_strict(frame: str, payload: dict[str, Any]) -> bool:
+    return validate_frame_payload_schema(frame, payload)
