@@ -25,7 +25,7 @@ Canonical Python artifact package for the Tigr ASGI contract. This package ships
 | `exchanges.yaml` | registry | `efc32610dfb1` |
 | `extensions.yaml` | registry | `7da670b74348` |
 | `families.yaml` | registry | `e8a62db0c0ff` |
-| `frames.yaml` | registry | `31bf50bec7ba` |
+| `frames.yaml` | registry | `20460c3307c9` |
 | `framing.yaml` | registry | `d7e90674cfa9` |
 | `ids.yaml` | registry | `aec52c6b3ef7` |
 | `legality/binding_family.yaml` | legality | `eaf47e7fefc2` |
@@ -33,6 +33,8 @@ Canonical Python artifact package for the Tigr ASGI contract. This package ships
 | `legality/family_subevent.yaml` | legality | `4aa82e7da8bd` |
 | `protocols.yaml` | registry | `c56512c06918` |
 | `schemas/automata.schema.json` | schema | `651e4d388282` |
+| `schemas/bindings.schema.json` | schema | `dbc22d80846b` |
+| `schemas/capabilities.schema.json` | schema | `93c9734265ef` |
 | `schemas/compatibility.schema.json` | schema | `309ba3093d34` |
 | `schemas/completion.schema.json` | schema | `26e6082df0cd` |
 | `schemas/event.schema.json` | schema | `2c4b0d6a71b8` |
@@ -66,7 +68,9 @@ Canonical Python artifact package for the Tigr ASGI contract. This package ships
 | `schemas/events/webtransport.stream.reset.schema.json` | schema | `fc21cb3b6a0f` |
 | `schemas/events/webtransport.stream.send.schema.json` | schema | `056fcd815163` |
 | `schemas/events/webtransport.stream.stop_sending.schema.json` | schema | `9504fa51a954` |
+| `schemas/exchanges.schema.json` | schema | `45134196417e` |
 | `schemas/extensions.schema.json` | schema | `132fed861e37` |
+| `schemas/families.schema.json` | schema | `fcf4059df66f` |
 | `schemas/frames/app.schema.json` | schema | `41c2aed3a67a` |
 | `schemas/frames/asgi-pathsend-extension.schema.json` | schema | `2b87939ce375` |
 | `schemas/frames/asgi-tls-extension.schema.json` | schema | `d68a6b4f8dda` |
@@ -101,12 +105,17 @@ Canonical Python artifact package for the Tigr ASGI contract. This package ships
 | `schemas/frames/websocket-send-text.schema.json` | schema | `43759bf68f06` |
 | `schemas/frames/webtransport-datagram-frame.schema.json` | schema | `771c825084e4` |
 | `schemas/frames/webtransport-stream-frame.schema.json` | schema | `1c6470847545` |
-| `schemas/frames.schema.json` | schema | `944448bebdff` |
+| `schemas/frames.schema.json` | schema | `f2cd26e07ecd` |
+| `schemas/ids.schema.json` | schema | `da78d37bd5e6` |
 | `schemas/jsonrpc.schema.json` | schema | `c885d927555d` |
+| `schemas/manifest.schema.json` | schema | `57e8566de631` |
 | `schemas/pathsend.schema.json` | schema | `5ded01ee80d8` |
 | `schemas/protocols.schema.json` | schema | `2cabd7b55baa` |
 | `schemas/scope.schema.json` | schema | `2698752580f8` |
+| `schemas/scope_types.schema.json` | schema | `8a79bbcb718a` |
 | `schemas/sse.schema.json` | schema | `42e060246611` |
+| `schemas/subevents.schema.json` | schema | `778d5c6ddc30` |
+| `schemas/surfaces.schema.json` | schema | `1926e68c0c96` |
 | `schemas/tls.schema.json` | schema | `c66e49f6031a` |
 | `schemas/transport.schema.json` | schema | `d54b83b136f1` |
 | `schemas/websocket.schema.json` | schema | `b4e38fad362c` |

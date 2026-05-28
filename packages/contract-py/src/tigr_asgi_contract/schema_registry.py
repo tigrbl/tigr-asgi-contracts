@@ -5,6 +5,18 @@ from typing import Any
 from .registry import FRAMES
 
 
+CONTRACT_ARTIFACT_SCHEMA_PATHS: dict[str, str] = {
+    "bindings.yaml": "contract/schemas/bindings.schema.json",
+    "capabilities.yaml": "contract/schemas/capabilities.schema.json",
+    "exchanges.yaml": "contract/schemas/exchanges.schema.json",
+    "families.yaml": "contract/schemas/families.schema.json",
+    "ids.yaml": "contract/schemas/ids.schema.json",
+    "manifest.json": "contract/schemas/manifest.schema.json",
+    "scope_types.yaml": "contract/schemas/scope_types.schema.json",
+    "subevents.yaml": "contract/schemas/subevents.schema.json",
+    "surfaces.yaml": "contract/schemas/surfaces.schema.json",
+}
+
 EVENT_PAYLOAD_SCHEMA_PATHS: dict[str, str] = {
     "http.disconnect": "contract/schemas/events/http.disconnect.schema.json",
     "http.request": "contract/schemas/events/http.request.schema.json",
@@ -74,6 +86,13 @@ def event_payload_schema_path(event_type: str) -> str:
         raise KeyError(f"unknown event payload schema: {event_type}") from exc
 
 
+def contract_artifact_schema_path(artifact_path: str) -> str:
+    try:
+        return CONTRACT_ARTIFACT_SCHEMA_PATHS[artifact_path]
+    except KeyError as exc:
+        raise KeyError(f"unknown contract artifact schema: {artifact_path}") from exc
+
+
 def frame_payload_schema_path(frame: str) -> str:
     try:
         return FRAME_PAYLOAD_SCHEMA_PATHS[frame]
@@ -85,8 +104,52 @@ def event_has_payload_schema(event_type: str) -> bool:
     return event_type in EVENT_PAYLOAD_SCHEMA_PATHS
 
 
+def contract_artifact_has_schema(artifact_path: str) -> bool:
+    return artifact_path in CONTRACT_ARTIFACT_SCHEMA_PATHS
+
+
 def frame_has_payload_schema(frame: str) -> bool:
     return frame in FRAME_PAYLOAD_SCHEMA_PATHS
+
+
+def event_payload_schema_path_for_payload(event: dict[str, Any]) -> str:
+    if not isinstance(event, dict):
+        raise TypeError("event payload must be an object")
+    event_type = event.get("type")
+    if not isinstance(event_type, str):
+        raise KeyError("event payload is missing string type discriminator")
+    return event_payload_schema_path(event_type)
+
+
+def frame_payload_schema_path_for_payload(payload: dict[str, Any]) -> str:
+    if not isinstance(payload, dict):
+        raise TypeError("frame payload must be an object")
+    frame = payload.get("frame")
+    if not isinstance(frame, str):
+        raise KeyError("frame payload is missing string frame discriminator")
+    return frame_payload_schema_path(frame)
+
+
+def validate_event_payload_discriminator(event: dict[str, Any]) -> bool:
+    try:
+        event_type = event.get("type") if isinstance(event, dict) else None
+        if not isinstance(event_type, str):
+            return False
+        event_payload_schema_path(event_type)
+    except KeyError:
+        return False
+    return not event_payload_schema_errors(event_type, event)
+
+
+def validate_frame_payload_discriminator(payload: dict[str, Any]) -> bool:
+    try:
+        frame = payload.get("frame") if isinstance(payload, dict) else None
+        if not isinstance(frame, str):
+            return False
+        frame_payload_schema_path(frame)
+    except KeyError:
+        return False
+    return not frame_payload_schema_errors(frame, payload)
 
 
 def _is_present_string(value: Any) -> bool:

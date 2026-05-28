@@ -76,7 +76,7 @@ from .models import TlsMetadata, TransportMetadata, WebSocketScopeExt, SseScopeE
 from .scope import ContractScope
 from .events import TransportEventType, ContractEvent
 from .validators import binding_supports_family, family_supports_subevent, binding_supports_subevent, binding_family_legality, binding_subevent_legality, protocol_binding, event_classification_candidates, classify_event, validate_event_classification, validate_framing_for_classification, validate_automata_sequence, validate_event_payload
-from .schema_registry import EVENT_PAYLOAD_SCHEMA_PATHS, FRAME_PAYLOAD_SCHEMA_PATHS, EVENT_SCHEMA_IDS, FRAME_SCHEMA_IDS, event_payload_schema_path, frame_payload_schema_path, event_has_payload_schema, frame_has_payload_schema, event_payload_schema_errors, frame_payload_schema_errors, validate_event_payload_schema, validate_frame_payload_schema, validate_event_payload_schema_strict, validate_frame_payload_schema_strict
+from .schema_registry import CONTRACT_ARTIFACT_SCHEMA_PATHS, EVENT_PAYLOAD_SCHEMA_PATHS, FRAME_PAYLOAD_SCHEMA_PATHS, EVENT_SCHEMA_IDS, FRAME_SCHEMA_IDS, contract_artifact_schema_path, contract_artifact_has_schema, event_payload_schema_path, frame_payload_schema_path, event_has_payload_schema, frame_has_payload_schema, event_payload_schema_path_for_payload, frame_payload_schema_path_for_payload, validate_event_payload_discriminator, validate_frame_payload_discriminator, event_payload_schema_errors, frame_payload_schema_errors, validate_event_payload_schema, validate_frame_payload_schema, validate_event_payload_schema_strict, validate_frame_payload_schema_strict
 
 __all__ = [
     "CONTRACT_VERSION", "CONTRACT_SERDE_VERSION", "ScopeType", "Channel", "Direction", "Framing", "Binding", "Protocol", "Exchange", "Family", "Subevent", "Frame",
@@ -86,8 +86,10 @@ __all__ = [
     "binding_supports_subevent", "binding_family_legality", "binding_subevent_legality", "protocol_binding",
     "event_classification_candidates", "classify_event", "validate_event_classification", "validate_framing_for_classification",
     "validate_automata_sequence", "validate_event_payload",
-    "EVENT_PAYLOAD_SCHEMA_PATHS", "FRAME_PAYLOAD_SCHEMA_PATHS", "EVENT_SCHEMA_IDS", "FRAME_SCHEMA_IDS",
-    "event_payload_schema_path", "frame_payload_schema_path", "event_has_payload_schema", "frame_has_payload_schema",
+    "CONTRACT_ARTIFACT_SCHEMA_PATHS", "EVENT_PAYLOAD_SCHEMA_PATHS", "FRAME_PAYLOAD_SCHEMA_PATHS", "EVENT_SCHEMA_IDS", "FRAME_SCHEMA_IDS",
+    "contract_artifact_schema_path", "contract_artifact_has_schema", "event_payload_schema_path", "frame_payload_schema_path",
+    "event_has_payload_schema", "frame_has_payload_schema", "event_payload_schema_path_for_payload", "frame_payload_schema_path_for_payload",
+    "validate_event_payload_discriminator", "validate_frame_payload_discriminator",
     "event_payload_schema_errors", "frame_payload_schema_errors", "validate_event_payload_schema", "validate_frame_payload_schema",
     "validate_event_payload_schema_strict", "validate_frame_payload_schema_strict",
 ]

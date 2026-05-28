@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tigr.dev/asgi-contract/schemas/surfaces.schema.json",
+  "title": "Surface matrix registry",
+  "type": "object",
+  "required": ["surface_catalog"],
+  "properties": {
+    "surface_catalog": {
+      "type": "object",
+      "required": ["boundary_id", "release_id", "target_claim_tier", "scope_rule", "families"],
+      "properties": {
+        "boundary_id": { "type": "string", "pattern": "^bnd:" },
+        "release_id": { "type": "string", "pattern": "^rel:" },
+        "target_claim_tier": { "type": "string", "pattern": "^T[0-4]$" },
+        "scope_rule": { "type": "string", "minLength": 1 },
+        "families": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/surfaceFeature" }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "surfaceFeature": {
+      "type": "object",
+      "required": ["id", "title", "description", "horizon", "target_claim_tier", "spec_ids", "source"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^feat:" },
+        "title": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "horizon": { "type": "string", "minLength": 1 },
+        "target_claim_tier": { "type": "string", "pattern": "^T[0-4]$" },
+        "spec_ids": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^spc:" },
+          "uniqueItems": true
+        },
+        "source": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

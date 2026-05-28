@@ -51,7 +51,7 @@
     },
     {
       "path": "frames.yaml",
-      "sha256": "31bf50bec7ba938cbc401e14f67906c97cb5d33d1788d589b45567cbc6de3f53"
+      "sha256": "20460c3307c9fb33b3cd7b10b942024f09ab1a6353dfa561a851fa496980fc37"
     },
     {
       "path": "framing.yaml",
@@ -80,6 +80,14 @@
     {
       "path": "schemas/automata.schema.json",
       "sha256": "651e4d3882823ccdc21cf2810be53688d5070d743e69cbd2065da404895f4d1d"
+    },
+    {
+      "path": "schemas/bindings.schema.json",
+      "sha256": "dbc22d80846ba2b4fbf258a3b84004c006d298a0615a5132a1a90eb6fcb79e4b"
+    },
+    {
+      "path": "schemas/capabilities.schema.json",
+      "sha256": "93c9734265efbab3a4352bf469a95cf344404e41a84cd2172729948cd8897739"
     },
     {
       "path": "schemas/compatibility.schema.json",
@@ -214,8 +222,16 @@
       "sha256": "9504fa51a9541a19bd84e9d010caeb4e6111f8d859b1cc1b0c459400ea44a345"
     },
     {
+      "path": "schemas/exchanges.schema.json",
+      "sha256": "45134196417ea76f48340a976c7f20643cf488b0697e88d1d1207083fda9d54f"
+    },
+    {
       "path": "schemas/extensions.schema.json",
       "sha256": "132fed861e37225d6caa684fe876825d330c8a9e2d05c58ead3e7db8255f4be7"
+    },
+    {
+      "path": "schemas/families.schema.json",
+      "sha256": "fcf4059df66f95d4f06f77d7ae3111f1af82da821bbe709601ec3c0a83692693"
     },
     {
       "path": "schemas/frames/app.schema.json",
@@ -355,11 +371,19 @@
     },
     {
       "path": "schemas/frames.schema.json",
-      "sha256": "944448bebdff032e2a0fbc8a7fbdb8547f6b069424b4be77a90945615f7014cc"
+      "sha256": "f2cd26e07ecdb050b11cdcf198c6077db947cc5988413676a898fa11012298cc"
+    },
+    {
+      "path": "schemas/ids.schema.json",
+      "sha256": "da78d37bd5e6460ecba2be39718508d28f81ba99b4c636dad9b9a4e85c55f625"
     },
     {
       "path": "schemas/jsonrpc.schema.json",
       "sha256": "c885d927555d2712fae0833e6f60b8263995507347c6a9a06de6b2b798fedeb5"
+    },
+    {
+      "path": "schemas/manifest.schema.json",
+      "sha256": "57e8566de6314cdbfaefcc78072e504b643f84a8c04546ba30c1d8e3d64f1691"
     },
     {
       "path": "schemas/pathsend.schema.json",
@@ -374,8 +398,20 @@
       "sha256": "2698752580f89d257e224aa99539ad378a3df064f1ac4788ee5e0541400bdff0"
     },
     {
+      "path": "schemas/scope_types.schema.json",
+      "sha256": "8a79bbcb718a9d3a6d0bff54379f522ad893109e5c9239b4536681f72137e323"
+    },
+    {
       "path": "schemas/sse.schema.json",
       "sha256": "42e060246611f1c0f02d03add30892d5d3b6b16313796e09785001af0f846de7"
+    },
+    {
+      "path": "schemas/subevents.schema.json",
+      "sha256": "778d5c6ddc300106a703d8104d9bccb6f197973e594a89d2c66117df2ca4b712"
+    },
+    {
+      "path": "schemas/surfaces.schema.json",
+      "sha256": "1926e68c0c96444c40495447df5b963182486cda61919aa15457bf06bd38a058"
     },
     {
       "path": "schemas/tls.schema.json",

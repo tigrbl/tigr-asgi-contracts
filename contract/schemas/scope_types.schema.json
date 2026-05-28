@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tigr.dev/asgi-contract/schemas/scope_types.schema.json",
+  "title": "Scope type vocabulary",
+  "type": "object",
+  "required": ["scope_types"],
+  "properties": {
+    "scope_types": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["http", "websocket", "lifespan", "webtransport"]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false
+}

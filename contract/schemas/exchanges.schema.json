@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tigr.dev/asgi-contract/schemas/exchanges.schema.json",
+  "title": "Exchange vocabulary",
+  "type": "object",
+  "required": ["exchanges"],
+  "properties": {
+    "exchanges": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["unary", "client_stream", "server_stream", "duplex"]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false
+}

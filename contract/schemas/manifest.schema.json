@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tigr.dev/asgi-contract/schemas/manifest.schema.json",
+  "title": "Contract artifact manifest",
+  "type": "object",
+  "required": ["name", "contract_version", "artifact_version", "serde_version", "schema_draft", "files"],
+  "properties": {
+    "name": { "const": "tigr-asgi-contract" },
+    "contract_version": { "type": "string", "minLength": 1 },
+    "artifact_version": { "type": "string", "minLength": 1 },
+    "serde_version": { "type": "integer", "minimum": 1 },
+    "schema_draft": { "const": "2020-12" },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "sha256"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

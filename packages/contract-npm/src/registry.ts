@@ -919,139 +919,173 @@ export const AUTOMATA = {
 export const FRAMES = {
   "app": {
     "kind": "contract-framing",
-    "binding": "webtransport"
+    "binding": "webtransport",
+    "schema": "contract/schemas/frames/app.schema.json"
   },
   "asgi-tls-extension": {
     "kind": "extension-frame",
-    "binding": "\"*\""
+    "binding": "*",
+    "schema": "contract/schemas/frames/asgi-tls-extension.schema.json"
   },
   "asgi-pathsend-extension": {
     "kind": "extension-frame",
-    "binding": "http.stream"
+    "binding": "http.stream",
+    "schema": "contract/schemas/frames/asgi-pathsend-extension.schema.json"
   },
   "bytes": {
     "kind": "contract-framing",
-    "binding": "http.stream"
+    "binding": "http.stream",
+    "schema": "contract/schemas/frames/bytes.schema.json"
   },
   "grpc": {
     "kind": "contract-framing",
-    "binding": "http.stream"
+    "binding": "http.stream",
+    "schema": "contract/schemas/frames/grpc.schema.json"
   },
   "http-1-1-message": {
     "kind": "wire-frame",
-    "binding": "rest"
+    "binding": "rest",
+    "schema": "contract/schemas/frames/http-1-1-message.schema.json"
   },
   "http-request-body-chunk": {
     "kind": "wire-frame",
-    "binding": "http.stream"
+    "binding": "http.stream",
+    "schema": "contract/schemas/frames/http-request-body-chunk.schema.json"
   },
   "http-response-body-chunk": {
     "kind": "wire-frame",
-    "binding": "http.stream"
+    "binding": "http.stream",
+    "schema": "contract/schemas/frames/http-response-body-chunk.schema.json"
   },
   "http-response-start-frame": {
     "kind": "wire-frame",
-    "binding": "rest"
+    "binding": "rest",
+    "schema": "contract/schemas/frames/http-response-start-frame.schema.json"
   },
   "json": {
     "kind": "contract-framing",
-    "binding": "rest"
+    "binding": "rest",
+    "schema": "contract/schemas/frames/json.schema.json"
   },
   "jsonrpc": {
     "kind": "contract-framing",
-    "binding": "jsonrpc"
+    "binding": "jsonrpc",
+    "schema": "contract/schemas/frames/jsonrpc.schema.json"
   },
   "json-rpc-request-object": {
     "kind": "contract-framing",
-    "binding": "jsonrpc"
+    "binding": "jsonrpc",
+    "schema": "contract/schemas/frames/json-rpc-request-object.schema.json"
   },
   "json-rpc-response-object": {
     "kind": "contract-framing",
-    "binding": "jsonrpc"
+    "binding": "jsonrpc",
+    "schema": "contract/schemas/frames/json-rpc-response-object.schema.json"
   },
   "json-rpc-notification-object": {
     "kind": "contract-framing",
-    "binding": "jsonrpc"
+    "binding": "jsonrpc",
+    "schema": "contract/schemas/frames/json-rpc-notification-object.schema.json"
   },
   "json-rpc-error-object": {
     "kind": "contract-framing",
-    "binding": "jsonrpc"
+    "binding": "jsonrpc",
+    "schema": "contract/schemas/frames/json-rpc-error-object.schema.json"
   },
   "raw": {
     "kind": "contract-framing",
-    "binding": "websocket"
+    "binding": "websocket",
+    "schema": "contract/schemas/frames/raw.schema.json"
   },
   "sse": {
     "kind": "contract-framing",
-    "binding": "sse"
+    "binding": "sse",
+    "schema": "contract/schemas/frames/sse.schema.json"
   },
   "sse-data-field": {
     "kind": "contract-framing",
-    "binding": "sse"
+    "binding": "sse",
+    "schema": "contract/schemas/frames/sse-data-field.schema.json"
   },
   "sse-event-field": {
     "kind": "contract-framing",
-    "binding": "sse"
+    "binding": "sse",
+    "schema": "contract/schemas/frames/sse-event-field.schema.json"
   },
   "sse-id-field": {
     "kind": "contract-framing",
-    "binding": "sse"
+    "binding": "sse",
+    "schema": "contract/schemas/frames/sse-id-field.schema.json"
   },
   "sse-retry-field": {
     "kind": "contract-framing",
-    "binding": "sse"
+    "binding": "sse",
+    "schema": "contract/schemas/frames/sse-retry-field.schema.json"
   },
   "websocket-frame": {
     "kind": "wire-frame",
-    "binding": "websocket"
+    "binding": "websocket",
+    "schema": "contract/schemas/frames/websocket-frame.schema.json"
   },
   "websocket-accept-frame": {
     "kind": "wire-frame",
-    "binding": "websocket"
+    "binding": "websocket",
+    "schema": "contract/schemas/frames/websocket-accept-frame.schema.json"
   },
   "websocket-close-frame": {
     "kind": "wire-frame",
-    "binding": "websocket"
+    "binding": "websocket",
+    "schema": "contract/schemas/frames/websocket-close-frame.schema.json"
   },
   "websocket-continuation-frame": {
     "kind": "wire-frame",
-    "binding": "websocket"
+    "binding": "websocket",
+    "schema": "contract/schemas/frames/websocket-continuation-frame.schema.json"
   },
   "websocket-disconnect-frame": {
     "kind": "wire-frame",
-    "binding": "websocket"
+    "binding": "websocket",
+    "schema": "contract/schemas/frames/websocket-disconnect-frame.schema.json"
   },
   "websocket-ping-frame": {
     "kind": "wire-frame",
-    "binding": "websocket"
+    "binding": "websocket",
+    "schema": "contract/schemas/frames/websocket-ping-frame.schema.json"
   },
   "websocket-pong-frame": {
     "kind": "wire-frame",
-    "binding": "websocket"
+    "binding": "websocket",
+    "schema": "contract/schemas/frames/websocket-pong-frame.schema.json"
   },
   "websocket-receive-bytes": {
     "kind": "wire-frame",
-    "binding": "websocket"
+    "binding": "websocket",
+    "schema": "contract/schemas/frames/websocket-receive-bytes.schema.json"
   },
   "websocket-receive-text": {
     "kind": "wire-frame",
-    "binding": "websocket"
+    "binding": "websocket",
+    "schema": "contract/schemas/frames/websocket-receive-text.schema.json"
   },
   "websocket-send-bytes": {
     "kind": "wire-frame",
-    "binding": "websocket"
+    "binding": "websocket",
+    "schema": "contract/schemas/frames/websocket-send-bytes.schema.json"
   },
   "websocket-send-text": {
     "kind": "wire-frame",
-    "binding": "websocket"
+    "binding": "websocket",
+    "schema": "contract/schemas/frames/websocket-send-text.schema.json"
   },
   "webtransport-datagram-frame": {
     "kind": "wire-frame",
-    "binding": "webtransport"
+    "binding": "webtransport",
+    "schema": "contract/schemas/frames/webtransport-datagram-frame.schema.json"
   },
   "webtransport-stream-frame": {
     "kind": "wire-frame",
-    "binding": "webtransport"
+    "binding": "webtransport",
+    "schema": "contract/schemas/frames/webtransport-stream-frame.schema.json"
   }
 } as const;
 

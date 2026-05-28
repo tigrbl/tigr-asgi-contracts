@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tigr.dev/asgi-contract/schemas/subevents.schema.json",
+  "title": "Subevent vocabulary by family",
+  "type": "object",
+  "required": ["subevents"],
+  "properties": {
+    "subevents": {
+      "type": "object",
+      "required": ["request", "session", "message", "stream", "datagram", "lifespan"],
+      "properties": {
+        "request": { "$ref": "#/$defs/subeventList" },
+        "session": { "$ref": "#/$defs/subeventList" },
+        "message": { "$ref": "#/$defs/subeventList" },
+        "stream": { "$ref": "#/$defs/subeventList" },
+        "datagram": { "$ref": "#/$defs/subeventList" },
+        "lifespan": { "$ref": "#/$defs/subeventList" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "subeventList": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*\\.[a-z][a-z0-9_]*$" },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false
+}

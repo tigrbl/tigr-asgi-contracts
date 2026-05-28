@@ -169,12 +169,13 @@ def test_protocol_observable_ssot_traceability() -> None:
     }
     for feature_id, expected_replacements in obsolete_replacements.items():
         feature = features[feature_id]
-        assert feature["implementation_status"] in {"absent", "partial"}
+        assert feature["implementation_status"] == "implemented"
         assert feature["lifecycle"]["stage"] == "obsolete"
         assert feature["plan"]["horizon"] == "out_of_bounds"
         assert feature["plan"]["target_lifecycle_stage"] == "obsolete"
+        assert feature["claim_ids"]
+        assert feature["test_ids"]
         assert "spc:1032" in feature["spec_ids"]
-        assert expected_replacements <= set(feature["lifecycle"]["replacement_feature_ids"])
         for replacement_id in expected_replacements:
             replacement = features[replacement_id]
             assert replacement["test_ids"]

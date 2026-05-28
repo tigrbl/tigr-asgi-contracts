@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tigr.dev/asgi-contract/schemas/bindings.schema.json",
+  "title": "Binding registry",
+  "type": "object",
+  "required": ["bindings"],
+  "properties": {
+    "bindings": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": ["scope_type", "exchange", "protocols", "families", "framing"],
+        "properties": {
+          "scope_type": {
+            "type": "string",
+            "enum": ["http", "websocket", "lifespan", "webtransport"]
+          },
+          "exchange": {
+            "type": "string",
+            "enum": ["unary", "client_stream", "server_stream", "duplex"]
+          },
+          "protocols": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "families": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "enum": ["required", "optional"]
+            },
+            "minProperties": 1
+          },
+          "framing": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["json", "jsonrpc", "ndjson", "sse", "text", "bytes", "binary"]
+            },
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
