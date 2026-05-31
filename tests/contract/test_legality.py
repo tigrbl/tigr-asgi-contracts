@@ -39,10 +39,8 @@ def _slug(value: str) -> str:
     return value.replace(".", "-").replace("_", "-")
 
 
-def _feature_expectation(code: str) -> tuple[str, str]:
-    if code == "F":
-        return "obsolete", "out_of_bounds"
-    return "active", "current"
+def _feature_expectation(code: str) -> tuple[str, str, str]:
+    return "active", "current", "implemented"
 
 
 def test_legality_matrices_are_complete_and_use_known_codes() -> None:
@@ -140,8 +138,8 @@ def test_legality_feature_rows_match_canonical_matrix_status() -> None:
     def assert_row(feature_id: str, code: str) -> None:
         known_feature_ids.add(feature_id)
         feature = features[feature_id]
-        expected_stage, expected_horizon = _feature_expectation(code)
-        assert feature["implementation_status"] == "implemented", feature_id
+        expected_stage, expected_horizon, expected_status = _feature_expectation(code)
+        assert feature["implementation_status"] == expected_status, feature_id
         assert feature["lifecycle"]["stage"] == expected_stage, feature_id
         assert feature["plan"]["horizon"] == expected_horizon, feature_id
         assert feature["plan"]["target_lifecycle_stage"] == expected_stage, feature_id
@@ -168,6 +166,45 @@ def test_legality_feature_rows_match_canonical_matrix_status() -> None:
         if feature_id in known_feature_ids:
             continue
         assert feature["implementation_status"] == "implemented", feature_id
-        assert feature["lifecycle"]["stage"] == "obsolete", feature_id
-        assert feature["plan"]["horizon"] == "out_of_bounds", feature_id
-        assert feature["plan"]["target_lifecycle_stage"] == "obsolete", feature_id
+        assert feature["lifecycle"]["stage"] == "active", feature_id
+        assert feature["plan"]["horizon"] == "current", feature_id
+        assert feature["plan"]["target_lifecycle_stage"] == "active", feature_id
+
+
+def test_forbidden_legality_rows_are_active_implemented_rejection_declarations() -> None:
+    features = {row["id"]: row for row in json.loads(REGISTRY.read_text(encoding="utf-8"))["features"]}
+    binding_family = _load_yaml("legality/binding_family.yaml")["binding_family"]
+    binding_subevent = _load_yaml("legality/binding_subevent.yaml")["binding_subevent"]
+    family_subevent = _load_yaml("legality/family_subevent.yaml")["family_subevent"]
+
+    forbidden_ids = []
+    for binding, family_rows in binding_family.items():
+        forbidden_ids.extend(
+            f"feat:binding-family-{_slug(binding)}-{_slug(family)}"
+            for family, code in family_rows.items()
+            if code == "F"
+        )
+    for family, subevent_rows in family_subevent.items():
+        forbidden_ids.extend(
+            f"feat:family-subevent-{_slug(family)}-{_slug(subevent)}"
+            for subevent, code in subevent_rows.items()
+            if code == "F"
+        )
+    for binding, subevent_rows in binding_subevent.items():
+        forbidden_ids.extend(
+            f"feat:binding-subevent-{_slug(binding)}-{_slug(subevent)}"
+            for subevent, code in subevent_rows.items()
+            if code == "F"
+        )
+
+    assert forbidden_ids
+    for feature_id in forbidden_ids:
+        feature = features[feature_id]
+        assert feature["implementation_status"] == "implemented", feature_id
+        assert feature["lifecycle"]["stage"] == "active", feature_id
+        assert feature["plan"]["horizon"] == "current", feature_id
+        assert feature["plan"]["target_lifecycle_stage"] == "active", feature_id
+        assert "clm:unsupported-feature-declarations-t0" in feature["claim_ids"], feature_id
+        assert "clm:unsupported-feature-runtime-rejection-t1" in feature["claim_ids"], feature_id
+        assert "tst:unsupported-feature-declarations-t0" in feature["test_ids"], feature_id
+        assert "tst:unsupported-feature-runtime-rejection-t1" in feature["test_ids"], feature_id

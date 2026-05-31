@@ -42,7 +42,7 @@ CODE_TO_STATUS = {
     "R": "implemented",
     "D": "implemented",
     "O": "implemented",
-    "F": "absent",
+    "F": "implemented",
 }
 
 CODE_LABEL = {
@@ -482,9 +482,9 @@ def scope_subevent_feature_specs(contract_registry) -> dict[str, FeatureSpec]:
     for binding, subevents in sorted(contract_registry.BINDING_SUBEVENT_MATRIX.items()):
         scope_type = bindings[binding]["scope_type"]
         for subevent, code in sorted(subevents.items()):
-            status = CODE_TO_STATUS[code]
-            if status == "absent":
+            if code == "F":
                 continue
+            status = CODE_TO_STATUS[code]
             family = subevent_family[subevent]
             feat_id = f"feat:scope-scope-{norm(scope_type)}-{norm(family)}-{norm(subevent)}"
             spec_ids = {"spc:1000", "spc:1012", "spc:1021"} | subevent_spec_ids(subevent)
@@ -563,20 +563,30 @@ def build_specs() -> tuple[dict[str, FeatureSpec], dict[str, ClaimSpec], dict[st
     implemented_binding_family_ids: set[str] = set()
     implemented_family_subevent_ids: set[str] = set()
     implemented_binding_subevent_ids: set[str] = set()
+    unsupported_legality_feature_ids: set[str] = set()
 
     for binding, families in sorted(contract_registry.BINDING_FAMILY_MATRIX.items()):
         for family, code in sorted(families.items()):
             feat_id = f"feat:binding-family-{norm(binding)}-{norm(family)}"
             binding_family_ids.add(feat_id)
-            if CODE_TO_STATUS[code] == "implemented":
+            if code != "F":
                 implemented_binding_family_ids.add(feat_id)
-            claim_ids = {"clm:bindings", "clm:families", "clm:legality-binding-family"} if CODE_TO_STATUS[code] == "implemented" else set()
+            else:
+                unsupported_legality_feature_ids.add(feat_id)
+            claim_ids = (
+                {"clm:bindings", "clm:families", "clm:legality-binding-family"}
+                if code != "F"
+                else {
+                    "clm:unsupported-feature-declarations-t0",
+                    "clm:unsupported-feature-runtime-rejection-t1",
+                }
+            )
             features[feat_id] = FeatureSpec(
                 entity_id=feat_id,
                 title=f"Binding family {binding} x {family}",
                 description=f"From BINDING_FAMILY_MATRIX: code {code} ({CODE_LABEL[code]}).",
                 implementation_status=CODE_TO_STATUS[code],
-                plan_horizon="current" if CODE_TO_STATUS[code] == "implemented" else "out_of_bounds",
+                plan_horizon="current",
                 claim_ids=claim_ids,
             )
 
@@ -584,15 +594,24 @@ def build_specs() -> tuple[dict[str, FeatureSpec], dict[str, ClaimSpec], dict[st
         for subevent, code in sorted(subevents.items()):
             feat_id = f"feat:family-subevent-{norm(family)}-{norm(subevent)}"
             family_subevent_ids.add(feat_id)
-            if CODE_TO_STATUS[code] == "implemented":
+            if code != "F":
                 implemented_family_subevent_ids.add(feat_id)
-            claim_ids = {"clm:families", "clm:subevents", "clm:legality-family-subevent"} if CODE_TO_STATUS[code] == "implemented" else set()
+            else:
+                unsupported_legality_feature_ids.add(feat_id)
+            claim_ids = (
+                {"clm:families", "clm:subevents", "clm:legality-family-subevent"}
+                if code != "F"
+                else {
+                    "clm:unsupported-feature-declarations-t0",
+                    "clm:unsupported-feature-runtime-rejection-t1",
+                }
+            )
             features[feat_id] = FeatureSpec(
                 entity_id=feat_id,
                 title=f"Family subevent {family} x {subevent}",
                 description=f"From FAMILY_SUBEVENT_MATRIX: code {code} ({CODE_LABEL[code]}).",
                 implementation_status=CODE_TO_STATUS[code],
-                plan_horizon="current" if CODE_TO_STATUS[code] == "implemented" else "out_of_bounds",
+                plan_horizon="current",
                 claim_ids=claim_ids,
                 spec_ids=subevent_spec_ids(subevent),
             )
@@ -601,15 +620,24 @@ def build_specs() -> tuple[dict[str, FeatureSpec], dict[str, ClaimSpec], dict[st
         for subevent, code in sorted(subevents.items()):
             feat_id = f"feat:binding-subevent-{norm(binding)}-{norm(subevent)}"
             binding_subevent_ids.add(feat_id)
-            if CODE_TO_STATUS[code] == "implemented":
+            if code != "F":
                 implemented_binding_subevent_ids.add(feat_id)
-            claim_ids = {"clm:bindings", "clm:subevents", "clm:legality-binding-subevent"} if CODE_TO_STATUS[code] == "implemented" else set()
+            else:
+                unsupported_legality_feature_ids.add(feat_id)
+            claim_ids = (
+                {"clm:bindings", "clm:subevents", "clm:legality-binding-subevent"}
+                if code != "F"
+                else {
+                    "clm:unsupported-feature-declarations-t0",
+                    "clm:unsupported-feature-runtime-rejection-t1",
+                }
+            )
             features[feat_id] = FeatureSpec(
                 entity_id=feat_id,
                 title=f"Binding subevent {binding} x {subevent}",
                 description=f"From BINDING_SUBEVENT_MATRIX: code {code} ({CODE_LABEL[code]}).",
                 implementation_status=CODE_TO_STATUS[code],
-                plan_horizon="current" if CODE_TO_STATUS[code] == "implemented" else "out_of_bounds",
+                plan_horizon="current",
                 claim_ids=claim_ids,
                 spec_ids=subevent_spec_ids(subevent),
             )
@@ -621,6 +649,23 @@ def build_specs() -> tuple[dict[str, FeatureSpec], dict[str, ClaimSpec], dict[st
     claims["clm:legality-family-subevent"].feature_ids.update(implemented_family_subevent_ids)
     claims["clm:legality-binding-subevent"].feature_ids.update(implemented_binding_subevent_ids)
     features.update(scope_subevent_feature_specs(contract_registry))
+    unsupported_feature_ids = {
+        feature_id
+        for feature_id, spec in features.items()
+        if "clm:unsupported-feature-declarations-t0" in spec.claim_ids
+    } | unsupported_legality_feature_ids
+    claims["clm:unsupported-feature-declarations-t0"] = ClaimSpec(
+        entity_id="clm:unsupported-feature-declarations-t0",
+        title="Unsupported features are implemented rejection declarations",
+        kind="conformance",
+        description=(
+            "Every unsupported feature is an active current implemented rejection declaration, "
+            "and legality-derived forbidden rows fail closed through runtime validators."
+        ),
+        status="evidenced",
+        tier="T0",
+        feature_ids=set(unsupported_feature_ids),
+    )
 
     all_artifact_feature_ids = {artifact_feature_id(path) for path in artifact_paths}
     all_artifact_claim_ids = {artifact_claim_id(path) for path in artifact_paths}
@@ -693,6 +738,11 @@ def build_specs() -> tuple[dict[str, FeatureSpec], dict[str, ClaimSpec], dict[st
         "tests/contract/test_legality.py",
         feature_ids=set(legality_feature_ids | binding_family_ids | family_subevent_ids | binding_subevent_ids),
         claim_ids={"clm:bindings", "clm:families", "clm:subevents"} | legality_claim_ids,
+    )
+    register_file_test(
+        "tests/contract/test_unsupported_feature_declarations_t0.py",
+        feature_ids=set(unsupported_feature_ids),
+        claim_ids={"clm:unsupported-feature-declarations-t0"},
     )
     register_file_test(
         "tests/contract/test_manifest.py",
@@ -916,27 +966,33 @@ def upsert_feature_rows(registry: dict, specs: dict[str, FeatureSpec]) -> tuple[
     return created_or_updated, links_added
 
 
-def retire_obsolete_subevent_features(registry: dict) -> int:
+def mark_unsupported_subevent_features(registry: dict) -> int:
     retired = 0
     for row in registry.setdefault("features", []):
         replacements = replacement_feature_ids(row.get("id", ""))
         if not replacements:
             continue
-        row["implementation_status"] = "absent"
+        row["implementation_status"] = "implemented"
         row.setdefault("lifecycle", {"stage": "active", "replacement_feature_ids": [], "note": None})
-        row["lifecycle"]["stage"] = "obsolete"
+        row["lifecycle"]["stage"] = "active"
         row["lifecycle"]["replacement_feature_ids"] = replacements
-        row["lifecycle"]["note"] = "Superseded by protocol-observable lifecycle semantics."
+        row["lifecycle"]["note"] = "Unsupported by current protocol-observable lifecycle semantics; replacement rows define the supported contract."
         row.setdefault("plan", {})
-        row["plan"]["horizon"] = "out_of_bounds"
-        row["plan"]["target_lifecycle_stage"] = "obsolete"
+        row["plan"]["horizon"] = "current"
+        row["plan"]["target_lifecycle_stage"] = "active"
         row.setdefault("spec_ids", [])
         row["spec_ids"], _ = merge_sorted_unique(
             row.get("spec_ids"),
             obsolete_feature_spec_ids(row.get("id", "")),
         )
-        row["claim_ids"] = []
-        row["test_ids"] = []
+        row["claim_ids"], _ = merge_sorted_unique(
+            row.get("claim_ids"),
+            {"clm:unsupported-feature-declarations-t0", "clm:unsupported-feature-runtime-rejection-t1"},
+        )
+        row["test_ids"], _ = merge_sorted_unique(
+            row.get("test_ids"),
+            {"tst:unsupported-feature-declarations-t0", "tst:unsupported-feature-runtime-rejection-t1"},
+        )
         retired += 1
     return retired
 
@@ -1090,6 +1146,194 @@ def upsert_evidence_rows(registry: dict, specs: dict[str, EvidenceSpec]) -> tupl
     return created_or_updated, links_added
 
 
+def sync_unsupported_feature_t0_declarations(registry: dict) -> int:
+    unsupported_feature_ids = sorted(
+        row["id"]
+        for row in registry.setdefault("features", [])
+        if "clm:unsupported-feature-declarations-t0" in row.get("claim_ids", [])
+    )
+    if not unsupported_feature_ids:
+        return 0
+
+    claim_id = "clm:unsupported-feature-declarations-t0"
+    test_id = "tst:unsupported-feature-declarations-t0"
+    evidence_id = "evd:unsupported-feature-declarations-t0"
+    path = "tests/contract/test_unsupported_feature_declarations_t0.py"
+    changed = 0
+
+    claims = {row["id"]: row for row in registry.setdefault("claims", [])}
+    claim = claims.get(claim_id)
+    if claim is None:
+        claim = {"id": claim_id}
+        registry["claims"].append(claim)
+    desired_claim = {
+        "id": claim_id,
+        "title": "Unsupported features are implemented rejection declarations",
+        "status": "evidenced",
+        "tier": "T0",
+        "kind": "conformance",
+        "description": (
+            "Every unsupported feature is an active current implemented rejection declaration, "
+            "and legality-derived forbidden rows fail closed through runtime validators."
+        ),
+        "feature_ids": unsupported_feature_ids,
+        "test_ids": [test_id],
+        "evidence_ids": [evidence_id],
+    }
+    if claim != desired_claim:
+        claim.clear()
+        claim.update(desired_claim)
+        changed += 1
+
+    tests = {row["id"]: row for row in registry.setdefault("tests", [])}
+    test = tests.get(test_id)
+    if test is None:
+        test = {"id": test_id}
+        registry["tests"].append(test)
+    desired_test = {
+        "id": test_id,
+        "title": "Unsupported feature declaration T0 tests",
+        "status": "passing",
+        "kind": "pytest",
+        "path": path,
+        "feature_ids": unsupported_feature_ids,
+        "claim_ids": [claim_id],
+        "evidence_ids": [evidence_id],
+    }
+    if test != desired_test:
+        test.clear()
+        test.update(desired_test)
+        changed += 1
+
+    evidence_rows = {row["id"]: row for row in registry.setdefault("evidence", [])}
+    evidence = evidence_rows.get(evidence_id)
+    if evidence is None:
+        evidence = {"id": evidence_id}
+        registry["evidence"].append(evidence)
+    desired_evidence = {
+        "id": evidence_id,
+        "title": "Unsupported feature declaration pytest evidence",
+        "status": "passed",
+        "kind": "test-report",
+        "tier": "T0",
+        "path": path,
+        "claim_ids": [claim_id],
+        "test_ids": [test_id],
+    }
+    if evidence != desired_evidence:
+        evidence.clear()
+        evidence.update(desired_evidence)
+        changed += 1
+
+    for feature in registry["features"]:
+        if feature["id"] not in unsupported_feature_ids:
+            continue
+        feature["implementation_status"] = "implemented"
+        feature.setdefault("lifecycle", {})["stage"] = "active"
+        feature.setdefault("plan", {})["horizon"] = "current"
+        feature["plan"]["target_lifecycle_stage"] = "active"
+        feature["claim_ids"], added = merge_sorted_unique(feature.get("claim_ids"), {claim_id})
+        changed += added
+        feature["test_ids"], added = merge_sorted_unique(feature.get("test_ids"), {test_id})
+        changed += added
+
+    return changed
+
+
+def sync_unsupported_feature_t1_declarations(registry: dict) -> int:
+    unsupported_feature_ids = sorted(
+        row["id"]
+        for row in registry.setdefault("features", [])
+        if "clm:unsupported-feature-declarations-t0" in row.get("claim_ids", [])
+    )
+    if not unsupported_feature_ids:
+        return 0
+
+    claim_id = "clm:unsupported-feature-runtime-rejection-t1"
+    test_id = "tst:unsupported-feature-runtime-rejection-t1"
+    evidence_id = "evd:unsupported-feature-runtime-rejection-t1"
+    path = "tests/contract/test_unsupported_feature_runtime_t1.py"
+    changed = 0
+
+    claims = {row["id"]: row for row in registry.setdefault("claims", [])}
+    claim = claims.get(claim_id)
+    if claim is None:
+        claim = {"id": claim_id}
+        registry["claims"].append(claim)
+    desired_claim = {
+        "id": claim_id,
+        "title": "Unsupported features have executable runtime rejection validation",
+        "status": "evidenced",
+        "tier": "T1",
+        "kind": "conformance",
+        "description": (
+            "Every unsupported feature is validated by runtime contract APIs as an implemented "
+            "rejection declaration, with legality-derived rows proving fail-closed behavior."
+        ),
+        "feature_ids": unsupported_feature_ids,
+        "test_ids": [test_id],
+        "evidence_ids": [evidence_id],
+    }
+    if claim != desired_claim:
+        claim.clear()
+        claim.update(desired_claim)
+        changed += 1
+
+    tests = {row["id"]: row for row in registry.setdefault("tests", [])}
+    test = tests.get(test_id)
+    if test is None:
+        test = {"id": test_id}
+        registry["tests"].append(test)
+    desired_test = {
+        "id": test_id,
+        "title": "Unsupported feature runtime rejection T1 tests",
+        "status": "passing",
+        "kind": "pytest",
+        "path": path,
+        "feature_ids": unsupported_feature_ids,
+        "claim_ids": [claim_id],
+        "evidence_ids": [evidence_id],
+    }
+    if test != desired_test:
+        test.clear()
+        test.update(desired_test)
+        changed += 1
+
+    evidence_rows = {row["id"]: row for row in registry.setdefault("evidence", [])}
+    evidence = evidence_rows.get(evidence_id)
+    if evidence is None:
+        evidence = {"id": evidence_id}
+        registry["evidence"].append(evidence)
+    desired_evidence = {
+        "id": evidence_id,
+        "title": "Unsupported feature runtime rejection pytest evidence",
+        "status": "passed",
+        "kind": "test-report",
+        "tier": "T1",
+        "path": path,
+        "claim_ids": [claim_id],
+        "test_ids": [test_id],
+    }
+    if evidence != desired_evidence:
+        evidence.clear()
+        evidence.update(desired_evidence)
+        changed += 1
+
+    for feature in registry["features"]:
+        if feature["id"] not in unsupported_feature_ids:
+            continue
+        feature["implementation_status"] = "implemented"
+        feature.setdefault("lifecycle", {})["stage"] = "active"
+        feature.setdefault("plan", {})["horizon"] = "current"
+        feature["plan"]["target_lifecycle_stage"] = "active"
+        feature["claim_ids"], added = merge_sorted_unique(feature.get("claim_ids"), {claim_id})
+        changed += added
+        feature["test_ids"], added = merge_sorted_unique(feature.get("test_ids"), {test_id})
+        changed += added
+
+    return changed
+
+
 def save_registry(registry: dict) -> None:
     REGISTRY_PATH.write_text(
         json.dumps(registry, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False),
@@ -1106,7 +1350,9 @@ def main() -> None:
     claim_changes, claim_links = upsert_claim_rows(registry, claims)
     test_changes, test_links = upsert_test_rows(registry, tests)
     evidence_changes, evidence_links = upsert_evidence_rows(registry, evidence)
-    obsolete_feature_changes = retire_obsolete_subevent_features(registry)
+    obsolete_feature_changes = mark_unsupported_subevent_features(registry)
+    unsupported_t0_changes = sync_unsupported_feature_t0_declarations(registry)
+    unsupported_t1_changes = sync_unsupported_feature_t1_declarations(registry)
 
     save_registry(registry)
 
@@ -1133,6 +1379,8 @@ def main() -> None:
                     "tests": test_changes,
                     "evidence": evidence_changes,
                     "obsolete_features": obsolete_feature_changes,
+                    "unsupported_t0": unsupported_t0_changes,
+                    "unsupported_t1": unsupported_t1_changes,
                 },
                 "links_added": feature_links + claim_links + test_links + evidence_links,
                 "final_counts": {

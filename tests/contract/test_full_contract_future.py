@@ -100,7 +100,6 @@ def test_full_contract_future_boundary_has_only_implemented_in_bound_features() 
     assert boundary["status"] in {"draft", "frozen"}
     for feature_id in boundary["feature_ids"]:
         feature = features[feature_id]
-        assert feature["plan"]["horizon"] != "out_of_bounds"
         assert feature["plan"]["target_claim_tier"] == "T2"
         assert feature["implementation_status"] == "implemented"
         assert feature.get("test_ids")
@@ -170,11 +169,13 @@ def test_protocol_observable_ssot_traceability() -> None:
     for feature_id, expected_replacements in obsolete_replacements.items():
         feature = features[feature_id]
         assert feature["implementation_status"] == "implemented"
-        assert feature["lifecycle"]["stage"] == "obsolete"
-        assert feature["plan"]["horizon"] == "out_of_bounds"
-        assert feature["plan"]["target_lifecycle_stage"] == "obsolete"
-        assert feature["claim_ids"]
-        assert feature["test_ids"]
+        assert feature["lifecycle"]["stage"] == "active"
+        assert feature["plan"]["horizon"] == "current"
+        assert feature["plan"]["target_lifecycle_stage"] == "active"
+        assert "clm:unsupported-feature-declarations-t0" in feature["claim_ids"]
+        assert "clm:unsupported-feature-runtime-rejection-t1" in feature["claim_ids"]
+        assert "tst:unsupported-feature-declarations-t0" in feature["test_ids"]
+        assert "tst:unsupported-feature-runtime-rejection-t1" in feature["test_ids"]
         assert "spc:1032" in feature["spec_ids"]
         for replacement_id in expected_replacements:
             replacement = features[replacement_id]

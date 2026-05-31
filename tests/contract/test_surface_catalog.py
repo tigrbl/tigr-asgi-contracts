@@ -26,12 +26,11 @@ def test_surface_catalog_matches_declared_boundary() -> None:
 
     assert catalog["target_claim_tier"] == "T2"
     assert catalog_ids == boundary_ids
-    assert all(features[feature_id]["plan"]["horizon"] != "out_of_bounds" for feature_id in catalog_ids)
     assert all(features[feature_id]["implementation_status"] == "implemented" for feature_id in catalog_ids)
     assert all(features[feature_id]["plan"]["target_claim_tier"] == "T2" for feature_id in catalog_ids)
 
 
-def test_surface_catalog_excludes_out_of_bounds_features() -> None:
+def test_surface_catalog_excludes_unsupported_features() -> None:
     registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
     catalog = yaml.safe_load(SURFACES.read_text(encoding="utf-8"))["surface_catalog"]
 
@@ -40,11 +39,11 @@ def test_surface_catalog_excludes_out_of_bounds_features() -> None:
         for rows in catalog["families"].values()
         for row in rows
     }
-    out_of_bounds_ids = {
-        row["id"]
-        for row in registry["features"]
-        if row["plan"]["horizon"] == "out_of_bounds"
-    }
+    unsupported_claim = next(
+        row for row in registry["claims"]
+        if row["id"] == "clm:unsupported-feature-declarations-t0"
+    )
+    unsupported_ids = set(unsupported_claim["feature_ids"])
 
-    assert catalog_ids.isdisjoint(out_of_bounds_ids)
-    assert out_of_bounds_ids
+    assert catalog_ids.isdisjoint(unsupported_ids)
+    assert unsupported_ids
