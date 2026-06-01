@@ -255,7 +255,9 @@ jobs:
               --title "$title" \
               --notes "$notes" \
               "${edit_args[@]}"
-            gh release upload "$final_tag" dist/promoted/* --clobber
+            if ! gh release upload "$final_tag" dist/promoted/* --clobber; then
+              echo "::warning::Existing release assets could not be replaced; keeping current immutable release assets."
+            fi
           else
             gh release create "$final_tag" \
               dist/promoted/* \
