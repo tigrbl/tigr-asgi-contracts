@@ -86,6 +86,7 @@ concurrency:
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
   publish-pypi:
@@ -101,10 +102,8 @@ jobs:
           mkdir -p dist/promoted
           gh release download "${{ inputs.rc_tag }}" --dir dist/promoted
       - uses: astral-sh/setup-uv@v7
-      - env:
-          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
-        run: |
-          uv publish dist/promoted/*.whl dist/promoted/*.tar.gz
+      - run: |
+          uv publish --trusted-publishing always dist/promoted/*.whl dist/promoted/*.tar.gz
 
   publish-npm:
     name: Publish npm packages
